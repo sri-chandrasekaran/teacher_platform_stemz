@@ -1,7 +1,7 @@
 import React from 'react';
 import ClassroomCard from './ClassroomCard';
 
-const ClassroomList = ({ classrooms, onEnter, onDelete }) => {
+const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite }) => {
   return (
     <div className="classroom-list">
       {classrooms.map(classroom => (
@@ -10,6 +10,8 @@ const ClassroomList = ({ classrooms, onEnter, onDelete }) => {
           classroom={classroom}
           onEnter={onEnter}
           onDelete={onDelete}
+          onEdit={onEdit}
+          onInvite={onInvite}
         />
       ))}
     </div>

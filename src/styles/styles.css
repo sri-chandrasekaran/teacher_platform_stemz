@@ -126,22 +126,21 @@ h2, h3 {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: #ff5c5c;
-    color: #fff;
+    background: none;
+    color: #333;
     border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
     font-size: 18px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
+    width: 30px;
+    height: 30px;
 }
 
 .delete-classroom-button:hover {
-    background-color: #ff0000;
+    color: #ff0000;
 }
 
 .page-heading {
@@ -150,3 +149,157 @@ h2, h3 {
     font-weight: bold;
     margin-bottom: 40px;
 }
+
+.edit-classroom-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    z-index: 1000;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+.edit-classroom-form h3 {
+    margin-top: 0;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.edit-classroom-form input,
+.edit-classroom-form textarea {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.edit-classroom-form button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.edit-classroom-form button:first-child {
+    background-color: #007bff;
+    color: #fff;
+    margin-right: 10px;
+}
+
+.edit-classroom-form button:last-child {
+    background-color: #ccc;
+    color: #333;
+    margin-right: 0;
+}
+
+.edit-classroom-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    color: #333;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.edit-classroom-button:hover {
+    color: #007bff;
+}
+
+.invite-students-button {
+    position: absolute;
+    bottom: 10px; 
+    left: 10px; 
+    background: none;
+    color: #333;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.invite-students-button:hover {
+    color: #28a745;
+}
+
+.invite-students-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    z-index: 1000;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+.invite-students-form h3 {
+    margin-top: 0;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.invite-students-form input {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.pending-invitations {
+    margin-top: 20px;
+}
+
+.pending-invitations h4 {
+    margin-bottom: 10px;
+}
+
+.pending-invitations ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.pending-invitations li {
+    margin-bottom: 5px;
+}
+
+.confirmation-banner {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1em;
+    z-index: 1000;
+    text-align: center;
+    white-space: nowrap;
+  }

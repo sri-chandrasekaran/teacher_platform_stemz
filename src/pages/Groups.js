@@ -1,10 +1,14 @@
+// src/pages/GroupsPage.js
 import React, { useState } from 'react';
 import ClassroomList from '../components/ClassroomList';
+import EditClassroomModal from '../components/editclassroom';
+import InviteStudentsModal from '../components/invitestudents';
 import { useNavigate } from 'react-router-dom';
 import '../styles/styles.css';
 
 const GroupsPage = () => {
   const navigate = useNavigate();
+  
   const [classrooms, setClassrooms] = useState([
     { id: 1, name: 'Group 1', description: 'Students from Class A' },
     { id: 2, name: 'Group 2', description: 'Students from Class B' },
@@ -12,9 +16,19 @@ const GroupsPage = () => {
     { id: 4, name: 'some class', description: '' },
     { id: 5, name: 'new class', description: '' },
   ]);
+
   const [showForm, setShowForm] = useState(false);
   const [newClassroomName, setNewClassroomName] = useState('');
   const [newClassroomDescription, setNewClassroomDescription] = useState('');
+  
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedClassroom, setSelectedClassroom] = useState(null);
+
+  const [showInviteModal, setShowInviteModal] = useState(false);
+  const [classroomToInvite, setClassroomToInvite] = useState(null);
+
+  const [bannerMessage, setBannerMessage] = useState('');
+  const [showBanner, setShowBanner] = useState(false);
 
   const handleEnterClassroom = (id) => {
     navigate(`/classroom/${id}`);
@@ -33,17 +47,70 @@ const GroupsPage = () => {
   };
 
   const handleDeleteClassroom = (id) => {
-    setClassrooms(classrooms.filter(classroom => classroom.id !== id));
+    setClassrooms(classrooms.filter((classroom) => classroom.id !== id));
+  };
+
+  const handleEditClassroom = (classroom) => {
+    setSelectedClassroom(classroom);
+    setShowEditModal(true);
+  };
+
+  const handleSaveClassroom = (updatedClassroom) => {
+    setClassrooms(
+      classrooms.map((classroom) =>
+        classroom.id === updatedClassroom.id ? updatedClassroom : classroom
+      )
+    );
+    setShowEditModal(false);
+    setSelectedClassroom(null);
+  };
+
+  const handleInviteStudent = (classroom) => {
+    setClassroomToInvite(classroom);
+    setShowInviteModal(true);
+  };
+
+  const handleSendInvitation = (email) => {
+    setShowInviteModal(false);
+
+    // Show the banner with the confirmation message
+    setBannerMessage(`Confirmation email sent to: ${email}`);
+    setShowBanner(true);
+
+    // Automatically hide the banner after 3 seconds
+    setTimeout(() => {
+      setShowBanner(false);
+    }, 3000);
   };
 
   return (
     <div className="classroom-list-container">
+      {showBanner && <div className="confirmation-banner">{bannerMessage}</div>}
+
       <h2 className="page-heading">Your Classrooms</h2>
       <ClassroomList
         classrooms={classrooms}
         onEnter={handleEnterClassroom}
         onDelete={handleDeleteClassroom}
+        onEdit={handleEditClassroom}
+        onInvite={handleInviteStudent} // Pass the invite function down
       />
+
+      {showEditModal && (
+        <EditClassroomModal
+          classroom={selectedClassroom}
+          onSave={handleSaveClassroom}
+          onCancel={() => setShowEditModal(false)}
+        />
+      )}
+
+      {showInviteModal && (
+        <InviteStudentsModal
+          classroom={classroomToInvite}
+          onInvite={handleSendInvitation} // Use the send invitation function
+          onCancel={() => setShowInviteModal(false)}
+        />
+      )}
 
       <button
         className="add-classroom-button"
