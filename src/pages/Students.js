@@ -1,4 +1,3 @@
-// src/pages/StudentsAnalyticsPage.js
 import React, { useState } from 'react';
 import '../styles/styles.css';
 import Navbar from '../components/Navbar';
@@ -29,7 +28,7 @@ const StudentsAnalyticsPage = ({ classroomId }) => {
 
   return (
     <div className="analytics-page">
-      <Navbar classroomId={classroomId} />
+      {/* <Navbar classroomId={classroomId} /> */}
       
       <div className="analytics-controls">
         <select onChange={handleStudentChange} value={selectedStudent}>

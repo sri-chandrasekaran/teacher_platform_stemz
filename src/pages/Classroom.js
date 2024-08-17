@@ -14,8 +14,8 @@ const ClassroomPage = () => {
 
   return (
     <div className="classroom-page">
-      <Navbar classroomId={id} />
       <h2 className="classroom-heading">Classroom {id}</h2>
+      <Navbar classroomId={id} />
       <Routes>
         <Route path="students" element={<StudentsPage />} />
         <Route path="analytics" element={<AnalyticsPage />} />
