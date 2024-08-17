@@ -465,9 +465,9 @@ h2, h3 {
 
   .analytics-controls {
     display: flex;
-    justify-content: center; /* Center the dropdowns */
+    justify-content: center;
     margin-top: 30px;
-    gap: 20px; /* Add some space between the dropdowns */
+    gap: 20px;
   }
   
   .analytics-controls select {
@@ -476,15 +476,14 @@ h2, h3 {
     border-radius: 5px;
     border: 1px solid #ccc;
   }
-  
+
+
   .analytics-content {
-    margin-top: 40px;
-    background-color: #f9f9f9;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-size: 1.2em;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .classroom-heading {
@@ -517,20 +516,35 @@ h2, h3 {
 
   .modal-overlay {
     position: fixed;
-    bottom: 90px; /* Position above the "+" button */
-    right: 30px;  /* Align with the right side of the "+" button */
-    width: 300px; /* Make the modal smaller */
-    background: transparent; /* Remove background overlay */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 1000;
   }
   
-  /* Modal Content */
   .modal-content {
-    background: white;
-    padding: 15px;
+    background-color: white;
+    padding: 20px;
     border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
   }
   
   .modal-content h2 {
@@ -591,3 +605,48 @@ h2, h3 {
   .post-options form button:hover {
     background-color: #218838;
   }
+
+  .fullscreen-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .fullscreen-modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    height: 80%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .fullscreen-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .download-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
