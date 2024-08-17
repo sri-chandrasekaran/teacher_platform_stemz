@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import GroupsPage from './pages/Groups';
 import ClassroomPage from './pages/Classroom';
+import StudentsPage from './pages/Students'
 
 function App() {
   return (

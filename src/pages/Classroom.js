@@ -1,18 +1,31 @@
-import React from 'react';
-import { Route, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Routes, Route, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import Students from './Students';
-import Analytics from './Analytics';
+import StudentsPage from './Students';
+import AnalyticsPage from './Analytics';
+import Post from '../pages/post'; 
 
 const ClassroomPage = () => {
   const { id } = useParams();
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   return (
-    <div>
-      <h2>Classroom {id}</h2>
+    <div className="classroom-page">
       <Navbar classroomId={id} />
-        <Route path="/classroom/:id/students" component={Students} />
-        <Route path="/classroom/:id/analytics" component={Analytics} />
+      <h2 className="classroom-heading">Classroom {id}</h2>
+      <Routes>
+        <Route path="students" element={<StudentsPage />} />
+        <Route path="analytics" element={<AnalyticsPage />} />
+      </Routes>
+
+      <button className="floating-button" onClick={openModal}>
+        +
+      </button>
+
+      {isModalOpen && <Post onClose={closeModal} />}
     </div>
   );
 };

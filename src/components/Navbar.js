@@ -1,11 +1,22 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import '../styles/styles.css';
 
 const Navbar = ({ classroomId }) => {
   return (
     <nav className="navbar">
-      <NavLink to={`/classroom/${classroomId}/students`} activeClassName="active">Students</NavLink>
-      <NavLink to={`/classroom/${classroomId}/analytics`} activeClassName="active">Analytics</NavLink>
+      <NavLink 
+        to={`/classroom/${classroomId}/students`} 
+        className={({ isActive }) => (isActive ? 'active' : '')}
+      >
+        Students
+      </NavLink>
+      <NavLink 
+        to={`/classroom/${classroomId}/analytics`} 
+        className={({ isActive }) => (isActive ? 'active' : '')}
+      >
+        Analytics
+      </NavLink>
     </nav>
   );
 };

@@ -31,7 +31,7 @@ const GroupsPage = () => {
   const [showBanner, setShowBanner] = useState(false);
 
   const handleEnterClassroom = (id) => {
-    navigate(`/classroom/${id}`);
+    navigate(`/classroom/${id}/students`);
   };
 
   const handleAddClassroom = () => {
