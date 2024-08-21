@@ -1,4 +1,3 @@
-// src/components/PostModal.js
 import React, { useState } from 'react';
 
 const PostModal = ({ onClose }) => {
@@ -76,8 +75,8 @@ const PostModal = ({ onClose }) => {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
+    <div className="modal-overlay corner-modal">
+      <div className="modal-content corner-content">
         <button className="close-button" onClick={onClose}>X</button>
         <h2>Create a New Post</h2>
         <div className="post-options">

@@ -327,8 +327,11 @@ h2, h3 {
   }
   
   .active {
-    background-color: #28a745; /* Green background */
-    color: #fff; /* White text */
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
   }
   
   .navbar button {
@@ -370,7 +373,6 @@ h2, h3 {
     color: green;
   }
   
-  /* Styles for the "+" button */
   .add-post-button {
     position: fixed;
     bottom: 20px;
@@ -427,7 +429,7 @@ h2, h3 {
   }
   
   .analytics-page {
-    padding: 40px;
+    padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -463,10 +465,34 @@ h2, h3 {
     font-size: 1.2em;
   }
 
+  .center-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .center-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  
+
   .analytics-controls {
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 0px;
     gap: 20px;
   }
   
@@ -514,28 +540,25 @@ h2, h3 {
     background-color: #218838;
   }
 
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 80%;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: relative;
-  }
+.corner-modal {
+  position: fixed;
+  bottom: 90px;
+  right: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  z-index: 1000;
+}
+
+.corner-content {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
 
   .modal-close {
     position: absolute;
@@ -562,7 +585,6 @@ h2, h3 {
     cursor: pointer;
   }
   
-  /* Post Options Buttons */
   .post-options button {
     display: inline-block;
     margin: 5px 0;

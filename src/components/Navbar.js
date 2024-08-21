@@ -12,10 +12,10 @@ const Navbar = ({ classroomId }) => {
         Students
       </NavLink>
       <NavLink 
-        to={`/classroom/${classroomId}/analytics`} 
+        to={`/classroom/${classroomId}/messages`} 
         className={({ isActive }) => (isActive ? 'active' : '')}
       >
-        Analytics
+        Messages
       </NavLink>
     </nav>
   );
