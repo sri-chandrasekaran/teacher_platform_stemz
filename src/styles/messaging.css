@@ -54,10 +54,10 @@
 }
 
 .chat-message.incoming {
-    background-color: #ddd; /* Grey background for incoming messages */
+    background-color: #ddd;
     color: black;
     text-align: left;
-    align-self: flex-start; /* Aligns to the left */
+    align-self: flex-start;
     float: left;
 }
 

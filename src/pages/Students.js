@@ -3,7 +3,6 @@ import '../styles/styles.css';
 import Navbar from '../components/Navbar';
 import AssignmentsList from '../components/assignmentlist';
 
-// Mock data for now
 const mockAssignments = [
   { id: 1, title: 'Lesson 1', progress: 75 },
   { id: 1, title: 'Lesson 2', progress: 75 },
