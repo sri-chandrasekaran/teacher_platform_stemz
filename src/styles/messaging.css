@@ -1,81 +1,85 @@
 .messaging-page {
     display: flex;
     height: 78vh;
-  }
-  
-  .student-list {
+}
+
+.student-list {
     width: 25%;
     border-right: 1px solid #ddd;
     padding: 20px;
-  }
-  
-  .student-item {
+}
+
+.student-item {
     padding: 10px;
     margin-bottom: 10px;
     cursor: pointer;
     background-color: #f8f9fa;
     border-radius: 5px;
-  }
-  
-  .student-item.selected {
+    text-align: center;
+    font-weight: bold;
+}
+
+.student-item.selected {
     background-color: #28a745;
     color: white;
-  }
-  
-  .chat-area {
+}
+
+.chat-area {
     width: 75%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-  }
-  
-  .chat-history {
+}
+
+.chat-history {
     padding: 20px;
     height: 70vh;
     overflow-y: auto;
     background-color: #f9f9f9;
-  }
-  
-  .chat-message {
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-message, .announcement-message {
+    display: block;  /* Ensure messages are block elements */
     padding: 10px;
-    border-radius: 15px;
-    max-width: 60%;
-    word-wrap: break-word;
-  }
-  
-  .chat-message.incoming {
-    background-color: #ddd;
-    align-self: flex-start;
-  }
-  
-  .chat-message.outgoing {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    max-width: 80%;
     background-color: #28a745;
     color: white;
     align-self: flex-end;
-  }
-  
-  .chat-input {
+    text-align: right;
+    float: right;
+}
+
+.chat-message.incoming {
+    background-color: #ddd; /* Grey background for incoming messages */
+    color: black;
+    text-align: left;
+    align-self: flex-start; /* Aligns to the left */
+    float: left;
+}
+
+.chat-input {
     display: flex;
     padding: 10px;
     border-top: 1px solid #ddd;
-  }
-  
-  .chat-input input {
+}
+
+.chat-input input {
     flex-grow: 1;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-right: 10px;
-  }
-  
-  .chat-input button {
+}
+
+.chat-input button {
     padding: 10px 20px;
     background-color: #28a745;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px;
-  }
-  
+}

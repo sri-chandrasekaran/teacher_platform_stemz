@@ -35,7 +35,6 @@ const PostModal = ({ onClose }) => {
             <option value="math">Astronomy</option>
             <option value="science">Basics of Coding</option>
             <option value="history">Chemistry</option>
-            {/* Add more courses as needed */}
           </select>
 
           {/* Assignment Type Dropdown */}
@@ -49,10 +48,8 @@ const PostModal = ({ onClose }) => {
             <option value="quiz">Quiz</option>
             <option value="worksheet">Worksheet</option>
             <option value="lesson">Lesson</option>
-            {/* Add more types as needed */}
           </select>
 
-          {/* Due Date Picker */}
           <label>Due Date</label>
           <input
             type="date"
@@ -61,7 +58,6 @@ const PostModal = ({ onClose }) => {
             style={{ width: '100%', marginBottom: '10px' }}
           />
 
-          {/* Additional Details */}
           <label>Additional Details</label>
           <textarea
             rows="3"

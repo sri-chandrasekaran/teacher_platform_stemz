@@ -5,6 +5,7 @@ const MessagingPage = () => {
   const [selectedStudent, setSelectedStudent] = useState('');
   const [messages, setMessages] = useState({});
   const [newMessage, setNewMessage] = useState('');
+  const [announcements, setAnnouncements] = useState([]); // Track multiple announcements
 
   const students = ['Student 1', 'Student 2', 'Student 3'];
 
@@ -26,19 +27,41 @@ const MessagingPage = () => {
     setNewMessage('');
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSendMessage();
+  const handleSendAnnouncement = () => {
+    if (newMessage.trim() === '') return;
+
+    setAnnouncements([...announcements, newMessage]); // Add new announcement to the array
+    setNewMessage('');
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (selectedStudent === 'announcement') {
+        handleSendAnnouncement();
+      } else {
+        handleSendMessage();
+      }
     }
   };
 
   return (
     <div className="messaging-page">
       <div className="student-list">
+        <div
+          className={`student-item ${
+            selectedStudent === 'announcement' ? 'selected' : ''
+          }`}
+          onClick={() => setSelectedStudent('announcement')}
+        >
+          Make an Announcement
+        </div>
         {students.map((student) => (
           <div
             key={student}
-            className={`student-item ${selectedStudent === student ? 'selected' : ''}`}
+            className={`student-item ${
+              selectedStudent === student ? 'selected' : ''
+            }`}
             onClick={() => handleStudentSelect(student)}
           >
             {student}
@@ -47,18 +70,25 @@ const MessagingPage = () => {
       </div>
       <div className="chat-area">
         <div className="chat-history">
-          {selectedStudent && messages[selectedStudent]
-            ? messages[selectedStudent].map((msg, index) => (
-                <div
-                  key={index}
-                  className={`chat-message ${
-                    msg.includes('Message from') ? 'incoming' : 'outgoing'
-                  }`}
-                >
-                  {msg}
+          {selectedStudent === 'announcement' ? (
+            announcements.length > 0 ? (
+              announcements.map((announcement, index) => (
+                <div key={index} className="announcement-message">
+                  Announcement: {announcement}
                 </div>
               ))
-            : 'Select a student to start messaging'}
+            ) : (
+              <div className="announcement-placeholder">What would you like to announce?</div>
+            )
+          ) : selectedStudent && messages[selectedStudent] ? (
+            messages[selectedStudent].map((msg, index) => (
+              <div key={index} className="chat-message">
+                {msg}
+              </div>
+            ))
+          ) : (
+            'Select a student to start messaging'
+          )}
         </div>
         {selectedStudent && (
           <div className="chat-input">
@@ -66,10 +96,22 @@ const MessagingPage = () => {
               type="text"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Type your message..."
+              onKeyDown={handleKeyDown}
+              placeholder={
+                selectedStudent === 'announcement'
+                  ? 'Type your announcement...'
+                  : 'Type your message...'
+              }
             />
-            <button onClick={handleSendMessage}>Send</button>
+            <button
+              onClick={
+                selectedStudent === 'announcement'
+                  ? handleSendAnnouncement
+                  : handleSendMessage
+              }
+            >
+              Send
+            </button>
           </div>
         )}
       </div>
