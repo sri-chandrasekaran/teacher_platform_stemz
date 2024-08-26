@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/styles.css';
-import Navbar from '../components/Navbar';
+// import Navbar from '../components/Navbar';
+import HomeIcon from '@mui/icons-material/Home';
+import { useNavigate } from 'react-router-dom';
 import AssignmentsList from '../components/assignmentlist';
 
 const mockAssignments = [
@@ -17,6 +19,8 @@ const fetchAssignmentsForCourse = (courseId) => {
 };
 
 const StudentsAnalyticsPage = ({ classroomId }) => {
+  const navigate = useNavigate();
+
   const [selectedStudent, setSelectedStudent] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
   const [assignments, setAssignments] = useState([]);
@@ -34,6 +38,9 @@ const StudentsAnalyticsPage = ({ classroomId }) => {
 
   return (
     <div className="analytics-page">
+      <div className="home-icon" onClick={() => navigate('/')}>
+        <HomeIcon style={{ fontSize: '48px', cursor: 'pointer' }} />
+      </div>
       <div className="analytics-controls">
         <select onChange={handleStudentChange} value={selectedStudent}>
           <option value="">Select a Student</option>

@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+import HomeIcon from '@mui/icons-material/Home';
+import { useNavigate } from 'react-router-dom';
 import '../styles/messaging.css';
 
 const MessagingPage = () => {
+  const navigate = useNavigate();
+
   const [selectedStudent, setSelectedStudent] = useState('');
   const [messages, setMessages] = useState({});
   const [newMessage, setNewMessage] = useState('');
-  const [announcements, setAnnouncements] = useState([]); // Track multiple announcements
+  const [announcements, setAnnouncements] = useState([]);
 
   const students = ['Student 1', 'Student 2', 'Student 3'];
 
@@ -30,7 +34,7 @@ const MessagingPage = () => {
   const handleSendAnnouncement = () => {
     if (newMessage.trim() === '') return;
 
-    setAnnouncements([...announcements, newMessage]); // Add new announcement to the array
+    setAnnouncements([...announcements, newMessage]);
     setNewMessage('');
   };
 
@@ -47,6 +51,9 @@ const MessagingPage = () => {
 
   return (
     <div className="messaging-page">
+      <div className="home-icon" onClick={() => navigate('/')}>
+        <HomeIcon style={{ fontSize: '48px', cursor: 'pointer' }} />
+      </div>
       <div className="student-list">
         <div
           className={`student-item ${

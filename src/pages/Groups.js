@@ -1,4 +1,3 @@
-// src/pages/GroupsPage.js
 import React, { useState } from 'react';
 import ClassroomList from '../components/ClassroomList';
 import EditClassroomModal from '../components/editclassroom';
@@ -73,11 +72,9 @@ const GroupsPage = () => {
   const handleSendInvitation = (email) => {
     setShowInviteModal(false);
 
-    // Show the banner with the confirmation message
     setBannerMessage(`Confirmation email sent to: ${email}`);
     setShowBanner(true);
 
-    // Automatically hide the banner after 3 seconds
     setTimeout(() => {
       setShowBanner(false);
     }, 3000);
@@ -93,7 +90,7 @@ const GroupsPage = () => {
         onEnter={handleEnterClassroom}
         onDelete={handleDeleteClassroom}
         onEdit={handleEditClassroom}
-        onInvite={handleInviteStudent} // Pass the invite function down
+        onInvite={handleInviteStudent} 
       />
 
       {showEditModal && (
@@ -107,7 +104,7 @@ const GroupsPage = () => {
       {showInviteModal && (
         <InviteStudentsModal
           classroom={classroomToInvite}
-          onInvite={handleSendInvitation} // Use the send invitation function
+          onInvite={handleSendInvitation}
           onCancel={() => setShowInviteModal(false)}
         />
       )}
