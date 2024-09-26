@@ -71,33 +71,40 @@ const GroupsPage = () => {
 
   const handleSendInvitation = (email) => {
     setShowInviteModal(false);
-  
+    
+    // data to api
+    const payload = { classroom: classroomToInvite.id, email };
+
+    // Log the URL and the payload
+    console.log('Sending request to /api/classrooms/invite with payload:', payload);
+
     // DB create API call
     fetch('/api/classrooms/invite', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ classroom: classroomToInvite.id, email }),
+      body: JSON.stringify(payload),
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to send invitation');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // Assuming your API response contains { success: true } when the operation succeeds
-        setBannerMessage(`Confirmation email sent to: ${email}`);
-        setShowBanner(true);
-        setTimeout(() => {
-          setShowBanner(false);
-        }, 3000);
-      })
-      .catch((error) => {
-        console.error('Error inviting student:', error);
-        alert('An error occurred. Please try again later.');
-      });
+    .then((response) => {
+      if (!response.ok) {
+        console.log(response);
+        throw new Error('Failed to send invitation');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Assuming your API response contains { success: true } when the operation succeeds
+      setBannerMessage(`Confirmation email sent to: ${email}`);
+      setShowBanner(true);
+      setTimeout(() => {
+        setShowBanner(false);
+      }, 3000);
+    })
+    .catch((error) => {
+      console.error('Error inviting student:', error);
+      alert('An error occurred. Please try again later.');
+    });
   };
   
 

@@ -11,6 +11,8 @@ export default async function handler(req, res) {
   // prevent db conn failure
   if (!db) {
     return res.status(500).json({ message: 'Database connection failed' });
+  } else {
+    console.log("DB connection successful.");
   }
 
   const { className, student } = req.body;
