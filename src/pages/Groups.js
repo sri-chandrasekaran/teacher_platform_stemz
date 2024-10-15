@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ClassroomList from '../components/ClassroomList';
 import EditClassroomModal from '../components/editclassroom';
 import InviteStudentsModal from '../components/invitestudents';
 import { useNavigate } from 'react-router-dom';
 import '../styles/styles.css';
+import { call_api } from '../api';
 
 const GroupsPage = () => {
   const navigate = useNavigate();
   
-  const [classrooms, setClassrooms] = useState([
-    { id: 1, name: 'Group 1', description: 'Students from Class A' },
-    { id: 2, name: 'Group 2', description: 'Students from Class B' },
-    { id: 3, name: 'Group 3', description: 'Advanced Students' },
-    { id: 4, name: 'some class', description: '' },
-    { id: 5, name: 'new class', description: '' },
-  ]);
+  const [classrooms, setClassrooms] = useState([]);
+
+  // Fetch classrooms from API using the call_api function
+  useEffect(() => {
+    call_api(null, 'classrooms', 'GET')
+      .then(data => setClassrooms(data))
+      .catch(error => console.error('Error fetching classrooms:', error));
+  }, []);
 
   const [showForm, setShowForm] = useState(false);
   const [newClassroomName, setNewClassroomName] = useState('');
@@ -71,6 +73,10 @@ const GroupsPage = () => {
 
   const handleSendInvitation = (email) => {
     setShowInviteModal(false);
+
+    call_api(null, `users/email/${email}`, "GET")
+    .then(data => console.log(data))
+    .catch(error => console.error('Error fetching classrooms:', error));
 
     setBannerMessage(`Confirmation email sent to: ${email}`);
     setShowBanner(true);
