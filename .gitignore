@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-myenv/
+/src/analytics/astronomy_bpq/myenv/
 
 # production
 /build
