@@ -8,6 +8,7 @@
 # testing
 /coverage
 /src/analytics/astronomy_bpq/myenv/
+/src/analytics/course-engagement/engagement/
 
 # production
 /build
