@@ -1,0 +1,3437 @@
+[
+  {
+    "student_id": "S001",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "worksheet",
+        "completion_time": 84,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 0,
+        "average_score": 9,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:49:03.555817",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:44:03.555864",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:22:03.555881",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:13:03.555894",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:17:03.555906",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:18:03.555918",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:53:03.555929",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:25:03.555940",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:50:03.555955",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:36:03.555967",
+            "action": "finish",
+            "time_spent": 1
+          }
+        ],
+        "total_engagement_time": 27
+      },
+      {
+        "assignment_id": "A2",
+        "type": "worksheet",
+        "completion_time": 155,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 6,
+        "average_score": 12,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:21:03.555990",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:34:03.556002",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:21:03.556009",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:57:03.556019",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:48:03.556029",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:53:03.556039",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:53:03.556046",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:29:03.556054",
+            "action": "answer_question",
+            "time_spent": 3
+          }
+        ],
+        "total_engagement_time": 25
+      },
+      {
+        "assignment_id": "A3",
+        "type": "worksheet",
+        "completion_time": 93,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 2,
+        "average_score": 7,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:41:03.556074",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:47:03.556085",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:37:03.556093",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:37:03.556100",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:33:03.556109",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:36:03.556119",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:03:03.556129",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:37:03.556139",
+            "action": "finish",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 23
+      }
+    ]
+  },
+  {
+    "student_id": "S002",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "worksheet",
+        "completion_time": 28,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 7,
+        "average_score": 2,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:54:03.556167",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:13:03.556179",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:51:03.556189",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:09:03.556199",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:04:03.556209",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:29:03.556219",
+            "action": "start",
+            "time_spent": 3
+          }
+        ],
+        "total_engagement_time": 17
+      },
+      {
+        "assignment_id": "A2",
+        "type": "slideshow",
+        "completion_time": 31,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 0,
+        "average_score": 2,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:45:03.556394",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:59:03.556409",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:17:03.556418",
+            "action": "button_click",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 9
+      },
+      {
+        "assignment_id": "A3",
+        "type": "quiz",
+        "completion_time": 57,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 6,
+        "average_score": 14,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:49:03.556437",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:42:03.556444",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:18:03.556450",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:51:03.556469",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:37:03.556479",
+            "action": "answer_question",
+            "time_spent": 3
+          }
+        ],
+        "total_engagement_time": 12
+      }
+    ]
+  },
+  {
+    "student_id": "S003",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "slideshow",
+        "completion_time": 125,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 8,
+        "average_score": 6,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:48:03.556497",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:53:03.556504",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:53:03.556509",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:41:03.556515",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:37:03.556520",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:16:03.556525",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:29:03.556531",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:56:03.556537",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:26:03.556542",
+            "action": "finish",
+            "time_spent": 5
+          }
+        ],
+        "total_engagement_time": 25
+      },
+      {
+        "assignment_id": "A2",
+        "type": "slideshow",
+        "completion_time": 93,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 7,
+        "average_score": 10,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:59:03.556553",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:35:03.556559",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:04:03.556565",
+            "action": "start",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 12
+      },
+      {
+        "assignment_id": "A3",
+        "type": "worksheet",
+        "completion_time": 26,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 0,
+        "average_score": 13,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:27:03.556575",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:15:03.556581",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:44:03.556587",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:12:03.556592",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:18:03.556598",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:05:03.556604",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:38:03.556610",
+            "action": "answer_question",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 23
+      }
+    ]
+  },
+  {
+    "student_id": "S004",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "slideshow",
+        "completion_time": 45,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 9,
+        "average_score": 2,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:33:03.556623",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:21:03.556632",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:04:03.556638",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:05:03.556643",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:54:03.556649",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:31:03.556654",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:58:03.556660",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:44:03.556665",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:37:03.556671",
+            "action": "button_click",
+            "time_spent": 5
+          }
+        ],
+        "total_engagement_time": 28
+      },
+      {
+        "assignment_id": "A2",
+        "type": "quiz",
+        "completion_time": 179,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 7,
+        "average_score": 34,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:08:03.556688",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:45:03.556694",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:51:03.556699",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:39:03.556705",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:26:03.556711",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:46:03.556716",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:16:03.556722",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:18:03.556727",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:36:03.556733",
+            "action": "button_click",
+            "time_spent": 1
+          }
+        ],
+        "total_engagement_time": 22
+      },
+      {
+        "assignment_id": "A3",
+        "type": "slideshow",
+        "completion_time": 97,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 9,
+        "average_score": 6,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:57:03.556744",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:28:03.556750",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:29:03.556755",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:37:03.556761",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:03:03.556766",
+            "action": "button_click",
+            "time_spent": 5
+          }
+        ],
+        "total_engagement_time": 21
+      }
+    ]
+  },
+  {
+    "student_id": "S005",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "worksheet",
+        "completion_time": 160,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 10,
+        "average_score": 20,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:10:03.556778",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:58:03.556784",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:39:03.556789",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:40:03.556795",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:44:03.556800",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:14:03.556806",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:46:03.556811",
+            "action": "finish",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 17
+      },
+      {
+        "assignment_id": "A2",
+        "type": "worksheet",
+        "completion_time": 154,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 2,
+        "average_score": 20,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:16:03.556822",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:35:03.556830",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:03:03.556836",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:09:03.556841",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:39:03.556847",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:29:03.556853",
+            "action": "start",
+            "time_spent": 5
+          }
+        ],
+        "total_engagement_time": 21
+      },
+      {
+        "assignment_id": "A3",
+        "type": "slideshow",
+        "completion_time": 79,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 6,
+        "average_score": 8,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:31:03.556863",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:51:03.556869",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:44:03.556877",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:15:03.556884",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:32:03.556890",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:36:03.556896",
+            "action": "button_click",
+            "time_spent": 3
+          }
+        ],
+        "total_engagement_time": 18
+      }
+    ]
+  },
+  {
+    "student_id": "S006",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "worksheet",
+        "completion_time": 113,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 10,
+        "average_score": 0,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:06:03.556908",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:21:03.556914",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:19:03.556919",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:05:03.556925",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:47:03.556930",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:56:03.556936",
+            "action": "start",
+            "time_spent": 3
+          }
+        ],
+        "total_engagement_time": 22
+      },
+      {
+        "assignment_id": "A2",
+        "type": "slideshow",
+        "completion_time": 62,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 7,
+        "average_score": 13,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:06:03.556947",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:44:03.556952",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:21:03.556958",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:33:03.556966",
+            "action": "start",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 11
+      },
+      {
+        "assignment_id": "A3",
+        "type": "slideshow",
+        "completion_time": 57,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 3,
+        "average_score": 9,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:37:03.556976",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:56:03.556982",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:23:03.556987",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:58:03.556993",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:29:03.556998",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:29:03.557003",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:11:03.557009",
+            "action": "button_click",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 20
+      }
+    ]
+  },
+  {
+    "student_id": "S007",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "quiz",
+        "completion_time": 21,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 2,
+        "average_score": 63,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:54:03.557021",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:26:03.557034",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:28:03.557044",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:40:03.557057",
+            "action": "button_click",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 12
+      },
+      {
+        "assignment_id": "A2",
+        "type": "worksheet",
+        "completion_time": 106,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 3,
+        "average_score": 17,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:14:03.557078",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:54:03.557089",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:02:03.557100",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:39:03.557110",
+            "action": "start",
+            "time_spent": 5
+          }
+        ],
+        "total_engagement_time": 12
+      },
+      {
+        "assignment_id": "A3",
+        "type": "quiz",
+        "completion_time": 148,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 5,
+        "average_score": 30,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:19:03.557134",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:34:03.557144",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:09:03.557155",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:07:03.557165",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:12:03.557175",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:35:03.557186",
+            "action": "finish",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 12
+      }
+    ]
+  },
+  {
+    "student_id": "S008",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "worksheet",
+        "completion_time": 155,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 6,
+        "average_score": 17,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:04:03.557210",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:29:03.557222",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:17:03.557233",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:15:03.557249",
+            "action": "start",
+            "time_spent": 3
+          }
+        ],
+        "total_engagement_time": 13
+      },
+      {
+        "assignment_id": "A2",
+        "type": "slideshow",
+        "completion_time": 67,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 8,
+        "average_score": 15,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:39:03.557270",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:12:03.557282",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:51:03.557292",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:33:03.557303",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:15:03.557313",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:22:03.557324",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:54:03.557334",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:57:03.557344",
+            "action": "answer_question",
+            "time_spent": 1
+          }
+        ],
+        "total_engagement_time": 27
+      },
+      {
+        "assignment_id": "A3",
+        "type": "worksheet",
+        "completion_time": 49,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 1,
+        "average_score": 5,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:44:03.557364",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:55:03.557376",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:01:03.557387",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:03:03.557398",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:34:03.557409",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:40:03.557419",
+            "action": "answer_question",
+            "time_spent": 1
+          }
+        ],
+        "total_engagement_time": 20
+      }
+    ]
+  },
+  {
+    "student_id": "S009",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "slideshow",
+        "completion_time": 46,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 2,
+        "average_score": 16,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:06:03.557442",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:11:03.557454",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:44:03.557465",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:33:03.557475",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:49:03.557485",
+            "action": "finish",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 19
+      },
+      {
+        "assignment_id": "A2",
+        "type": "slideshow",
+        "completion_time": 27,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 9,
+        "average_score": 14,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:59:03.557505",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:14:03.557522",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:46:03.557534",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:29:03.557544",
+            "action": "button_click",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 13
+      },
+      {
+        "assignment_id": "A3",
+        "type": "slideshow",
+        "completion_time": 32,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 8,
+        "average_score": 11,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:30:03.557564",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:51:03.557575",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:17:03.557590",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:17:03.557601",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:45:03.557612",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:04:03.557622",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:11:03.557633",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:06:03.557643",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:10:03.557653",
+            "action": "button_click",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 23
+      }
+    ]
+  },
+  {
+    "student_id": "S010",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "worksheet",
+        "completion_time": 167,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 6,
+        "average_score": 14,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:53:03.557677",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:13:03.557690",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:48:03.557701",
+            "action": "button_click",
+            "time_spent": 3
+          }
+        ],
+        "total_engagement_time": 10
+      },
+      {
+        "assignment_id": "A2",
+        "type": "quiz",
+        "completion_time": 48,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 0,
+        "average_score": 88,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:21:03.557722",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:29:03.557733",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:42:03.557744",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:45:03.557755",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:33:03.557765",
+            "action": "button_click",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 18
+      },
+      {
+        "assignment_id": "A3",
+        "type": "slideshow",
+        "completion_time": 16,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 0,
+        "average_score": 9,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:05:03.557789",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:02:03.557805",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:18:03.557816",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:29:03.557827",
+            "action": "finish",
+            "time_spent": 3
+          }
+        ],
+        "total_engagement_time": 12
+      }
+    ]
+  },
+  {
+    "student_id": "S011",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "worksheet",
+        "completion_time": 90,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 6,
+        "average_score": 7,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:39:03.557853",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:11:03.557865",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:14:03.557875",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:18:03.557887",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:41:03.557901",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:30:03.557912",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:01:03.557923",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:42:03.557933",
+            "action": "start",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 24
+      },
+      {
+        "assignment_id": "A2",
+        "type": "quiz",
+        "completion_time": 66,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 0,
+        "average_score": 84,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:29:03.557953",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:26:03.557965",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:25:03.557976",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:34:03.557988",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:44:03.558001",
+            "action": "finish",
+            "time_spent": 3
+          }
+        ],
+        "total_engagement_time": 16
+      },
+      {
+        "assignment_id": "A3",
+        "type": "worksheet",
+        "completion_time": 67,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 2,
+        "average_score": 11,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:26:03.558021",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:41:03.558033",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:41:03.558043",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:37:03.558054",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:34:03.558065",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:40:03.558076",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:45:03.558086",
+            "action": "button_click",
+            "time_spent": 5
+          }
+        ],
+        "total_engagement_time": 16
+      }
+    ]
+  },
+  {
+    "student_id": "S012",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "slideshow",
+        "completion_time": 110,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 4,
+        "average_score": 6,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:59:03.558108",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:38:03.558120",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:55:03.558130",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:51:03.558141",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:26:03.558152",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:59:03.558163",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:49:03.558173",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:23:03.558184",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:35:03.558195",
+            "action": "answer_question",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 25
+      },
+      {
+        "assignment_id": "A2",
+        "type": "slideshow",
+        "completion_time": 98,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 10,
+        "average_score": 11,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:46:03.558216",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:15:03.558227",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:19:03.558238",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:01:03.558253",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:08:03.558264",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:52:03.558279",
+            "action": "finish",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 13
+      },
+      {
+        "assignment_id": "A3",
+        "type": "quiz",
+        "completion_time": 51,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 4,
+        "average_score": 75,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:07:03.558300",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:43:03.558312",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:10:03.558322",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:29:03.558334",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:26:03.558348",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:41:03.558359",
+            "action": "finish",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 18
+      }
+    ]
+  },
+  {
+    "student_id": "S013",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "worksheet",
+        "completion_time": 180,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 5,
+        "average_score": 16,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:11:03.558382",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:08:03.558394",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:25:03.558404",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:09:03.558414",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:30:03.558425",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:46:03.558436",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:52:03.558447",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:29:03.558457",
+            "action": "answer_question",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 22
+      },
+      {
+        "assignment_id": "A2",
+        "type": "slideshow",
+        "completion_time": 115,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 0,
+        "average_score": 5,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:49:03.558478",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:03:03.558490",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:30:03.558501",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:51:03.558512",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:08:03.558522",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:20:03.558533",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:58:03.558544",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:11:03.558554",
+            "action": "button_click",
+            "time_spent": 5
+          }
+        ],
+        "total_engagement_time": 22
+      },
+      {
+        "assignment_id": "A3",
+        "type": "slideshow",
+        "completion_time": 140,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 3,
+        "average_score": 18,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:27:03.558575",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:27:03.558587",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:37:03.558597",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:16:03.558608",
+            "action": "button_click",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 9
+      }
+    ]
+  },
+  {
+    "student_id": "S014",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "quiz",
+        "completion_time": 146,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 10,
+        "average_score": 93,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:35:03.558633",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:23:03.558644",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:04:03.558659",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:27:03.558670",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:23:03.558681",
+            "action": "answer_question",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 14
+      },
+      {
+        "assignment_id": "A2",
+        "type": "worksheet",
+        "completion_time": 126,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 5,
+        "average_score": 6,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:36:03.558700",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:29:03.558712",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:55:03.558724",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:04:03.558734",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:16:03.558745",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:03:03.558756",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:17:03.558767",
+            "action": "answer_question",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 21
+      },
+      {
+        "assignment_id": "A3",
+        "type": "slideshow",
+        "completion_time": 60,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 7,
+        "average_score": 20,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:46:03.558789",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:55:03.558801",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:26:03.558811",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:49:03.558822",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:53:03.558833",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:35:03.558844",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:07:03.558854",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:41:03.558865",
+            "action": "button_click",
+            "time_spent": 1
+          }
+        ],
+        "total_engagement_time": 22
+      }
+    ]
+  },
+  {
+    "student_id": "S015",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "slideshow",
+        "completion_time": 63,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 4,
+        "average_score": 4,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:45:03.558893",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:05:03.558906",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:45:03.558916",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:52:03.558932",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:41:03.558943",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:28:03.558954",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:21:03.558964",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:45:03.558975",
+            "action": "answer_question",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 30
+      },
+      {
+        "assignment_id": "A2",
+        "type": "quiz",
+        "completion_time": 128,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 3,
+        "average_score": 4,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:06:03.558996",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:28:03.559006",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:13:03.559017",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:52:03.559027",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:31:03.559038",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:18:03.559054",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:54:03.559065",
+            "action": "finish",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 23
+      },
+      {
+        "assignment_id": "A3",
+        "type": "slideshow",
+        "completion_time": 77,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 3,
+        "average_score": 4,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:11:03.559086",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:53:03.559098",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:40:03.559108",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:58:03.559119",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:12:03.559129",
+            "action": "finish",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 10
+      }
+    ]
+  },
+  {
+    "student_id": "S016",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "worksheet",
+        "completion_time": 133,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 9,
+        "average_score": 13,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:39:03.559153",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:56:03.559164",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:08:03.559174",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:55:03.559185",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:16:03.559196",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:24:03.559207",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:16:03.559220",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:33:03.559231",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:29:03.559241",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:17:03.559252",
+            "action": "answer_question",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 28
+      },
+      {
+        "assignment_id": "A2",
+        "type": "slideshow",
+        "completion_time": 152,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 9,
+        "average_score": 14,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:38:03.559274",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:14:03.559286",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:19:03.559298",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:38:03.559309",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:47:03.559318",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:13:03.559328",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:29:03.559338",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:13:03.559346",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:52:03.559352",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:43:03.559358",
+            "action": "start",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 32
+      },
+      {
+        "assignment_id": "A3",
+        "type": "worksheet",
+        "completion_time": 104,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 4,
+        "average_score": 0,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:24:03.559369",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:34:03.559375",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:54:03.559385",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:41:03.559391",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:47:03.559396",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:08:03.559415",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:20:03.559421",
+            "action": "start",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 18
+      }
+    ]
+  },
+  {
+    "student_id": "S017",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "quiz",
+        "completion_time": 69,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 7,
+        "average_score": 95,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:21:03.559434",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:24:03.559440",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:21:03.559446",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:44:03.559451",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:15:03.559456",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:59:03.559462",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:45:03.559470",
+            "action": "start",
+            "time_spent": 1
+          }
+        ],
+        "total_engagement_time": 20
+      },
+      {
+        "assignment_id": "A2",
+        "type": "worksheet",
+        "completion_time": 42,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 6,
+        "average_score": 18,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:31:03.559483",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:24:03.559489",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:34:03.559494",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:46:03.559499",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:33:03.559505",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:06:03.559511",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:55:03.559517",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:52:03.559530",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:41:03.559540",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:55:03.559546",
+            "action": "answer_question",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 34
+      },
+      {
+        "assignment_id": "A3",
+        "type": "worksheet",
+        "completion_time": 162,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 1,
+        "average_score": 19,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:37:03.559558",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:50:03.559564",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:50:03.559570",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:40:03.559575",
+            "action": "button_click",
+            "time_spent": 1
+          }
+        ],
+        "total_engagement_time": 8
+      }
+    ]
+  },
+  {
+    "student_id": "S018",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "slideshow",
+        "completion_time": 103,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 0,
+        "average_score": 19,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:26:03.559588",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:58:03.559595",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:29:03.559600",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:37:03.559606",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:15:03.559614",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:21:03.559620",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:47:03.559625",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:50:03.559631",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:27:03.559636",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:59:03.559642",
+            "action": "answer_question",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 31
+      },
+      {
+        "assignment_id": "A2",
+        "type": "worksheet",
+        "completion_time": 64,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 6,
+        "average_score": 19,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:03:03.559652",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:53:03.559658",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:46:03.559663",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:15:03.559669",
+            "action": "start",
+            "time_spent": 1
+          }
+        ],
+        "total_engagement_time": 11
+      },
+      {
+        "assignment_id": "A3",
+        "type": "worksheet",
+        "completion_time": 31,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 5,
+        "average_score": 8,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:53:03.559679",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:10:03.559685",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:05:03.559690",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:47:03.559696",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:07:03.559701",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:35:03.559706",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:53:03.559712",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:37:03.559720",
+            "action": "finish",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 31
+      }
+    ]
+  },
+  {
+    "student_id": "S019",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "slideshow",
+        "completion_time": 153,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 1,
+        "average_score": 16,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:56:03.559733",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:52:03.559739",
+            "action": "finish",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:26:03.559744",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:29:03.559750",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:24:03.559755",
+            "action": "start",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 17
+      },
+      {
+        "assignment_id": "A2",
+        "type": "quiz",
+        "completion_time": 80,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 3,
+        "average_score": 77,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:39:03.559765",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:42:03.559771",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:35:03.559777",
+            "action": "finish",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 10
+      },
+      {
+        "assignment_id": "A3",
+        "type": "worksheet",
+        "completion_time": 31,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 7,
+        "average_score": 7,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:39:03.559810",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:04:03.559962",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:06:03.559980",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:09:03.559998",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:38:03.560009",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:33:03.560019",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:22:03.560035",
+            "action": "finish",
+            "time_spent": 3
+          }
+        ],
+        "total_engagement_time": 16
+      }
+    ]
+  },
+  {
+    "student_id": "S020",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "worksheet",
+        "completion_time": 170,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 10,
+        "average_score": 10,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:30:03.560056",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:42:03.560067",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:33:03.560077",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:17:03.560087",
+            "action": "answer_question",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 9
+      },
+      {
+        "assignment_id": "A2",
+        "type": "slideshow",
+        "completion_time": 87,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 9,
+        "average_score": 16,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:04:03.560105",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:25:03.560115",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:17:03.560124",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:47:03.560135",
+            "action": "answer_question",
+            "time_spent": 1
+          }
+        ],
+        "total_engagement_time": 12
+      },
+      {
+        "assignment_id": "A3",
+        "type": "worksheet",
+        "completion_time": 154,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 1,
+        "average_score": 10,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:34:03.560151",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:15:03.560162",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:01:03.560173",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:26:03.560189",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:47:03.560198",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:06:03.560208",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:05:03.560218",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:59:03.560228",
+            "action": "start",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 30
+      }
+    ]
+  },
+  {
+    "student_id": "S021",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "quiz",
+        "completion_time": 133,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 2,
+        "average_score": 47,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:57:03.560320",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:06:03.560390",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:23:03.560403",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:48:03.560441",
+            "action": "finish",
+            "time_spent": 1
+          }
+        ],
+        "total_engagement_time": 9
+      },
+      {
+        "assignment_id": "A2",
+        "type": "slideshow",
+        "completion_time": 80,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 4,
+        "average_score": 7,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:00:03.560468",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:43:03.560499",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:00:03.560511",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:33:03.560528",
+            "action": "start",
+            "time_spent": 5
+          }
+        ],
+        "total_engagement_time": 11
+      },
+      {
+        "assignment_id": "A3",
+        "type": "slideshow",
+        "completion_time": 114,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 3,
+        "average_score": 6,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:20:03.560549",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:33:03.560559",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:31:03.560572",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:36:03.560582",
+            "action": "answer_question",
+            "time_spent": 5
+          }
+        ],
+        "total_engagement_time": 15
+      }
+    ]
+  },
+  {
+    "student_id": "S022",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "slideshow",
+        "completion_time": 170,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 10,
+        "average_score": 14,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:54:03.560605",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:52:03.560615",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:32:03.560625",
+            "action": "answer_question",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 8
+      },
+      {
+        "assignment_id": "A2",
+        "type": "slideshow",
+        "completion_time": 49,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 6,
+        "average_score": 13,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:05:03.560643",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:56:03.560659",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:57:03.560672",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:14:03.560682",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:38:03.560691",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:49:03.560701",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:00:03.560709",
+            "action": "button_click",
+            "time_spent": 3
+          }
+        ],
+        "total_engagement_time": 23
+      },
+      {
+        "assignment_id": "A3",
+        "type": "quiz",
+        "completion_time": 79,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 9,
+        "average_score": 26,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:59:03.560720",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:02:03.560726",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:23:03.560731",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:18:03.560737",
+            "action": "button_click",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:24:03.560743",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:15:03.560748",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:58:03.560754",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:36:03.560759",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:45:03.560764",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:55:03.560770",
+            "action": "button_click",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 33
+      }
+    ]
+  },
+  {
+    "student_id": "S023",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "quiz",
+        "completion_time": 135,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 10,
+        "average_score": 55,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:47:03.560783",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:09:03.560789",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:16:03.560797",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:39:03.560803",
+            "action": "answer_question",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:14:03.560809",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:26:03.560814",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:38:03.560820",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:45:03.560828",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:40:03.560833",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:59:03.560839",
+            "action": "button_click",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 28
+      },
+      {
+        "assignment_id": "A2",
+        "type": "slideshow",
+        "completion_time": 92,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 4,
+        "average_score": 19,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:07:03.560850",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:49:03.560855",
+            "action": "button_click",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:04:03.560864",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:57:03.560874",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:32:03.560883",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:10:03.560889",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:59:03.560895",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:20:03.560901",
+            "action": "finish",
+            "time_spent": 3
+          }
+        ],
+        "total_engagement_time": 24
+      },
+      {
+        "assignment_id": "A3",
+        "type": "slideshow",
+        "completion_time": 165,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 2,
+        "average_score": 5,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:35:03.560924",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:12:03.560931",
+            "action": "finish",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:40:03.560940",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T22:58:03.560949",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:00:03.560959",
+            "action": "start",
+            "time_spent": 2
+          },
+          {
+            "timestamp": "2024-10-23T23:11:03.560967",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:25:03.560972",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:27:03.560978",
+            "action": "answer_question",
+            "time_spent": 5
+          }
+        ],
+        "total_engagement_time": 24
+      }
+    ]
+  },
+  {
+    "student_id": "S024",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "worksheet",
+        "completion_time": 162,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 3,
+        "average_score": 8,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:32:03.560993",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:22:03.561004",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:57:03.561013",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:50:03.561019",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:57:03.561024",
+            "action": "answer_question",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:41:03.561030",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:51:03.561035",
+            "action": "button_click",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 21
+      },
+      {
+        "assignment_id": "A2",
+        "type": "quiz",
+        "completion_time": 139,
+        "completed": true,
+        "one_sitting": false,
+        "engagement_score": 5,
+        "average_score": 35,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:12:03.561046",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:10:03.561052",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:09:03.561058",
+            "action": "start",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:44:03.561063",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:10:03.561072",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:35:03.561077",
+            "action": "answer_question",
+            "time_spent": 3
+          }
+        ],
+        "total_engagement_time": 20
+      },
+      {
+        "assignment_id": "A3",
+        "type": "worksheet",
+        "completion_time": 150,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 3,
+        "average_score": 16,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T22:36:03.561088",
+            "action": "finish",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:12:03.561093",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:00:03.561099",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:49:03.561104",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:14:03.561110",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:54:03.561115",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:31:03.561120",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:23:03.561126",
+            "action": "answer_question",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:51:03.561131",
+            "action": "start",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 27
+      }
+    ]
+  },
+  {
+    "student_id": "S025",
+    "assignments": [
+      {
+        "assignment_id": "A1",
+        "type": "worksheet",
+        "completion_time": 114,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 0,
+        "average_score": 9,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:23:03.561144",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T22:32:03.561150",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:28:03.561156",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:09:03.561161",
+            "action": "finish",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:05:03.561167",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:42:03.561173",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:02:03.561181",
+            "action": "button_click",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:39:03.561187",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:26:03.561193",
+            "action": "start",
+            "time_spent": 5
+          }
+        ],
+        "total_engagement_time": 25
+      },
+      {
+        "assignment_id": "A2",
+        "type": "quiz",
+        "completion_time": 76,
+        "completed": true,
+        "one_sitting": true,
+        "engagement_score": 7,
+        "average_score": 19,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:07:03.561204",
+            "action": "answer_question",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:22:03.561210",
+            "action": "answer_question",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T23:13:03.561215",
+            "action": "start",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T22:32:03.561221",
+            "action": "start",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:13:03.561226",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T23:22:03.561232",
+            "action": "button_click",
+            "time_spent": 1
+          },
+          {
+            "timestamp": "2024-10-23T23:27:03.561237",
+            "action": "finish",
+            "time_spent": 3
+          },
+          {
+            "timestamp": "2024-10-23T22:35:03.561243",
+            "action": "answer_question",
+            "time_spent": 4
+          }
+        ],
+        "total_engagement_time": 24
+      },
+      {
+        "assignment_id": "A3",
+        "type": "worksheet",
+        "completion_time": 157,
+        "completed": false,
+        "one_sitting": false,
+        "engagement_score": 4,
+        "average_score": 12,
+        "interaction_logs": [
+          {
+            "timestamp": "2024-10-23T23:00:03.561258",
+            "action": "start",
+            "time_spent": 5
+          },
+          {
+            "timestamp": "2024-10-23T23:19:03.561264",
+            "action": "button_click",
+            "time_spent": 4
+          },
+          {
+            "timestamp": "2024-10-23T22:39:03.561269",
+            "action": "answer_question",
+            "time_spent": 2
+          }
+        ],
+        "total_engagement_time": 11
+      }
+    ]
+  }
+]
