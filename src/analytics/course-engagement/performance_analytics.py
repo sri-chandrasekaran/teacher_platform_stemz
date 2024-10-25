@@ -8,12 +8,10 @@ from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
-# Load sample data from JSON file
 input_file = 'sample_student_scores.json'
 with open(input_file, 'r') as f:
     sample_data = json.load(f)
 
-# Function to predict future quiz scores
 def predict_future_scores(quiz_scores, num_predictions=5):
     X, y = [], []
     for i in range(len(quiz_scores) - 5):
@@ -33,19 +31,16 @@ def predict_future_scores(quiz_scores, num_predictions=5):
         last_quizzes[0, -1] = next_score
     return future_scores
 
-# Plot for a single student
-student_name = 'Student 1'  # Change this to the specific student's name as needed
+student_name = 'Student 1'  
 quiz_scores = sample_data[student_name]['quiz_scores']
 
 if len(quiz_scores) == 15:
-    # Predict future scores for the single student
     future_scores = predict_future_scores(quiz_scores)
-    combined_scores = quiz_scores + future_scores  # Concatenate historical and predicted scores
+    combined_scores = quiz_scores + future_scores  
 
     plt.figure(figsize=(10, 6))
     plt.plot(range(1, len(combined_scores) + 1), combined_scores, marker='o', label=student_name)
 
-    # Add a vertical line to indicate where prediction starts
     plt.axvline(x=len(quiz_scores), color='gray', linestyle='--', label='Prediction Start')
 
     plt.title(f'Historical and Predicted Quiz Scores for {student_name}')
@@ -59,7 +54,6 @@ if len(quiz_scores) == 15:
 else:
     print(f"{student_name} does not have exactly 15 quiz scores in the data.")
 
-# Plot for each student: historical and predicted scores
 predictions = {}
 for student, data in sample_data.items():
     quiz_scores = data['quiz_scores']
@@ -85,7 +79,6 @@ plt.grid()
 plt.tight_layout()
 plt.show()
 
-# Engagement Analytics
 average_scores, average_time, average_engagement, student_names = [], [], [], []
 for student, data in sample_data.items():
     average_scores.append(np.mean(data['quiz_scores']))
@@ -100,7 +93,6 @@ df = pd.DataFrame({
     'Avg Engagement': average_engagement
 })
 
-# Visualizing engagement data
 plt.figure(figsize=(12, 6))
 plt.subplot(1, 3, 1)
 sns.lineplot(x='Student', y='Avg Score', data=df, marker='o')
@@ -119,7 +111,6 @@ plt.title('Average Engagement Scores by Student')
 plt.tight_layout()
 plt.show()
 
-# Predictive Analytics: At-risk probability with Logistic Regression
 features, labels = [], []
 for student, data in sample_data.items():
     avg_score = np.mean(data['quiz_scores'])
@@ -128,15 +119,19 @@ for student, data in sample_data.items():
     labels.append(1 if avg_score < 70 else 0)
 
 X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=42)
-model = LogisticRegression()
-model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
-print(classification_report(y_test, y_pred))
 
-predicted_probabilities = model.predict_proba(features)[:, 1]
-df['Predicted At-Risk Probability'] = predicted_probabilities
+if len(np.unique(y_train)) < 2:
+    print("Only one class present in training data; unable to train logistic regression model.")
+    df['Predicted At-Risk Probability'] = 1 if y_train[0] == 1 else 0  # Set all to the single class
+else:
+    log_model = LogisticRegression()
+    log_model.fit(X_train, y_train)
+    y_pred = log_model.predict(X_test)
+    print(classification_report(y_test, y_pred))
 
-# Individual student risk probability plot
+    predicted_probabilities = log_model.predict_proba(features)[:, 1]
+    df['Predicted At-Risk Probability'] = predicted_probabilities
+
 for student in df['Student']:
     student_data = df[df['Student'] == student]
     plt.figure(figsize=(6, 4))
@@ -147,7 +142,6 @@ for student in df['Student']:
     plt.legend()
     plt.show()
 
-# Collaborative Analytics: Peer comparison
 peer_comparisons = []
 for student, data in sample_data.items():
     for peer, peer_data in sample_data.items():
