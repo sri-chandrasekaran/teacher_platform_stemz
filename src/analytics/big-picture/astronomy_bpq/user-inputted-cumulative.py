@@ -14,18 +14,18 @@ import seaborn as sns
 import pandas as pd
 
 
-# def plot_3d_scatter(x, y, z, x_label, y_label, z_label, title="3D Scatter Plot"):
-#     fig = plt.figure(figsize=(10, 7))
-#     ax = fig.add_subplot(111, projection='3d')
+def plot_3d_scatter(x, y, z, x_label, y_label, z_label, title="3D Scatter Plot"):
+    fig = plt.figure(figsize=(10, 7))
+    ax = fig.add_subplot(111, projection='3d')
     
-#     ax.scatter(x, y, z, c=z, cmap='viridis', marker='o')
+    ax.scatter(x, y, z, c=z, cmap='viridis', marker='o')
     
-#     ax.set_xlabel(x_label)
-#     ax.set_ylabel(y_label)
-#     ax.set_zlabel(z_label)
-#     ax.set_title(title)
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
+    ax.set_zlabel(z_label)
+    ax.set_title(title)
     
-#     plt.show()
+    plt.show()
 
 with open('4_5lesson1.json') as f:
     data = json.load(f)
@@ -128,52 +128,52 @@ print(f"MSE Curiosity: {mse_Curiosity:.4f}")
 print(f"MSE Problem Solving: {mse_Problem_Solving:.4f}")
 
 # to compare at most 3 metrics 
-# min_length = min(len(y_pred_Creativity), len(y_pred_Critical_Thinking), len(y_pred_Curiosity))
-# y_pred_Creativity = y_pred_Creativity[:min_length]
-# y_pred_Critical_Thinking = y_pred_Critical_Thinking[:min_length]
-# y_pred_Curiosity = y_pred_Curiosity[:min_length]
+min_length = min(len(y_pred_Creativity), len(y_pred_Critical_Thinking), len(y_pred_Curiosity))
+y_pred_Creativity = y_pred_Creativity[:min_length]
+y_pred_Critical_Thinking = y_pred_Critical_Thinking[:min_length]
+y_pred_Curiosity = y_pred_Curiosity[:min_length]
 
-# plot_3d_scatter(
-#     y_pred_Creativity, y_pred_Critical_Thinking, y_pred_Curiosity,
-#     x_label="Predicted Creativity Score",
-#     y_label="Predicted Critical Thinking Score",
-#     z_label="Predicted Curiosity Score",
-#     title="3D Scatter Plot of Predicted Scores"
-# )
+plot_3d_scatter(
+    y_pred_Creativity, y_pred_Critical_Thinking, y_pred_Curiosity,
+    x_label="Predicted Creativity Score",
+    y_label="Predicted Critical Thinking Score",
+    z_label="Predicted Curiosity Score",
+    title="3D Scatter Plot of Predicted Scores"
+)
 
 # to compare all 5 metrics
-# min_length = min(
-#     len(y_pred_Creativity),
-#     len(y_pred_Critical_Thinking),
-#     len(y_pred_Observation),
-#     len(y_pred_Curiosity),
-#     len(y_pred_Problem_Solving)
-# )
+min_length = min(
+    len(y_pred_Creativity),
+    len(y_pred_Critical_Thinking),
+    len(y_pred_Observation),
+    len(y_pred_Curiosity),
+    len(y_pred_Problem_Solving)
+)
 
-# y_pred_Creativity = y_pred_Creativity[:min_length]
-# y_pred_Critical_Thinking = y_pred_Critical_Thinking[:min_length]
-# y_pred_Observation = y_pred_Observation[:min_length]
-# y_pred_Curiosity = y_pred_Curiosity[:min_length]
-# y_pred_Problem_Solving = y_pred_Problem_Solving[:min_length]
+y_pred_Creativity = y_pred_Creativity[:min_length]
+y_pred_Critical_Thinking = y_pred_Critical_Thinking[:min_length]
+y_pred_Observation = y_pred_Observation[:min_length]
+y_pred_Curiosity = y_pred_Curiosity[:min_length]
+y_pred_Problem_Solving = y_pred_Problem_Solving[:min_length]
 
-# def parallel_coordinates_plot(predictions_dict):
-#     data = pd.DataFrame(predictions_dict)
-#     plt.figure(figsize=(12, 7))
-#     sns.set(style="whitegrid")
-#     sns.lineplot(data=data, dashes=False)
-#     plt.title("Parallel Coordinates Plot of Predicted Scores")
-#     plt.xlabel("Metrics")
-#     plt.ylabel("Predicted Score")
-#     plt.show()
+def parallel_coordinates_plot(predictions_dict):
+    data = pd.DataFrame(predictions_dict)
+    plt.figure(figsize=(12, 7))
+    sns.set(style="whitegrid")
+    sns.lineplot(data=data, dashes=False)
+    plt.title("Parallel Coordinates Plot of Predicted Scores")
+    plt.xlabel("Metrics")
+    plt.ylabel("Predicted Score")
+    plt.show()
 
-# predictions_dict = {
-#     "Creativity": y_pred_Creativity,
-#     "Critical Thinking": y_pred_Critical_Thinking,
-#     "Observation": y_pred_Observation,
-#     "Curiosity": y_pred_Curiosity,
-#     "Problem Solving": y_pred_Problem_Solving
-# }
-# parallel_coordinates_plot(predictions_dict)
+predictions_dict = {
+    "Creativity": y_pred_Creativity,
+    "Critical Thinking": y_pred_Critical_Thinking,
+    "Observation": y_pred_Observation,
+    "Curiosity": y_pred_Curiosity,
+    "Problem Solving": y_pred_Problem_Solving
+}
+parallel_coordinates_plot(predictions_dict)
 
 def score_response(response):
     response_length = len(response)

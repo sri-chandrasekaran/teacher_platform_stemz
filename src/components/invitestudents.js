@@ -17,8 +17,8 @@ const InviteStudentsModal = ({ onInvite, onCancel }) => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button onClick={handleInvite}>Add</button>
-      <button onClick={onCancel}>Cancel</button>
+      <button className="button-save" onClick={handleInvite}>Add</button>
+      <button className="button-cancel" onClick={onCancel}>Cancel</button>
     </div>
   );
 };

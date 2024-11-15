@@ -11,9 +11,7 @@ const GroupsPage = () => {
   const [classrooms, setClassrooms] = useState([
     { id: 1, name: 'Group 1', description: 'Students from Class A' },
     { id: 2, name: 'Group 2', description: 'Students from Class B' },
-    { id: 3, name: 'Group 3', description: 'Advanced Students' },
-    { id: 4, name: 'some class', description: '' },
-    { id: 5, name: 'new class', description: '' },
+    { id: 3, name: 'Group 3', description: 'Advanced Students' }
   ]);
 
   const [showForm, setShowForm] = useState(false);
@@ -29,31 +27,45 @@ const GroupsPage = () => {
   const [bannerMessage, setBannerMessage] = useState('');
   const [showBanner, setShowBanner] = useState(false);
 
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // entering a classroom
   const handleEnterClassroom = (id) => {
-    navigate(`/classroom/${id}/students`);
+    navigate(`/dashboard/${id}`);
   };
 
-  const handleAddClassroom = () => {
-    const newClassroom = {
-      id: classrooms.length + 1,
-      name: newClassroomName,
-      description: newClassroomDescription,
-    };
+  // add a new classroom
+  const handleAddClassroom = (newClassroom) => {
     setClassrooms([...classrooms, newClassroom]);
     setShowForm(false);
     setNewClassroomName('');
     setNewClassroomDescription('');
+    setBannerMessage('Classroom added successfully.');
+    setShowBanner(true);
+    setTimeout(() => setShowBanner(false), 3000);
   };
 
+  // delete a classroom
   const handleDeleteClassroom = (id) => {
     setClassrooms(classrooms.filter((classroom) => classroom.id !== id));
+    setBannerMessage('Classroom deleted.');
+    setShowBanner(true);
+    setTimeout(() => setShowBanner(false), 3000);
   };
 
+  //  open edit modal with selected classroom
   const handleEditClassroom = (classroom) => {
     setSelectedClassroom(classroom);
-    setShowEditModal(true);
+    // setShowEditModal(true);
+    setSelectedClassroom(classroom);
+    setName(classroom.name || '');          
+    setDescription(classroom.description || '');
+    setIsModalOpen(true);
   };
 
+  //  save the edited classroom
   const handleSaveClassroom = (updatedClassroom) => {
     setClassrooms(
       classrooms.map((classroom) =>
@@ -62,36 +74,45 @@ const GroupsPage = () => {
     );
     setShowEditModal(false);
     setSelectedClassroom(null);
+    setBannerMessage('Classroom updated successfully.');
+    setShowBanner(true);
+    setTimeout(() => setShowBanner(false), 3000);
   };
 
+  // inviting a student
   const handleInviteStudent = (classroom) => {
     setClassroomToInvite(classroom);
     setShowInviteModal(true);
+    setShowEditModal(false);
   };
 
+  // send invitation
   const handleSendInvitation = (email) => {
     setShowInviteModal(false);
-
-    setBannerMessage(`Confirmation email sent to: ${email}`);
+    setBannerMessage(`Invitation email sent to: ${email}`);
     setShowBanner(true);
-
-    setTimeout(() => {
-      setShowBanner(false);
-    }, 3000);
+    setTimeout(() => setShowBanner(false), 3000);
   };
 
   return (
     <div className="classroom-list-container">
       {showBanner && <div className="confirmation-banner">{bannerMessage}</div>}
 
+    <div className="page-container">
+    <div className="page-heading-container">
       <h2 className="page-heading">Your Classrooms</h2>
+    </div>
+    <div className="classroom-list-scroll">
       <ClassroomList
         classrooms={classrooms}
         onEnter={handleEnterClassroom}
         onDelete={handleDeleteClassroom}
         onEdit={handleEditClassroom}
-        onInvite={handleInviteStudent} 
+        onInvite={handleInviteStudent}
+        onAddClassroom={handleAddClassroom}
       />
+    </div>
+  </div>
 
       {showEditModal && (
         <EditClassroomModal
@@ -107,14 +128,7 @@ const GroupsPage = () => {
           onInvite={handleSendInvitation}
           onCancel={() => setShowInviteModal(false)}
         />
-      )}
-
-      <button
-        className="add-classroom-button"
-        onClick={() => setShowForm(true)}
-      >
-        +
-      </button>
+      )},
 
       {showForm && (
         <div className="create-classroom-form">
@@ -130,7 +144,7 @@ const GroupsPage = () => {
             value={newClassroomDescription}
             onChange={(e) => setNewClassroomDescription(e.target.value)}
           />
-          <button onClick={handleAddClassroom}>Add Classroom</button>
+          <button onClick={() => handleAddClassroom({ id: Date.now(), name: newClassroomName, description: newClassroomDescription })}>Save</button>
           <button onClick={() => setShowForm(false)}>Cancel</button>
         </div>
       )}

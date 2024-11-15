@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
-  const [name, setName] = useState(classroom.name);
-  const [description, setDescription] = useState(classroom.description);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+
+  // Ensure that name and description get set every time the modal opens with a new classroom
+  useEffect(() => {
+    if (classroom) {
+      setName(classroom.name || '');          // Set name if it exists
+      setDescription(classroom.description || ''); // Set description if it exists
+    }
+  }, [classroom]);
 
   const handleSave = () => {
     onSave({
-      ...classroom,
+      ...classroom,   // Maintain existing classroom data
       name,
       description,
     });
@@ -14,7 +22,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
 
   return (
     <div className="edit-classroom-form">
-      <h3>Edit Classroom</h3>
+      <h3>{classroom ? 'Edit Classroom' : 'Add Classroom'}</h3>
       <input
         type="text"
         placeholder="Classroom Name"
@@ -26,8 +34,8 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      <button onClick={handleSave}>Save Changes</button>
-      <button onClick={onCancel}>Cancel</button>
+      <button className="button-save" onClick={handleSave}>Save Changes</button>
+      <button className="button-cancel" onClick={onCancel}>Cancel</button>
     </div>
   );
 };
