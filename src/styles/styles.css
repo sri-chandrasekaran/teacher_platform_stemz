@@ -399,6 +399,9 @@ h2, h3 {
   .students-list {
     list-style-type: none;
     padding: 0;
+    background-color: #ecf0f1;
+    padding: 10px;
+    overflow-y: auto;
   }
   
   .students-list li {
@@ -648,7 +651,6 @@ h2, h3 {
   
 
 
-   /* Basic Reset */
 * {
   margin: 0;
   padding: 0;
@@ -671,9 +673,9 @@ body {
 
 /* Sidebar Styles */
 .sidebar {
-  width: 80px; /* Sidebar width */
-  background-color: #ffffff; /* Sidebar background color */
-  color: black; /* Text color */
+  width: 80px; 
+  background-color: #ffffff; 
+  color: black; 
   position: fixed;
   top: 0;
   left: 0;
@@ -681,7 +683,7 @@ body {
   padding: 20px 0;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center items vertically */
+  justify-content: center; 
   align-items: center;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   height: 100vh;
@@ -694,47 +696,47 @@ body {
   padding: 0;
   width: 100%;
   display: flex;
-  flex-direction: column; /* Align items vertically */
-  align-items: center; /* Center align the icons horizontally */
-  justify-content: center; /* Vertically center all icons */
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
 }
 
 /* Sidebar Item Styles */
 .sidebar-item {
   display: flex;
   align-items: center;
-  justify-content: center; /* Centers the icon and text */
+  justify-content: center; 
   margin-bottom: 30px;
   font-size: 18px;
   cursor: pointer;
   transition: color 0.3s ease;
-  color: black; /* Black text color */
-  width: 100%; /* Make the item take the full width of the sidebar */
+  color: black; 
+  width: 100%; 
   text-align: center;
 }
 
 /* Sidebar Icon Styling */
 .sidebar-item:hover {
-  color: green; /* Change color on hover */
+  color: green; 
 }
 
 /* Icon Style - Larger icons without the circle */
 .sidebar-icon {
-  font-size: 60px; /* Increase icon size */
-  margin-bottom: 10px; /* Space between icon and text */
-  color: black; /* Default color for icons */
+  font-size: 60px;
+  margin-bottom: 10px; 
+  color: black; 
   transition: all 0.3s ease;
   padding: 10px;
 }
 
 /* Icon hover effect - change to green color on hover */
 .sidebar-icon:hover {
-  color: green; /* Change icon color to green on hover */
+  color: green; 
 }
 
 .sidebar-icon.active {
-  background-color: green; /* Highlight color for active icon */
-  color: white; /* Icon color when active */
+  background-color: green; 
+  color: white; 
   border-radius: 4px;
 }
 
@@ -751,18 +753,18 @@ body {
 .content h1 {
   font-size: 2rem;
   margin-bottom: 20px;
-  text-align: center; /* Centers the text of the heading */
+  text-align: center; 
 }
 
 .content p {
   font-size: 1.2rem;
   line-height: 1.5;
-  text-align: center; /* Centers the text of the paragraph */
+  text-align: center; 
 }
 
 .dashboard-title {
-  width: calc(100vw - 80px); /* Full window width minus sidebar */
-  text-align: center; /* Center text within the title element */
+  width: calc(100vw - 80px); 
+  text-align: center; 
   font-size: 2rem;
   font-weight: bold;
   margin: 40px 0 20px;
@@ -785,8 +787,8 @@ body {
 
 .dropdown-container {
   display: flex;
-  gap: 1rem; /* Space between dropdowns */
-  margin-top: 20px; /* Space below title */
+  gap: 1rem;
+  margin-top: 20px; 
 }
 
 
@@ -810,7 +812,7 @@ body {
 
 /* Styling for the save/send (green) and cancel (gray) buttons */
 .button-save {
-  background-color: #28a745; /* Green */
+  background-color: #28a745;
   color: white;
   border: 1px solid #28a745;
   padding: 8px 16px;
@@ -819,8 +821,8 @@ body {
 }
 
 .button-cancel {
-  background-color: #f0f0f0; /* Light gray */
-  color: #333; /* Dark text */
+  background-color: #f0f0f0;
+  color: #333; 
   border: 1px solid #d0d0d0;
   padding: 8px 16px;
   cursor: pointer;
@@ -903,60 +905,107 @@ body {
   display: flex;
 }
 
-.student-list {
-  margin-top: 20px;
-}
-
-/* .student-item {
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-} */
-
+/* Chat container styling */
 .chat-container {
   display: flex;
-  height: 100vh;
-  width: 100%
+  height: 90vh; /* Adjust height to make the chat container fill more of the screen */
+  overflow: hidden;
 }
 
-/* .student-list {
-  width: 30%;
-  background-color: #f7f7f7;
-  border-right: 1px solid #ddd;
-  padding: 1rem;
+/* Chat area styling */
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 1020px;
+  padding: 20px; /* Add padding for better spacing */
+  background-color: #f9f9f9; /* Background color */
+  border: 1px solid #ddd; /* Optional: a border for better visibility */
+  border-radius: 8px; /* Rounded corners */
 }
 
-.student-item {
-  padding: 0.5rem;
+/* Chat history (message display area) styling */
+.chat-history {
+  flex: 1; 
+  overflow-y: auto; /* Enables scrolling if messages overflow */
+  margin-bottom: 20px; /* Spacing from the input area */
+  padding: 10px; /* Internal padding */
+  background-color: #fff; /* White background */
+  border: 1px solid #ccc; /* Border for the message display area */
+  border-radius: 8px; /* Rounded corners */
+  font-size: 1.1rem; /* Slightly larger font for readability */
+}
+
+/* Chat input area styling */
+.chat-input {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
+.chat-input input {
+  flex: 1; 
+  height: 50px; 
+  font-size: 1.1rem; 
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
+  background-color: #fff; 
+}
+
+.chat-input button {
+  height: 50px; 
+  padding: 0 20px;
+  font-size: 1.1rem; 
+  border: none; 
+  border-radius: 8px; 
+  background-color: green; 
+  color: #fff; 
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.student-item.selected {
-  background-color: #e0e0e0;
-} */
+.chat-input button:hover {
+  background-color: rgb(0, 67, 0); 
+}
 
 .student-list {
-  width: 200px;
-  background-color: #ecf0f1;
-  border-right: 1px solid #bdc3c7;
+  width: 300px;
+  max-width: 100%; 
+  padding: 20px;
+  overflow-y: auto; 
+  background-color: #f9f9f9; 
+  border-right: 1px solid #ccc; 
+}
+
+/*  */
+
+.student-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .student-item {
   padding: 10px;
+  padding: 15px 20px;
+  margin: 5px 0;
+  border-radius: 3px;
   cursor: pointer;
-  margin-bottom: 5px;
-  border-radius: 5px;
-  transition: background-color 0.2s ease;
-}
-
-.student-item.selected {
-  background-color: #3498db;
-  color: #ffffff;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .student-item:hover {
-  background-color: #f0f0f0;
+  background-color: #f1f1f1;
+}
+
+.student-item.selected {
+  background-color: #0b4e1a;
+  color: white;
 }
 
 .selected {
@@ -964,34 +1013,17 @@ body {
   color: white;
 }
 
-/* .create-group {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  cursor: pointer;
-  color: #007bff;
-} */
-
-/* .create-group {
-  margin-top: 1rem;
-  color: green;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-} */
-
 .create-group {
-  font-size: 14px;
-  color: green;
-  display: flex;
-  align-items: center;
+  font-weight: bold;
+  color: #2ecc71;
+  text-align: center;
+  cursor: pointer;
 }
-
 
 .create-group:hover {
-  background-color: #f0f0f0;
-  text-decoration: underline;
+  color: #27ae60;
 }
+
 
 .create-group-modal {
   position: fixed;
@@ -1018,111 +1050,27 @@ body {
   margin-bottom: 20px;
 }
 
-.chat-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
 
-/* .chat-area {
-  width: 70%;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-} */
-
-.chat-container {
-  display: flex;
-  height: 100vh;
-}
-
-/* .chat-history {
-  margin-bottom: 20px;
-} */
-
-.chat-history {
-  flex: 1;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-}
-
-/* .chat-message,
-.announcement-message {
+.chat-message {
+  display: block; 
+  max-width: 80%;
+  word-wrap: break-word; 
   padding: 10px;
-  background-color: #f1f1f1;
-  margin: 5px 0;
-  border-radius: 8px;
-} */
-
-.chat-message, .announcement-message {
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  background-color: #f1f1f1;
-  border-radius: 5px;
-}
-
-/* .chat-input {
-  height: 100px;
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-}
-
-.chat-input input {
-  flex: 1;
-  padding: 10px;
-  margin-right: 10px;
-  border-radius: 5px;
-}
-
-.chat-input button {
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-} */
-
-.chat-input {
-  display: flex;
-}
-
-/* .chat-input input {
-  flex: 1;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 0.5rem;
-} */
-
-.chat-input input {
-  flex-grow: 1;
-  padding: 8px;
-  border: 1px solid #bdc3c7;
-  border-radius: 5px;
-  margin-right: 5px;
-}
-
-/* .chat-input button {
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: #36974f;
   color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-} */
-
-.chat-input button {
-  padding: 8px 15px;
-  background-color: green;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  position: relative;
+  width: auto; 
+  white-space: normal; 
+  box-sizing: border-box; 
 }
 
-.chat-input button:hover {
-  background-color: green;
+
+.chat-message.received-message {
+  background-color: #ffffff;
+  color: black;
+  align-self: flex-start;
 }
 
 .send-button {
@@ -1148,7 +1096,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 200px; /* Adjust width of the buttons area */
+  width: 200px;
 }
 
 .button-chat-container button {
@@ -1169,24 +1117,42 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .modal-content {
-  background: #fff;
+  background-color: #ffffff;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 5px;
   width: 400px;
-  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.group-name-input, .checkbox-container {
+.group-name-input {
+  width: 100%;
+  padding: 10px;
   margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.checkbox-container label {
+  flex: 1 1 calc(50% - 10px);
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .error-message {
@@ -1197,23 +1163,391 @@ body {
 
 .modal-buttons {
   display: flex;
-  justify-content: space-around;
-  margin-top: 15px;
-}
-
-.create-button, .cancel-button {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  justify-content: space-between;
 }
 
 .create-button {
-  background-color: green;
+  background-color: #27ae60;
   color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.create-button:hover {
+  background-color: #1b6c3d;
 }
 
 .cancel-button {
   background-color: #e74c3c;
   color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.cancel-button:hover {
+  background-color: #c0392b;
+}
+
+.messaging-page {
+  display: flex;
+  height: 100vh;
+}
+
+.message {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #e9ecef;
+  border-radius: 8px;
+}
+
+.main-container {
+  display: flex;
+  width: 100%;
+  height: 100vh; 
+}
+
+.student-list-container {
+  width: 60%; 
+  padding: 20px;
+  background-color: #f7f7f7; 
+  overflow-y: auto;
+}
+
+.chat-area-container {
+  width: 100%;
+  padding: 20px;
+  background-color: #fff; 
+  border-left: 2px solid #ddd;
+  overflow-y: auto;
+}
+
+.settings-page {
+  padding: 20px;
+  background-color: #f9f9f9;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.settings-content {
+  flex-grow: 1;
+  padding: 20px;
+  max-width: 1000px;  /* Increased width */
+  margin: 0 auto; /* Centers the content */
+}
+.settings-header {
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* .settings-section {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+} */
+
+.settings-section {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 30px;  /* Increased padding for larger sections */
+  margin-bottom: 30px; /* Increased margin between sections */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ensure it takes up full width available */
+  max-width: 900px;  /* Max width */
+}
+
+.settings-section h3 {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.settings-section p {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.settings-section label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.settings-section input,
+.settings-section select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+.settings-section button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.settings-section button:hover {
+  background-color: #0056b3;
+}
+
+.settings-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.save-button {
+  background-color: #28a745;
+}
+
+.save-button:hover {
+  background-color: #218838;
+}
+
+.reset-button {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.reset-button:hover {
+  background-color: #e0a800;
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #c82333;
+}
+
+.notification-banner {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px 15px;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.dark-mode-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.dark-mode-toggle button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dark-mode-toggle button:hover {
+  background-color: #0056b3;
+}
+
+/* Form Elements */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.form-input,
+.form-textarea,
+.form-checkbox {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  resize: vertical;
+}
+
+.danger-zone {
+  background-color: #ffe6e6;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+/* new */
+/* General Layout */
+.settings-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease;
+  width: 5500px;
+}
+
+.settings-content {
+  /* width: 100%; */
+  width: 1000px; /* Make it wide enough */
+  margin-left: 100px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode Styles */
+.settings-dark .settings-content {
+  background-color: #333;
+  color: white;
+}
+
+.settings-dark .settings-section {
+  background-color: #444;
+  border-color: #555;
+}
+
+.settings-dark .form-input,
+.settings-dark .form-textarea,
+.settings-dark .form-checkbox {
+  background-color: #555;
+  color: white;
+  border-color: #666;
+}
+
+.settings-dark .delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.settings-dark .dark-mode-toggle button {
+  background-color: #007bff;
+  color: white;
+}
+
+.settings-dark .dark-mode-toggle button:hover {
+  background-color: #0056b3;
+}
+
+/* Titles and Form Elements */
+.settings-title {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.settings-section {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.del-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.del-button:hover {
+  background-color: #c82333;
+}
+
+/* Form Input */
+.form-input,
+.form-textarea,
+.form-checkbox {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  resize: vertical;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #fff;
+}
+
+body.dark-mode .settings-container {
+  background-color: #1c1c1c;
+  color: #ccc;
+}
+
+body.dark-mode button {
+  background-color: #444;
+  color: #ddd;
+}
+
+body.dark-mode .dark-mode-toggle {
+  color: #ddd;
 }
