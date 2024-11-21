@@ -553,27 +553,36 @@ h2, h3 {
   }
 
   .close-button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: transparent;
-    border: none;
-    font-size: 20px;
+    all: unset; /* Resets all default browser styles */
     cursor: pointer;
+    font-size: 20px;
+    color: #333;
+    padding: 5px; /* Optional: Add padding for click area */
   }
   
+  .close-button:hover {
+    color: #218838; /* Changes color on hover */
+  }
+  
+  .close-button:focus {
+    outline: none; /* Removes the focus outline */
+  }
+  
+
   .post-options button {
     display: inline-block;
     margin: 5px 0;
     padding: 8px 10px;
     width: 100%;
-    border: none;
+    border: 2px solid #218838; /* Green border */
     border-radius: 5px;
     cursor: pointer;
-    background-color: #28a745;
-    color: #fff;
+    background-color: #28a745; /* Default green background */
+    color: #fff; /* White text */
     text-align: center;
+    font-size: 16px;
   }
+
   
   .post-options button:hover {
     background-color: #28a745;
@@ -1551,3 +1560,43 @@ body.dark-mode button {
 body.dark-mode .dark-mode-toggle {
   color: #ddd;
 }
+
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.floating-button:hover {
+  background-color: green;
+}
+
+.notification {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.notification.hidden {
+  transform: translateY(-100%);
+}
+

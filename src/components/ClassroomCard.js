@@ -2,18 +2,18 @@ import React from 'react';
 
 const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite }) => {
   const handleEdit = (e) => {
-    e.stopPropagation(); // Prevents triggering onEnter (the navigation) when editing
-    onEdit(classroom.id);  // Send the ID to the parent for analytics
+    e.stopPropagation(); 
+    onEdit(classroom.id); 
   };
 
   const handleDelete = (e) => {
-    e.stopPropagation(); // Prevents triggering onEnter (the navigation) when deleting
-    onDelete(classroom.id);  // Send the ID to the parent for analytics
+    e.stopPropagation(); 
+    onDelete(classroom.id); 
   };
 
   const handleInvite = (e) => {
-    e.stopPropagation(); // Prevents triggering onEnter (the navigation) when inviting
-    onInvite(classroom.id);  // Send the ID to the parent for analytics
+    e.stopPropagation(); 
+    onInvite(classroom.id);  
   };
 
   return (

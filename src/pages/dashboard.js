@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom'; 
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-icons/fa';
+import PostModal from './post';
+import '../styles/styles.css';
 
 const Dashboard = () => {
   const { id: classroomId } = useParams();  // Get the classroom ID from URL params
   const [selectedStudent, setSelectedStudent] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
+  const [isModalOpen, setModalOpen] = useState(false);
 
   // Get the current location (URL)
   const location = useLocation();
 
   // Dynamically determine if we're on the classroom's analytics page
   const isAnalyticsPage = location.pathname.includes(`/dashboard/${classroomId}`);
+
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   return (
     <div className="dashboard">
@@ -24,9 +31,9 @@ const Dashboard = () => {
             </Link>
           </li>
           <li>
-            <Link to={`/dashboard/${classroomId}`}>
+            {/* <Link to={`/dashboard/${classroomId}`}>
               <FaChartLine className={`sidebar-icon ${isAnalyticsPage ? 'active' : ''}`} />
-            </Link>
+            </Link> */}
           </li>
           <li>
             <Link to="/users">
@@ -84,6 +91,14 @@ const Dashboard = () => {
             <option value="3">Psychology</option>
           </select>
         </div>
+
+        <button
+          className="floating-button"
+          onClick={openModal}
+        >
+          +
+        </button>
+        {isModalOpen && <PostModal onClose={closeModal} />}
       </div>
     </div>
   );
