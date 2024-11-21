@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 
-const InviteStudentsModal = ({ onInvite, onCancel }) => {
+const InviteStudentsModal = ({ onInvite, onCancel, classroomName }) => {
   const [email, setEmail] = useState('');
+  const [notification, setNotification] = useState('');
 
   const handleInvite = () => {
     onInvite(email);
+    setNotification(`${email} has been added to ${classroomName}`);
     setEmail('');
+    setTimeout(() => setNotification(''), 3000);
   };
 
   return (
@@ -19,8 +22,10 @@ const InviteStudentsModal = ({ onInvite, onCancel }) => {
       />
       <button className="button-save" onClick={handleInvite}>Add</button>
       <button className="button-cancel" onClick={onCancel}>Cancel</button>
+      {notification && <p>{notification}</p>}
     </div>
   );
 };
+
 
 export default InviteStudentsModal;

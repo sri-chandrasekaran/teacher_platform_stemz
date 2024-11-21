@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/styles.css';
 
 const PostModal = ({ onClose }) => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -16,13 +17,23 @@ const PostModal = ({ onClose }) => {
         <form>
           <h3>Make an Announcement</h3>
           <textarea placeholder="Enter your announcement here..." rows="5" style={{ width: '100%' }}></textarea>
-          <button type="submit">Post Announcement</button>
+          <button type="submit" style={{
+    margin: '10px 0',
+    padding: '8px 12px',
+    border: '2px solid #218838',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    backgroundColor: '#28a745',
+    color: 'white',
+    fontSize: '16px',
+    fontWeight: 'bold',
+  }}>Post Announcement</button>
         </form>
       );
     } else if (selectedOption === 'assignment') {
       return (
         <form>
-          <h3>Assign a Task</h3>
+          <h3 >Assign a Task</h3>
 
           {/* Course Dropdown */}
           <label>Course</label>
@@ -64,7 +75,17 @@ const PostModal = ({ onClose }) => {
             style={{ width: '100%' }}
           ></textarea>
 
-          <button type="submit" style={{ marginTop: '10px' }}>Assign Task</button>
+          <button type="submit" style={{ 
+              margin: '10px 0',
+              padding: '8px 12px',
+              border: '2px solid #218838',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              backgroundColor: '#28a745',
+              color: 'white',
+              fontSize: '16px',
+              fontWeight: 'bold',
+          }}>Assign Task</button>
         </form>
       );
     }

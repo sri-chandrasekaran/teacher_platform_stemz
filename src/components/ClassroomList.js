@@ -8,6 +8,8 @@ const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddC
   const [isInviteModalOpen, setInviteModalOpen] = useState(false);
   const [selectedClassroom, setSelectedClassroom] = useState(null);
   const [classroomList, setClassroomList] = useState(classrooms);
+  const [notification, setNotification] = useState('');
+  const [notificationVisible, setNotificationVisible] = useState(false);
 
   // Function to open modal for adding a new classroom
   const handleAddClassroom = () => {
@@ -48,6 +50,20 @@ const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddC
     setSelectedClassroom(null);
   };
 
+  const handleInvite = (email) => {
+    if (selectedClassroom) {
+      setNotification(`${email} has been added to ${selectedClassroom.name}`);
+      setNotificationVisible(true);  // Show the notification
+      setInviteModalOpen(false);
+  
+      setTimeout(() => {
+        setNotificationVisible(false);
+        setNotification('');
+      }, 3000);
+    }
+  };
+  
+
   return (
     <div className="classroom-list">
       {/* Add Classroom Button as a Card */}
@@ -65,7 +81,10 @@ const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddC
           onEnter={onEnter}
           onEdit={handleEdit}
           onDelete={handleDelete}
-          onInvite={() => setInviteModalOpen(true)}
+          onInvite={(classroomId) => {
+            setSelectedClassroom(classroomId);
+            setInviteModalOpen(true);
+          }}
         />
       ))}
 
@@ -79,12 +98,27 @@ const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddC
       )}
 
       {/* Invite Students Modal */}
-      {isInviteModalOpen && selectedClassroom && (
+      {/* {isInviteModalOpen && selectedClassroom && (
         <InviteStudentsModal
           onInvite={(email) => console.log(`Inviting ${email} to ${selectedClassroom.name}`)}
           onCancel={() => setInviteModalOpen(false)}
         />
+      )} */}
+
+      {isInviteModalOpen && selectedClassroom && (
+        <InviteStudentsModal
+          classroomName={selectedClassroom.name}
+          onInvite={handleInvite}
+          onCancel={() => setInviteModalOpen(false)}
+        />
       )}
+
+      {notificationVisible && (
+        <div className="notification">
+          {notification}
+        </div>
+      )}
+
     </div>
   );
 };
