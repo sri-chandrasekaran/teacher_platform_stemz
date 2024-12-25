@@ -4,6 +4,8 @@ import GroupsPage from './pages/Groups';
 import Dashboard from './pages/dashboard';
 import MessagingPage from './pages/Messages';
 import Settings from './pages/settings';
+import Users from './pages/users';
+import { UserSquare, UsersIcon } from 'lucide-react';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -39,6 +41,7 @@ function App() {
           <Route path="/dashboard/:classroomId" element={<Dashboard />} />
           <Route path="/messages" element={<MessagingPage />} />
           <Route path="/settings" element={<Settings darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+          <Route path="/users" element={<Users />} /> 
         </Routes>
       </div>
     </Router>
