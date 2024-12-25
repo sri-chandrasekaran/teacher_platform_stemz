@@ -31,9 +31,9 @@ const Dashboard = () => {
             </Link>
           </li>
           <li>
-            {/* <Link to={`/dashboard/${classroomId}`}>
+            <Link to={`/dashboard/${classroomId}`}>
               <FaChartLine className={`sidebar-icon ${isAnalyticsPage ? 'active' : ''}`} />
-            </Link> */}
+            </Link>
           </li>
           <li>
             <Link to="/users">

@@ -1,0 +1,61 @@
+/* Center the users list and table */
+.users-list {
+    flex-grow: 1;  /* Takes up remaining space */
+    padding: 20px;
+    display: flex;
+    justify-content: center;  /* Center content horizontally */
+    align-items: flex-start;  /* Aligns the content to the top */
+    flex-direction: column;
+    padding-top: 10%;  /* Starts the table 10% down from the top of the screen */
+    width: 100%;  /* Ensure it takes up full width excluding the sidebar */
+    overflow-x: auto;  /* Allow horizontal scrolling */
+  }
+  
+  /* The table styling */
+  .student-table {
+    width: 80%;  /* Set the table width to 80% */
+    max-width: 1200px;  /* Maximum width for large screens */
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  /* Soft shadow effect */
+  }
+  
+  /* Table header and data cell styles */
+  .student-table th, .student-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;  /* Subtle border */
+  }
+  
+  .student-table th {
+    background-color: #f0f0f0;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .student-table tr:hover {
+    background-color: #f9f9f9;  /* Light hover effect */
+  }
+  
+  /* Styling for email link */
+  .email-link {
+    text-decoration: none;
+    color: green;
+    cursor: pointer;
+  }
+  
+  .email-link:hover {
+    color: black;
+    text-decoration: underline;
+  }
+  
+  /* Centering the table header */
+  .users-list h2 {
+    text-align: center;
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
