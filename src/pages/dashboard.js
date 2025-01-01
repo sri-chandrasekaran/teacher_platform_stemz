@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom'; 
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-icons/fa';
 import PostModal from './post';
 import '../styles/styles.css';
 
 const Dashboard = () => {
-  const { id: classroomId } = useParams();  // Get the classroom ID from URL params
+  const { id: classroomId } = useParams(); 
   const [selectedStudent, setSelectedStudent] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
+  const [students, setStudents] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
 
   // Get the current location (URL)
@@ -16,6 +17,19 @@ const Dashboard = () => {
   // Dynamically determine if we're on the classroom's analytics page
   const isAnalyticsPage = location.pathname.includes(`/dashboard/${classroomId}`);
 
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/students`);
+        const data = await response.json();
+        setStudents(data); 
+      } catch (error) {
+        console.error('Error fetching students:', error);
+      }
+    };
+    
+    fetchStudents();
+  }, []);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -69,7 +83,7 @@ const Dashboard = () => {
         
         {/* Dropdowns */}
         <div className="dropdown-container">
-          <select 
+          {/* <select 
             className="dropdown"
             value={selectedStudent}
             onChange={(e) => setSelectedStudent(e.target.value)}
@@ -78,6 +92,18 @@ const Dashboard = () => {
             <option value="1">Student A</option>
             <option value="2">Student B</option>
             <option value="3">Student C</option>
+          </select> */}
+          <select 
+            className="dropdown"
+            value={selectedStudent}
+            onChange={(e) => setSelectedStudent(e.target.value)}
+          >
+            <option value="">Select a Student</option>
+            {students.map((student) => (
+              <option key={student.student_id} value={student.student_id}>
+                {student.student_name}
+              </option>
+            ))}
           </select>
 
           <select 

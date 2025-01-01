@@ -1,32 +1,31 @@
-/* Center the users list and table */
-.users-list {
-    flex-grow: 1;  /* Takes up remaining space */
+  .users-list {
+    flex-grow: 1; 
     padding: 20px;
     display: flex;
-    justify-content: center;  /* Center content horizontally */
-    align-items: flex-start;  /* Aligns the content to the top */
+    justify-content: flex-start; 
+    align-items: flex-start;
     flex-direction: column;
-    padding-top: 10%;  /* Starts the table 10% down from the top of the screen */
-    width: 100%;  /* Ensure it takes up full width excluding the sidebar */
-    overflow-x: auto;  /* Allow horizontal scrolling */
+    margin-left: 150px; 
+    width: 1200px;
+    overflow-x: auto;
   }
   
-  /* The table styling */
+  
   .student-table {
-    width: 80%;  /* Set the table width to 80% */
-    max-width: 1200px;  /* Maximum width for large screens */
+    width: 100%; 
+    max-width: 1200px; 
     border-collapse: collapse;
     margin-top: 20px;
     border-radius: 8px;
     background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  /* Soft shadow effect */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  
   }
   
-  /* Table header and data cell styles */
   .student-table th, .student-table td {
     padding: 15px 20px;
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0;  /* Subtle border */
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;  
+    vertical-align: middle; 
   }
   
   .student-table th {
@@ -36,14 +35,16 @@
   }
   
   .student-table tr:hover {
-    background-color: #f9f9f9;  /* Light hover effect */
+    background-color: #f9f9f9;  
   }
   
-  /* Styling for email link */
   .email-link {
     text-decoration: none;
     color: green;
     cursor: pointer;
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
   }
   
   .email-link:hover {
@@ -51,7 +52,6 @@
     text-decoration: underline;
   }
   
-  /* Centering the table header */
   .users-list h2 {
     text-align: center;
     color: #333;

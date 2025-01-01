@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Import useEffect
+import React, { useState, useEffect } from 'react'; 
 import { useParams, Link, useLocation } from 'react-router-dom'; 
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-icons/fa';
 import PostModal from './post';
@@ -22,9 +22,9 @@ const Users = () => {
       try {
         const response = await fetch('http://localhost:3000/api/students'); 
         const data = await response.json();
-        setStudents(data);  // Update state with fetched student data
+        setStudents(data);
       } catch (error) {
-        console.error('Error fetching students:', error);  // Handle errors
+        console.error('Error fetching students:', error); 
       }
     };
     
@@ -76,6 +76,7 @@ const Users = () => {
                 <th>Student ID</th>
                 <th>Student Name</th>
                 <th>Email</th>
+                <th>Current Scores</th>
               </tr>
             </thead>
             <tbody>
@@ -88,6 +89,7 @@ const Users = () => {
                       <FaEnvelope />
                     </a>
                   </td>
+                  <td>{student.cummulative_score}</td>
                 </tr>
               ))}
             </tbody>
