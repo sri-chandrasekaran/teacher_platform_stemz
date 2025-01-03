@@ -1664,18 +1664,18 @@ body.dark-mode .dark-mode-toggle {
 
 .side-window {
   position: fixed;
-  top: 10%; /* Lower start */
+  top: 10%;
   right: 0;
-  width: 33%; /* Takes one-third of the screen */
-  height: 80%; /* Adjust height proportionally */
+  width: 33%;
+  height: 80%;
   background-color: #ffffff;
   border-left: 3px solid #ccc;
   box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
   z-index: 1000;
-  overflow-y: auto; /* For scrolling if content overflows */
+  overflow-y: auto;
+  height: 400px;
 }
-
 
 .close-button {
   position: absolute;
@@ -1689,17 +1689,20 @@ body.dark-mode .dark-mode-toggle {
   color: #333;
 }
 
+.message-student-container {
+  margin-top: auto; 
+  display: flex;
+  justify-content: center; 
+}
 
 .message-student-button {
-  margin-top: 20px;
   padding: 10px 20px;
-  background-color: #2196f3;
-  color: #fff;
+  background-color: #0f8ef7;
+  color: white;
   border: none;
-  border-radius: 6px;
-  font-size: 16px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 14px;
 }
 
 .message-student-button:hover {
@@ -1707,7 +1710,7 @@ body.dark-mode .dark-mode-toggle {
 }
 
 .remove-button {
-  position: absolute; /* Position at the top-right corner */
+  position: absolute; 
   top: 8px;
   right: 8px;
   background: transparent;
@@ -1719,5 +1722,5 @@ body.dark-mode .dark-mode-toggle {
 }
 
 .remove-button:hover {
-  color: black; /* Highlight in red on hover */
+  color: #ff0000;
 }
