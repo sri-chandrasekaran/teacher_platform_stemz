@@ -4,8 +4,8 @@ import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine, FaPlusCircle }
 
 
 const Settings = () => {
-    const [classroomId, setClassroomId] = useState('12345');
-    const [classroomName, setClassroomName] = useState('Default Classroom');
+  const [classroomId, setClassroomId] = useState('12345');
+  const [classroomName, setClassroomName] = useState('Default Classroom');
   const [classroomDescription, setClassroomDescription] = useState('A brief description of the classroom.');
   const [darkMode, setDarkMode] = useState(false);
   const [weeklyEmails, setWeeklyEmails] = useState(true);
@@ -33,7 +33,6 @@ const Settings = () => {
     }
   };
 
-  // Handle Dark Mode Toggle
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };

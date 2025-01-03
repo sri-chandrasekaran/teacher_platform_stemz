@@ -9,6 +9,7 @@ const Dashboard = () => {
   const [selectedStudent, setSelectedStudent] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
   const [students, setStudents] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
 
   // Get the current location (URL)
@@ -29,6 +30,20 @@ const Dashboard = () => {
     };
     
     fetchStudents();
+  }, []);
+
+  useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/course`);
+        const data = await response.json();
+        setCourses(data);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+      }
+    };
+    
+    fetchClasses();
   }, []);
 
   const openModal = () => setModalOpen(true);
@@ -106,7 +121,7 @@ const Dashboard = () => {
             ))}
           </select>
 
-          <select 
+          {/* <select 
             className="dropdown"
             value={selectedCourse}
             onChange={(e) => setSelectedCourse(e.target.value)}
@@ -115,6 +130,18 @@ const Dashboard = () => {
             <option value="1">Astronomy</option>
             <option value="2">Chemistry</option>
             <option value="3">Psychology</option>
+          </select> */}
+          <select 
+            className="dropdown"
+            value={selectedCourse}
+            onChange={(e) => setSelectedCourse(e.target.value)}
+          >
+            <option value="">Select a Course</option>
+            {courses.map((course) => (  // Use 'courses' here
+              <option key={course.course_name} value={course.course_name}>
+                {course.course_name}
+              </option>
+            ))}
           </select>
         </div>
 

@@ -29,4 +29,17 @@ router.get('/notifs', async (req, res) => {
   }
 });
 
+// get all classes 
+router.get('/course', async (req, res) => {
+  console.log('Request received for /course');
+  try {
+    const result = await pool.query('SELECT * FROM self_paced_courses');
+    console.log(result.rows); 
+    res.json(result.rows);  
+  } catch (err) {
+    console.error('Error querying database:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = router;
