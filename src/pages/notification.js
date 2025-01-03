@@ -111,30 +111,6 @@ const Notifications = () => {
 
 
         {/* Side Window */}
-        {/* {selectedNotification && (
-          <div className="side-window">
-          <button className="close-button" onClick={() => setSelectedNotification(null)}>
-            X
-          </button>
-          <h3>{selectedNotification.student}</h3>
-          <p>
-            {selectedNotification.student} scored {selectedNotification.score}% on{' '}
-            {selectedNotification.assignment}.
-          </p>
-          <button
-            className="message-student-button"
-            onClick={() => {
-              window.location.href = `/messages?student=${selectedNotification.student}&message=${encodeURIComponent(
-                `You scored ${selectedNotification.score} on ${selectedNotification.assignment}. Let's schedule a time to chat about the content.`
-              )}`;
-            }}
-          >
-            Message Student
-          </button>
-
-        </div>
-        
-        )} */}
 {selectedNotification && (
   <div className="side-window">
     <button className="close-button" onClick={() => setSelectedNotification(null)}>
