@@ -1600,3 +1600,124 @@ body.dark-mode .dark-mode-toggle {
   transform: translateY(-100%);
 }
 
+
+/* Notifications Page */
+
+.notifications-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center cards horizontally */
+  gap: 24px; /* Space between cards */
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.notification-card {
+  width: 80%; /* 80% of the screen width */
+  max-width: 600px; /* Set a max width for larger screens */
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px; /* Add rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 24px; /* Add more padding for a spacious feel */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.notification-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.medium-card {
+  background-color: #fffde7; /* Yellow */
+  border-left: 5px solid #fbc02d;
+}
+
+.success-card {
+  background-color: #e8f5e9;
+  border-left: 5px solid #4caf50;
+}
+
+.failure-card {
+  background-color: #ffebee;
+  border-left: 5px solid #f44336;
+}
+
+.default-card {
+  background-color: #e3f2fd;
+  border-left: 5px solid #2196f3;
+}
+
+.notification-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.notification-text {
+  font-size: 16px;
+  margin-top: 5px;
+  color: #555;
+}
+
+.side-window {
+  position: fixed;
+  top: 10%; /* Lower start */
+  right: 0;
+  width: 33%; /* Takes one-third of the screen */
+  height: 80%; /* Adjust height proportionally */
+  background-color: #ffffff;
+  border-left: 3px solid #ccc;
+  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000;
+  overflow-y: auto; /* For scrolling if content overflows */
+}
+
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+}
+
+
+.message-student-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.message-student-button:hover {
+  background-color: #1769aa;
+}
+
+.remove-button {
+  position: absolute; /* Position at the top-right corner */
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.remove-button:hover {
+  color: black; /* Highlight in red on hover */
+}

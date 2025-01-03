@@ -5,6 +5,7 @@ import Dashboard from './pages/dashboard';
 import MessagingPage from './pages/Messages';
 import Settings from './pages/settings';
 import Users from './pages/users';
+import Notifications from './pages/notification'
 import { UserSquare, UsersIcon } from 'lucide-react';
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           <Route path="/messages" element={<MessagingPage />} />
           <Route path="/settings" element={<Settings darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
           <Route path="/users" element={<Users />} /> 
+          <Route path="/notifications" element={<Notifications />} /> 
         </Routes>
       </div>
     </Router>

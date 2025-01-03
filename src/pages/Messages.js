@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine, FaPlusCircle } from 'react-icons/fa';
 import '../styles/styles.css';
@@ -16,22 +16,26 @@ const MessagingPage = () => {
   const [groupChats, setGroupChats] = useState([]);
   const [groupName, setGroupName] = useState('');
   const [error, setError] = useState('');
-  // const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState([]); // State for students
 
-  const students = ['Student 1', 'Student 2', 'Student 3', 'Student 4', 'Student 5'];
-
-  // useEffect(() => {
-  //   const fetchStudents = async () => {
-  //     try {
-  //       const response = await axios.get(`/api/classrooms/${classroomId}/students`);
-  //       setStudents(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching students:', error);
-  //     }
-  //   };
-
-  //   fetchStudents();
-  // }, [classroomId]);
+  // Fetch students on component load
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/students');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setStudents(data.map(student => student.student_name)); // Adjust based on your API response structure
+      } catch (error) {
+        console.error('Error fetching students:', error);
+      }
+    };
+  
+    fetchStudents();
+  }, []);
+  
 
   const handleStudentSelect = (student) => {
     setSelectedStudent(student);
@@ -81,7 +85,9 @@ const MessagingPage = () => {
   };
 
   const handleCheckboxChange = (student) => {
-    setSelectedStudents(selectedStudents.includes(student) ? selectedStudents.filter(s => s !== student) : [...selectedStudents, student]);
+    setSelectedStudents(selectedStudents.includes(student)
+      ? selectedStudents.filter(s => s !== student)
+      : [...selectedStudents, student]);
   };
 
   return (
