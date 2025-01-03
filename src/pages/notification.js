@@ -83,35 +83,21 @@ const Notifications = () => {
       {/* Main Content */}
       <div className="content">
         <h1 className="dashboard-title">Notifications</h1>
-        {/* <div className="notifications-container">
-          {filteredNotifications.map((notification) => (
-            <div
-              key={notification.id}
-              className={`notification-card ${
-                notification.score < 60 ? 'failure-card' : 'medium-card'
-              }`}
-              onClick={() => setSelectedNotification(notification)} // Open side window
-            >
-              <h3 className="notification-title">{notification.student}</h3>
-              <p className="notification-text">
-                {notification.score < 60
-                  ? `scored below 60% on ${notification.assignment}`
-                  : `scored ${notification.score}% on ${notification.assignment}`}
-              </p>
-            </div>
-          ))}
-        </div> */}
-        <div className="notifications-container">
+<div className="notifications-container">
   {filteredNotifications.map((notification) => (
     <div
       key={notification.id}
       className={`notification-card ${
         notification.score < 60 ? 'failure-card' : 'medium-card'
       }`}
+      onClick={() => setSelectedNotification(notification)} // Set the selected notification
     >
       <button
         className="remove-button"
-        onClick={() => setNotifications(notifications.filter((n) => n.id !== notification.id))}
+        onClick={(e) => {
+          e.stopPropagation(); // Prevent triggering the card's onClick when clicking "X"
+          setNotifications(notifications.filter((n) => n.id !== notification.id));
+        }}
       >
         X
       </button>
@@ -124,10 +110,8 @@ const Notifications = () => {
 </div>
 
 
-
-
         {/* Side Window */}
-        {selectedNotification && (
+        {/* {selectedNotification && (
           <div className="side-window">
           <button className="close-button" onClick={() => setSelectedNotification(null)}>
             X
@@ -150,7 +134,32 @@ const Notifications = () => {
 
         </div>
         
-        )}
+        )} */}
+{selectedNotification && (
+  <div className="side-window">
+    <button className="close-button" onClick={() => setSelectedNotification(null)}>
+      X
+    </button>
+    <h3>{selectedNotification.student}</h3>
+    <p>
+      {selectedNotification.student} scored {selectedNotification.score}% on{' '}
+      {selectedNotification.assignment}.
+    </p>
+    <div className="message-student-container">
+      <button
+        className="message-student-button"
+        onClick={() => {
+          window.location.href = `/messages?student=${selectedNotification.student}&message=${encodeURIComponent(
+            `You scored ${selectedNotification.score} on ${selectedNotification.assignment}. Let's schedule a time to chat about the content.`
+          )}`;
+        }}
+      >
+        Message Student
+      </button>
+    </div>
+  </div>
+)}
+
       </div>
     </div>
   );
