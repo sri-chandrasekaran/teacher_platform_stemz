@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine, FaPlusCircle } from 'react-icons/fa';
-
+import '../styles/settings.css';
 
 const Settings = () => {
   const [classroomId, setClassroomId] = useState('12345');
@@ -77,18 +77,15 @@ const Settings = () => {
           </div>
         </div>
 
-        {/* Dark Mode Toggle */}
-        <div className="settings-section">
+        {/* <div className="settings-section">
           <h2>Appearance</h2>
           <div className="dark-mode-toggle">
-            {/* <span>Dark Mode</span> */}
             <button onClick={toggleDarkMode}>
               {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             </button>
           </div>
-        </div>
+        </div> */}
 
-        {/* Notification Settings */}
         <div className="settings-section">
           <h2>Notifications</h2>
           <div className="form-group">
@@ -102,7 +99,6 @@ const Settings = () => {
           </div>
         </div>
 
-        {/* Delete Classroom */}
         <div className="settings-section danger-zone">
           <h2>Danger Zone</h2>
           <button

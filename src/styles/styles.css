@@ -1724,3 +1724,55 @@ body.dark-mode .dark-mode-toggle {
 .remove-button:hover {
   color: #ff0000;
 }
+
+.leaderboard {
+  margin-top: 30px;
+}
+
+.leaderboard h2 {
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+/* Table Styling */
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.leaderboard-table th {
+  background-color: #34495e;
+  color: #ecf0f1;
+  font-size: 18px;
+}
+
+.leaderboard-table td {
+  background-color: #fff;
+  color: #2c3e50;
+}
+
+.leaderboard-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.leaderboard-table tr:hover {
+  background-color: #f1c40f;
+  color: #fff;
+}
+
+.leaderboard-table tr td,
+.leaderboard-table th {
+  font-size: 16px;
+  font-weight: 500;
+}

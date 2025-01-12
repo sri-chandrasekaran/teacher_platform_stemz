@@ -10,27 +10,48 @@ const Dashboard = () => {
   const [selectedCourse, setSelectedCourse] = useState('');
   const [students, setStudents] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [leaderboard, setLeaderboard] = useState([]); 
   const [isModalOpen, setModalOpen] = useState(false);
 
-  // Get the current location (URL)
   const location = useLocation();
 
-  // Dynamically determine if we're on the classroom's analytics page
   const isAnalyticsPage = location.pathname.includes(`/dashboard/${classroomId}`);
+
+  // useEffect(() => {
+  //   const fetchStudents = async () => {
+  //     try {
+  //       const response = await fetch(`http://localhost:3000/api/students`);
+  //       const data = await response.json();
+  //       setStudents(data); 
+  //     } catch (error) {
+  //       console.error('Error fetching students:', error);
+  //     }
+  //   };
+    
+  //   fetchStudents();
+  // }, []);
 
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/students`);
+        const response = await fetch('http://localhost:3000/api/students');
         const data = await response.json();
-        setStudents(data); 
+  
+        // Add fake last_logged_on data for each student entry
+        const studentsWithFakeData = data.map(student => ({
+          ...student,
+          last_logged_on: new Date(Date.now() - Math.random() * 10000000000).toISOString() 
+        }));
+  
+        setLeaderboard(studentsWithFakeData);  // Set the updated data to leaderboard state
       } catch (error) {
         console.error('Error fetching students:', error);
       }
     };
-    
+  
     fetchStudents();
   }, []);
+  
 
   useEffect(() => {
     const fetchClasses = async () => {
@@ -48,6 +69,11 @@ const Dashboard = () => {
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+
+  // top 5 scores
+  const topStudents = leaderboard
+    .sort((a, b) => b.cummulative_score - a.cummulative_score) 
+    .slice(0, 5);
 
   return (
     <div className="dashboard">
@@ -69,11 +95,6 @@ const Dashboard = () => {
               <FaUsers className={`sidebar-icon ${location.pathname === '/users' ? 'active' : ''}`} />
             </Link>
           </li>
-          {/* <li>
-            <Link to="/messages">
-              <FaEnvelope className={`sidebar-icon ${location.pathname === '/messages' ? 'active' : ''}`} />
-            </Link>
-          </li> */}
           <li>
           <Link to={`/messages`}>
             <FaEnvelope className={`sidebar-icon ${location.pathname === '/messages' ? 'active' : ''}`} />
@@ -98,16 +119,6 @@ const Dashboard = () => {
         
         {/* Dropdowns */}
         <div className="dropdown-container">
-          {/* <select 
-            className="dropdown"
-            value={selectedStudent}
-            onChange={(e) => setSelectedStudent(e.target.value)}
-          >
-            <option value="">Select a Student</option>
-            <option value="1">Student A</option>
-            <option value="2">Student B</option>
-            <option value="3">Student C</option>
-          </select> */}
           <select 
             className="dropdown"
             value={selectedStudent}
@@ -120,30 +131,53 @@ const Dashboard = () => {
               </option>
             ))}
           </select>
-
-          {/* <select 
-            className="dropdown"
-            value={selectedCourse}
-            onChange={(e) => setSelectedCourse(e.target.value)}
-          >
-            <option value="">Select a Course</option>
-            <option value="1">Astronomy</option>
-            <option value="2">Chemistry</option>
-            <option value="3">Psychology</option>
-          </select> */}
           <select 
             className="dropdown"
             value={selectedCourse}
             onChange={(e) => setSelectedCourse(e.target.value)}
           >
             <option value="">Select a Course</option>
-            {courses.map((course) => (  // Use 'courses' here
+            {courses.map((course) => (
               <option key={course.course_name} value={course.course_name}>
                 {course.course_name}
               </option>
             ))}
           </select>
         </div>
+
+        {/* Leadership Board Table */}
+        {!selectedStudent && !selectedCourse && (
+          <div className="leaderboard">
+            <h2>Top 5 Leaderboard</h2>
+            <table className="leaderboard-table">
+              <thead>
+                <tr>
+                  <th>Student ID</th>
+                  <th>Student Name</th>
+                  <th>Last Logged On</th>
+                  <th>Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                {topStudents.length > 0 ? (
+                  topStudents.map((entry) => (
+                    <tr key={entry.student_id}>
+                      <td>{entry.student_id}</td>
+                      <td>{entry.student_name}</td>
+                      <td>{new Date(entry.last_logged_on).toLocaleDateString()}</td>
+                      <td>{entry.cummulative_score}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="3">No leaderboard data available</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
+
 
         <button
           className="floating-button"

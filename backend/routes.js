@@ -42,4 +42,24 @@ router.get('/course', async (req, res) => {
   }
 });
 
+// Get top 5 students with highest points
+router.get('/points', async (req, res) => {
+  console.log('Request received for /points');
+  try {
+    const result = await pool.query(
+      `SELECT classroom_1.first_name, classroom_1.last_name, current_scores.points
+       FROM current_scores
+       JOIN classroom_1 ON current_scores.student_id = classroom_1.student_id
+       ORDER BY current_scores.points DESC
+       LIMIT 5`
+    );
+    console.log(result.rows); 
+    res.json(result.rows);  // Respond with the data
+  } catch (err) {
+    console.error('Error querying database:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 module.exports = router;
