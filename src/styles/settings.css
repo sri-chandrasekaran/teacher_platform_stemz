@@ -1,0 +1,101 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9; /* Subtle background */
+    color: #333;
+  }
+  
+  .settings-page {
+    display: flex;
+    min-height: 100vh;
+  }
+  /* Main Content Styles */
+  .settings-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background-color: #f9f9f9;
+    margin-left: 50px;
+  }
+  
+  .settings-content {
+    width: 90%; /* Takes 90% of the available space */
+    max-width: 1100px; /* Ensures it doesn't grow too large */
+    background-color: white;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0 auto; /* Centered horizontally */
+  }
+  
+  /* Section Styles */
+  .settings-section {
+    margin-bottom: 30px;
+  }
+  
+  .settings-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .settings-section .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .form-input,
+  .form-textarea,
+  .form-checkbox {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem;
+  }
+  
+  .form-textarea {
+    resize: vertical;
+  }
+  
+  .form-checkbox {
+    width: auto;
+    margin-left: 10px;
+  }
+  
+  /* Buttons */
+  button {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 1rem;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .del-button {
+    background-color: #dc3545;
+  }
+  
+  .del-button:hover {
+    background-color: #b02a37;
+  }
+  
+  
