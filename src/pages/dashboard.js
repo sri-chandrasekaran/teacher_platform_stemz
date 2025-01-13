@@ -2,7 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom'; 
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-icons/fa';
 import PostModal from './post';
+import PlotlyHeatmap from './heatmap';
+import ActiveUsers from './activeUsers';
+import { Line } from 'react-chartjs-2';
+import Plot from 'react-plotly.js';
 import '../styles/styles.css';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const Dashboard = () => {
   const { id: classroomId } = useParams(); 
@@ -36,7 +51,7 @@ const Dashboard = () => {
       try {
         const response = await fetch('http://localhost:3000/api/students');
         const data = await response.json();
-  
+        setStudents(data);
         // Add fake last_logged_on data for each student entry
         const studentsWithFakeData = data.map(student => ({
           ...student,
@@ -70,10 +85,132 @@ const Dashboard = () => {
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
+  const assignments = [
+    { name: 'Lesson 1', progress: 85 },
+    { name: 'Lesson 2', progress: 60 },
+    { name: 'Lesson 3', progress: 95 },
+    { name: 'Lesson 4', progress: 50 },
+  ];
+
+  const renderProgressBar = (progress) => {
+    return (
+      <div className="progress-bar-container">
+        <div className="progress-bar" style={{ width: `${progress}%` }}>
+          {/* {progress}% */}
+        </div>
+      </div>
+    );
+  };
+
+
+  const skillMetrics = {
+    Creativity: 18,
+    Curiosity: 15,
+    CriticalThinking: 17,
+    Observation: 14,
+    ProblemSolving: 16,
+  };
+
+  const renderSkillCircle = (label, value) => {
+    const percentage = (value / 20) * 100; // Assuming max score is 20
+    return (
+      <div className="skill-circle">
+        <div
+          className="outer-circle"
+          style={{
+            background: `conic-gradient(#4CAF50 ${percentage}%, #f0f0f0 ${percentage}%)`,
+          }}
+        >
+          <div className="inner-circle">{value}/20</div>
+        </div>
+        <p>{label}</p>
+      </div>
+    );
+  };
+
   // top 5 scores
   const topStudents = leaderboard
     .sort((a, b) => b.cummulative_score - a.cummulative_score) 
     .slice(0, 5);
+
+    // Fake grade data for the dot plot
+  const gradeData = [10, 12, 14, 15, 18, 11, 13, 16, 17, 19, 20, 16, 18, 14, 11, 13, 17, 12, 15];
+
+  const dotPlotData = {
+    x: gradeData, // This represents the grades
+    type: 'scatter',
+    mode: 'markers',
+    marker: {
+      color: 'rgba(75, 192, 192, 1)',
+      size: 12,
+    },
+  };
+
+  const dotPlotLayout = {
+    title: 'Average Grade Distribution',
+    xaxis: { title: 'Grades' },
+    yaxis: { title: 'Frequency' },
+    showlegend: false,
+  };
+
+
+    // Generate fake historical data for predictive analysis
+    const generateFakeData = () => {
+      const fakeData = [];
+      let currentDate = new Date();
+  
+      for (let i = 0; i < 10; i++) {
+        fakeData.push({
+          date: currentDate.toISOString().split('T')[0], // Format date as YYYY-MM-DD
+          points: Math.floor(Math.random() * 20) + 1 // Random points between 1 and 20
+        });
+        currentDate.setDate(currentDate.getDate() - 1); // Go backwards in time
+      }
+  
+      return fakeData.reverse(); // Reverse to have data in increasing date order
+    };
+  
+    const generateSimplePrediction = (performanceData) => {
+      if (performanceData.length === 0) return [];
+  
+      const averagePoints = performanceData.reduce((acc, curr) => acc + curr.points, 0) / performanceData.length;
+      let lastPoints = performanceData[performanceData.length - 1].points;
+      const predictions = [];
+  
+      // Generate 5 future predictions
+      for (let i = 0; i < 5; i++) {
+        lastPoints += Math.round(averagePoints * 0.05); // Assume 5% improvement each time
+        predictions.push({ date: `2025-01-${i + 1}`, points: Math.round(lastPoints) }); // Use fixed dates for simplicity
+      }
+  
+      return predictions;
+    };
+  
+    // Prepare chart data
+    const performanceData = generateFakeData();
+    const predictions = generateSimplePrediction(performanceData);
+  
+    const chartData = {
+      labels: [
+        ...performanceData.map(entry => entry.date),
+        ...predictions.map(entry => entry.date)
+      ],
+      datasets: [
+        {
+          label: 'Historical Performance',
+          data: performanceData.map(entry => entry.points),
+          borderColor: 'rgba(75, 192, 192, 1)',
+          fill: false,
+        },
+        {
+          label: 'Predicted Performance',
+          data: predictions.map(entry => entry.points),
+          borderColor: 'rgba(255, 99, 132, 1)',
+          fill: false,
+          borderDash: [5, 5],
+        }
+      ]
+    };
 
   return (
     <div className="dashboard">
@@ -145,8 +282,15 @@ const Dashboard = () => {
           </select>
         </div>
 
-        {/* Leadership Board Table */}
-        {!selectedStudent && !selectedCourse && (
+        {(!selectedStudent && !selectedCourse) && (
+          <>
+        <div className="tables-container">
+          {/* Active Users Section */}
+          <div className="active-users">
+            <ActiveUsers />
+          </div>
+
+          {/* Leaderboard Section */}
           <div className="leaderboard">
             <h2>Top 5 Leaderboard</h2>
             <table className="leaderboard-table">
@@ -170,13 +314,77 @@ const Dashboard = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="3">No leaderboard data available</td>
+                    <td colSpan="4">No leaderboard data available</td>
                   </tr>
                 )}
               </tbody>
             </table>
           </div>
+        </div>
+        {/* Engagement Heatmap */}
+        <div className="heatmap-container">
+          <PlotlyHeatmap />
+        </div>
+        </>
         )}
+
+        {/* Predictive Analysis and Skill Development Section */}
+        {(selectedStudent && !selectedCourse) && (
+          <div className="student-specific-section">
+            {/* Predictive Analysis Section */}
+            <div className="predictive-analysis">
+              {/* <h2>Predictive Analysis</h2> */}
+              <Line data={chartData} />
+            </div>
+
+            {/* Skill Development Analysis Section */}
+            <div className="skill-development">
+              <h2>Skill Development Analysis</h2>
+              <div className="skill-circles">
+                {Object.entries(skillMetrics).map(([label, value]) => 
+                  renderSkillCircle(label, value)
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Average Grade Distribution Dot Plot */}
+        {(!selectedStudent && selectedCourse) && (
+        <div className="dot-plot-container">
+          {/* <h2>Average Grade Distribution</h2> */}
+          <Plot
+            data={[dotPlotData]}
+            layout={dotPlotLayout}
+          />
+        </div>
+        )}
+
+{/* Display assignments with progress bars */}
+{(selectedCourse && selectedStudent) && (
+  <div>
+    <div className="assignments-container">
+      {assignments.map((assignment, index) => (
+        <div key={index} className="assignment-box"> 
+          <div className="assignment-header">
+            <h3>{assignment.name}</h3>
+          </div>
+          {renderProgressBar(assignment.progress)}
+        </div>
+      ))}
+    </div>
+    
+    <div className="skill-development">
+      {/* <h2>Skill Development Analysis</h2> */}
+      <div className="skill-circles">
+        {Object.entries(skillMetrics).map(([label, value]) => 
+          renderSkillCircle(label, value)
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
 
 
         <button
