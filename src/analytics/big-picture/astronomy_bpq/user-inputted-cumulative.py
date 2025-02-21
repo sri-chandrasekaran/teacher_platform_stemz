@@ -27,7 +27,7 @@ def plot_3d_scatter(x, y, z, x_label, y_label, z_label, title="3D Scatter Plot")
     
     plt.show()
 
-with open('4_5lesson1.json') as f:
+with open('l1_k_2_questions.json') as f:
     data = json.load(f)
 
 analyzer = SentimentIntensityAnalyzer()
