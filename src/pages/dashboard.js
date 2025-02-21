@@ -3,6 +3,7 @@ import { useParams, Link, useLocation } from 'react-router-dom';
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-icons/fa';
 import PostModal from './post';
 import PlotlyHeatmap from './heatmap';
+import Popup from './popup';
 import ActiveUsers from './activeUsers';
 import { Line } from 'react-chartjs-2';
 import Plot from 'react-plotly.js';
@@ -27,25 +28,20 @@ const Dashboard = () => {
   const [courses, setCourses] = useState([]);
   const [leaderboard, setLeaderboard] = useState([]); 
   const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedAssignment, setSelectedAssignment] = useState(null);
 
   const location = useLocation();
 
   const isAnalyticsPage = location.pathname.includes(`/dashboard/${classroomId}`);
 
-  // useEffect(() => {
-  //   const fetchStudents = async () => {
-  //     try {
-  //       const response = await fetch(`http://localhost:3000/api/students`);
-  //       const data = await response.json();
-  //       setStudents(data); 
-  //     } catch (error) {
-  //       console.error('Error fetching students:', error);
-  //     }
-  //   };
-    
-  //   fetchStudents();
-  // }, []);
-
+  const openPopup = (assignment) => {
+    setSelectedAssignment(assignment);  
+  };
+  
+  const closePopup = () => {
+    setSelectedAssignment(null);
+  };
+  
   useEffect(() => {
     const fetchStudents = async () => {
       try {
@@ -360,12 +356,13 @@ const Dashboard = () => {
         </div>
         )}
 
+
 {/* Display assignments with progress bars */}
 {(selectedCourse && selectedStudent) && (
   <div>
     <div className="assignments-container">
       {assignments.map((assignment, index) => (
-        <div key={index} className="assignment-box"> 
+        <div key={index} className="assignment-box" onClick={() => openPopup(assignment)}> 
           <div className="assignment-header">
             <h3>{assignment.name}</h3>
           </div>
@@ -376,11 +373,11 @@ const Dashboard = () => {
     
     <div className="skill-development">
       {/* <h2>Skill Development Analysis</h2> */}
-      <div className="skill-circles">
+      {/* <div className="skill-circles">
         {Object.entries(skillMetrics).map(([label, value]) => 
           renderSkillCircle(label, value)
         )}
-      </div>
+      </div> */}
     </div>
   </div>
 )}
@@ -394,6 +391,7 @@ const Dashboard = () => {
           +
         </button>
         {isModalOpen && <PostModal onClose={closeModal} />}
+        <Popup isOpen={!!selectedAssignment} onClose={closePopup} assignment={selectedAssignment} />
       </div>
     </div>
   );
