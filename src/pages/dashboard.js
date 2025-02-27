@@ -29,6 +29,7 @@ const Dashboard = () => {
   const [leaderboard, setLeaderboard] = useState([]); 
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
+  
 
   const location = useLocation();
 
@@ -185,6 +186,53 @@ const Dashboard = () => {
     // Prepare chart data
     const performanceData = generateFakeData();
     const predictions = generateSimplePrediction(performanceData);
+
+    
+
+    /*
+      So, for the future, there should be actual data populated that I will query from in
+      order to make the analytics, this is just dummy data I can use for now
+    */
+    const weeklyStudentData = function() {
+
+        //map for scores + student
+
+        const student_score_map = new Map();
+
+        //create a date object
+        const now = new Date();
+
+        //write the string in the format "WEEKDAY MONTH DAY YEAR"
+        const dateString = "${now.getMonth()}-${now.getDate()-${now.getFullYear()}}";
+   
+        //just do 5 students for now
+        const numStudents = 5;
+
+        //step 2: generate some random score for each student per assignment
+        for (let student = 1; student <= numStudents; numStudents++) 
+        {
+
+          const assignmentScores = [];
+          //for every single assignment
+          for (let assignment = 1; assignment <= 4; assignment++) {
+
+            //random student assignment score
+            const randomScore = Math.floor(Math.random() * 100) + 1;
+
+            assignmentScores.push({
+              "assignment" : "Assignment ${assignment}", 
+              "score": randomScore,
+              "date": dateString});
+
+          }
+
+          student_score_map("Student ${student}", assignmentScores);
+
+        }
+        return student_score_map;
+    };
+
+
   
     const chartData = {
       labels: [

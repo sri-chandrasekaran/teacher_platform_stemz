@@ -10,7 +10,7 @@ const PlotlyHeatmap = () => {
         [55, 62, 30]
       ],
       x: ['Slides', 'Worksheets', 'Quizzes'],
-      y: ['Leeson 1', 'Lesson 2', 'Lesson 3', 'Lesson 4'],
+      y: ['Lesson 1', 'Lesson 2', 'Lesson 3', 'Lesson 4'],
       type: 'heatmap',
       colorscale: 'Greens',
       colorbar: {
