@@ -225,8 +225,106 @@ const Dashboard = () => {
       };
        
 
-    //now create different analytics over weekly data
+    //now create different analytics over weekly data analyze trends over time
+    //filter out the dates per week
+    // First, generate our sample data
+const studentData = generateStudentData(4); // 4 weeks of data
 
+// 1. Group by time periods (weeks)
+const groupByWeek = () => {
+  const weeklyData = {};
+  
+  studentData.forEach(item => {
+    if (!weeklyData[item.week]) {
+      weeklyData[item.week] = [];
+    }
+    weeklyData[item.week].push(item);
+  });
+  
+  return weeklyData;
+};
+
+// 2. Calculate aggregates
+const calculateAggregates = () => {
+  const weeklyAggregates = {};
+  const groupedData = groupByWeek();
+  
+  // For each week
+  Object.keys(groupedData).forEach(week => {
+    const weekData = groupedData[week];
+    const scores = weekData.map(item => item.score);
+    
+    weeklyAggregates[week] = {
+      average: scores.reduce((sum, score) => sum + score, 0) / scores.length,
+      min: Math.min(...scores),
+      max: Math.max(...scores),
+      count: scores.length,
+      date: weekData[0].date // Use date from first item in the week
+    };
+  });
+  
+  return weeklyAggregates;
+};
+
+// Compare values across time (week-over-week changes)
+const calculateTrends = () => {
+  const aggregates = calculateAggregates();
+  const trends = {};
+  
+ 
+  for (let week = 1; week <= Object.keys(aggregates).length; week++) {
+    const currentWeek = aggregates[week];
+    const previousWeek = aggregates[week - 1];
+    
+    trends[week] = {
+      averageChange: currentWeek.average - previousWeek.average,
+      percentChange: ((currentWeek.average - previousWeek.average) / previousWeek.average) * 100,
+      improvementCount: studentData.filter(item => 
+        item.week === week && 
+        studentData.some(prevItem => 
+          prevItem.week === (week - 1) && 
+          prevItem.studentId === item.studentId && 
+          prevItem.assignmentId === item.assignmentId && 
+          item.score > prevItem.score
+        )
+      ).length
+    };
+  }
+  
+  return trends;
+};
+
+// Studnet specific trends
+const getStudentTrend = (studentId) => {
+  const studentScores = studentData
+    .filter(item => item.studentId === studentId)
+    .sort((a, b) => a.week - b.week);
+  
+  const weeklyAverages = {};
+  
+  studentScores.forEach(item => {
+    if (!weeklyAverages[item.week]) {
+      weeklyAverages[item.week] = {
+        scores: [],
+        date: item.date
+      };
+    }
+    weeklyAverages[item.week].scores.push(item.score);
+  });
+  
+  // Calculate averages for scores for each week
+  Object.keys(weeklyAverages).forEach(week => {
+    const scores = weeklyAverages[week].scores;
+    weeklyAverages[week].average = scores.reduce((sum, score) => sum + score, 0) / scores.length;
+  });
+  
+  return weeklyAverages;
+};
+
+// Example usage:
+console.log("Weekly grouped data:", groupByWeek());
+console.log("Weekly aggregates:", calculateAggregates());
+console.log("Week-over-week trends:", calculateTrends());
     
 
   
