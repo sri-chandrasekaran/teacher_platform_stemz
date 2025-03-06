@@ -398,8 +398,8 @@ const Dashboard = () => {
 
         {!selectedStudent && selectedCourse && (
           <div className="tables-wrapper">
-            {/* Left Section: Active Users & Dot Plot */}
             <div className="tables-container">
+              {/* Recent activity in a course */}
               <div className="active-course-users">
                 <ActiveCourseUsers />
               </div>
@@ -407,15 +407,15 @@ const Dashboard = () => {
                 <Plot data={[dotPlotData]} layout={dotPlotLayout} />
               </div> */}
 
+              {/* histogram/gaussian plot */}
               <div className="dot-plot-container">
                 <GradeCurve />
               </div>
 
             </div>
-
-            {/* Right Section: New Table */}
+            {/* Grades table containing all grades for a course */}
             <div className="extra-table-container">
-              <CourseGrades /> {/* Replace with your table component */}
+              <CourseGrades />
             </div>
           </div>
         )}

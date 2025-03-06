@@ -40,9 +40,7 @@ const GradeCurve = () => {
         <Plot data = {[
             {
                 x: grades,
-                // y: Array(grades.length).fill(0), 
                 type: "histogram",
-                // mode: "markers",
                 histnorm: "count",
                 autobinx: true,
                 name: "Grades",
