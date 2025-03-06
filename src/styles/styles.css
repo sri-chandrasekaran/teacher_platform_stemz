@@ -2000,3 +2000,7 @@ p {
   transition: width 0.3s ease;
 }
 
+.tables-wrapper {
+  display: flex;
+  gap: 20px;
+}

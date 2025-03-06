@@ -5,6 +5,9 @@ import PostModal from './post';
 import PlotlyHeatmap from './heatmap';
 import Popup from './popup';
 import ActiveUsers from './activeUsers';
+import ActiveCourseUsers from './activeCourseUsers';
+import CourseGrades from './courseGrades';
+import GradeCurve from './gradeCurve';
 import { Line } from 'react-chartjs-2';
 import Plot from 'react-plotly.js';
 import '../styles/styles.css';
@@ -72,6 +75,19 @@ const Dashboard = () => {
         setCourses(data);
       } catch (error) {
         console.error('Error fetching courses:', error);
+        const fakeCourses = [
+          { course_name: "Fun with Coding" },
+          { course_name: "Adventures in Scratch" },
+          { course_name: "Building Websites for Beginners" },
+          { course_name: "Exploring Robots and AI" },
+          { course_name: "Introduction to Computers" },
+          { course_name: "Staying Safe Online" },
+          { course_name: "Making Your First Mobile App" },
+          { course_name: "Creating Simple Video Games" },
+          { course_name: "Clouds and the Internet" },
+          { course_name: "Money and Technology" }
+        ];        
+        setCourses(fakeCourses);
       }
     };
     
@@ -324,6 +340,8 @@ const Dashboard = () => {
         </>
         )}
 
+
+
         {/* Predictive Analysis and Skill Development Section */}
         {(selectedStudent && !selectedCourse) && (
           <div className="student-specific-section">
@@ -344,17 +362,65 @@ const Dashboard = () => {
             </div>
           </div>
         )}
+        
+        {/* {(!selectedStudent && selectedCourse) && (
+        <div className="tables-containter">
+          <div className='active-course-users'>
+            <ActiveCourseUsers />
+          </div>
+        </div>
+        )} */}
 
         {/* Average Grade Distribution Dot Plot */}
-        {(!selectedStudent && selectedCourse) && (
+        {/* {(!selectedStudent && selectedCourse) && (
         <div className="dot-plot-container">
-          {/* <h2>Average Grade Distribution</h2> */}
+          {/* <h2>Average Grade Distribution</h2> }
           <Plot
             data={[dotPlotData]}
             layout={dotPlotLayout}
           />
         </div>
+        )} */}
+
+        {/* {!selectedStudent && selectedCourse && (
+          <>
+            <div className="tables-container">
+              <div className="active-course-users">
+                <ActiveCourseUsers />
+              </div>
+            </div>
+
+            <div className="dot-plot-container">
+              <Plot data={[dotPlotData]} layout={dotPlotLayout} />
+            </div>
+          </>
+        )} */}
+
+        {!selectedStudent && selectedCourse && (
+          <div className="tables-wrapper">
+            {/* Left Section: Active Users & Dot Plot */}
+            <div className="tables-container">
+              <div className="active-course-users">
+                <ActiveCourseUsers />
+              </div>
+              {/* <div className="dot-plot-container">
+                <Plot data={[dotPlotData]} layout={dotPlotLayout} />
+              </div> */}
+
+              <div className="dot-plot-container">
+                <GradeCurve />
+              </div>
+
+            </div>
+
+            {/* Right Section: New Table */}
+            <div className="extra-table-container">
+              <CourseGrades /> {/* Replace with your table component */}
+            </div>
+          </div>
         )}
+
+
 
 
 {/* Display assignments with progress bars */}
