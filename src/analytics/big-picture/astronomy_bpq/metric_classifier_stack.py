@@ -22,6 +22,17 @@ def encode_with_bert(texts):
         outputs = bert_model(**inputs)
     return outputs.last_hidden_state.mean(dim=1).numpy()
 
+def is_valid_response(response, question):
+    keywords = set(question.lower().split())
+    response_words = set(response.lower().split())
+    
+    if len(response.split()) < 2:
+        return False, "Seems like your answer isn't related to the question, let's try that again."
+    elif len(response_words.intersection(keywords)) == 0:
+        return False, "It seems like your response doesn't address the question. Please try again."
+    
+    return True, None
+
 # Load dataset
 with open("l1_k_2_questions.json", "r") as f:
     data = json.load(f)
@@ -108,33 +119,79 @@ selected_question = np.random.choice(questions_list)
 print("\nAnswer the following question:")
 print(f"{selected_question}")
 
-user_response = input("\nEnter your response: ")
+# user_response = input("\nEnter your response: ")
 
-# checking if it's a one word or no word response
-if not user_response or len(user_response.split()) == 1:
-    print("\nInvalid response. Predicted Scores: 0 for all metrics.")
-    print(f"Creativity: 0")
-    print(f"Critical Thinking: 0")
-    print(f"Observation: 0")
-    print(f"Curiosity: 0")
-    print(f"Problem Solving: 0")
-    exit()
+# # checking if there are meaningful words in the sentence
+# def is_valid_response(response, question):
+#     keywords = set(question.lower().split())
+#     response_words = set(response.lower().split())
+    
+#     if len(response.split()) < 2 or len(response_words.intersection(keywords)) == 0:
+#         return False
+#     return True
 
-user_embedding = encode_with_bert([user_response])
-user_embedding = scaler.transform(user_embedding)
+# # checking if it's a one word or no word response
+# if not user_response or len(user_response.split()) == 1:
+#     print("\nInvalid response. Predicted Scores: 0 for all metrics.")
+#     print(f"Creativity: 0")
+#     print(f"Critical Thinking: 0")
+#     print(f"Observation: 0")
+#     print(f"Curiosity: 0")
+#     print(f"Problem Solving: 0")
+#     exit()
 
-base_preds_user = np.column_stack([
-    rf.predict(user_embedding),
-    gb.predict(user_embedding),
-    mlp.predict(user_embedding)
-])
-user_pred = meta_model.predict(base_preds_user)
+# user_embedding = encode_with_bert([user_response])
+# user_embedding = scaler.transform(user_embedding)
 
-rounded_predictions = np.round(user_pred[0]).astype(int)
+# base_preds_user = np.column_stack([
+#     rf.predict(user_embedding),
+#     gb.predict(user_embedding),
+#     mlp.predict(user_embedding)
+# ])
+# user_pred = meta_model.predict(base_preds_user)
 
-print("\nPredicted Scores:")
-print(f"Creativity: {rounded_predictions[0]}")
-print(f"Critical Thinking: {rounded_predictions[1]}")
-print(f"Observation: {rounded_predictions[2]}")
-print(f"Curiosity: {rounded_predictions[3]}")
-print(f"Problem Solving: {rounded_predictions[4]}")
+# rounded_predictions = np.round(user_pred[0]).astype(int)
+
+# # if any of the individual scores are less than 10 then we redo
+# # feedback = []
+# # for i, score in enumerate(rounded_predictions):
+# #     if score < 10:
+# #         feedback.append(f"Score for metric {['Creativity', 'Critical Thinking', 'Observation', 'Curiosity', 'Problem Solving'][i]} is below threshold. Try answering the question again.")
+
+# print("\nPredicted Scores:")
+# print(f"Creativity: {rounded_predictions[0]}")
+# print(f"Critical Thinking: {rounded_predictions[1]}")
+# print(f"Observation: {rounded_predictions[2]}")
+# print(f"Curiosity: {rounded_predictions[3]}")
+# print(f"Problem Solving: {rounded_predictions[4]}")
+
+while True:
+    user_response = input("\nEnter your response: ")
+
+    # Check if the response is valid
+    valid, feedback = is_valid_response(user_response, selected_question)
+
+    if not valid:
+        print("\nInvalid response.")
+        print(feedback)  # This will print the specific feedback message.
+        continue  # Let the user try again
+
+    user_embedding = encode_with_bert([user_response])
+    user_embedding = scaler.transform(user_embedding)
+
+    base_preds_user = np.column_stack([
+        rf.predict(user_embedding),
+        gb.predict(user_embedding),
+        mlp.predict(user_embedding)
+    ])
+    user_pred = meta_model.predict(base_preds_user)
+
+    rounded_predictions = np.round(user_pred[0]).astype(int)
+
+    print("\nPredicted Scores:")
+    print(f"Creativity: {rounded_predictions[0]}")
+    print(f"Critical Thinking: {rounded_predictions[1]}")
+    print(f"Observation: {rounded_predictions[2]}")
+    print(f"Curiosity: {rounded_predictions[3]}")
+    print(f"Problem Solving: {rounded_predictions[4]}")
+    break 
