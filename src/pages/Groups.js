@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ClassroomList from '../components/ClassroomList';
 import EditClassroomModal from '../components/editclassroom';
 import InviteStudentsModal from '../components/invitestudents';
@@ -30,6 +30,52 @@ const GroupsPage = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchClassrooms = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/classrooms`);
+        const data = await response.json();
+        console.log("Fetched data: ", data);
+  
+        // Normalize data to fit the structure you're expecting
+        const normalizedData = data.map((room, index) => ({
+          id: room._id,
+          name: room.name,
+          description: room.description || 'No description provided',
+        }));
+        
+        console.log("Normalized data: ", normalizedData);
+        setClassrooms(normalizedData);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+  
+        const fakeCourses = [
+          { course_name: "Fun with Coding" },
+          { course_name: "Adventures in Scratch" },
+          { course_name: "Building Websites for Beginners" },
+          { course_name: "Exploring Robots and AI" },
+          { course_name: "Introduction to Computers" },
+          { course_name: "Staying Safe Online" },
+          { course_name: "Making Your First Mobile App" },
+          { course_name: "Creating Simple Video Games" },
+          { course_name: "Clouds and the Internet" },
+          { course_name: "Money and Technology" }
+        ];
+  
+        const fallbackData = fakeCourses.map((course, index) => ({
+          id: index + 100, // Use a different range to avoid collisions
+          name: course.course_name,
+          description: 'Sample course description',
+        }));
+  
+        setClassrooms(fallbackData);
+      }
+    };
+  
+    fetchClassrooms();
+  }, []);
+  
 
   // entering a classroom
   const handleEnterClassroom = (id) => {

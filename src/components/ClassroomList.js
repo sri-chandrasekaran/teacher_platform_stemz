@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ClassroomCard from './ClassroomCard';
 import EditClassroomModal from './editclassroom';
 import InviteStudentsModal from './invitestudents';
@@ -10,6 +10,10 @@ const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddC
   const [classroomList, setClassroomList] = useState(classrooms);
   const [notification, setNotification] = useState('');
   const [notificationVisible, setNotificationVisible] = useState(false);
+
+  useEffect(() => {
+    setClassroomList(classrooms);
+  }, [classrooms]);
 
   // Function to open modal for adding a new classroom
   const handleAddClassroom = () => {
