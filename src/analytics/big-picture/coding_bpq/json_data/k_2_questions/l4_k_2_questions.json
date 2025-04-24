@@ -1,0 +1,134 @@
+{
+    "questions": [
+      {
+        "question": "What do you think happens when a computer remembers something, like your name or a number?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "Why do you think we need numbers to tell a computer where things go on the screen?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "How do you know where you are in a room? How do computers know where things are?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "Can you think of a time when you had to follow steps in a certain order? What happens if you mix them up?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "Why do you think computers have to follow instructions exactly?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "How do we use numbers every day, and how do you think computers use numbers?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "What does it mean to 'store' information? Where do you think computers keep information?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "Why do you think it’s important to be able to change numbers in a program?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "How do directions like left, right, up, and down help computers know where to move things?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "Can you think of a time when you had to wait for the right moment to do something? How do you think computers know when to do things?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      }
+    ]
+}

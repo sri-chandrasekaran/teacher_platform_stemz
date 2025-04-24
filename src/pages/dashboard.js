@@ -29,6 +29,7 @@ const Dashboard = () => {
   const [leaderboard, setLeaderboard] = useState([]); 
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
+  const [nlpMetrics, setNlpMetrics] = useState({});
 
   const location = useLocation();
 
@@ -40,6 +41,14 @@ const Dashboard = () => {
   
   const closePopup = () => {
     setSelectedAssignment(null);
+  };
+  
+  const metricMap = {
+    "Creativity": "creativity",
+    "Critical Thinking": "critical_thinking",
+    "Observation": "observation",
+    "Curiosity": "curiosity",
+    "Problem Solving": "problem_solving"
   };
   
   useEffect(() => {
@@ -62,6 +71,31 @@ const Dashboard = () => {
   
     fetchStudents();
   }, []);
+
+  const fetchNlpMetrics = async (responseText) => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ response: responseText }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log("Received NLP Metrics:", data); // Debugging
+  
+      setNlpMetrics(data);
+    } catch (error) {
+      console.error("Error fetching NLP metrics:", error);
+    }
+  };
+  
+
   
 
   useEffect(() => {
@@ -98,14 +132,16 @@ const Dashboard = () => {
     );
   };
 
-
-  const skillMetrics = {
-    Creativity: 18,
-    Curiosity: 15,
-    CriticalThinking: 17,
-    Observation: 14,
-    ProblemSolving: 16,
+  
+  const handleCourseSelect = (courseId) => {
+    setSelectedCourse(courseId);
+  
+    if (selectedStudent) {
+      const sampleResponse = "Studying this topic helps us think critically about space exploration.";
+      fetchNlpMetrics(sampleResponse);
+    }
   };
+  
 
   const renderSkillCircle = (label, value) => {
     const percentage = (value / 20) * 100; // Assuming max score is 20
@@ -124,10 +160,21 @@ const Dashboard = () => {
     );
   };
 
+  const handleStudentSelect = (studentId) => {
+    setSelectedStudent(studentId);
+  
+    // Example response to analyze (you can change this based on real student responses)
+    const sampleResponse = "Stars help us understand the nature of the universe and its origin.";
+  
+    fetchNlpMetrics(sampleResponse);
+  };
+  
+
   // top 5 scores
-  const topStudents = leaderboard
-    .sort((a, b) => b.cummulative_score - a.cummulative_score) 
-    .slice(0, 5);
+  const topStudents = [...leaderboard]
+  .sort((a, b) => b.cummulative_score - a.cummulative_score)
+  .slice(0, 5);
+
 
     // Fake grade data for the dot plot
   const gradeData = [10, 12, 14, 15, 18, 11, 13, 16, 17, 19, 20, 16, 18, 14, 11, 13, 17, 12, 15];
@@ -246,6 +293,7 @@ const Dashboard = () => {
         </ul>
       </div>
 
+
       {/* Main Content */}
       <div className="content">
         <h1 className="dashboard-title">Classroom {classroomId} Analytics</h1> 
@@ -305,7 +353,7 @@ const Dashboard = () => {
                       <td>{entry.student_id}</td>
                       <td>{entry.student_name}</td>
                       <td>{new Date(entry.last_logged_on).toLocaleDateString()}</td>
-                      <td>{entry.cummulative_score}</td>
+                      <td>{entry.cumulative_scores}</td>
                     </tr>
                   ))
                 ) : (
@@ -324,26 +372,60 @@ const Dashboard = () => {
         </>
         )}
 
-        {/* Predictive Analysis and Skill Development Section */}
-        {(selectedStudent && !selectedCourse) && (
-          <div className="student-specific-section">
-            {/* Predictive Analysis Section */}
-            <div className="predictive-analysis">
-              {/* <h2>Predictive Analysis</h2> */}
-              <Line data={chartData} />
-            </div>
+        
 
-            {/* Skill Development Analysis Section */}
-            <div className="skill-development">
-              <h2>Skill Development Analysis</h2>
-              <div className="skill-circles">
-                {Object.entries(skillMetrics).map(([label, value]) => 
-                  renderSkillCircle(label, value)
-                )}
-              </div>
-            </div>
-          </div>
-        )}
+
+        {/* Predictive Analysis and Skill Development Section */}
+{(selectedStudent && !selectedCourse) && (
+  <div className="student-specific-section">
+    {/* Predictive Analysis Section */}
+    <div className="predictive-analysis">
+      {/* <h2>Predictive Analysis</h2> */}
+      <Line data={chartData} />
+    </div>
+
+    <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
+
+
+
+{nlpMetrics && Object.keys(nlpMetrics).length > 0 ? (
+  <div className="metrics-container">
+    <div className="skill-circle-container">
+    {renderSkillCircle("Creativity", nlpMetrics.creativity || nlpMetrics.Creativity)}
+    {renderSkillCircle("Critical Thinking", nlpMetrics["Critical Thinking"] || nlpMetrics.CriticalThinking)}
+    {renderSkillCircle("Observation", nlpMetrics.observation || nlpMetrics.Observation)}
+    {renderSkillCircle("Curiosity", nlpMetrics.curiosity || nlpMetrics.Curiosity)}
+    {renderSkillCircle("Problem Solving", nlpMetrics["Problem Solving"] || nlpMetrics.ProblemSolving)}
+    </div>
+    {/* <div className="nlp-metrics">
+      <h3>Skill Metrics:</h3>
+      <ul>
+        {Object.entries(nlpMetrics).map(([metric, value]) => (
+          <li key={metric}>{metric}: {value}</li>
+        ))}
+      </ul>
+    </div> */}
+
+    <div className="nlp-simulator">
+      <textarea
+        value={selectedStudent}
+        onChange={(e) => setSelectedStudent(e.target.value)}
+        placeholder="Enter student's response..."
+        rows={4}
+        cols={50}
+      />
+      <button onClick={() => fetchNlpMetrics(selectedStudent)}>Submit Response</button>
+    </div>
+
+
+  </div>
+  
+) : (
+  <p>Loading metrics...</p>
+)}
+  </div>
+)}
+
 
         {/* Average Grade Distribution Dot Plot */}
         {(!selectedStudent && selectedCourse) && (
@@ -355,7 +437,6 @@ const Dashboard = () => {
           />
         </div>
         )}
-
 
 {/* Display assignments with progress bars */}
 {(selectedCourse && selectedStudent) && (

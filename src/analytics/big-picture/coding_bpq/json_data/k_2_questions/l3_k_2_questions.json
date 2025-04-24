@@ -1,0 +1,121 @@
+{
+    "questions": [
+      {
+        "question": "Why do you think we need to use 'wait' blocks in coding, and what would happen if there were no pauses? Can you think of a real-life example where waiting is necessary before something happens?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "How do sensors help a game or program react to what we do?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "What happens when you touch a button on a computer or a tablet? How does the computer know what to do?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "If you were making a game, how would you use a sensor to make a character move or jump?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "Why do you think computers and robots use sensors to know what’s happening around them?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "Can you think of something in real life that uses a sensor, like a door that opens when you walk near it?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "How does a “wait” block change what happens in a game or a story?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "If you were designing a robot, what kinds of sensors would you want it to have?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "How do you think sensors and wait blocks help make computer programs feel more real?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      }
+    ]
+}

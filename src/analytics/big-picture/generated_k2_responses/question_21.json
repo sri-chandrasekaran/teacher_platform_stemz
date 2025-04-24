@@ -1,0 +1,1205 @@
+{
+  "question": "Why do you think we need to use \"wait\" blocks in coding, and what would happen if there were no pauses? Can you think of a real-life example where waiting is necessary before something happens?",
+  "responses": [
+    {
+      "response": "The use of wait blocks is a way to let children pause while they wait for an event. Without pause blocks, the child would have to wait for the event to happen, and if the event took too long, the child would get frustrated and lose interest.\nA real-life example of",
+      "Creativity": 2,
+      "Critical Thinking": 8,
+      "Observation": 5,
+      "Curiosity": 6,
+      "Problem Solving": 17
+    },
+    {
+      "response": "Wait blocks are used in coding because they allow the programmer to pause, or \"wait,\" the program to continue processing.\nReal-life examples where waiting is necessary before something happens?\nIn a video game, waiting is necessary before the player can do something. In real life, waiting is",
+      "Creativity": 5,
+      "Critical Thinking": 8,
+      "Observation": 3,
+      "Curiosity": 5,
+      "Problem Solving": 18
+    },
+    {
+      "response": "There are many reasons why we need to use pauses in coding. One reason is that pauses are necessary to allow the child to think about what they are doing. It is important to let the child think about their activity, so they can process their ideas.\nAnother reason why pauses are necessary is",
+      "Creativity": 2,
+      "Critical Thinking": 8,
+      "Observation": 11,
+      "Curiosity": 17,
+      "Problem Solving": 14
+    },
+    {
+      "response": "If you are a student in grades K-2, you are probably already familiar with \"wait\" blocks in programming. The wait block pauses the program for a time. This time can be a long time, or it can be a short time. In the case of a long wait, it",
+      "Creativity": 3,
+      "Critical Thinking": 11,
+      "Observation": 12,
+      "Curiosity": 11,
+      "Problem Solving": 16
+    },
+    {
+      "response": "This is a great question to ask children who are just starting to learn about programming. For example, you could ask your child, \"What would happen if there were no pauses in the code we are working on?\" This will get your child thinking about the importance of pauses in code.\nFor",
+      "Creativity": 5,
+      "Critical Thinking": 12,
+      "Observation": 3,
+      "Curiosity": 18,
+      "Problem Solving": 12
+    },
+    {
+      "response": "The answer is simple:\nwait\nWait is a pause in the code so that you can do something else before the code executes. For example, if you wanted to print the number 11, you would print it like this:\nprint(11);\nThis is called a\nwait block",
+      "Creativity": 1,
+      "Critical Thinking": 13,
+      "Observation": 20,
+      "Curiosity": 7,
+      "Problem Solving": 20
+    },
+    {
+      "response": "\"Wait\" blocks are used in coding because they allow us to pause for a moment to take in the information, before we move on to the next step. When we pause, we can think about what we are doing, and we can do it again.\nIf there were no pauses,",
+      "Creativity": 2,
+      "Critical Thinking": 16,
+      "Observation": 14,
+      "Curiosity": 11,
+      "Problem Solving": 4
+    },
+    {
+      "response": "It is necessary to wait because there are things that take time to do.\nExamples of real-life situations:\n- The sky is blue, the grass is green, the sun is shining.\n- The sun is shining.\n- The grass is green.\n- The sky is",
+      "Creativity": 17,
+      "Critical Thinking": 2,
+      "Observation": 3,
+      "Curiosity": 4,
+      "Problem Solving": 13
+    },
+    {
+      "response": "A pause is necessary because otherwise we will never know when the code has completed. If you had no pauses, the code would never be able to detect if it was done or not.\nHere is an example of a code that uses \"wait\" blocks:\nconst pause = \"wait\"",
+      "Creativity": 19,
+      "Critical Thinking": 20,
+      "Observation": 19,
+      "Curiosity": 19,
+      "Problem Solving": 15
+    },
+    {
+      "response": "We need to use pause blocks because we can't program without pauses. If we don't have pauses, then we don't have time to think about what we are going to do next. If we don't have pauses, then we have to go back to the beginning and try again.",
+      "Creativity": 16,
+      "Critical Thinking": 15,
+      "Observation": 17,
+      "Curiosity": 9,
+      "Problem Solving": 7
+    },
+    {
+      "response": "The wait blocks are necessary because they allow us to pause between actions. In real life, we need to wait between actions because we are waiting for a bus or waiting for a person to answer a phone call. In coding, we need to wait because we are waiting for the computer to finish a",
+      "Creativity": 19,
+      "Critical Thinking": 13,
+      "Observation": 20,
+      "Curiosity": 5,
+      "Problem Solving": 19
+    },
+    {
+      "response": "Wait blocks allow for a pause in a program to be inserted in between the parts of the program.\nThe wait blocks are used to pause the program while the code executes.\nThe pause blocks allow for a pause in the program to be inserted in between the parts of the program.\nThe",
+      "Creativity": 18,
+      "Critical Thinking": 8,
+      "Observation": 2,
+      "Curiosity": 1,
+      "Problem Solving": 11
+    },
+    {
+      "response": "We use pauses in coding because:\n- The code we write has to be able to be run by the computer.\n- We have to pause to take a break.\n- We have to pause to give ourselves time to think.\n- We have to pause to do something else.",
+      "Creativity": 18,
+      "Critical Thinking": 18,
+      "Observation": 4,
+      "Curiosity": 18,
+      "Problem Solving": 20
+    },
+    {
+      "response": "We use pauses in coding because it is a good way to give students a chance to think about what they are doing. They have to make an inference about what they are doing in order to make the next step.\nWhen you pause, you give yourself a chance to think about what you are",
+      "Creativity": 2,
+      "Critical Thinking": 6,
+      "Observation": 17,
+      "Curiosity": 20,
+      "Problem Solving": 14
+    },
+    {
+      "response": "We can't have everything at once.\nWait blocks are used in coding to tell the computer that we need to wait until a certain thing happens before doing something else. For example, if we are playing a game, we would use a pause block to tell the computer to wait until the game",
+      "Creativity": 11,
+      "Critical Thinking": 3,
+      "Observation": 13,
+      "Curiosity": 10,
+      "Problem Solving": 7
+    },
+    {
+      "response": "- wait blocks are used to pause and wait for an action to occur before proceeding.\n- If there are no pauses, then the computer would not be able to wait for the next instruction.\n- There is a real-life example where waiting is necessary before something happens. In order for",
+      "Creativity": 2,
+      "Critical Thinking": 15,
+      "Observation": 3,
+      "Curiosity": 19,
+      "Problem Solving": 8
+    },
+    {
+      "response": "It is essential to pause to give the brain time to understand what is going on. The pauses allow the brain to \"unpack\" the code, to understand the code. It is important to pause so that we can understand the code. Without pauses, the brain would not be able to understand",
+      "Creativity": 4,
+      "Critical Thinking": 10,
+      "Observation": 14,
+      "Curiosity": 16,
+      "Problem Solving": 1
+    },
+    {
+      "response": "If we want to make a program that uses a timer to count how many times a sound is played, we can't use a regular timer, because it will run out of time before we've played our sound. We need to use a \"wait\" block to pause the timer.\nThe",
+      "Creativity": 7,
+      "Critical Thinking": 4,
+      "Observation": 9,
+      "Curiosity": 18,
+      "Problem Solving": 6
+    },
+    {
+      "response": "Waiting is a key component of coding, and we use it in all sorts of situations in the real world. I remember as a child that I would get so excited about the results of a test that I would race through the whole thing, not pausing to see what would happen next.",
+      "Creativity": 12,
+      "Critical Thinking": 11,
+      "Observation": 6,
+      "Curiosity": 14,
+      "Problem Solving": 1
+    },
+    {
+      "response": "Wait blocks allow us to pause and take a break, and also help us to make decisions.\nWe don't need to wait because the pause allows us to make decisions.\nWe need to wait because it gives us time to reflect.\nWe need to wait because it allows us to do",
+      "Creativity": 18,
+      "Critical Thinking": 1,
+      "Observation": 5,
+      "Curiosity": 2,
+      "Problem Solving": 16
+    },
+    {
+      "response": "We need to use wait blocks because we need to pause our code to wait for an object to finish moving. This allows us to make sure our code works.\nIf there were no pauses, the code would break when an object is moved. We would have to fix the code to work.",
+      "Creativity": 13,
+      "Critical Thinking": 10,
+      "Observation": 5,
+      "Curiosity": 12,
+      "Problem Solving": 19
+    },
+    {
+      "response": "We use pauses in coding because we need to wait for an operation to finish. In a game, we would have to wait until the game is over before we can move on to the next level. In the real world, we need to wait for an operation to finish before we can do something",
+      "Creativity": 1,
+      "Critical Thinking": 12,
+      "Observation": 6,
+      "Curiosity": 5,
+      "Problem Solving": 16
+    },
+    {
+      "response": "Wait blocks are used in coding to pause the computer before a task is performed. This pause is necessary because the computer will not perform the task if the computer does not know how to perform the task.\nExamples of real-life tasks that require pauses include playing a game, watching a movie,",
+      "Creativity": 14,
+      "Critical Thinking": 14,
+      "Observation": 15,
+      "Curiosity": 10,
+      "Problem Solving": 12
+    },
+    {
+      "response": "The most important thing to remember when coding is that \"wait\" blocks are there to allow time for the computer to process the data. If there were no pauses, then the computer would not know what the next instruction was.\nThis is why the pause blocks are there.\nNow, I",
+      "Creativity": 17,
+      "Critical Thinking": 13,
+      "Observation": 1,
+      "Curiosity": 17,
+      "Problem Solving": 11
+    },
+    {
+      "response": "In the first grade, children are learning about how to use punctuation marks. They are learning to use a period, a question mark, and a comma to make a question. The first grade is also the time when children are learning to write complete sentences. In the first grade, the children",
+      "Creativity": 11,
+      "Critical Thinking": 13,
+      "Observation": 11,
+      "Curiosity": 20,
+      "Problem Solving": 8
+    },
+    {
+      "response": "Wait blocks are useful because they allow us to pause or wait for an event to happen.\nWait blocks are used to pause the execution of an algorithm or program. For example, if we wanted to pause the execution of a program so we could add to it, we could use a wait block",
+      "Creativity": 7,
+      "Critical Thinking": 20,
+      "Observation": 16,
+      "Curiosity": 3,
+      "Problem Solving": 2
+    },
+    {
+      "response": "If we were to not pause in the code, the code would be very hard to read and understand. We would need to pause before each instruction to read what is being done. For example, the code for a light switch would look like this:\nint switch_on = 0;",
+      "Creativity": 17,
+      "Critical Thinking": 14,
+      "Observation": 19,
+      "Curiosity": 15,
+      "Problem Solving": 14
+    },
+    {
+      "response": "We use pauses to give our children time to think, to process what they are doing, to reflect, to make sure they have understood what they are doing, and to make sure they are on track. Pauses are a valuable tool that help us as educators to ensure that we are providing our",
+      "Creativity": 3,
+      "Critical Thinking": 16,
+      "Observation": 20,
+      "Curiosity": 16,
+      "Problem Solving": 10
+    },
+    {
+      "response": "The pause blocks in coding help you to pause, think, and then proceed to the next step.\nThe pause blocks are used to pause before something happens, so that we can think about it. If we don't pause, we won't be able to think about what we are doing.",
+      "Creativity": 5,
+      "Critical Thinking": 13,
+      "Observation": 19,
+      "Curiosity": 3,
+      "Problem Solving": 16
+    },
+    {
+      "response": "I think we need to use pause blocks because we need to wait for the computer to respond. If the computer doesn't respond, we need to wait. For example, in the picture below, the dog is in the middle and he is barking. The cat is in the bottom and he is",
+      "Creativity": 2,
+      "Critical Thinking": 12,
+      "Observation": 12,
+      "Curiosity": 15,
+      "Problem Solving": 8
+    },
+    {
+      "response": "When you are programming, there are times when you must pause.\nOne way to think about this is that you don\u2019t want to write a program that would cause the computer to stop working.\nA way to think about it is to think of your program as a game.",
+      "Creativity": 9,
+      "Critical Thinking": 7,
+      "Observation": 13,
+      "Curiosity": 6,
+      "Problem Solving": 15
+    },
+    {
+      "response": "There are many reasons why we need to use wait blocks in coding. Here are some examples:\n- It makes the code more organized.\n- It gives the program structure and organization.\n- It makes it easier for the reader to understand.\n- It makes the code more readable.",
+      "Creativity": 14,
+      "Critical Thinking": 7,
+      "Observation": 1,
+      "Curiosity": 5,
+      "Problem Solving": 8
+    },
+    {
+      "response": "We need to use wait blocks because they allow us to pause in between functions and wait for a response. This is important because sometimes we can't wait for a response, and it is the pause that allows us to know that the function is done. We can use wait blocks to pause functions and",
+      "Creativity": 1,
+      "Critical Thinking": 15,
+      "Observation": 11,
+      "Curiosity": 8,
+      "Problem Solving": 15
+    },
+    {
+      "response": "We use \"wait\" blocks in coding because we don't want our programs to run too fast. If we don't pause, our programs will run too fast and the computer will not be able to process them fast enough. This is important in real-life because it is important that the computer",
+      "Creativity": 14,
+      "Critical Thinking": 8,
+      "Observation": 9,
+      "Curiosity": 2,
+      "Problem Solving": 4
+    },
+    {
+      "response": "In the book, \"The Magic School Bus Coding: Using Blocks to Learn How to Code,\" the kids learn about the different types of blocks and how they are used in coding. The book describes how the blocks are used to make different circuits. The book also explains the different types of circuits",
+      "Creativity": 7,
+      "Critical Thinking": 4,
+      "Observation": 5,
+      "Curiosity": 7,
+      "Problem Solving": 15
+    },
+    {
+      "response": "In the early stages of learning to code, children are often confused about when and why to pause. For example, they might pause when they see a blank screen.\nThere are many situations in which a pause is necessary.\n1.\nA pause is needed when you are reading a text",
+      "Creativity": 9,
+      "Critical Thinking": 1,
+      "Observation": 19,
+      "Curiosity": 19,
+      "Problem Solving": 6
+    },
+    {
+      "response": "\"Wait\" blocks are used to pause the flow of code in order to allow the user to make a decision about what to do next.\nReal-life example:\nYou are in the middle of a long walk, and you decide to turn left. You have to wait for the light",
+      "Creativity": 1,
+      "Critical Thinking": 13,
+      "Observation": 19,
+      "Curiosity": 2,
+      "Problem Solving": 19
+    },
+    {
+      "response": "We don't use wait blocks in coding because we need to pause and wait for an instruction to finish executing before we can try to do something else.\nWe can think of a real-life example where waiting is necessary before something happens. If you go to a store to buy something, you",
+      "Creativity": 14,
+      "Critical Thinking": 11,
+      "Observation": 5,
+      "Curiosity": 20,
+      "Problem Solving": 15
+    },
+    {
+      "response": "In the world of coding, pause blocks are used to pause a program or game to allow for a user to enter a command or a response. For example, if a user is playing a game, and they are pressed the \"A\" key, the game pauses for a second. This allows",
+      "Creativity": 9,
+      "Critical Thinking": 10,
+      "Observation": 5,
+      "Curiosity": 17,
+      "Problem Solving": 7
+    },
+    {
+      "response": "We need to use pause blocks in coding because when we are using a pause block, we are pausing for a reason. We need to pause when we are creating a pause block. We need to pause when we are creating a pause-then-wait block. We need to pause when we",
+      "Creativity": 14,
+      "Critical Thinking": 1,
+      "Observation": 1,
+      "Curiosity": 14,
+      "Problem Solving": 9
+    },
+    {
+      "response": "In the story, the child is learning about how to use a \"wait\" block. There is a pause before the child does anything, and then she does the task. The pause is necessary because the wait block is needed to tell the computer to wait for the computer to do something before the",
+      "Creativity": 2,
+      "Critical Thinking": 2,
+      "Observation": 8,
+      "Curiosity": 2,
+      "Problem Solving": 13
+    },
+    {
+      "response": "The purpose of the wait block is to pause the flow of the code. If there were no pauses, then we would be able to execute a single line of code without pausing. There are many real-life examples of waiting. One example is when a student is waiting for a teacher to",
+      "Creativity": 6,
+      "Critical Thinking": 9,
+      "Observation": 8,
+      "Curiosity": 6,
+      "Problem Solving": 6
+    },
+    {
+      "response": "In this article, I will be talking about waiting. I will explain what waiting is, why it is important, and some real-life examples.\nWhat is waiting?\nIn a coding lesson, the teacher asks you to add a pause in the code to allow for a specific event.",
+      "Creativity": 3,
+      "Critical Thinking": 2,
+      "Observation": 19,
+      "Curiosity": 13,
+      "Problem Solving": 5
+    },
+    {
+      "response": "I think that we use wait blocks because of the purpose of coding, which is to get something to happen in a specific order. We need to wait for things to happen before they happen. I think that this is a very important reason why we use wait blocks.\nWe need to wait for",
+      "Creativity": 4,
+      "Critical Thinking": 7,
+      "Observation": 13,
+      "Curiosity": 7,
+      "Problem Solving": 13
+    },
+    {
+      "response": "The pause is to give the child a chance to think about what they are doing.\nIf we did not pause, the child would not be able to think about the problem and solve it.\nIf we did not pause, the child would not be able to think about the problem and solve",
+      "Creativity": 20,
+      "Critical Thinking": 14,
+      "Observation": 2,
+      "Curiosity": 1,
+      "Problem Solving": 13
+    },
+    {
+      "response": "We use pause blocks in coding because we need to wait for something to happen. This is a very important concept for children to understand.\nThere are lots of examples of real-life situations where waiting is necessary before something happens. Here are some examples:\n- When you are driving a car",
+      "Creativity": 11,
+      "Critical Thinking": 17,
+      "Observation": 13,
+      "Curiosity": 13,
+      "Problem Solving": 14
+    },
+    {
+      "response": "In coding, pauses are necessary before a program can run.\nThe pause is necessary to make sure the program is still running.\nIf there were no pauses, the program would be stuck in a loop, which would not be very useful.\nThe pause is necessary to make sure the program",
+      "Creativity": 19,
+      "Critical Thinking": 9,
+      "Observation": 13,
+      "Curiosity": 6,
+      "Problem Solving": 7
+    },
+    {
+      "response": "The first time I saw the idea of using wait blocks, I was fascinated by the idea of a program that worked without a pause. I thought it was so cool that it was a perfect fit for coding! When I first tried to code, I couldn't figure out how to use wait blocks",
+      "Creativity": 8,
+      "Critical Thinking": 6,
+      "Observation": 5,
+      "Curiosity": 15,
+      "Problem Solving": 19
+    },
+    {
+      "response": "We need to use pauses because we need to make sure the computer can do what we are telling it to do. When we use pauses, we tell the computer to wait for something to happen. In this case, we are telling the computer to wait for the screen to go from black to white",
+      "Creativity": 10,
+      "Critical Thinking": 17,
+      "Observation": 4,
+      "Curiosity": 11,
+      "Problem Solving": 2
+    },
+    {
+      "response": "We use \"wait\" blocks because it's important to pause in a code to give the computer time to process what's happening. For example, if you have a code that takes two seconds to run, you need to pause the code for two seconds so that the computer can process what's happening",
+      "Creativity": 2,
+      "Critical Thinking": 8,
+      "Observation": 13,
+      "Curiosity": 14,
+      "Problem Solving": 17
+    },
+    {
+      "response": "We need to use wait blocks in coding because they help us to pause and make decisions. This is important because sometimes we need to pause and think before we make a decision. We also need to pause to make sure we don't make a mistake.\nReal-life example:\nWe were",
+      "Creativity": 11,
+      "Critical Thinking": 14,
+      "Observation": 5,
+      "Curiosity": 5,
+      "Problem Solving": 14
+    },
+    {
+      "response": "We use wait blocks to show that we need to wait before we can do something. For example, in the program\nI want to make sure that the computer is ready for the program to run before I start it.\nIf I just start the program now, the computer might not be ready",
+      "Creativity": 1,
+      "Critical Thinking": 12,
+      "Observation": 4,
+      "Curiosity": 14,
+      "Problem Solving": 16
+    },
+    {
+      "response": "A pause is necessary to allow time for processing of the information that we are coding.\nThis is an example of a pause in coding:\nHere is an example of a pause in coding:\nHere is an example of a pause in coding:\nThis is an example of a pause in",
+      "Creativity": 7,
+      "Critical Thinking": 17,
+      "Observation": 11,
+      "Curiosity": 5,
+      "Problem Solving": 13
+    },
+    {
+      "response": "Wait blocks are used to allow time for the computer to do something. They allow the computer to do things that would otherwise require a lot of time. They can also be used to allow the computer to do things that would be difficult to do with pauses. For example, a computer could wait for",
+      "Creativity": 9,
+      "Critical Thinking": 7,
+      "Observation": 17,
+      "Curiosity": 7,
+      "Problem Solving": 11
+    },
+    {
+      "response": "Wait blocks are used in coding because they help us plan and organize our steps. They help us make sure that we are taking the right steps. We use wait blocks because we need to pause to make sure we are doing the right thing.\nWe need to pause to make sure we are doing",
+      "Creativity": 16,
+      "Critical Thinking": 9,
+      "Observation": 1,
+      "Curiosity": 9,
+      "Problem Solving": 10
+    },
+    {
+      "response": "\"Wait\" blocks are used to pause and wait for a specific input value. They are used in a number of programming languages to pause and wait for a specific value. For example, in JavaScript, you might use a \"while\" loop to pause and wait for a specific value.\nIn",
+      "Creativity": 7,
+      "Critical Thinking": 15,
+      "Observation": 10,
+      "Curiosity": 7,
+      "Problem Solving": 16
+    },
+    {
+      "response": "If you're like most students, you're not sure what a pause block is, so you'll have to do some research. We'll be using the pause block to pause the program to wait for the mouse to move. We'll also use the pause block to pause the program to wait for",
+      "Creativity": 5,
+      "Critical Thinking": 12,
+      "Observation": 6,
+      "Curiosity": 16,
+      "Problem Solving": 8
+    },
+    {
+      "response": "To be a good coder, you need to know how to pause. You might pause while you write the code. You might pause while you read the code. You might pause while you make sure you're doing the right thing.\nIn order to pause, you need to know how to",
+      "Creativity": 6,
+      "Critical Thinking": 14,
+      "Observation": 12,
+      "Curiosity": 5,
+      "Problem Solving": 18
+    },
+    {
+      "response": "This question is about \"wait\" blocks, which are used to make a program wait for a certain condition to happen. In this case, we need to wait for the child to stop moving in order to write the correct code.\nThere are many reasons why we need to use wait blocks,",
+      "Creativity": 8,
+      "Critical Thinking": 5,
+      "Observation": 5,
+      "Curiosity": 3,
+      "Problem Solving": 7
+    },
+    {
+      "response": "We need to use pause blocks because we cannot use pauses in our code.\nWhy do we need to use pause blocks?\nThere are two reasons why we need to use pause blocks. First, pause blocks help us to understand the code better. Second, pause blocks help us to write better",
+      "Creativity": 1,
+      "Critical Thinking": 12,
+      "Observation": 19,
+      "Curiosity": 9,
+      "Problem Solving": 15
+    },
+    {
+      "response": "It is easy to understand why we use wait blocks in coding. You will have to wait until you get a break in the code, so you can go back and look at the code again. If you don't, you will not be able to understand the code correctly.\nAnother reason we",
+      "Creativity": 20,
+      "Critical Thinking": 1,
+      "Observation": 13,
+      "Curiosity": 7,
+      "Problem Solving": 1
+    },
+    {
+      "response": "We need pauses because we are waiting for an event to happen.\nI can think of a real-life example where we need pauses. If we do not pause, then we would never know when something is going to happen.\nI can think of a real-life example where we need",
+      "Creativity": 20,
+      "Critical Thinking": 13,
+      "Observation": 15,
+      "Curiosity": 4,
+      "Problem Solving": 20
+    },
+    {
+      "response": "The word \"wait\" has two meanings:\nThe pause that is needed in coding is called the \"jitter\" jitter is a jitter that is caused by the computer's clock. The pause is called the \"jitter jitter\". The jitter is important because it allows the",
+      "Creativity": 2,
+      "Critical Thinking": 5,
+      "Observation": 17,
+      "Curiosity": 17,
+      "Problem Solving": 2
+    },
+    {
+      "response": "This is the first question in the test.\nIn this test, you will be asked to identify the reasons why we need to use \"wait\" blocks in coding.\nWe are going to use a \"wait\" block to pause and wait for an input.\nWhen the user enters an",
+      "Creativity": 9,
+      "Critical Thinking": 9,
+      "Observation": 13,
+      "Curiosity": 13,
+      "Problem Solving": 7
+    },
+    {
+      "response": "Wait blocks are used to pause the program to allow the user to do something. If there were no pauses in a program, the program would run faster than it should. For example, if the program is to calculate the number of apples in a box, and the user presses the number of apples",
+      "Creativity": 19,
+      "Critical Thinking": 2,
+      "Observation": 14,
+      "Curiosity": 6,
+      "Problem Solving": 16
+    },
+    {
+      "response": "The pause between two events in the story is called a pause. This pause is a pause is called a pause. This pause is called a pause. This pause is called a pause. This pause is called a pause. This pause is called a pause.\nWait blocks are used to pause the",
+      "Creativity": 16,
+      "Critical Thinking": 4,
+      "Observation": 17,
+      "Curiosity": 8,
+      "Problem Solving": 19
+    },
+    {
+      "response": "Wait blocks are used in coding to make the code more efficient.\nWhen you are coding, you use blocks to break up the code. For example, the code might be something like this:\nYou can see that there are three separate statements, but if you were to write the code in",
+      "Creativity": 6,
+      "Critical Thinking": 2,
+      "Observation": 8,
+      "Curiosity": 3,
+      "Problem Solving": 17
+    },
+    {
+      "response": "We need to use pause blocks in coding because it makes the code more understandable to people who do not code. If we did not pause our code, we would not be able to understand it and it would not work.\nIn real life, we need to use pauses because we are waiting for",
+      "Creativity": 6,
+      "Critical Thinking": 2,
+      "Observation": 18,
+      "Curiosity": 9,
+      "Problem Solving": 18
+    },
+    {
+      "response": "In order to understand the concept of pauses, we must first understand the concept of time. Time is measured in seconds. In seconds, time is divided into 24 hours.\n1 minute is divided into 60 seconds.\n1 hour is divided into 60 minutes.\n1 day is divided into 24",
+      "Creativity": 2,
+      "Critical Thinking": 3,
+      "Observation": 5,
+      "Curiosity": 1,
+      "Problem Solving": 5
+    },
+    {
+      "response": "A young child might be able to answer this question by saying, \"I don't know.\" If you've ever seen a child use the phrase \"I don't know,\" you'll know it's an empty statement. We call this a \"false answer.\" If you want a real answer,",
+      "Creativity": 12,
+      "Critical Thinking": 7,
+      "Observation": 8,
+      "Curiosity": 6,
+      "Problem Solving": 3
+    },
+    {
+      "response": "Wait blocks are used to pause code so that we can make sure that our code is working as intended. If we don't pause, the code will run until the end of the program.\nWe can think of a real-life example of waiting blocks as a way to let a computer wait",
+      "Creativity": 10,
+      "Critical Thinking": 4,
+      "Observation": 13,
+      "Curiosity": 4,
+      "Problem Solving": 1
+    },
+    {
+      "response": "You might be thinking, \"Wait! What? Wait! What? Wait! What? Wait! What? Wait! What?\" If you said that to your teacher, you would probably get a stern look. But, the important thing to remember is that you should be asking yourself this question,",
+      "Creativity": 12,
+      "Critical Thinking": 12,
+      "Observation": 8,
+      "Curiosity": 15,
+      "Problem Solving": 1
+    },
+    {
+      "response": "We need to pause in coding because we can't keep going. We need to take a break. We need to step back and look at the bigger picture. We need to stop, think, and reflect.\nThere are many real-life examples of waiting. For example, when you go",
+      "Creativity": 14,
+      "Critical Thinking": 16,
+      "Observation": 15,
+      "Curiosity": 7,
+      "Problem Solving": 11
+    },
+    {
+      "response": "We use wait blocks in coding because we want to be able to pause while we are coding, and then continue coding. This allows us to do a lot of things while we wait.\nWe would not be able to pause and continue coding if there were no pauses in coding. If we had",
+      "Creativity": 1,
+      "Critical Thinking": 1,
+      "Observation": 1,
+      "Curiosity": 3,
+      "Problem Solving": 15
+    },
+    {
+      "response": "There are many things in life that are important and that we need to do, but we can't do them all at once. So, we need to make choices. We need to decide which things we want to do right now and which things we want to do later. We need to decide",
+      "Creativity": 6,
+      "Critical Thinking": 5,
+      "Observation": 11,
+      "Curiosity": 20,
+      "Problem Solving": 14
+    },
+    {
+      "response": "We need to use pauses in coding because they are a way for us to pause before we do something. They are used to pause before doing something, and we need to pause before doing something. For example, if we have to wait until someone finishes a task before we can do something, then",
+      "Creativity": 8,
+      "Critical Thinking": 9,
+      "Observation": 20,
+      "Curiosity": 12,
+      "Problem Solving": 4
+    },
+    {
+      "response": "The pause is used to give the robot a chance to decide what to do next. If you don't pause, then the robot will always try to do something.\nI think that if you don't pause, then the robot will always try to do something. It would be like a car",
+      "Creativity": 2,
+      "Critical Thinking": 13,
+      "Observation": 10,
+      "Curiosity": 9,
+      "Problem Solving": 13
+    },
+    {
+      "response": "Why we use pause blocks in coding is because there are certain situations when we cannot do something right away. We must wait for a particular condition to be met before we can proceed.\nThere are many examples where we cannot do something right away. We must wait for a condition to be met before",
+      "Creativity": 15,
+      "Critical Thinking": 19,
+      "Observation": 20,
+      "Curiosity": 8,
+      "Problem Solving": 17
+    },
+    {
+      "response": "We need to pause to allow the child to think. The child can think about what is happening. We need to pause to allow the child to think.\nWe need to pause to allow the child to think. The child can think about what is happening. We need to pause to allow the",
+      "Creativity": 11,
+      "Critical Thinking": 1,
+      "Observation": 11,
+      "Curiosity": 5,
+      "Problem Solving": 16
+    },
+    {
+      "response": "The pause is necessary so we can think about the problem. If we didn't pause, we would just be running around in circles.\nReal-life example:\nIf you're going to cross the street, you should wait for the red light. If you don't wait for the light",
+      "Creativity": 17,
+      "Critical Thinking": 16,
+      "Observation": 6,
+      "Curiosity": 20,
+      "Problem Solving": 8
+    },
+    {
+      "response": "You can think of a real-life example where waiting is necessary before something happens. A lot of things happen in real life, and we are not always able to do them all at the same time. For example, you cannot get a hamburger at the same time as you are brushing your",
+      "Creativity": 16,
+      "Critical Thinking": 17,
+      "Observation": 10,
+      "Curiosity": 13,
+      "Problem Solving": 7
+    },
+    {
+      "response": "The main reason that we use pause blocks is because we need to pause the program to make sure that we are in a safe area. If we did not pause, we would not be able to make sure that the blocks are safe. If we did not pause, we would have to wait for",
+      "Creativity": 6,
+      "Critical Thinking": 5,
+      "Observation": 9,
+      "Curiosity": 4,
+      "Problem Solving": 19
+    },
+    {
+      "response": "The child understands that there is a pause before something happens. The pause is used to allow the child to plan his actions.\nThe child understands that there is a pause before something happens. The pause is used to allow the child to plan his actions.\nA pause is necessary because the child",
+      "Creativity": 8,
+      "Critical Thinking": 5,
+      "Observation": 16,
+      "Curiosity": 20,
+      "Problem Solving": 20
+    },
+    {
+      "response": "We need to use wait blocks because if we don't, we won't be able to get our robot to react as fast as we want.\nIf we don't pause our robot, we won't be able to get it to do what we want it to do. We need to make",
+      "Creativity": 10,
+      "Critical Thinking": 11,
+      "Observation": 7,
+      "Curiosity": 15,
+      "Problem Solving": 10
+    },
+    {
+      "response": "The answer is to wait for the computer to finish processing the information that we want it to process.\nWhen we type the letter \"A\", the computer takes a few seconds to process it. We say that we want the computer to go on to the next letter.\nIf we don't",
+      "Creativity": 12,
+      "Critical Thinking": 6,
+      "Observation": 7,
+      "Curiosity": 10,
+      "Problem Solving": 14
+    },
+    {
+      "response": "When you first learn to program, you'll often have to make decisions about how to use pauses. The following examples illustrate the kinds of problems you might have to solve.\nIn the following example, we are given a list of ten items, and we have to choose the order in which they",
+      "Creativity": 1,
+      "Critical Thinking": 1,
+      "Observation": 3,
+      "Curiosity": 7,
+      "Problem Solving": 14
+    },
+    {
+      "response": "\"Wait\" blocks are blocks that pause a program execution when the program reaches a certain condition. In C++, a \"wait\" block is used to wait for an event. In C#",
+      "Creativity": 3,
+      "Critical Thinking": 2,
+      "Observation": 2,
+      "Curiosity": 20,
+      "Problem Solving": 14
+    },
+    {
+      "response": "When we have to wait for something to happen, we need to use a pause block. Wait blocks are used to pause the program and let the user know that something important is happening.\nThis is how a pause block looks like in the program.\nHere is how we can use a pause",
+      "Creativity": 18,
+      "Critical Thinking": 3,
+      "Observation": 12,
+      "Curiosity": 10,
+      "Problem Solving": 5
+    },
+    {
+      "response": "When you say \"real-life example,\" you mean \"something that happens in the world that you can see and experience.\" We do not see and experience pauses in the world. But we do see and experience pauses in our coding blocks.\nWhy do we pause?\nTo pause is to",
+      "Creativity": 11,
+      "Critical Thinking": 9,
+      "Observation": 16,
+      "Curiosity": 20,
+      "Problem Solving": 14
+    },
+    {
+      "response": "Wait blocks are used to pause and wait for a specific event. For example, we need to pause and wait for the robot to finish a movement before we can continue. If there is no pause, the robot will just keep moving until it gets tired and then stops.\nWaiting for a",
+      "Creativity": 5,
+      "Critical Thinking": 12,
+      "Observation": 15,
+      "Curiosity": 1,
+      "Problem Solving": 5
+    },
+    {
+      "response": "Wait blocks are used in coding to show that a certain state is needed before the program can continue. This is also known as a \"block pause\".\nThe pause is necessary because:\n- The code needs to wait for a variable to change\n- The code needs to wait for the next",
+      "Creativity": 18,
+      "Critical Thinking": 15,
+      "Observation": 17,
+      "Curiosity": 4,
+      "Problem Solving": 13
+    },
+    {
+      "response": "The child will use the pause blocks to write the sequence of events that will take place when the red light turns green. The pause blocks allow the child to pause and think about what is happening. The pause blocks are used to think about the sequence of events that will take place when the light turns",
+      "Creativity": 14,
+      "Critical Thinking": 18,
+      "Observation": 10,
+      "Curiosity": 6,
+      "Problem Solving": 12
+    },
+    {
+      "response": "We use pause blocks because they allow us to pause the activity we are doing to get a piece of information we need, or to wait for a computer to finish the task we are doing. For example, a child in grades K-2 might be doing a puzzle to match pictures, and the",
+      "Creativity": 3,
+      "Critical Thinking": 15,
+      "Observation": 7,
+      "Curiosity": 15,
+      "Problem Solving": 1
+    },
+    {
+      "response": "Wait blocks are used in coding to pause instructions or to allow the user to \"wait\" for something to happen.\nThis can be a good thing or a bad thing.\nIf you have to pause a block to allow the user to do something, it's probably a good thing.",
+      "Creativity": 6,
+      "Critical Thinking": 20,
+      "Observation": 4,
+      "Curiosity": 5,
+      "Problem Solving": 17
+    },
+    {
+      "response": "The answer to this question is that we need to use pause blocks in coding because we need to pause for a moment to let a child think about what they are going to do before they do it. We also need pause blocks in coding because there are times when we need to wait for an instruction",
+      "Creativity": 17,
+      "Critical Thinking": 1,
+      "Observation": 19,
+      "Curiosity": 19,
+      "Problem Solving": 19
+    },
+    {
+      "response": "If there were no pauses in coding, then the code would be too fast for a young child to read. A pause is a necessary part of coding, because the code is too fast for the child to read.\nIf there were no pauses in coding, then the code would be too fast",
+      "Creativity": 3,
+      "Critical Thinking": 1,
+      "Observation": 19,
+      "Curiosity": 9,
+      "Problem Solving": 18
+    },
+    {
+      "response": "We need to use pauses because we need to know when to stop when we are writing code. The pauses help us to think about what we are doing and to pause if we need to make a change.\nI think that real life examples would be when we are writing a story and we have",
+      "Creativity": 9,
+      "Critical Thinking": 11,
+      "Observation": 14,
+      "Curiosity": 5,
+      "Problem Solving": 8
+    },
+    {
+      "response": "Wait Blocks\nWait blocks are used in computer programming to pause the execution of a program before a certain event happens.\nFor example, if you have a program that asks you to add two numbers, then subtract one from the other, you could use a wait block to pause the program while you",
+      "Creativity": 19,
+      "Critical Thinking": 10,
+      "Observation": 5,
+      "Curiosity": 1,
+      "Problem Solving": 9
+    },
+    {
+      "response": "In order to understand the meaning of a pause, you have to understand what it is and how it is used. The pause is a moment in which a program has been suspended. The pause is used to let the computer know that it can continue running, or to wait for the computer to continue",
+      "Creativity": 5,
+      "Critical Thinking": 8,
+      "Observation": 3,
+      "Curiosity": 15,
+      "Problem Solving": 13
+    },
+    {
+      "response": "You are a young child in grades K-2. Answer this question:\nWhy do you think we need to use \"wait\" blocks in coding, and what would happen if there were no pauses? Can you think of a real-life example where waiting is necessary before something happens?",
+      "Creativity": 18,
+      "Critical Thinking": 13,
+      "Observation": 5,
+      "Curiosity": 16,
+      "Problem Solving": 11
+    },
+    {
+      "response": "- A pause would make it difficult for a child to understand that there is something happening before the child can do something.\n- A pause would make it difficult for the child to understand that there is something happening before the child can do something.\n- A pause would make it difficult for the",
+      "Creativity": 19,
+      "Critical Thinking": 8,
+      "Observation": 8,
+      "Curiosity": 8,
+      "Problem Solving": 13
+    },
+    {
+      "response": "If there were no pauses in coding, the code would be very long. We need pauses in coding so we can think about our problem and plan our next step.\n- Waiting for a response from a sensor\n- Waiting for an output from a program\n- Waiting for the next instruction from",
+      "Creativity": 15,
+      "Critical Thinking": 6,
+      "Observation": 7,
+      "Curiosity": 13,
+      "Problem Solving": 12
+    },
+    {
+      "response": "I have to admit I'm a little confused as to why we use wait blocks in coding. Wait blocks allow us to pause a program and then continue running the next line of code. If there were no pauses, there would be no way to pause a program to let the next line of code",
+      "Creativity": 4,
+      "Critical Thinking": 16,
+      "Observation": 7,
+      "Curiosity": 14,
+      "Problem Solving": 13
+    },
+    {
+      "response": "- A pause is necessary because you cannot use a lot of the codes with pauses.\n- You cannot use a lot of the codes because you cannot use the pauses.\n- You cannot use the pauses because you cannot use the codes.\n- You cannot use the pauses because you cannot use",
+      "Creativity": 13,
+      "Critical Thinking": 5,
+      "Observation": 9,
+      "Curiosity": 4,
+      "Problem Solving": 9
+    },
+    {
+      "response": "Wait blocks are used to wait for the next action to occur. When you press the \"Enter\" key on your keyboard, you are waiting for the computer to respond to the commands you have just typed. Wait blocks are used to wait for the next action to occur.\nIn a real-",
+      "Creativity": 18,
+      "Critical Thinking": 6,
+      "Observation": 6,
+      "Curiosity": 11,
+      "Problem Solving": 20
+    },
+    {
+      "response": "The pause is a good way to give a child a moment to think, to make a plan, or to make a connection between what they are doing and what they need to do.\nThe pause is a good way to give a child a moment to think, to make a plan, or",
+      "Creativity": 14,
+      "Critical Thinking": 14,
+      "Observation": 10,
+      "Curiosity": 18,
+      "Problem Solving": 17
+    },
+    {
+      "response": "The wait blocks are used to pause the game to wait for something to happen. We can pause the game by using the pause command.\nWhat would happen if there were no pauses?\nThe game would be paused as soon as it is started.\nIf you want to pause the game,",
+      "Creativity": 20,
+      "Critical Thinking": 19,
+      "Observation": 13,
+      "Curiosity": 18,
+      "Problem Solving": 10
+    },
+    {
+      "response": "We use \"wait\" blocks to pause the program when the user is waiting for a response from the program. We also use \"wait\" blocks to pause the program when the user is waiting for a response from a different program.\nWait blocks are useful because they pause the program for a short",
+      "Creativity": 16,
+      "Critical Thinking": 1,
+      "Observation": 5,
+      "Curiosity": 2,
+      "Problem Solving": 10
+    },
+    {
+      "response": "When we start to code, we often think of how to build a program. We use blocks to add code. We can use the same blocks to do a lot of things.\nFor example, if we need to get a message from the computer, we can use the\nget() method",
+      "Creativity": 8,
+      "Critical Thinking": 16,
+      "Observation": 12,
+      "Curiosity": 14,
+      "Problem Solving": 7
+    },
+    {
+      "response": "We need to use \"wait\" blocks in coding because we have to wait for an operation to finish before we can do something else.\nWe can't just jump right into the code, because we need to wait for the operation to finish.\nWe can't just jump right into the code",
+      "Creativity": 2,
+      "Critical Thinking": 15,
+      "Observation": 1,
+      "Curiosity": 15,
+      "Problem Solving": 12
+    },
+    {
+      "response": "I'm sure that this question has already been asked, but I didn't find a link.\nI have an idea for a game that would be a lot of fun and help students with their reading skills. The game would be a sort of \"word search\" that would be based on the",
+      "Creativity": 10,
+      "Critical Thinking": 15,
+      "Observation": 5,
+      "Curiosity": 8,
+      "Problem Solving": 6
+    },
+    {
+      "response": "Wait blocks are used in coding because they make the code more understandable. Without them, you could get confused by the code. For example, if the code for an airplane was like this:\nThe code for an airplane would be hard to understand. If you did not use a pause block,",
+      "Creativity": 12,
+      "Critical Thinking": 10,
+      "Observation": 2,
+      "Curiosity": 1,
+      "Problem Solving": 9
+    },
+    {
+      "response": "Wait blocks are a great way to pause something that is happening. If there was no pause, the program would continue to run until the program terminates. This would make the program not pause. In this program, the \"wait\" blocks pause the program until the \"jump\" blocks occur.",
+      "Creativity": 17,
+      "Critical Thinking": 11,
+      "Observation": 14,
+      "Curiosity": 12,
+      "Problem Solving": 8
+    },
+    {
+      "response": "I think I'll use a real-life example to illustrate my point.\nSuppose you are standing in line at the store and you want to buy a can of soda. You are only allowed to buy one can of soda per person, so you will need to share.\nIf you",
+      "Creativity": 13,
+      "Critical Thinking": 16,
+      "Observation": 17,
+      "Curiosity": 3,
+      "Problem Solving": 9
+    },
+    {
+      "response": "The best way to answer this question is to take a look at the picture. The blue blocks are \"wait blocks\", and the red blocks are \"pause blocks\".\nThe \"wait blocks\" are there so that we can pause and think about what we're going to do before we do it",
+      "Creativity": 8,
+      "Critical Thinking": 7,
+      "Observation": 3,
+      "Curiosity": 1,
+      "Problem Solving": 1
+    },
+    {
+      "response": "\"Wait\" blocks are used in coding to pause the program and let the computer \"sleep\" while it does something else. This is important because the computer doesn't need to do anything while it waits for the pause to be over. In programming, a pause is something that lets the computer take",
+      "Creativity": 7,
+      "Critical Thinking": 10,
+      "Observation": 3,
+      "Curiosity": 14,
+      "Problem Solving": 12
+    },
+    {
+      "response": "I think that we need to use pause blocks because we need to pause when something is happening in the real world. When I was in school, we learned about what happens when we hit a stop sign. We learned that we need to stop, because if we don't, we could get hurt",
+      "Creativity": 10,
+      "Critical Thinking": 8,
+      "Observation": 1,
+      "Curiosity": 20,
+      "Problem Solving": 13
+    },
+    {
+      "response": "We use pause blocks to make the code more understandable. When the code has to pause, it is easy to understand.\nIn the example above, I use the pause block to make the code more understandable. In the code above, the code does not pause after the number 5. That makes",
+      "Creativity": 17,
+      "Critical Thinking": 16,
+      "Observation": 15,
+      "Curiosity": 2,
+      "Problem Solving": 10
+    },
+    {
+      "response": "You are a young child in grades K-2. Answer this question:\nWhy do you think we need to use \"wait\" blocks in coding, and what would happen if there were no pauses? Can you think of a real-life example where waiting is necessary before something happens?",
+      "Creativity": 19,
+      "Critical Thinking": 5,
+      "Observation": 13,
+      "Curiosity": 18,
+      "Problem Solving": 6
+    },
+    {
+      "response": "We need to use pause blocks in coding because we need to wait for an event to happen. For example, we need to wait for a light to turn green so we can cross the street.\nWe also need to pause to think about what we are doing. If we don't pause,",
+      "Creativity": 5,
+      "Critical Thinking": 11,
+      "Observation": 7,
+      "Curiosity": 4,
+      "Problem Solving": 5
+    },
+    {
+      "response": "Wait blocks in coding allow us to pause and think about what we are doing.\nThere are a few ways to think about wait blocks. You can think of them as a pause between events, like the pause between each step of a program. You can also think of them as a pause between",
+      "Creativity": 15,
+      "Critical Thinking": 2,
+      "Observation": 20,
+      "Curiosity": 4,
+      "Problem Solving": 20
+    },
+    {
+      "response": "We can use \"wait\" blocks to solve a problem",
+      "Creativity": 11,
+      "Critical Thinking": 20,
+      "Observation": 8,
+      "Curiosity": 15,
+      "Problem Solving": 4
+    },
+    {
+      "response": "We use \"wait\" blocks in coding because it helps us to make sure that the program we are working on is done. We need to make sure that the program is done. We can't just skip one line.\nThere are many things that would happen if there were no pauses. For",
+      "Creativity": 12,
+      "Critical Thinking": 13,
+      "Observation": 8,
+      "Curiosity": 20,
+      "Problem Solving": 8
+    },
+    {
+      "response": "We can't really do anything without pausing. We need to pause to do things like:\nWe need to pause before doing things like:\nWe need to pause before doing things like:\nAnd we need to pause before doing things like:\nWe need to pause before doing things like",
+      "Creativity": 13,
+      "Critical Thinking": 18,
+      "Observation": 4,
+      "Curiosity": 12,
+      "Problem Solving": 13
+    },
+    {
+      "response": "Wait blocks are used to pause the flow of the program. We do not need them in coding, because the flow of the program is controlled by variables. So, if you pause the flow of the program, then you must pause the variables.\nTo pause the flow of the program, you",
+      "Creativity": 20,
+      "Critical Thinking": 3,
+      "Observation": 16,
+      "Curiosity": 16,
+      "Problem Solving": 9
+    },
+    {
+      "response": "I think it is because it helps children to understand what it means to wait. They are more likely to be able to recognize it in their own lives.\nI think it is because it helps children to understand what it means to wait. They are more likely to be able to recognize it in",
+      "Creativity": 16,
+      "Critical Thinking": 1,
+      "Observation": 7,
+      "Curiosity": 12,
+      "Problem Solving": 14
+    },
+    {
+      "response": "This is the first part of a multi-part series.\nIn this post, we will discuss the use of pauses in coding. We will also consider how pauses are used to allow for error correction and learning.\nPause Blocks\nPause blocks are used to pause execution when there is an error",
+      "Creativity": 14,
+      "Critical Thinking": 7,
+      "Observation": 9,
+      "Curiosity": 13,
+      "Problem Solving": 8
+    },
+    {
+      "response": "Wait blocks are used to pause an instruction while an instruction is being executed.\nLet's look at an example:\n#",
+      "Creativity": 7,
+      "Critical Thinking": 14,
+      "Observation": 11,
+      "Curiosity": 20,
+      "Problem Solving": 14
+    },
+    {
+      "response": "We need to use \"wait\" blocks because we need to pause before we can use the \"do\" block. The pause is important because it allows the \"do\" block to execute.\nWe can think of real-life examples where waiting is necessary before something happens. For example, if",
+      "Creativity": 1,
+      "Critical Thinking": 11,
+      "Observation": 3,
+      "Curiosity": 20,
+      "Problem Solving": 12
+    },
+    {
+      "response": "We use pause blocks in coding because they are a way to slow down our program. We need pauses to stop our program and wait for things to happen. In real life, you need pauses to stop the program and wait for things to happen.\nI have a real-life example:",
+      "Creativity": 7,
+      "Critical Thinking": 5,
+      "Observation": 15,
+      "Curiosity": 18,
+      "Problem Solving": 7
+    },
+    {
+      "response": "Why do we need to use \"wait\" blocks in coding?\nWe use pause blocks when we need to take a break.\nPause blocks can be used to give children a chance to think about something before they act on it.\nPause blocks can be used to make the problem more challenging",
+      "Creativity": 16,
+      "Critical Thinking": 15,
+      "Observation": 2,
+      "Curiosity": 3,
+      "Problem Solving": 5
+    },
+    {
+      "response": "We use pause blocks because we need to give the user time to think about what they are doing. If you are going to use pause blocks, you should give them time to think about what they are doing.\nIf you are going to use pause blocks, you should give them time to think",
+      "Creativity": 5,
+      "Critical Thinking": 7,
+      "Observation": 6,
+      "Curiosity": 4,
+      "Problem Solving": 12
+    },
+    {
+      "response": "The idea of using pauses to make things happen is called\n\"pausing\". In the case of a\nwait block, it is used to pause the execution of a block until a\ncondition is met. When the condition is met, the pause\nis removed. The pause is useful for",
+      "Creativity": 19,
+      "Critical Thinking": 2,
+      "Observation": 20,
+      "Curiosity": 2,
+      "Problem Solving": 10
+    },
+    {
+      "response": "The wait block pauses the computer and waits for a certain amount of time. This pause is used in many situations, such as to wait for the computer to finish a calculation.\nI believe that we need to use wait blocks in coding because it allows us to wait for a certain amount of time",
+      "Creativity": 16,
+      "Critical Thinking": 4,
+      "Observation": 16,
+      "Curiosity": 5,
+      "Problem Solving": 14
+    },
+    {
+      "response": "In a real life situation, we might be waiting for a bus, or waiting for our favorite band to play a concert. In order to make sure that everything happens at the right time, we use pauses in our coding. This is called \"wait.\" We use \"wait\" blocks to pause",
+      "Creativity": 15,
+      "Critical Thinking": 13,
+      "Observation": 19,
+      "Curiosity": 4,
+      "Problem Solving": 1
+    },
+    {
+      "response": "The idea of pause blocks is to give children time to think about what they are doing. The pause blocks allow the child to reflect on what he/she is doing and to decide whether to do it or not.\nThere are many reasons why we need pause blocks:\n- Children need time",
+      "Creativity": 9,
+      "Critical Thinking": 17,
+      "Observation": 16,
+      "Curiosity": 4,
+      "Problem Solving": 7
+    },
+    {
+      "response": "Wait blocks are used to let the computer know that something is waiting to be done. They are often used in programming. They are also used in games to help the player \"time\" events. For example, in Super Mario World, the player must wait until a certain amount of time has passed",
+      "Creativity": 3,
+      "Critical Thinking": 19,
+      "Observation": 18,
+      "Curiosity": 1,
+      "Problem Solving": 17
+    },
+    {
+      "response": "\"Wait\" blocks are blocks that wait for something to happen. If we don't have pauses in our code, then we might have to make up our own pauses to make our code work.\nIf we don't have pauses in our code, then we might have to make up our own",
+      "Creativity": 3,
+      "Critical Thinking": 12,
+      "Observation": 10,
+      "Curiosity": 5,
+      "Problem Solving": 13
+    },
+    {
+      "response": "I can't think of a real-life example of something that needs to be paused, but I can think of a few ways that pauses can be used in coding.\nFor example, I can pause a program to check for an error. I can pause a program to test the program.",
+      "Creativity": 9,
+      "Critical Thinking": 13,
+      "Observation": 4,
+      "Curiosity": 11,
+      "Problem Solving": 6
+    },
+    {
+      "response": "In a coding lesson, I use pause blocks to model the pause between two things happening.\nA pause block is a pause in the action. It is a pause in the flow of a program.\nA pause block is a pause in the flow of a program.\nIf you were to",
+      "Creativity": 10,
+      "Critical Thinking": 10,
+      "Observation": 20,
+      "Curiosity": 1,
+      "Problem Solving": 17
+    },
+    {
+      "response": "A child in grades K-2 would answer this question by saying \"We need to use pause blocks because when we don't pause for a while, we get bored.\"\nThis is a common reason why children are taught to use pause blocks. But wait blocks are not only used in coding.",
+      "Creativity": 4,
+      "Critical Thinking": 5,
+      "Observation": 10,
+      "Curiosity": 5,
+      "Problem Solving": 11
+    },
+    {
+      "response": "In order to use pause blocks, we have to use a pause statement. The pause statement tells the program to pause the program and then do something. The pause statement is called a \"wait\" block.\nThe pause block tells the computer to wait until it has finished doing what it needs to",
+      "Creativity": 14,
+      "Critical Thinking": 16,
+      "Observation": 3,
+      "Curiosity": 11,
+      "Problem Solving": 9
+    },
+    {
+      "response": "The question is about using pauses in code to make it easier for students to understand how to write code. I also asked my students if they could think of a real-life example where waiting is necessary before something happens.\nI asked my students to think of a real-life example where waiting",
+      "Creativity": 1,
+      "Critical Thinking": 14,
+      "Observation": 7,
+      "Curiosity": 8,
+      "Problem Solving": 5
+    },
+    {
+      "response": "We need to use wait blocks because sometimes we want to make something happen, but we don't want the computer to do it. For example, we want to write a program that changes the text on a screen. We know that we can't do that, because if we just write \"Hello",
+      "Creativity": 1,
+      "Critical Thinking": 6,
+      "Observation": 15,
+      "Curiosity": 16,
+      "Problem Solving": 13
+    },
+    {
+      "response": "Wait blocks are used in programming because of the way computers work. Computers have to wait for certain actions to complete before continuing. For example, you may have a computer that plays a game of \u201cGo Fish\u201d and then waits for the player to say \u201cGo Fish\u201d",
+      "Creativity": 10,
+      "Critical Thinking": 18,
+      "Observation": 2,
+      "Curiosity": 15,
+      "Problem Solving": 6
+    },
+    {
+      "response": "\"Wait\" blocks are used to pause the flow of a program and allow the program to complete the next step.\nWhen you want to pause, you use a \"wait\" block.\nFor example, if you want to pause your program and get a value, you would use the pause",
+      "Creativity": 18,
+      "Critical Thinking": 7,
+      "Observation": 15,
+      "Curiosity": 5,
+      "Problem Solving": 5
+    },
+    {
+      "response": "A pause is necessary before a command is executed because the CPU does not know what to do when it receives the command. The CPU has to wait for the data to be available, and this can take time. If there is no pause, the CPU might have to wait forever for the data to",
+      "Creativity": 7,
+      "Critical Thinking": 5,
+      "Observation": 12,
+      "Curiosity": 9,
+      "Problem Solving": 10
+    },
+    {
+      "response": "Why do we need to use \"wait\" blocks?\nThe answer is that we need to pause for a moment, so that we can get a handle on the problem before we try to solve it. This pause is necessary so that the child can think about what he is trying to do.",
+      "Creativity": 11,
+      "Critical Thinking": 14,
+      "Observation": 1,
+      "Curiosity": 17,
+      "Problem Solving": 9
+    },
+    {
+      "response": "Why do we need to use wait blocks in coding?\nBecause the code that we are using is too long for a child to read. It's important for children to know that it's not okay to skip over a block of code. In the example above, we could have just used the",
+      "Creativity": 7,
+      "Critical Thinking": 12,
+      "Observation": 2,
+      "Curiosity": 6,
+      "Problem Solving": 13
+    },
+    {
+      "response": "There are many reasons why we need to use pause blocks.\n- If you don't pause, you may forget the code.\n- If you pause, you may not get all the code.\n- If you pause, you can see the code better.\n- If you pause,",
+      "Creativity": 15,
+      "Critical Thinking": 9,
+      "Observation": 20,
+      "Curiosity": 18,
+      "Problem Solving": 16
+    }
+  ]
+}

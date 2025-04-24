@@ -89,7 +89,7 @@ const Users = () => {
                       <FaEnvelope />
                     </a>
                   </td>
-                  <td>{student.cummulative_score}</td>
+                  <td>{student.cumulative_scores}</td>
                 </tr>
               ))}
             </tbody>

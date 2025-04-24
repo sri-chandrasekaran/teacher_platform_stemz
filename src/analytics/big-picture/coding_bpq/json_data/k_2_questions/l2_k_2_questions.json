@@ -1,0 +1,134 @@
+{
+    "questions": [
+      {
+        "question": "What happens when a computer has to make a decision?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "Can you think of a time in real life when you have to choose between two things? How is that like coding?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "Why do you think loops are helpful in a game or a story?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "If you could teach a robot to follow rules, what rules would you give it?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "What happens if a computer doesn’t have the right instructions?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "How do you think 'if' statements help a game change what happens next?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "Can you think of a time when a computer program has to repeat the same thing over and over?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "What would happen if there were no loops in a game?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "How can you use coding to make a character react to different situations?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      },
+      {
+        "question": "If you were making a game, what kind of choices would you want the player to make?",
+        "responses": [
+            {
+                "response": "some response",
+                "Creativity": 0,
+                "Critical Thinking": 0,
+                "Observation": 0,
+                "Curiosity": 0,
+                "Problem Solving": 0
+              }
+            ]
+      }
+    ]
+}
