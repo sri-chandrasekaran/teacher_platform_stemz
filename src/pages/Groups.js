@@ -79,7 +79,11 @@ const GroupsPage = () => {
 
   // entering a classroom
   const handleEnterClassroom = (id) => {
-    navigate(`/dashboard/${id}`);
+    const classroom = classrooms.find((classroom) => classroom.id === id);
+    if (classroom) {
+      // const formattedName = classroom.name.replace(/\s+/g, '-').toLowerCase();
+      navigate(`/dashboard/${id}/${classroom.name}`);
+    }
   };
 
   // add a new classroom

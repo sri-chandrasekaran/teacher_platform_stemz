@@ -24,7 +24,8 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
-  const { id: classroomId } = useParams(); 
+  const { classroomId } = useParams();
+  const { classroomName } = useParams();
   const [selectedStudent, setSelectedStudent] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
   const [students, setStudents] = useState([]);
@@ -35,7 +36,7 @@ const Dashboard = () => {
 
   const location = useLocation();
 
-  const isAnalyticsPage = location.pathname.includes(`/dashboard/${classroomId}`);
+  const isAnalyticsPage = location.pathname.includes(`/dashboard/${classroomId}/${classroomName}`);
 
   const openPopup = (assignment) => {
     setSelectedAssignment(assignment);  
@@ -48,14 +49,17 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/students');
+        const response = await fetch('http://localhost:3000/api/classrooms/' + classroomId + '/users');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
         const data = await response.json();
-        setStudents(data);
+        setStudents(data["students"]);
         // Add fake last_logged_on data for each student entry
-        const studentsWithFakeData = data.map(student => ({
+        const studentsWithFakeData = Array.isArray(students) ? students.map(student => ({
           ...student,
           last_logged_on: new Date(Date.now() - Math.random() * 10000000000).toISOString() 
-        }));
+        })) : [];
   
         setLeaderboard(studentsWithFakeData);  // Set the updated data to leaderboard state
       } catch (error) {
@@ -68,9 +72,9 @@ const Dashboard = () => {
   
 
   useEffect(() => {
-    const fetchClasses = async () => {
+    const fetchCourses = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/course`);
+        const response = await fetch(`http://localhost:3000/api/classrooms/${classroomId}/courses`);
         const data = await response.json();
         setCourses(data);
       } catch (error) {
@@ -91,7 +95,7 @@ const Dashboard = () => {
       }
     };
     
-    fetchClasses();
+    fetchCourses();
   }, []);
 
   const openModal = () => setModalOpen(true);
@@ -235,7 +239,7 @@ const Dashboard = () => {
             </Link>
           </li>
           <li>
-            <Link to={`/dashboard/${classroomId}`}>
+            <Link to={`/dashboard/${classroomName}/${classroomId}`}>
               <FaChartLine className={`sidebar-icon ${isAnalyticsPage ? 'active' : ''}`} />
             </Link>
           </li>
@@ -264,7 +268,7 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <div className="content">
-        <h1 className="dashboard-title">Classroom {classroomId} Analytics</h1> 
+        <h1 className="dashboard-title">Classroom Analytics: {classroomName}</h1> 
         
         {/* Dropdowns */}
         <div className="dropdown-container">
@@ -275,8 +279,8 @@ const Dashboard = () => {
           >
             <option value="">Select a Student</option>
             {students.map((student) => (
-              <option key={student.student_id} value={student.student_id}>
-                {student.student_name}
+              <option key={student.id} value={student.id}>
+                {student.name}
               </option>
             ))}
           </select>
