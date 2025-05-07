@@ -1,7 +1,8 @@
 import React from 'react';
 import '../styles/styles.css';
 
-const CourseGrades = () => {
+const CourseGrades = ({data}) => {
+  console.log(data)
     const activeUsers = [
         { name: "Alice Johnson", grade: 95, completion: 100 },
         { name: "Bob Smith", grade: 87, completion: 90 },

@@ -291,8 +291,8 @@ const Dashboard = () => {
           >
             <option value="">Select a Course</option>
             {courses.map((course) => (
-              <option key={course.course_name} value={course.course_name}>
-                {course.course_name}
+              <option key={course.id} value={course.name}>
+                {course.name}
               </option>
             ))}
           </select>
@@ -405,7 +405,7 @@ const Dashboard = () => {
             <div className="tables-container">
               {/* Recent activity in a course */}
               <div className="active-course-users">
-                <ActiveCourseUsers />
+              <ActiveCourseUsers data={courses.find(course => course.name === selectedCourse)} />
               </div>
               {/* <div className="dot-plot-container">
                 <Plot data={[dotPlotData]} layout={dotPlotLayout} />
@@ -413,13 +413,13 @@ const Dashboard = () => {
 
               {/* histogram/gaussian plot */}
               <div className="dot-plot-container">
-                <GradeCurve />
+                <GradeCurve data={courses.find(course => course.name === selectedCourse)}/>
               </div>
 
             </div>
             {/* Grades table containing all grades for a course */}
             <div className="extra-table-container">
-              <CourseGrades />
+              <CourseGrades data={courses.find(course => course.name === selectedCourse)}/>
             </div>
           </div>
         )}
