@@ -13,6 +13,8 @@ import Plot from 'react-plotly.js';
 import '../styles/styles.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
+const API_BASE_URL = 'http://localhost:3000/api';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -49,7 +51,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/classrooms/' + classroomId + '/users');
+        const response = await fetch(API_BASE_URL + '/classrooms/' + classroomId + '/users');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -74,7 +76,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/classrooms/${classroomId}/courses`);
+        const response = await fetch(API_BASE_URL + `/classrooms/${classroomId}/courses`);
         const data = await response.json();
         setCourses(data);
       } catch (error) {

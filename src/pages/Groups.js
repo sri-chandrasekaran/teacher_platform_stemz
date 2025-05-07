@@ -5,6 +5,8 @@ import InviteStudentsModal from '../components/invitestudents';
 import { useNavigate } from 'react-router-dom';
 import '../styles/styles.css';
 
+const API_BASE_URL = 'http://localhost:3000/api';
+
 const GroupsPage = () => {
   const navigate = useNavigate();
   
@@ -34,7 +36,7 @@ const GroupsPage = () => {
   useEffect(() => {
     const fetchClassrooms = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/classrooms`);
+        const response = await fetch(API_BASE_URL + `/classrooms`);
         const data = await response.json();
         console.log("Fetched data: ", data);
   
