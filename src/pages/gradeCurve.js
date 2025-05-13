@@ -1,26 +1,10 @@
 import { mean, std } from 'mathjs';
 import Plot from 'react-plotly.js';
 
-const GradeCurve = () => {
-    const activeUsers = [
-        { name: "Alice Johnson", grade: 95, completion: 100 },
-        { name: "Bob Smith", grade: 87, completion: 90 },
-        { name: "Charlie Brown", grade: 78, completion: 85 },
-        { name: "Diana Ross", grade: 82, completion: 95 },
-        { name: "Ethan Hunt", grade: 91, completion: 100 },
-        { name: "Fiona Carter", grade: 88, completion: 92 },
-        { name: "George Miller", grade: 76, completion: 80 },
-        { name: "Hannah Lee", grade: 92, completion: 100 },
-        { name: "Ian Thompson", grade: 85, completion: 88 },
-        { name: "Jessica Parker", grade: 89, completion: 93 },
-        { name: "Kevin Martinez", grade: 73, completion: 70 },
-        { name: "Lily Adams", grade: 97, completion: 100 },
-        { name: "Michael Scott", grade: 81, completion: 78 },
-        { name: "Natalie Brooks", grade: 90, completion: 96 },
-        { name: "Oliver Davis", grade: 79, completion: 82 }
-      ];
-    
-      const grades = activeUsers.map(user => user.grade)
+const GradeCurve = ({ grade_data, course }) => {
+      console.log(grade_data)
+      
+      const grades = grade_data.map(user => user.grade)
 
       const mu = mean(grades);
       const sigma = std(grades);

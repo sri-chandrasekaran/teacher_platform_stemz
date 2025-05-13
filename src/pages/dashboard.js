@@ -35,6 +35,7 @@ const Dashboard = () => {
   const [leaderboard, setLeaderboard] = useState([]); 
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
+  const [grades, setGrades] = useState([]);
 
   const location = useLocation();
 
@@ -96,6 +97,17 @@ const Dashboard = () => {
         setCourses(fakeCourses);
       }
     };
+
+    const fetchGrades = async () => {
+      try {
+        const response = await fetch(API_BASE_URL + '/grade/classroom/' + classroomId);
+        const data = await response.json();
+        setGrades(data);
+      } catch (error) {
+        console.error('Error fetching grades:', error);
+      }
+    };
+    fetchGrades();
     
     fetchCourses();
   }, []);
@@ -407,21 +419,30 @@ const Dashboard = () => {
             <div className="tables-container">
               {/* Recent activity in a course */}
               <div className="active-course-users">
-              <ActiveCourseUsers data={courses.find(course => course.name === selectedCourse)} />
+              <ActiveCourseUsers
+              grades={grades.filter(grade => grade.classroom_id === classroomId && grade.course_id === courses.find(course => course.name === selectedCourse)?.id)} 
+              course={courses.find(course => course.name === selectedCourse)} 
+              />
               </div>
               {/* <div className="dot-plot-container">
                 <Plot data={[dotPlotData]} layout={dotPlotLayout} />
               </div> */}
 
               {/* histogram/gaussian plot */}
-              <div className="dot-plot-container">
-                <GradeCurve data={courses.find(course => course.name === selectedCourse)}/>
-              </div>
+                      <div className="dot-plot-container">
+                      <GradeCurve 
+                      grades={grades.filter(grade => grade.classroom_id === classroomId && grade.course_id === courses.find(course => course.name === selectedCourse)?.id)} 
+                      course={courses.find(course => course.name === selectedCourse)}
+                      />
+                      </div>
 
-            </div>
-            {/* Grades table containing all grades for a course */}
+                    </div>
+                    {/* Grades table containing all grades for a course */}
             <div className="extra-table-container">
-              <CourseGrades data={courses.find(course => course.name === selectedCourse)}/>
+              <CourseGrades 
+              grades={grades.filter(grade => grade.classroom_id === classroomId && grade.course_id === courses.find(course => course.name === selectedCourse)?.id)} 
+              course={courses.find(course => course.name === selectedCourse)}
+              />
             </div>
           </div>
         )}
