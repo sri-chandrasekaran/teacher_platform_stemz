@@ -1,39 +1,20 @@
 import React from 'react';
 import '../styles/styles.css';
 
-const ActiveCourseUsers = () => {
-  const activeUsers = [
-    {
-      name: "Alice Johnson",
-      assignment: "Math Homework 1",
-      timeSignedIn: 45, // 45 minutes
-      grade: 95,
-    },
-    {
-      name: "Bob Smith",
-      assignment: "Science Project",
-      timeSignedIn: 30, // 30 minutes
-      grade: 87,
-    },
-    {
-      name: "Charlie Brown",
-      assignment: "History Essay",
-      timeSignedIn: 60, // 1 hour
-      grade: 78,
-    },
-    {
-      name: "Diana Ross",
-      assignment: "Physics Lab",
-      timeSignedIn: 90, // 1.5 hours
-      grade: 82,
-    },
-    {
-      name: "Ethan Hunt",
-      assignment: "Chemistry Report",
-      timeSignedIn: 25, // 25 minutes
-      grade: 91,
-    },
-  ];
+const ActiveCourseUsers = ({ grade_data, course, students, worksheets }) => {
+  // Sort grade_data by createdAt timestamp in descending order
+  const sortedGradeData = grade_data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const filteredGradeData = sortedGradeData.filter((data) => data.course_id === course.id);
+  // Map sorted grade_data to activeUsers format
+  const activeUsers = filteredGradeData.map((data) => {
+    const student = students.find((student) => student.id === data.student_user_id);
+    return {
+      name: student ? student.name : 'Unknown', // Fallback to 'Unknown' if student not found
+      assignment: data.worksheet_name,
+      timeSignedIn: data.time_to_complete, // Assuming timeSpent is in minutes
+      grade: data.grade,
+    };
+  });
   
 
   return (
