@@ -2014,4 +2014,11 @@ p {
   align-items: center;
 }
 
+.metrics-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Or 'space-between' / 'space-around' / 'flex-start' depending on your layout */
+  gap: 1rem; /* Adjust spacing between circles */
+  flex-wrap: wrap; /* Optional: allows wrapping on smaller screens */
+}
 

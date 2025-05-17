@@ -41,20 +41,18 @@ def generate_response(prompt):
 
 # Your list of questions
 questions = [
-    "What do you think happens when a computer remembers something, like your name or a number?",
-    "Why do you think we need numbers to tell a computer where things go on the screen?",
-    "How do you know where you are in a room? How do computers know where things are?",
-    "Can you think of a time when you had to follow steps in a certain order? What happens if you mix them up?",
-    "Why do you think computers have to follow instructions exactly?",
-    "How do we use numbers every day, and how do you think computers use numbers?",
-    "What does it mean to \"store\" information? Where do you think computers keep information?",
-    "Why do you think it’s important to be able to change numbers in a program?",
-    "How do directions like left, right, up, and down help computers know where to move things?",
-    "Can you think of a time when you had to wait for the right moment to do something? How do you think computers know when to do things?"
+    "Can you think of a real-life situation where we use conditions, like \"if it’s raining, take an umbrella\"?",
+    "Why do you think computers store information in different variables instead of writing everything at once?",
+    "How does coding teach us to break big problems into smaller steps?",
+    "Why do you think professional coders use loops and conditionals instead of writing long lists of instructions?",
+    "How can coding help in fields like science, engineering, or even music and art?",
+    "How do you think learning to code can help with problem-solving in everyday life?"
 ]
 
+
+
 # Output folder
-os.makedirs("generated_k2_responses", exist_ok=True)
+os.makedirs("generated_new_responses", exist_ok=True)
 
 # Loop through questions and generate responses
 for idx, question in enumerate(questions, start=1):
@@ -78,7 +76,7 @@ for idx, question in enumerate(questions, start=1):
         })
 
     # Save to a separate file for each question
-    filename = f"generated_k2_responses/question_{idx}.json"
+    filename = f"generated_new_responses/question_{idx}.json"
     with open(filename, "w") as file:
         json.dump({
             "question": question,

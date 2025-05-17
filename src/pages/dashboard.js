@@ -30,6 +30,28 @@ const Dashboard = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
   const [nlpMetrics, setNlpMetrics] = useState({});
+  const [studentResponse, setStudentResponse] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [performanceData, setPerformanceData] = useState([]);
+  const [predictions, setPredictions] = useState([]);
+  const [chartOptions, setChartOptions] = useState([]);
+
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Predicted Scores",
+        data: [],
+        fill: false,
+        borderColor: "rgba(75,192,192,1)",
+      },
+    ],
+  });
+
+  useEffect(() => {
+    fetchPredictedPerformance();
+  }, []);
+
 
   const location = useLocation();
 
@@ -41,14 +63,6 @@ const Dashboard = () => {
   
   const closePopup = () => {
     setSelectedAssignment(null);
-  };
-  
-  const metricMap = {
-    "Creativity": "creativity",
-    "Critical Thinking": "critical_thinking",
-    "Observation": "observation",
-    "Curiosity": "curiosity",
-    "Problem Solving": "problem_solving"
   };
   
   useEffect(() => {
@@ -73,13 +87,19 @@ const Dashboard = () => {
   }, []);
 
   const fetchNlpMetrics = async (responseText) => {
+    if (!responseText.trim()) {
+      console.error("No response text provided");
+      return;
+    }
+    
     try {
+      setIsLoading(true);
       const response = await fetch("http://127.0.0.1:5000/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ response: responseText }),
+        body: JSON.stringify({ responses: responseText }),
       });
   
       if (!response.ok) {
@@ -87,16 +107,17 @@ const Dashboard = () => {
       }
   
       const data = await response.json();
-      console.log("Received NLP Metrics:", data); // Debugging
+      console.log("Received NLP Metrics:", data);
   
       setNlpMetrics(data);
     } catch (error) {
       console.error("Error fetching NLP metrics:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
-  
 
-  
+  console.log(nlpMetrics)  
 
   useEffect(() => {
     const fetchClasses = async () => {
@@ -112,6 +133,110 @@ const Dashboard = () => {
     fetchClasses();
   }, []);
 
+  const fetchPredictedPerformance = async () => {
+    try {
+      const originalScores = [82, 90]
+      const response = await fetch("http://127.0.0.1:5000/predict-future-performance", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ scores: [82, 90] }),
+      });
+      const data = await response.json();
+  
+      if (!data || !Array.isArray(data.predicted_scores)) {
+        console.error("Invalid response format:", data);
+        return;
+      }
+
+      const fullData = [...originalScores, ...data.predicted_scores];
+      const labels = [
+        ...originalScores.map((_, i) => `Quiz ${i + 1}`),
+        ...data.predicted_scores.map((_, i) => `Prediction ${i + 1}`),
+      ];
+
+
+      setChartData({
+        labels: fullData.map((_, i) =>
+          i < originalScores.length ? `Quiz ${i + 1}` : `Prediction ${i - originalScores.length + 1}`
+        ),
+        datasets: [
+          {
+            label: "Score",
+            data: fullData,
+            fill: false,
+            tension: 0.3,
+            segment: {
+              borderColor: (ctx) => {
+                const index = ctx.p0DataIndex;
+                const nextIndex = ctx.p1DataIndex;
+      
+                // Color original scores in blue, predicted in red
+                if (index < originalScores.length - 1 && nextIndex < originalScores.length) {
+                  return "rgba(54, 162, 235, 1)"; // blue
+                } else {
+                  return "rgba(255, 99, 132, 1)"; // red
+                }
+              },
+            },
+            borderWidth: 2,
+          },
+        ],
+      });
+
+      setChartOptions({
+        responsive: true,
+  plugins: {
+    legend: {
+      labels: {
+        generateLabels: (chart) => {
+          return [
+            {
+              text: "Original Scores",
+              strokeStyle: "rgba(54, 162, 235, 1)", // blue
+              fillStyle: "rgba(54, 162, 235, 1)",
+              lineWidth: 2,
+              hidden: false,
+              datasetIndex: 0,
+            },
+            {
+              text: "Predicted Scores",
+              strokeStyle: "rgba(255, 99, 132, 1)", // red
+              fillStyle: "rgba(255, 99, 132, 1)",
+              lineWidth: 2,
+              hidden: false,
+              datasetIndex: 0,
+            },
+          ];
+        },
+      },
+    },
+  },
+  scales: {
+    y: {
+      min: 60,
+      max: 100,
+      title: {
+        display: true,
+        text: "Score",
+      },
+    },
+  },
+      });
+    } catch (error) {
+      console.error("Error fetching prediction:", error);
+    }
+  };
+  
+
+  useEffect(() => {
+    if (selectedStudent && !selectedCourse) {
+      fetchPredictedPerformance([85, 90]);
+    }
+  }, [selectedStudent, selectedCourse]);
+
+  
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
@@ -132,8 +257,8 @@ const Dashboard = () => {
     );
   };
 
-  
-  const handleCourseSelect = (courseId) => {
+  const handleCourseSelect = (e) => {
+    const courseId = e.target.value;
     setSelectedCourse(courseId);
   
     if (selectedStudent) {
@@ -144,7 +269,7 @@ const Dashboard = () => {
   
 
   const renderSkillCircle = (label, value) => {
-    const percentage = (value / 20) * 100; // Assuming max score is 20
+    const percentage = (value / 20) * 100;
     return (
       <div className="skill-circle">
         <div
@@ -160,13 +285,20 @@ const Dashboard = () => {
     );
   };
 
-  const handleStudentSelect = (studentId) => {
+
+  const handleStudentSelect = async (e) => {
+    const studentId = e.target.value;
     setSelectedStudent(studentId);
   
-    // Example response to analyze (you can change this based on real student responses)
     const sampleResponse = "Stars help us understand the nature of the universe and its origin.";
-  
+    setStudentResponse(sampleResponse);
     fetchNlpMetrics(sampleResponse);
+
+    const futureData = await fetchPredictedPerformance(studentId);
+    if (futureData) {
+    setPerformanceData(futureData.historical);
+    setPredictions(futureData.predicted);
+  }
   };
   
 
@@ -180,7 +312,7 @@ const Dashboard = () => {
   const gradeData = [10, 12, 14, 15, 18, 11, 13, 16, 17, 19, 20, 16, 18, 14, 11, 13, 17, 12, 15];
 
   const dotPlotData = {
-    x: gradeData, // This represents the grades
+    x: gradeData,
     type: 'scatter',
     mode: 'markers',
     marker: {
@@ -195,65 +327,6 @@ const Dashboard = () => {
     yaxis: { title: 'Frequency' },
     showlegend: false,
   };
-
-
-    // Generate fake historical data for predictive analysis
-    const generateFakeData = () => {
-      const fakeData = [];
-      let currentDate = new Date();
-  
-      for (let i = 0; i < 10; i++) {
-        fakeData.push({
-          date: currentDate.toISOString().split('T')[0], // Format date as YYYY-MM-DD
-          points: Math.floor(Math.random() * 20) + 1 // Random points between 1 and 20
-        });
-        currentDate.setDate(currentDate.getDate() - 1); // Go backwards in time
-      }
-  
-      return fakeData.reverse(); // Reverse to have data in increasing date order
-    };
-  
-    const generateSimplePrediction = (performanceData) => {
-      if (performanceData.length === 0) return [];
-  
-      const averagePoints = performanceData.reduce((acc, curr) => acc + curr.points, 0) / performanceData.length;
-      let lastPoints = performanceData[performanceData.length - 1].points;
-      const predictions = [];
-  
-      // Generate 5 future predictions
-      for (let i = 0; i < 5; i++) {
-        lastPoints += Math.round(averagePoints * 0.05); // Assume 5% improvement each time
-        predictions.push({ date: `2025-01-${i + 1}`, points: Math.round(lastPoints) }); // Use fixed dates for simplicity
-      }
-  
-      return predictions;
-    };
-  
-    // Prepare chart data
-    const performanceData = generateFakeData();
-    const predictions = generateSimplePrediction(performanceData);
-  
-    const chartData = {
-      labels: [
-        ...performanceData.map(entry => entry.date),
-        ...predictions.map(entry => entry.date)
-      ],
-      datasets: [
-        {
-          label: 'Historical Performance',
-          data: performanceData.map(entry => entry.points),
-          borderColor: 'rgba(75, 192, 192, 1)',
-          fill: false,
-        },
-        {
-          label: 'Predicted Performance',
-          data: predictions.map(entry => entry.points),
-          borderColor: 'rgba(255, 99, 132, 1)',
-          fill: false,
-          borderDash: [5, 5],
-        }
-      ]
-    };
 
   return (
     <div className="dashboard">
@@ -297,7 +370,7 @@ const Dashboard = () => {
       {/* Main Content */}
       <div className="content">
         <h1 className="dashboard-title">Classroom {classroomId} Analytics</h1> 
-        
+      
         {/* Dropdowns */}
         <div className="dropdown-container">
           <select 
@@ -372,59 +445,46 @@ const Dashboard = () => {
         </>
         )}
 
-        
 
+      {(selectedStudent && !selectedCourse) && (
+          <div className="student-specific-section">
+            {/* Predictive Analysis Section */}
+            <div className="predictive-analysis">
+              <h2>Performance Prediction</h2>
+              <Line data={chartData} options={chartOptions}/>
+            </div>
+            <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
 
-        {/* Predictive Analysis and Skill Development Section */}
-{(selectedStudent && !selectedCourse) && (
-  <div className="student-specific-section">
-    {/* Predictive Analysis Section */}
-    <div className="predictive-analysis">
-      {/* <h2>Predictive Analysis</h2> */}
-      <Line data={chartData} />
-    </div>
-
-    <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
-
-
-
-{nlpMetrics && Object.keys(nlpMetrics).length > 0 ? (
-  <div className="metrics-container">
-    <div className="skill-circle-container">
-    {renderSkillCircle("Creativity", nlpMetrics.creativity || nlpMetrics.Creativity)}
-    {renderSkillCircle("Critical Thinking", nlpMetrics["Critical Thinking"] || nlpMetrics.CriticalThinking)}
-    {renderSkillCircle("Observation", nlpMetrics.observation || nlpMetrics.Observation)}
-    {renderSkillCircle("Curiosity", nlpMetrics.curiosity || nlpMetrics.Curiosity)}
-    {renderSkillCircle("Problem Solving", nlpMetrics["Problem Solving"] || nlpMetrics.ProblemSolving)}
-    </div>
-    {/* <div className="nlp-metrics">
-      <h3>Skill Metrics:</h3>
-      <ul>
-        {Object.entries(nlpMetrics).map(([metric, value]) => (
-          <li key={metric}>{metric}: {value}</li>
-        ))}
-      </ul>
-    </div> */}
-
-    <div className="nlp-simulator">
-      <textarea
-        value={selectedStudent}
-        onChange={(e) => setSelectedStudent(e.target.value)}
-        placeholder="Enter student's response..."
-        rows={4}
-        cols={50}
-      />
-      <button onClick={() => fetchNlpMetrics(selectedStudent)}>Submit Response</button>
-    </div>
-
-
-  </div>
-  
-) : (
-  <p>Loading metrics...</p>
-)}
-  </div>
-)}
+            {nlpMetrics && Object.keys(nlpMetrics).length > 0 ? (
+              <div className="metrics-container">
+                {renderSkillCircle("Creativity", nlpMetrics.creativity || 0)}
+                {renderSkillCircle("Critical Thinking", nlpMetrics.critical_thinking || 0)}
+                {renderSkillCircle("Observation", nlpMetrics.observation || 0)}
+                {renderSkillCircle("Curiosity", nlpMetrics.curiosity || 0)}
+                {renderSkillCircle("Problem Solving", nlpMetrics.problem_solving || 0)}
+              </div>
+            ) : (
+              <p>Loading metrics...</p>
+            )}
+            <div className="nlp-simulator">
+        <h3>Response Analysis</h3>
+        <textarea
+          value={studentResponse}
+          onChange={(e) => setStudentResponse(e.target.value)}
+          placeholder="Enter student's response for analysis..."
+          rows={4}
+          cols={50}
+          aria-label="Student response input"
+        />
+        <button 
+          onClick={() => fetchNlpMetrics(studentResponse)}
+          disabled={isLoading || !studentResponse.trim()}
+        >
+          {isLoading ? 'Processing...' : 'Analyze Response'}
+        </button>
+      </div>
+          </div>
+        )}
 
 
         {/* Average Grade Distribution Dot Plot */}
@@ -475,7 +535,9 @@ const Dashboard = () => {
         <Popup isOpen={!!selectedAssignment} onClose={closePopup} assignment={selectedAssignment} />
       </div>
     </div>
+    
   );
 };
 
 export default Dashboard;
+
