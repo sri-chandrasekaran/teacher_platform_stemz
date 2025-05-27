@@ -2,10 +2,30 @@ import React, { useState } from "react";
 import "../styles/popup.css";
 
 const LessonBox = () => {
-  const [assignments, setAssignments] = useState([
-    { id: 1, name: "Lesson 1", comments: [], isEditing: false },
-  ]);
+  // const [assignments, setAssignments] = useState([
+  //   { id: 1, name: "Lesson 1", comments: [], isEditing: false },
+  // ]);
+  const [assignments, setAssignments] = useState("")
   const [currentComment, setCurrentComment] = useState("");
+
+  const userEmail = "student@example.com"; 
+
+  useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        const res = await fetch(`http://localhost:4000/api/worksheet/${userEmail}/Lesson1`);
+        if (!res.ok) throw new Error("Failed to fetch progress");
+        const data = await res.json();
+        setAssignments([{ id: 1, name: "Lesson 1", comments: data.progress.comments || [], isEditing: false }]);
+      } catch (err) {
+        console.error(err.message);
+        // If progress doesn't exist yet, initialize it
+        setAssignments([{ id: 1, name: "Lesson 1", comments: [], isEditing: false }]);
+      }
+    };
+    fetchProgress();
+  }, []);
+
 
   const handleAddCommentClick = (id) => {
     setAssignments(assignments.map((assignment) =>
@@ -17,26 +37,65 @@ const LessonBox = () => {
     setCurrentComment(e.target.value);
   };
 
-  const handleCommentSubmit = (id) => {
+  const handleCommentSubmit = async (id) => {
     if (currentComment.trim() === "") return;
 
-    setAssignments(assignments.map((assignment) =>
+    const updatedAssignments = assignments.map((assignment) =>
       assignment.id === id
-        ? { 
-            ...assignment, 
-            comments: [...assignment.comments, currentComment], 
-            isEditing: false 
+        ? {
+            ...assignment,
+            comments: [...assignment.comments, currentComment],
+            isEditing: false,
           }
         : assignment
-    ));
-    setCurrentComment(""); // Clear input
+    );
+
+    setAssignments(updatedAssignments);
+
+    const updatedAssignment = updatedAssignments.find(a => a.id === id);
+
+    try {
+      await fetch("http://localhost:4000/api/worksheet/update", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userEmail,
+          worksheetId: updatedAssignment.name,
+          progress: { comments: updatedAssignment.comments },
+        }),
+      });
+    } catch (err) {
+      console.error("Failed to update progress:", err.message);
+    }
+
+    setCurrentComment("");
   };
 
-  const handleReset = (id) => {
-    setAssignments(assignments.map((assignment) =>
+
+  const handleReset = async (id) => {
+    const updatedAssignments = assignments.map((assignment) =>
       assignment.id === id ? { ...assignment, comments: [], isEditing: false } : assignment
-    ));
+    );
+
+    setAssignments(updatedAssignments);
+
+    const resetAssignment = updatedAssignments.find(a => a.id === id);
+
+    try {
+      await fetch("http://localhost:4000/api/worksheet/update", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userEmail,
+          worksheetId: resetAssignment.name,
+          progress: { comments: [] },
+        }),
+      });
+    } catch (err) {
+      console.error("Failed to reset progress:", err.message);
+    }
   };
+
 
   return (
     <div className="assignments-container">
