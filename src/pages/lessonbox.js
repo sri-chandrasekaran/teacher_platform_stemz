@@ -5,7 +5,7 @@ const LessonBox = () => {
   // const [assignments, setAssignments] = useState([
   //   { id: 1, name: "Lesson 1", comments: [], isEditing: false },
   // ]);
-  const [assignments, setAssignments] = useState("")
+  const [assignments, setAssignments] = useState([]);
   const [currentComment, setCurrentComment] = useState("");
 
   const userEmail = "student@example.com"; 
