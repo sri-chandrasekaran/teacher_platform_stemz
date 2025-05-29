@@ -2,6 +2,7 @@ import os
 import json
 import requests
 
+# using temporary until we can use open ai integration
 def call_ollama(prompt, model="mistral"):
     try:
         response = requests.post("http://localhost:11434/api/generate", json={
@@ -100,7 +101,7 @@ def get_or_generate_pathway(student_id, question_text, metadata, output_type):
 
     return results
 
-with open("astronomy/K-2Concepts.json", "r") as f:
+with open("concept_mapping/astronomy/K-2Concepts.json", "r") as f:
     questions = json.load(f)
 
 # test

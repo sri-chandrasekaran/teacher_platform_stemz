@@ -2,13 +2,44 @@ import React, { useState, useEffect } from "react";
 import "../styles/popup.css";
 
 const LessonBox = () => {
-  // const [assignments, setAssignments] = useState([
-  //   { id: 1, name: "Lesson 1", comments: [], isEditing: false },
-  // ]);
   const [assignments, setAssignments] = useState([]);
   const [currentComment, setCurrentComment] = useState("");
 
   const userEmail = "student@example.com"; 
+
+  const conceptNameLookup = {
+    A: "What is Astronomy?",
+    B: "Solar System",
+    C: "The Sun",
+    D: "Nuclear Fusion",
+    E: "Terrestrial Planets",
+    F: "Gas Giant Planets",
+    G: "Asteroid Belt",
+    H: "Dwarf Planets",
+    I: "Oort Cloud and Comets",
+    J: "Earth (and how it compares to others)",
+    K: "Stars",
+    L: "Moon",
+    M: "Space Exploration and Astronauts",
+    N: "Constellation and the Night Sky",
+    O: "Black Holes and Other Celestial Objects",
+    P: "Gravity",
+    Q: "Technological Advancements",
+    R: "What is a Galaxy?",
+    S: "The Milky Way",
+    T: "Nuclear Fusion (duplicate)",
+    U: "Dark Matter and Dark Energy",
+    V: "Space Race",
+    W: "The Universe",
+    X: "The Big Bang Theory"
+  };
+  
+  const [showHelpUI, setShowHelpUI] = useState(false);
+  const [conceptInput, setConceptInput] = useState("");
+  const [selectedConcepts, setSelectedConcepts] = useState([]);
+  const [filteredConcepts, setFilteredConcepts] = useState(Object.entries(conceptNameLookup));
+  const [generatedHelp, setGeneratedHelp] = useState([]);
+
 
   useEffect(() => {
     const fetchProgress = async () => {
@@ -102,16 +133,8 @@ const LessonBox = () => {
       {assignments.map((assignment) => (
         <div className="assign-box" key={assignment.id}>
           {/* <h3>{assignment.name}</h3> */}
-  
+
           <div className="button-container-box">
-            {/* if reset button is clicked make a popup that says "are you sure you want to reset {assignment_name} progress" */}
-            <button
-              className="reset-button-box"
-              onClick={() => handleReset(assignment.id)}
-            >
-              Reset
-            </button> 
-  
             {/* Commenting Section */}
             {!assignment.isEditing ? (
               <button
@@ -135,7 +158,126 @@ const LessonBox = () => {
                 </button>
               </div>
             )}
+
+            {/* TODO: adding a button to generate help where the form of method is checkbox but the concepts are type to suggest with the concepts from the mapping*/}
+            <button
+            className="generate-help-button"
+            onClick={() => {
+              if (showHelpUI) {
+                // If closing the help UI, clear everything
+                setSelectedConcepts([]);
+                setConceptInput("");
+                setFilteredConcepts(Object.entries(conceptNameLookup));
+                setGeneratedHelp([]);
+              }
+              setShowHelpUI((prev) => !prev);
+            }}
+            > 
+            {showHelpUI ? "Cancel Help" : "Generate Help"}
+          </button> 
+
+          {/* if reset button is clicked make a popup that says "are you sure you want to reset {assignment_name} progress" */}
+          <button
+              className="reset-button-box"
+              onClick={() => handleReset(assignment.id)}
+            >
+              Reset
+            </button> 
+
           </div>
+
+          {showHelpUI && (
+  <div className="help-ui-box">
+    <h4>Generate Help for Student</h4>
+
+    {/* Selected Concepts as Chips */}
+    <div className="selected-concepts">
+      {selectedConcepts.map((tag) => (
+        <span key={tag} className="concept-chip">
+          {conceptNameLookup[tag]}
+          <button
+            onClick={() =>
+              setSelectedConcepts((prev) => prev.filter((t) => t !== tag))
+            }
+          >
+            ✕
+          </button>
+        </span>
+      ))}
+    </div>
+
+    {/* Type-to-Search Input */}
+    <input
+      type="text"
+      placeholder="Type to add a concept..."
+      value={conceptInput}
+      onChange={(e) => {
+        const val = e.target.value;
+        setConceptInput(val);
+        const filtered = Object.entries(conceptNameLookup).filter(
+          ([tag, name]) =>
+            name.toLowerCase().includes(val.toLowerCase()) ||
+            tag.toLowerCase() === val.toLowerCase()
+        );
+        setFilteredConcepts(filtered);
+      }}
+    />
+
+    {/* Search Results */}
+    {conceptInput && (
+      <ul className="concept-suggestions">
+        {filteredConcepts.slice(0, 5).map(([tag, name]) => (
+          <li
+            key={tag}
+            onClick={() => {
+              if (!selectedConcepts.includes(tag)) {
+                setSelectedConcepts((prev) => [...prev, tag]);
+              }
+              setConceptInput("");
+              setFilteredConcepts(Object.entries(conceptNameLookup));
+            }}
+          >
+            {name}
+          </li>
+        ))}
+      </ul>
+    )}
+
+    {/* Generate Button */}
+    <button
+      onClick={async () => {
+        const res = await fetch("http://localhost:4000/api/genai", { // replace with the real endpoint
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            studentId: userEmail,
+            questionText: "What do you think stars are made of?", // make this dynamic with all the questions
+            tags: selectedConcepts,
+            gradeBand: "K-2",
+            outputType: "explanation"
+          }),
+        });
+        const data = await res.json();
+        setGeneratedHelp(data);
+      }}
+    >
+      Generate Help
+    </button>
+
+    {/* Display Results */}
+    {generatedHelp.length > 0 && (
+      <div className="ai-help-output">
+        <h5>Generated Help:</h5>
+        {generatedHelp.map((item, index) => (
+          <div key={index} className="ai-help-box">
+            <strong>{item.concept}:</strong> {item.response}
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+)}
+
   
           {/* Display all comments */}
           {assignment.comments.length > 0 && (

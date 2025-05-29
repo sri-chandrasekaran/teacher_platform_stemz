@@ -1,0 +1,394 @@
+[
+    {
+      "question": "What are some of the biggest unanswered questions in astronomy today?",
+      "grade_band": "5-6",
+      "tags": ["A"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do stars form, and what happens when they die?",
+      "grade_band": "5-6",
+      "tags": ["K"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do space missions, like rovers and satellites, help us learn more about our Solar System?",
+      "grade_band": "5-6",
+      "tags": ["M", "B"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "What would it take for humans to live on another planet, and which planet do you think would be the best choice?",
+      "grade_band": "5-6",
+      "tags": ["E", "F", "J", "M"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "How has our understanding of the universe changed over time, and what new discoveries might we make in the future?",
+      "grade_band": "5-6",
+      "tags": ["M", "K", "N"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do different planets' atmospheres affect their ability to support life?",
+      "grade_band": "5-6",
+      "tags": ["E", "F"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "What do scientists look for when searching for life on other planets, and do you think we will ever find it?",
+      "grade_band": "5-6",
+      "tags": ["E", "F", "M"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "How does Earth's magnetic field protect us from space radiation?",
+      "grade_band": "5-6",
+      "tags": ["J", "M"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are the benefits of space technology for Earth?",
+      "grade_band": "5-6",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do different technologies, like AI and robotics, help scientists explore space in ways humans can't?",
+      "grade_band": "5-6",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do black holes challenge our understanding of physics and space-time?",
+      "grade_band": "5-6",
+      "tags": ["O", "Q"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "What evidence do scientists use to prove black holes exist?",
+      "grade_band": "5-6",
+      "tags": ["O", "Q"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "How does gravity control the movement of galaxies and stars?",
+      "grade_band": "5-6",
+      "tags": ["P", "R", "K"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "What would happen to time and space near a black hole?",
+      "grade_band": "5-6",
+      "tags": ["O", "P"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "What is an event horizon, and why is it important in understanding black holes?",
+      "grade_band": "5-6",
+      "tags": ["O"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do supermassive black holes influence galaxy formation and evolution?",
+      "grade_band": "5-6",
+      "tags": ["O", "R"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do astronomers detect and study black holes if they don’t emit light?",
+      "grade_band": "5-6",
+      "tags": ["O", "Q"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "What role does dark matter play in the formation and structure of galaxies?",
+      "grade_band": "5-6",
+      "tags": ["R", "U"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "If black holes can merge, what happens when two supermassive black holes collide?",
+      "grade_band": "5-6",
+      "tags": ["O", "Q"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "How might studying black holes help us understand the beginning and fate of the universe?",
+      "grade_band": "5-6",
+      "tags": ["O"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "How has space exploration impacted science, technology, and society?",
+      "grade_band": "5-6",
+      "tags": ["M", "Q", "R", "X"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are the ethical and environmental concerns of space exploration?",
+      "grade_band": "5-6",
+      "tags": ["M", "W"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do different types of telescopes (radio, optical, space-based) help us understand the universe?",
+      "grade_band": "5-6",
+      "tags": ["Q", "W", "M"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are some key discoveries that space probes and rovers have made?",
+      "grade_band": "5-6",
+      "tags": ["M", "Q", "O", "W"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "How does zero gravity affect the human body, and how do astronauts prepare for it?",
+      "grade_band": "5-6",
+      "tags": ["M", "Q", "P"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "How have technological advancements improved space exploration over the past 50 years?",
+      "grade_band": "5-6",
+      "tags": ["M", "Q", "V"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "What role does artificial intelligence play in space exploration?",
+      "grade_band": "5-6",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "What challenges do space agencies face when planning missions to Mars or beyond?",
+      "grade_band": "5-6",
+      "tags": ["M", "Q", "E", "F", "J"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "How does studying exoplanets help us learn about our own Solar System?",
+      "grade_band": "5-6",
+      "tags": ["B", "E", "F", "J", "W"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "If you were in charge of a space mission, what would you want to explore, and how would you do it?",
+      "grade_band": "5-6",
+      "tags": ["M", "Q", "W", "O"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+        "question": "What are some of the biggest unanswered questions in astronomy today?",
+        "grade_band": "5-6",
+        "tags": ["W", "U", "O", "X", "M", "A"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "Why do scientists believe that most of the universe is made of dark matter and dark energy?",
+        "grade_band": "5-6",
+        "tags": ["U", "Q", "W"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "What tools and experiments are scientists using to study the mysteries of space?",
+        "grade_band": "5-6",
+        "tags": ["U", "Q", "W"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "What do you think will be the next major discovery in space science?",
+        "grade_band": "5-6",
+        "tags": ["M", "O", "U", "Q", "W"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "If we could travel to the edge of the universe, what do you think we would find?",
+        "grade_band": "5-6",
+        "tags": ["W", "X", "U"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "How does the study of astronomy impact other fields of science and technology?",
+        "grade_band": "5-6",
+        "tags": ["A", "Q"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "What are some theories about what existed before the universe began?",
+        "grade_band": "5-6",
+        "tags": ["W", "X"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "How do scientists detect and study exoplanets?",
+        "grade_band": "5-6",
+        "tags": ["B", "E", "F", "J", "Q"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "What role do space telescopes, like the James Webb Space Telescope, play in solving space mysteries?",
+        "grade_band": "5-6",
+        "tags": ["W", "U", "Q", "O"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "If you were a scientist, what question about the universe would you want to answer?",
+        "grade_band": "5-6",
+        "tags": ["W", "U", "X", "O"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "What did Nicolaus Copernicus discover?",
+        "grade_band": "5-6",
+        "tags": ["A", "B"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is a black hole?",
+        "grade_band": "5-6",
+        "tags": ["O"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What tool do astronomers use to study distant galaxies?",
+        "grade_band": "5-6",
+        "tags": ["Q", "R"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "How many planets are in our solar system?",
+        "grade_band": "5-6",
+        "tags": ["B"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is a light-year?",
+        "grade_band": "5-6",
+        "tags": ["Q", "W"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "Which planet is tilted on its side?",
+        "grade_band": "5-6",
+        "tags": ["E", "F"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "Which planet has the most moons?",
+        "grade_band": "5-6",
+        "tags": ["F"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is the Kuiper Belt?",
+        "grade_band": "5-6",
+        "tags": ["H", "B"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is found at the center of the Milky Way?",
+        "grade_band": "5-6",
+        "tags": ["O", "S"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "Which gas is most common in the Sun?",
+        "grade_band": "5-6",
+        "tags": ["C"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is a supernova?",
+        "grade_band": "5-6",
+        "tags": ["O", "K"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is the Hubble Space Telescope used for?",
+        "grade_band": "5-6",
+        "tags": ["M", "W", "R"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What planet is closest to the Sun?",
+        "grade_band": "5-6",
+        "tags": ["E", "B"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is dark matter?",
+        "grade_band": "5-6",
+        "tags": ["U"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is an exoplanet?",
+        "grade_band": "5-6",
+        "tags": ["E", "F"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "Which of the following is not a theory about how the universe started?",
+        "grade_band": "5-6",
+        "tags": ["W", "X"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    }
+  ]  
