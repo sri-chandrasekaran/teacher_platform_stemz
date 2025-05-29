@@ -39,6 +39,7 @@ const LessonBox = () => {
   const [selectedConcepts, setSelectedConcepts] = useState([]);
   const [filteredConcepts, setFilteredConcepts] = useState(Object.entries(conceptNameLookup));
   const [generatedHelp, setGeneratedHelp] = useState([]);
+  const [activeBox, setActiveBox] = useState(null);
 
 
   useEffect(() => {
@@ -135,58 +136,83 @@ const LessonBox = () => {
           {/* <h3>{assignment.name}</h3> */}
 
           <div className="button-container-box">
-            {/* Commenting Section */}
-            {!assignment.isEditing ? (
-              <button
-                className="add-comment-button"
-                onClick={() => handleAddCommentClick(assignment.id)}
-              >
-                Add Comment
-              </button>
-            ) : (
-              <div className="comment-editing">
-                <textarea
-                  value={currentComment}
-                  onChange={handleCommentChange}
-                  placeholder="Type your comment"
-                />
-                <button
-                  className="submit-button"
-                  onClick={() => handleCommentSubmit(assignment.id)}
-                >
-                  ✓
-                </button>
-              </div>
-            )}
+          <button
+            className="add-comment-button"
+            onClick={() => {
+              setActiveBox(activeBox === "comment" ? null : "comment");
+              setAssignments(assignments.map(a => ({
+                ...a,
+                isEditing: a.id === assignment.id // only this assignment is editing
+              })));
+              setSelectedConcepts([]);
+              setConceptInput("");
+              setFilteredConcepts(Object.entries(conceptNameLookup));
+              setGeneratedHelp([]);
+            }}
+          >
+            Add Comment
+          </button>
 
-            {/* TODO: adding a button to generate help where the form of method is checkbox but the concepts are type to suggest with the concepts from the mapping*/}
-            <button
+          <button
             className="generate-help-button"
             onClick={() => {
-              if (showHelpUI) {
-                // If closing the help UI, clear everything
+              if (activeBox === "help") {
                 setSelectedConcepts([]);
                 setConceptInput("");
                 setFilteredConcepts(Object.entries(conceptNameLookup));
                 setGeneratedHelp([]);
+                setActiveBox(null);
+              } else {
+                setActiveBox("help");
+                setAssignments(assignments.map(a => ({ ...a, isEditing: false })));
+                setCurrentComment("");
               }
-              setShowHelpUI((prev) => !prev);
             }}
-            > 
-            {showHelpUI ? "Cancel Help" : "Generate Help"}
-          </button> 
+          >
+            {activeBox === "help" ? "Cancel Help" : "Generate Help"}
+          </button>
 
-          {/* if reset button is clicked make a popup that says "are you sure you want to reset {assignment_name} progress" */}
           <button
-              className="reset-button-box"
-              onClick={() => handleReset(assignment.id)}
-            >
-              Reset
-            </button> 
+            className="reset-button-box"
+            onClick={() => handleReset(assignment.id)}
+          >
+            Reset
+          </button>
+        </div>
 
+        {activeBox === "comment" && assignment.isEditing && (
+          <div className="comment-ui-box">
+            <h4>Add Comment</h4>
+            <textarea
+              className="comment-textarea"
+              value={currentComment}
+              onChange={handleCommentChange}
+              placeholder="Write your comment for the student here..."
+            />
+            <div className="comment-button-group">
+              <button
+                className="submit-button"
+                onClick={() => handleCommentSubmit(assignment.id)}
+              >
+                Submit
+              </button>
+              <button
+                className="cancel-button"
+                onClick={() => {
+                  setAssignments(assignments.map(a =>
+                    a.id === assignment.id ? { ...a, isEditing: false } : a
+                  ));
+                  setCurrentComment("");
+                  setActiveBox(null);
+                }}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
+        )}
 
-          {showHelpUI && (
+          {activeBox === "help" && (
   <div className="help-ui-box">
     <h4>Generate Help for Student</h4>
 
