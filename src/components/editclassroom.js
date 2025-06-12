@@ -1,28 +1,218 @@
 import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
 
 const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [courses, setCourses] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [selectedCourses, setSelectedCourses] = useState([]);
+  const [selectedStudents, setSelectedStudents] = useState([]);
+  const [selectedTeacher, setSelectedTeacher] = useState('');
+  const [courseOptions, setCourseOptions] = useState([]);
+  const [studentOptions, setStudentOptions] = useState([]);
+  const [teacherOptions, setTeacherOptions] = useState([]);
+  const API_BASE_URL = 'http://localhost:3000/api';
 
-  // Ensure that name and description get set every time the modal opens with a new classroom
+  const checkCourse = (course) => {
+    console.log('Checking course:', course);
+    console.log('Current classroom:', classroom);
+    console.log('Selected courses:', selectedCourses);
+    if (!classroom) return true;
+    return !selectedCourses.some(selected => selected.value === course._id);
+  }
+
+  const checkStudent = (student) => {
+    if (!classroom) return true;
+    return !classroom.users.students.includes(student._id) && student._id !== selectedTeacher?._id;
+  }
+  const checkTeacher = (teacher) => {
+    if (!classroom) return true;
+    return !classroom.users.teacher.id === teacher._id;
+  }
+
   useEffect(() => {
     if (classroom) {
-      setName(classroom.name || '');          // Set name if it exists
-      setDescription(classroom.description || ''); // Set description if it exists
+      console.log('Editing classroom:', classroom);
+      setName(classroom.name || '');
+      setDescription(classroom.description || '');
+    }
+
+    try {
+      const fetchExistingData = async () => {
+        const responseCourses = await fetch(`${API_BASE_URL}/classrooms/${classroom.id}/courses`);
+        const responseUsers = await fetch(`${API_BASE_URL}/classrooms/${classroom.id}/users`);
+        const fetchedCourses = await responseCourses.json();
+        const fetchedUsers = await responseUsers.json();
+        console.log('Existing classroom data fetched:', {
+          courses: fetchedCourses,
+          students: fetchedUsers.students,
+          teacher: fetchedUsers.teacher,
+        });
+        setSelectedCourses(responseCourses.ok ? fetchedCourses : []);
+        setSelectedStudents(responseUsers.ok ? fetchedUsers.students : []);
+        setSelectedTeacher(responseUsers.ok ? fetchedUsers.teacher : '');
+        if (!responseCourses.ok || !responseUsers.ok) {
+          throw new Error('Failed to fetch existing classroom data');
+        }
+      };
+
+
+      const fetchCoursesAndStudents = async () => {
+        const responseCourses = await fetch(`${API_BASE_URL}/course`);
+        const responseStudents = await fetch(`${API_BASE_URL}/users`);
+        const fetchedCourses = await responseCourses.json();
+        const fetchedStudents = await responseStudents.json();
+
+        // console.log('Fetched courses:', fetchedCourses);
+        // console.log('Fetched students:', fetchedStudents);
+
+        // Transform data for react-select
+        const courseOptionsMap = fetchedCourses
+          // .filter(checkCourse)
+          .map(course => ({
+            value: course._id,
+            label: course.name,
+          }));
+
+        const studentOptionsMap = fetchedStudents
+          // .filter(checkStudent)
+          .map(student => ({
+            value: student._id,
+            label: student.name,
+          }));
+
+        const teacherOptionsMap = fetchedStudents
+          // .filter(checkTeacher)
+          .map(student => ({
+            value: student._id,
+            label: student.name,
+          }));
+
+        // console.log('Course options map:', courseOptionsMap);
+        // console.log('Student options map:', studentOptionsMap);
+        // console.log('Teacher options map:', teacherOptionsMap);
+        // Set options for react-select
+        setCourseOptions(courseOptionsMap);
+        setStudentOptions(studentOptionsMap);
+        setTeacherOptions(teacherOptionsMap);
+        // console.log('Course options:', courseOptions);
+        // console.log('Student options:', studentOptions);
+        // console.log('Teacher options:', teacherOptions);
+      };
+      // Fetch existing data if editing a classroom
+      // if (classroom) {
+      //   fetchExistingData();
+      // }
+      fetchCoursesAndStudents();
+
+
+
+    } catch (error) {
+      console.error('Error fetching courses or students:', error);
     }
   }, [classroom]);
 
   const handleSave = () => {
     onSave({
-      ...classroom,   // Maintain existing classroom data
+      ...classroom,
       name,
       description,
+      courses: selectedCourses.map(option => option.value),
+      students: selectedStudents.map(option => option.value),
+      teacher: selectedTeacher ? selectedTeacher.value : '',
     });
+    console.log('Classroom saved:', {
+      name,
+      description,
+      courses: selectedCourses.map(option => option.value),
+      students: selectedStudents.map(option => option.value),
+      teacher: selectedTeacher ? selectedTeacher.value : '',
+    });
+    console.log('Classroom data:', classroom);
+    if (classroom){
+      console.log('Updating classroom:', classroom.id);
+      try {
+        fetch(`${API_BASE_URL}/classrooms/${classroom.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            description,
+          }),
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to update classroom');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Classroom updated:', data);
+        });
+      }
+      catch (error) {
+        console.error('Error updating classroom:', error);
+      }
+    }
   };
-
+  if (!classroom) {
+    return (
+      <div className="edit-classroom-form">
+        <h3>{classroom ? 'Edit Classroom' : 'Add Classroom'}</h3>
+        <input
+          type="text"
+          placeholder="Classroom Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <textarea
+          placeholder="Classroom Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <div className="courses-section">
+          <h4>Courses</h4>
+          <Select
+            isMulti
+            closeMenuOnSelect={false}
+            options={courseOptions}
+            value={selectedCourses}
+            onChange={setSelectedCourses}
+            placeholder="Select courses..."
+          />
+        </div>
+        <div className="students-section">
+          <h4>Teacher</h4>
+          <Select
+            options={teacherOptions}
+            value={selectedTeacher}
+            onChange={setSelectedTeacher}
+            placeholder="Select a teacher..."
+            isClearable
+          />
+        </div>
+        <div className="teacher-section">
+          <h4>Students</h4>
+          <Select
+            isMulti
+            closeMenuOnSelect={false}
+            options={studentOptions}
+            value={selectedStudents}
+            onChange={setSelectedStudents}
+            placeholder="Select students..."
+          />
+        </div>
+        <button className="button-save" onClick={handleSave}>Save Changes</button>
+        <button className="button-cancel" onClick={onCancel}>Cancel</button>
+      </div>
+    );
+  }
   return (
     <div className="edit-classroom-form">
-      <h3>{classroom ? 'Edit Classroom' : 'Add Classroom'}</h3>
+      <h3>Edit Classroom</h3>
       <input
         type="text"
         placeholder="Classroom Name"
