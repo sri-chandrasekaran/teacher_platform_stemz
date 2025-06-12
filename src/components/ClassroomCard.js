@@ -1,32 +1,38 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite }) => {
+  const handleEdit = (e) => {
+    e.stopPropagation(); 
+    onEdit(classroom.id); 
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation(); 
+    onDelete(classroom.id); 
+  };
+
+  const handleInvite = (e) => {
+    e.stopPropagation(); 
+    onInvite(classroom.id);  
+  };
+
   return (
     <div className="classroom-card" onClick={() => onEnter(classroom.id)}>
       <button
         className="edit-classroom-button"
-        onClick={(e) => {
-          e.stopPropagation();
-          onEdit(classroom);
-        }}
+        onClick={handleEdit}
       >
         ✏️
       </button>
       <button
         className="delete-classroom-button"
-        onClick={(e) => {
-          e.stopPropagation();
-          onDelete(classroom.id);
-        }}
+        onClick={handleDelete}
       >
         &#10005;
       </button>
       <button
         className="invite-students-button"
-        onClick={(e) => {
-          e.stopPropagation();
-          onInvite(classroom);
-        }}
+        onClick={handleInvite}
       >
         📧
       </button>
@@ -35,5 +41,6 @@ const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite }) => {
     </div>
   );
 };
+
 
 export default ClassroomCard;
