@@ -25,3 +25,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .env
+package-lock.json
+src/analytics/course-engagement/engagement
+src/analytics/big-picture/astronomy_bpq/myenv
