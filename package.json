@@ -10,7 +10,11 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+<<<<<<< HEAD
     "axios": "^1.7.9",
+=======
+    "axios": "^1.8.4",
+>>>>>>> pr-3
     "body-parser": "^1.20.3",
     "chart.js": "^4.4.7",
     "cors": "^2.8.5",
@@ -18,7 +22,10 @@
     "express": "^4.21.2",
     "jspdf": "^2.5.1",
     "lucide-react": "^0.456.0",
+<<<<<<< HEAD
     "mathjs": "^14.3.0",
+=======
+>>>>>>> pr-3
     "pg": "^8.13.1",
     "plotly.js": "^2.35.3",
     "react": "^18.3.1",
@@ -46,6 +53,7 @@
       "react-app/jest"
     ]
   },
+  "proxy": "http://127.0.0.1:5000",
   "browserslist": {
     "production": [
       ">0.2%",

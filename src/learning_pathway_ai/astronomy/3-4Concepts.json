@@ -1,0 +1,387 @@
+[
+    {
+      "question": "What are some big mysteries about space that scientists are still trying to figure out?",
+      "grade_band": "3-4",
+      "tags": ["M"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do the Sun, Moon, and Earth work together to create day, night, and the seasons?",
+      "grade_band": "3-4",
+      "tags": ["C", "L", "J", "M"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "What would happen if the Earth were closer or farther from the Sun?",
+      "grade_band": "3-4",
+      "tags": ["C", "J"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are some ways studying other planets can help us understand Earth better?",
+      "grade_band": "3-4",
+      "tags": ["E", "F", "J"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are constellations, and why have different cultures studied and used them for centuries?",
+      "grade_band": "3-4",
+      "tags": ["N", "M"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are black holes, and why do they fascinate scientists?",
+      "grade_band": "3-4",
+      "tags": ["M", "O"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "How does gravity work? What would happen if there were no gravity on Earth?",
+      "grade_band": "3-4",
+      "tags": ["P"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "How does the Sun’s gravity keep planets in orbit, and how do we see this force on Earth?",
+      "grade_band": "3-4",
+      "tags": ["C", "E", "F", "P"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are asteroids and comets, and how do they affect our Solar System?",
+      "grade_band": "3-4",
+      "tags": ["G", "I", "B"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do telescopes help scientists explore space, and what have they helped us discover?",
+      "grade_band": "3-4",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are black holes, and how do they form?",
+      "grade_band": "3-4",
+      "tags": ["O", "K"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "What do you think would happen if Earth was pulled into a black hole?",
+      "grade_band": "3-4",
+      "tags": ["O", "J"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "How does gravity shape galaxies and keep them together?",
+      "grade_band": "3-4",
+      "tags": ["P", "R"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are the different types of galaxies, and which one is the Milky Way?",
+      "grade_band": "3-4",
+      "tags": ["R", "S"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do scientists study black holes if they can’t see them directly?",
+      "grade_band": "3-4",
+      "tags": ["O", "Q"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "If you could explore any part of space, where would you go and why?",
+      "grade_band": "3-4",
+      "tags": ["M"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do stars, planets, and black holes interact in space?",
+      "grade_band": "3-4",
+      "tags": ["E", "F", "K", "O", "P"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are some of the biggest mysteries about black holes that scientists are still trying to solve?",
+      "grade_band": "3-4",
+      "tags": ["O", "Q"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "What happens when two galaxies collide?",
+      "grade_band": "3-4",
+      "tags": ["P", "R"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "Why do some stars become black holes while others do not?",
+      "grade_band": "3-4",
+      "tags": ["K", "O"],
+      "lesson": "Lesson 2 - Black Holes and Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "Why is exploring space important, and what are some things we have learned from it?",
+      "grade_band": "3-4",
+      "tags": ["M", "Q", "W", "O"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are some challenges of living and working in space?",
+      "grade_band": "3-4",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do telescopes, satellites, and space probes help scientists study the universe?",
+      "grade_band": "3-4",
+      "tags": ["Q", "W", "M"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "What would happen if we didn’t have satellites?",
+      "grade_band": "3-4",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are some dangers of space travel, and how do astronauts stay safe?",
+      "grade_band": "3-4",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "What is the International Space Station, and why is it important?",
+      "grade_band": "3-4",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "How has space exploration changed over time, and what do you think the future of space travel will look like?",
+      "grade_band": "3-4",
+      "tags": ["M", "Q", "V"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are some ways studying space can help us solve problems on Earth?",
+      "grade_band": "3-4",
+      "tags": ["W", "O", "Q", "J"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "What kinds of jobs do people have in space exploration besides being astronauts?",
+      "grade_band": "3-4",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+      "question": "If humans want to visit another planet, what challenges would they face?",
+      "grade_band": "3-4",
+      "tags": ["M", "Q", "E", "F", "J"],
+      "lesson": "Lesson 3 - Space Exploration and Technology",
+      "type": "big_picture"
+    },
+    {
+        "question": "What are some things we still don’t understand about the universe?",
+        "grade_band": "3-4",
+        "tags": ["W", "U", "O", "X"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "How do scientists know dark matter and dark energy exist if they can’t see them?",
+        "grade_band": "3-4",
+        "tags": ["U", "Q"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "What do you think the universe is made of, and what might be beyond what we can observe?",
+        "grade_band": "3-4",
+        "tags": ["W", "U", "X"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "How do we measure how big the universe is? Can it keep growing forever?",
+        "grade_band": "3-4",
+        "tags": ["W", "U", "X"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "What are some mysteries about black holes that scientists are still trying to solve?",
+        "grade_band": "3-4",
+        "tags": ["O", "U"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "Why do scientists think the universe is expanding? What do you think might happen in the future?",
+        "grade_band": "3-4",
+        "tags": ["W", "U", "X"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "How does learning about space help us understand Earth better?",
+        "grade_band": "3-4",
+        "tags": ["J", "Q", "W"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "If you could explore any part of space, where would you go and why?",
+        "grade_band": "3-4",
+        "tags": ["M", "W", "O"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "What do you think the biggest discovery in space will be in the next 50 years?",
+        "grade_band": "3-4",
+        "tags": ["W", "U", "Q", "O"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "Why do different cultures throughout history study the stars and space?",
+        "grade_band": "3-4",
+        "tags": ["N", "W"],
+        "lesson": "Lesson 4 - The Expanding Universe",
+        "type": "big_picture"
+    },
+    {
+        "question": "What is astronomy?",
+        "grade_band": "3-4",
+        "tags": ["A"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "Which of the following is not a part of the solar system?",
+        "grade_band": "3-4",
+        "tags": ["B"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is a galaxy?",
+        "grade_band": "3-4",
+        "tags": ["Q"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is a star?",
+        "grade_band": "3-4",
+        "tags": ["K"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is a telescope?",
+        "grade_band": "3-4",
+        "tags": ["P"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is a Constellation?",
+        "grade_band": "3-4",
+        "tags": ["M"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is the Universe?",
+        "grade_band": "3-4",
+        "tags": ["V"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What is the Big Bang Theory?",
+        "grade_band": "3-4",
+        "tags": ["W"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What galaxy is the Earth located in?",
+        "grade_band": "3-4",
+        "tags": ["R"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "Which planet is known for its red color?",
+        "grade_band": "3-4",
+        "tags": ["E"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What do we call icy space objects with tails?",
+        "grade_band": "3-4",
+        "tags": ["I"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What planet is known as the gas giant?",
+        "grade_band": "3-4",
+        "tags": ["F"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "Which of these planets is farthest from the Sun?",
+        "grade_band": "3-4",
+        "tags": ["F", "B"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "What do the planets of the Solar System do?",
+        "grade_band": "3-4",
+        "tags": ["B"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    },
+    {
+        "question": "Which of the following careers are related to astronomy?",
+        "grade_band": "3-4",
+        "tags": ["A"],
+        "lesson": "Quiz",
+        "type": "quiz"
+    }
+  ]  

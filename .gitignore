@@ -9,6 +9,7 @@
 /coverage
 /src/analytics/astronomy_bpq/myenv/
 /src/analytics/course-engagement/engagement/
+src/analytics/big-picture/astronomy_bpq/rf_model.pkl
 
 # production
 /build

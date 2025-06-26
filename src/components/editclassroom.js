@@ -115,7 +115,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
 
   const handleSave = () => {
     onSave({
-      ...classroom,
+      ...classroom,   // Maintain existing classroom data
       name,
       description,
       courses: selectedCourses.map(option => option.value),
@@ -212,7 +212,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   }
   return (
     <div className="edit-classroom-form">
-      <h3>Edit Classroom</h3>
+      <h3>{classroom ? 'Edit Classroom' : 'Add Classroom'}</h3>
       <input
         type="text"
         placeholder="Classroom Name"

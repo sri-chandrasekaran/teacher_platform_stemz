@@ -40,6 +40,7 @@ function App() {
         <Routes>
           <Route path="/" element={<GroupsPage />} />
           <Route path="/dashboard/:classroomId/:classroomName" element={<Dashboard />} />
+          <Route path="/dashboard/:classroomId" element={<Dashboard />} />
           <Route path="/messages" element={<MessagingPage />} />
           <Route path="/settings" element={<Settings darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
           <Route path="/users" element={<Users />} /> 
