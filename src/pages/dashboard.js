@@ -81,7 +81,7 @@ const Dashboard = () => {
       try {
         const response = await fetch(API_BASE_URL + `/classrooms/${classroomId}/courses`);
         const data = await response.json();
-        setCourses(data);
+        setCourses(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error('Error fetching courses:', error);
         const fakeCourses = [
@@ -310,9 +310,9 @@ const Dashboard = () => {
             onChange={(e) => setSelectedCourse(e.target.value)}
           >
             <option value="">Select a Course</option>
-            {courses.map((course) => (
-              <option key={course.id} value={course.name}>
-                {course.name}
+            {Array.isArray(courses) && courses.map((course) => (
+              <option key={course.id || course.course_name} value={course.course_name || course.name}>
+                {course.course_name || course.name}
               </option>
             ))}
           </select>
