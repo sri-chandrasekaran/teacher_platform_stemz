@@ -51,12 +51,29 @@ router.get('/points', async (req, res) => {
        FROM current_scores
        JOIN classroom_1 ON current_scores.student_id = classroom_1.student_id
        ORDER BY current_scores.points DESC
-       LIMIT 5`
+       `
     );
     console.log(result.rows); 
     res.json(result.rows);  // Respond with the data
   } catch (err) {
     console.error('Error querying database:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+router.get('/active-users', async (req, res) => {
+  const active_minute_intervals = parseInt(req.query.minutes) || 30; 
+  try {
+    const result = await pool.query(
+      `SELECT student_id, first_name, last_name, last_active
+       FROM classroom_1
+       WHERE last_active >= NOW() - INTERVAL '$1 minutes'
+       ORDER BY last_active DESC`,
+      [active_minute_intervals]
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error fetching active users:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
