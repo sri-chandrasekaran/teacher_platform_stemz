@@ -42,7 +42,7 @@ function App() {
           <Route path="/dashboard/:classroomId/:classroomName" element={<Dashboard />} />
           <Route path="/messages" element={<MessagingPage />} />
           <Route path="/settings" element={<Settings darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
-          <Route path="/users" element={<Users />} /> 
+          <Route path="/users/:classroomId" element={<Users />} /> 
           <Route path="/notifications" element={<Notifications />} /> 
         </Routes>
       </div>

@@ -3,9 +3,11 @@ import '../styles/styles.css';
 
 const ActiveCourseUsers = ({ grade_data, course, students, worksheets }) => {
   // Sort grade_data by createdAt timestamp in descending order
-  const sortedGradeData = grade_data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  const filteredGradeData = sortedGradeData.filter((data) => data.course_id === course.id);
-  // Map sorted grade_data to activeUsers format
+  const sortedGradeData = grade_data
+    .filter((data) => data.course_id === course.id)
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 15); // Take only the 15 newest grades
+  const filteredGradeData = sortedGradeData;
   const activeUsers = filteredGradeData.map((data) => {
     const student = students.find((student) => student.id === data.student_user_id);
     return {

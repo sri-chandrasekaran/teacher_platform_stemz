@@ -48,7 +48,11 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
       
       // Filter out users who are already students in this classroom
       const currentStudentIds = students.map(student => student.id);
-      const available = allUsers.filter(user => !currentStudentIds.includes(user.id));
+      const available = allUsers.filter(user => !currentStudentIds.includes(user._id));
+      console.log('Available users:', available);
+      console.log('Current students:', students);
+      console.log('Current student IDs:', currentStudentIds);
+      console.log('All users:', allUsers);
       
       setAvailableUsers(available);
     } catch (error) {
@@ -66,7 +70,7 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
   const handleAddStudent = async (user) => {
     setIsSubmitting(true);
     setError('');
-
+    console.log('Adding student:', user, 'to classroom:', classroomId);
     try {
       const response = await fetch(`http://localhost:3000/api/classrooms/${classroomId}/enroll`, {
         method: 'POST',
@@ -74,7 +78,7 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id: user.id
+          id: user._id
         }),
       });
 
@@ -86,14 +90,14 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
       
       // Create student object with the user data
       const newStudent = {
-        id: user.id,
+        id: user._id,
         name: user.name,
         email: user.email,
         cummulative_score: 0 // Default score for new students
       };
       
       // Remove the user from available users
-      setAvailableUsers(prev => prev.filter(u => u.id !== user.id));
+      setAvailableUsers(prev => prev.filter(u => u.id !== user._id));
       
       // Notify parent component that a student was added
       if (onStudentAdded) {

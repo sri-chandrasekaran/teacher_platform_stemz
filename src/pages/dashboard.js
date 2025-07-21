@@ -264,7 +264,7 @@ const Dashboard = () => {
             </Link>
           </li>
           <li>
-            <Link to="/users">
+            <Link to={`/users/${classroomId}`}>
               <FaUsers className={`sidebar-icon ${location.pathname === '/users' ? 'active' : ''}`} />
             </Link>
           </li>

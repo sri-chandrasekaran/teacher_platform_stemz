@@ -7,7 +7,7 @@ import '../styles/users.css';
 const API_BASE_URL = 'http://localhost:3000/api';
 
 const Users = () => {
-  const { id: classroomId } = useParams(); 
+  const { classroomId } = useParams(); 
   const [isModalOpen, setModalOpen] = useState(false);
   const [students, setStudents] = useState([]); 
   const [courses, setCourses] = useState([]);
@@ -17,7 +17,7 @@ const Users = () => {
 
   const location = useLocation();
 
-  const isAnalyticsPage = location.pathname.includes(`/dashboard/${classroomId}`);
+  const isAnalyticsPage = location.pathname.includes(`/users/${classroomId}`);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);

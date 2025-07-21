@@ -42,7 +42,7 @@ const GradeCurve = ({ grade_data, course }) => {
     const yValuesScaled = yValues.map(y => y * scaleFactor)
 
     return(
-        <Plot data = {[
+        <Plot className = "grade-curve" data = {[
             {
                 x: grades,
                 type: "histogram",

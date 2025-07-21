@@ -2004,3 +2004,7 @@ p {
   display: flex;
   gap: 20px;
 }
+
+.grade-curve {
+  width: 100%;
+}
