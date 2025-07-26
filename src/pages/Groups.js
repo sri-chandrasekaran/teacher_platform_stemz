@@ -10,11 +10,7 @@ const API_BASE_URL = 'http://localhost:3000/api';
 const GroupsPage = () => {
   const navigate = useNavigate();
   
-  const [classrooms, setClassrooms] = useState([
-    { id: 1, name: 'Group 1', description: 'Students from Class A' },
-    { id: 2, name: 'Group 2', description: 'Students from Class B' },
-    { id: 3, name: 'Group 3', description: 'Advanced Students' }
-  ]);
+  const [classrooms, setClassrooms] = useState([]);
 
   const [showForm, setShowForm] = useState(false);
   const [newClassroomName, setNewClassroomName] = useState('');

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/popup.css';
+import Select from 'react-select';
 
 const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdded }) => {
   const [availableUsers, setAvailableUsers] = useState([]);
@@ -8,6 +9,7 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [selectedStudents, setSelectedStudents] = useState([]);
 
   // Fetch all users and filter out current students
   useEffect(() => {
@@ -67,6 +69,20 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
     setSearchTerm(e.target.value);
   };
 
+  const handleSave = () => {
+    if (selectedStudents.length === 0) {
+      setError('Please select at least one student to add.');
+      return;
+    }
+    console.log('Selected students:', selectedStudents);
+    selectedStudents.forEach(user => {
+      handleAddStudent(user.value);
+    });
+    setSelectedStudents([]);
+    setSearchTerm('');
+    onClose();
+  };
+
   const handleAddStudent = async (user) => {
     setIsSubmitting(true);
     setError('');
@@ -78,7 +94,7 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id: user._id
+          id: user
         }),
       });
 
@@ -121,64 +137,34 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay">
+    <div className="modal-overlay"
+    style={{minHeight: '400px', height: 'auto', maxHeight: '600px'}}>
       <div className="modal-content add-student-modal">
         <button className="close-button" onClick={handleClose}>×</button>
         <h2>Add Students to Classroom</h2>
         
         {error && <div className="error-message">{error}</div>}
         
-        {/* Search Bar */}
-        <div className="search-container">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Search users by name or email..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
-        </div>
-
-        {/* Users List */}
-        <div className="users-list-container">
-          {isLoading ? (
-            <div className="loading-message">Loading users...</div>
-          ) : filteredUsers.length === 0 ? (
-            <div className="no-users-message">
-              {searchTerm ? 'No users match your search.' : 'No available users to add.'}
-            </div>
-          ) : (
-            <div className="users-grid">
-              {filteredUsers.map((user) => (
-                <div key={user.id} className="user-card">
-                  <div className="user-info">
-                    <div className="user-name">{user.name}</div>
-                    <div className="user-email">{user.email}</div>
-                    {user.student_id && (
-                      <div className="user-id">ID: {user.student_id}</div>
-                    )}
-                  </div>
-                  <button
-                    className="add-user-btn"
-                    onClick={() => handleAddStudent(user)}
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Adding...' : 'Add'}
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
+        <div
+          className="users-list-container"
+          style={{ minHeight: '350px', height: 'auto', maxHeight: '500px' }}
+        >
+          <Select
+            isMulti
+            closeMenuOnSelect={false}
+            options={availableUsers.map(user => ({
+              value: user._id,
+              label: `${user.name} (${user.email})`
+            }))}
+            value={selectedStudents}
+            onChange={setSelectedStudents}
+            placeholder="Select students..."
+            />
         </div>
 
         <div className="modal-footer">
-          <button 
-            type="button" 
-            className="cancel-btn" 
-            onClick={handleClose}
-          >
-            Done
-          </button>
+          <button className="button-save" onClick={handleSave}>Save Changes</button>
+          <button className="button-cancel" onClick={handleClose}>Cancel</button>
         </div>
       </div>
     </div>
