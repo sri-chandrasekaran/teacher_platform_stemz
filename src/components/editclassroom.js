@@ -173,7 +173,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <div className="courses-section">
+        {/* <div className="courses-section">
           <h4>Courses</h4>
           <Select
             isMulti
@@ -193,7 +193,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
             placeholder="Select a teacher..."
             isClearable
           />
-        </div>
+        </div> */}
         <div className="teacher-section">
           <h4>Students</h4>
           <Select

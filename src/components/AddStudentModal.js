@@ -111,7 +111,24 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
         email: user.email,
         cummulative_score: 0 // Default score for new students
       };
-      
+
+      // Email notification for enrollment
+      const emailResponse = await fetch(`http://localhost:3000/api/notifications/email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          recipient: user.email,
+          subject: 'Enrollment Confirmation',
+          message: `You have been enrolled in the classroom with ID: ${classroomId}. Welcome aboard!`,
+        }),
+      });
+
+      if (!emailResponse.ok) {
+        throw new Error('Failed to send email notification');
+      }
+
       // Remove the user from available users
       setAvailableUsers(prev => prev.filter(u => u.id !== user._id));
       
