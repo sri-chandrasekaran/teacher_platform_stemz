@@ -39,22 +39,27 @@ export const normalizeId = (obj) => {
     return {
       id: classroom._id,
       name: classroom.name,
-      description: classroom.description,
+      description: classroom.description || 'No description provided',
       teacherId: classroom.teacherId?._id || classroom.teacherId,
       teacherName: classroom.teacherId?.name || '',
-      students: Array.isArray(classroom.studentIds) 
-        ? classroom.studentIds.map(student => ({
+      // FIXED: Changed from studentIds to students
+      students: Array.isArray(classroom.students) 
+        ? classroom.students.map(student => ({
             id: student._id || student,
             name: student.name || '',
             email: student.email || ''
           }))
         : [],
-      schoolName: classroom.schoolName,
-      gradeLevel: classroom.gradeLevel,
-      studentCount: classroom.studentIds?.length || 0,
-      isActive: classroom.isActive,
+      schoolName: classroom.schoolName || '',
+      gradeLevel: classroom.gradeLevel || '',
+      classroomNumber: classroom.classroomNumber || '',
+      maxStudents: classroom.maxStudents || 30,
+      // FIXED: Changed from studentIds?.length to students?.length
+      studentCount: classroom.students?.length || 0,
+      isActive: classroom.isActive !== undefined ? classroom.isActive : true,
       createdAt: classroom.createdAt,
-      updatedAt: classroom.updatedAt
+      updatedAt: classroom.updatedAt,
+      academicYear: classroom.academicYear || ''
     };
   };
   

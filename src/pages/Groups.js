@@ -1,24 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import ClassroomList from '../components/ClassroomList';
-import EditClassroomModal from '../components/editclassroom';
-import InviteStudentsModal from '../components/invitestudents';
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import '../styles/styles.css';
-
-const API_BASE_URL = 'http://localhost:3000/api';
+import ClassroomList from "../components/ClassroomList";
+import EditClassroomModal from "../components/editclassroom";
+import InviteStudentsModal from "../components/invitestudents";
+import { call_api } from "../components/api";
+import { normalizeClassroom, handleApiError } from "../utils/dataHelpers";
+import "../styles/styles.css";
 
 const GroupsPage = () => {
   const navigate = useNavigate();
   
-  const [classrooms, setClassrooms] = useState([
-    { id: 1, name: 'Group 1', description: 'Students from Class A' },
-    { id: 2, name: 'Group 2', description: 'Students from Class B' },
-    { id: 3, name: 'Group 3', description: 'Advanced Students' }
-  ]);
-
-  const [showForm, setShowForm] = useState(false);
-  const [newClassroomName, setNewClassroomName] = useState('');
-  const [newClassroomDescription, setNewClassroomDescription] = useState('');
+  const [classrooms, setClassrooms] = useState([]);
+  const [loading, setLoading] = useState(true);
   
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedClassroom, setSelectedClassroom] = useState(null);
@@ -26,247 +19,223 @@ const GroupsPage = () => {
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [classroomToInvite, setClassroomToInvite] = useState(null);
 
-  const [bannerMessage, setBannerMessage] = useState('');
+  const [bannerMessage, setBannerMessage] = useState("");
   const [showBanner, setShowBanner] = useState(false);
 
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [courses, setCourses] = useState('');
-  const [students, setStudents] = useState('');
-
   useEffect(() => {
-    const fetchClassrooms = async () => {
-      try {
-        const response = await fetch(API_BASE_URL + `/classrooms`);
-        const data = await response.json();
-        console.log("Fetched data: ", data);
-  
-        // Normalize data to fit the structure you're expecting
-        const normalizedData = data.map((room, index) => ({
-          id: room._id,
-          name: room.name,
-          description: room.description || 'No description provided',
-        }));
-        
-        console.log("Normalized data: ", normalizedData);
-        setClassrooms(normalizedData);
-      } catch (error) {
-        console.error('Error fetching courses:', error);
-  
-        const fakeCourses = [
-          { course_name: "Fun with Coding" },
-          { course_name: "Adventures in Scratch" },
-          { course_name: "Building Websites for Beginners" },
-          { course_name: "Exploring Robots and AI" },
-          { course_name: "Introduction to Computers" },
-          { course_name: "Staying Safe Online" },
-          { course_name: "Making Your First Mobile App" },
-          { course_name: "Creating Simple Video Games" },
-          { course_name: "Clouds and the Internet" },
-          { course_name: "Money and Technology" }
-        ];
-  
-        const fallbackData = fakeCourses.map((course, index) => ({
-          id: index + 100, // Use a different range to avoid collisions
-          name: course.course_name,
-          description: 'Sample course description',
-        }));
-  
-        setClassrooms(fallbackData);
-      }
-    };
-  
-    fetchClassrooms();
+    fetchPhysicalClassrooms();
   }, []);
+
+  const showMessage = (message) => {
+    setBannerMessage(message);
+    setShowBanner(true);
+    setTimeout(() => setShowBanner(false), 3000);
+  };
+
+
+  const fetchPhysicalClassrooms = async () => {
+    try {
+      setLoading(true);
+      console.log('Fetching classrooms...');
+      
+      const response = await call_api(null, "physical-classrooms/my-classrooms", "GET");
+      console.log('Classrooms response:', response);
   
-
-  // entering a classroom
-  const handleEnterClassroom = (id) => {
-    const classroom = classrooms.find((classroom) => classroom.id === id);
-    if (classroom) {
-      // const formattedName = classroom.name.replace(/\s+/g, '-').toLowerCase();
-      navigate(`/dashboard/${id}/${classroom.name}`);
+      // Handle both teaching and enrolled classrooms
+      const teachingClassrooms = response.teaching || [];
+      const enrolledClassrooms = response.enrolled || [];
+      
+      // Combine both arrays - you might want to add a flag to distinguish them
+      const allClassrooms = [
+        ...teachingClassrooms.map(classroom => ({
+          ...normalizeClassroom(classroom),
+          role: 'teacher'
+        })),
+        ...enrolledClassrooms.map(classroom => ({
+          ...normalizeClassroom(classroom),
+          role: 'student'
+        }))
+      ];
+  
+      console.log('All classrooms:', allClassrooms);
+      setClassrooms(allClassrooms);
+      
+    } catch (error) {
+      console.error("Error fetching physical classrooms:", error);
+      setClassrooms([]);
+      showMessage("Failed to load classrooms. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  // add a new classroom
-  const handleAddClassroom = (newClassroom) => {
-    setClassrooms([...classrooms, newClassroom]);
-    setShowForm(false);
-    setNewClassroomName('');
-    setNewClassroomDescription('');
-    setBannerMessage('Classroom added successfully.');
-    setShowBanner(true);
-    setTimeout(() => setShowBanner(false), 3000);
-    const classroom_data = {
-      name: newClassroom.name,
-      description: newClassroom.description || 'No description provided',
-      course_ids: newClassroom.courses || [],
-      student_user_ids: newClassroom.students || [],
-      teacher_user_id: newClassroom.teacher || '',
-    };
-    console.log('Adding classroom:', classroom_data);
-    try {
-      fetch(`${API_BASE_URL}/classrooms`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(classroom_data),
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to add classroom');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Classroom added:', data);
-      });
-    }
-    catch (error) {
-      console.error('Error adding classroom:', error);
-      setBannerMessage('Failed to add classroom.');
-      setShowBanner(true);
-      setTimeout(() => setShowBanner(false), 3000);
-    }
-  };
+  // FIXED: Handle both create and edit in the same function
 
-  // delete a classroom
-  const handleDeleteClassroom = async (id) => {
-    setClassrooms(classrooms.filter((classroom) => classroom.id !== id));
-    setBannerMessage('Classroom deleted.');
-    setShowBanner(true);
-    setTimeout(() => setShowBanner(false), 3000);
+const handleSaveClassroom = async (classroomData) => {
+  try {
+    console.log('Saving classroom:', classroomData);
 
-    try {
-      const response = await fetch(`${API_BASE_URL}/classrooms/${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error('Failed to delete classroom');
-      }
+    if (classroomData.id) {
+      // EDITING existing classroom
+      console.log('Updating existing classroom:', classroomData.id);
+      
+      const updateData = {
+        name: classroomData.name,
+        description: classroomData.description,
+        gradeLevel: classroomData.gradeLevel,
+        schoolName: classroomData.schoolName,
+        classroomNumber: classroomData.classroomNumber,
+        maxStudents: classroomData.maxStudents
+      };
+
+      const response = await call_api(updateData, `physical-classrooms/${classroomData.id}`, "PUT");
+      console.log('Update response:', response);
+
+      // Update local state
+      setClassrooms(prev => prev.map(classroom => 
+        classroom.id === classroomData.id 
+          ? normalizeClassroom(response.classroom) 
+          : classroom
+      ));
+      
+      showMessage("Classroom updated successfully!");
+      
+    } else {
+      // CREATING new classroom
+      console.log('Creating new classroom');
+      
+      // Get the current user's ID from localStorage or your auth system
+      const currentUserId = localStorage.getItem('userId') || ''; // Adjust based on how you store user info
+      
+      const createData = {
+        name: classroomData.name.trim(),
+        description: classroomData.description?.trim() || '',
+        schoolName: classroomData.schoolName.trim(),
+        gradeLevel: classroomData.gradeLevel,
+        academicYear: "2024-2025",
+        classroomNumber: classroomData.classroomNumber?.trim() || '',
+        maxStudents: classroomData.maxStudents || 30,
+        teacherId: currentUserId  // ADD THIS - required by backend
+      };
+
+      console.log('Create payload:', createData);
+      const response = await call_api(createData, "physical-classrooms", "POST");
+      console.log('Create response:', response);
+
+      const newClassroom = normalizeClassroom(response.classroom);
+      setClassrooms(prev => [...prev, newClassroom]);
+      
+      showMessage("Physical classroom created successfully!");
     }
-    catch (error) {
-      console.error('Error deleting classroom:', error);
-      setBannerMessage('Failed to delete classroom.');
-      setShowBanner(true);
-      setTimeout(() => setShowBanner(false), 3000);
-    }
-  };
-
-  //  open edit modal with selected classroom
-  const handleEditClassroom = (classroom) => {
-    setSelectedClassroom(classroom);
-    // setShowEditModal(true);
-    setSelectedClassroom(classroom);
-    setName(classroom.name || '');          
-    setDescription(classroom.description || '');
-    setIsModalOpen(true);
-    console.log('Editing classroom:', classroom);
-    // console.log('Name:', name);
-    // console.log('Description:', description);
-  };
-
-  //  save the edited classroom
-  const handleSaveClassroom = (updatedClassroom) => {
-    console.log('Saving classroom:', updatedClassroom);
-    setClassrooms(
-      classrooms.map((classroom) =>
-        classroom.id === updatedClassroom.id ? updatedClassroom : classroom
-      )
-    );
+    
     setShowEditModal(false);
     setSelectedClassroom(null);
-    setBannerMessage('Classroom updated successfully.');
-    setShowBanner(true);
-    setTimeout(() => setShowBanner(false), 3000);
+    
+  } catch (error) {
+    console.error("Error saving classroom:", error);
+    showMessage(handleApiError(error, "Failed to save classroom."));
+  }
+};
+
+  // Handle creating new classroom
+  const handleAddClassroom = () => {
+    console.log('Adding new classroom');
+    setSelectedClassroom(null);  // null = new classroom
+    setShowEditModal(true);
   };
 
-  // inviting a student
+  // Handle editing existing classroom
+  const handleEditClassroom = (classroom) => {
+    console.log('Editing classroom:', classroom);
+    setSelectedClassroom(classroom);
+    setShowEditModal(true);
+  };
+
+  // Handle deleting classroom
+  const handleDeleteClassroom = async (id) => {
+    try {
+      console.log('Deleting classroom:', id);
+      await call_api(null, `physical-classrooms/${id}`, "DELETE");
+      setClassrooms(prev => prev.filter(classroom => classroom.id !== id));
+      showMessage("Classroom deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting classroom:", error);
+      showMessage(handleApiError(error, "Failed to delete classroom."));
+    }
+  };
+
+  // Handle entering classroom
+  const handleEnterClassroom = (id, name) => {
+    console.log('Navigating to classroom:', id, name);
+    navigate(`/dashboard/${id}/${encodeURIComponent(name)}`);
+  };
+
+  // Handle student invitation
   const handleInviteStudent = (classroom) => {
+    console.log('Inviting student to:', classroom);
     setClassroomToInvite(classroom);
     setShowInviteModal(true);
-    setShowEditModal(false);
   };
 
-  // send invitation
-  const handleSendInvitation = (email) => {
-    setShowInviteModal(false);
-    setBannerMessage(`Invitation email sent to: ${email}`);
-    setShowBanner(true);
-    setTimeout(() => setShowBanner(false), 3000);
+  const handleSendInvitation = async (email) => {
+    try {
+      console.log('Sending invitation to:', email);
+      setShowInviteModal(false);
+      showMessage(`Invitation email sent to: ${email}`);
+      
+      // Refresh classroom data to get updated student count
+      await fetchPhysicalClassrooms();
+    } catch (error) {
+      console.error("Error sending invitation:", error);
+      showMessage("Failed to send invitation.");
+    }
   };
 
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="classroom-list-container">
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>Loading your physical classrooms...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="classroom-list-container">
       {showBanner && <div className="confirmation-banner">{bannerMessage}</div>}
 
-    <div className="page-container">
-    <div className="page-heading-container">
-      <h2 className="page-heading">Your Classrooms</h2>
-    </div>
-    <div className="classroom-list-scroll">
-      <ClassroomList
-        classrooms={classrooms}
-        onEnter={handleEnterClassroom}
-        onDelete={handleDeleteClassroom}
-        onEdit={handleEditClassroom}
-        onInvite={handleInviteStudent}
-        onAddClassroom={handleAddClassroom}
-      />
-    </div>
-  </div>
+      <div className="page-container">
+        <div className="page-heading-container">
+          <h2 className="page-heading">Your Classrooms</h2>
+        </div>
+        <div className="classroom-list-scroll">
+          <ClassroomList
+            classrooms={classrooms}
+            onEnter={handleEnterClassroom}
+            onDelete={handleDeleteClassroom}
+            onEdit={handleEditClassroom}
+            onInvite={handleInviteStudent}
+            onAddClassroom={handleAddClassroom}
+            onSave={handleSaveClassroom}
+          />
+        </div>
+      </div>
 
-      {showEditModal && (
-        <EditClassroomModal
-          classroom={selectedClassroom}
-          onSave={handleSaveClassroom}
-          onCancel={() => setShowEditModal(false)}
-        />
-      )}
 
-      {showInviteModal && (
+
+      {/* Invite Students Modal */}
+      {showInviteModal && classroomToInvite && (
         <InviteStudentsModal
           classroom={classroomToInvite}
           onInvite={handleSendInvitation}
-          onCancel={() => setShowInviteModal(false)}
+          onCancel={() => {
+            setShowInviteModal(false);
+            setClassroomToInvite(null);
+          }}
         />
-      )},
-
-      {showForm && (
-        <div className="create-classroom-form">
-          <h3>Create a New Classroom</h3>
-          <input
-            type="text"
-            placeholder="Name"
-            value={newClassroomName}
-            onChange={(e) => setNewClassroomName(e.target.value)}
-          />
-          <textarea
-            placeholder="Classroom Description"
-            value={newClassroomDescription}
-            onChange={(e) => setNewClassroomDescription(e.target.value)}
-          />
-          <select
-            value={newClassroomDescription}
-            onChange={(e) => setNewClassroomDescription(e.target.value)}
-            style={{ marginBottom: '10px' }}
-          >
-            <option value="">Select a description</option>
-            <option value="Students from Class A">Students from Class A</option>
-            <option value="Students from Class B">Students from Class B</option>
-            <option value="Advanced Students">Advanced Students</option>
-            <option value="Beginner Group">Beginner Group</option>
-            <option value="Intermediate Group">Intermediate Group</option>
-          </select>
-          
-          <button onClick={() => handleAddClassroom({ id: Date.now(), name: newClassroomName, description: newClassroomDescription })}>Save</button>
-          <button onClick={() => setShowForm(false)}>Cancel</button>
-        </div>
       )}
     </div>
   );
