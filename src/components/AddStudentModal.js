@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/popup.css';
 import Select from 'react-select';
+import ApiService from '../apiService';
 
 const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdded }) => {
   const [availableUsers, setAvailableUsers] = useState([]);
@@ -34,20 +35,10 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
   const fetchAvailableUsers = async () => {
     setIsLoading(true);
     setError('');
+
     try {
-      const response = await fetch(`http://localhost:3000/api/users`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch users');
-      }
-      
-      const allUsers = await response.json();
-      
+      const allUsers = await ApiService.fetchUsers();
+
       // Filter out users who are already students in this classroom
       const currentStudentIds = students.map(student => student.id);
       const available = allUsers.filter(user => !currentStudentIds.includes(user._id));
@@ -63,10 +54,6 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
   };
 
   const handleSave = () => {
@@ -88,22 +75,10 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
     setError('');
     console.log('Adding student:', user, 'to classroom:', classroomId);
     try {
-      const response = await fetch(`http://localhost:3000/api/classrooms/${classroomId}/enroll`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: user
-        }),
-      });
+      // Enroll student in the classroom
+      const result = await ApiService.enrollStudent(classroomId, user);
+      console.log('Enrollment result:', result);
 
-      if (!response.ok) {
-        throw new Error('Failed to add student');
-      }
-
-      const result = await response.json();
-      
       // Create student object with the user data
       const newStudent = {
         id: user._id,
@@ -113,17 +88,12 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
       };
 
       // Email notification for enrollment
-      const emailResponse = await fetch(`http://localhost:3000/api/notifications/email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          recipient: user.email,
-          subject: 'Enrollment Confirmation',
-          message: `You have been enrolled in the classroom with ID: ${classroomId}. Welcome aboard!`,
-        }),
-      });
+      const emailResponse = await ApiService.sendEmailNotification(
+        user.email,
+        'Enrollment Confirmation',
+        `You have been enrolled in the classroom with ID: ${classroomId}. Welcome!`
+      );
+      console.log('Email notification response:', emailResponse);
 
       if (!emailResponse.ok) {
         throw new Error('Failed to send email notification');

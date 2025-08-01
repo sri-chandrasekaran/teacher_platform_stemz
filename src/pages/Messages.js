@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine, FaPlusCircle } from 'react-icons/fa';
 import '../styles/styles.css';
+import ApiService from '../apiService';
 
 const MessagingPage = () => {
   const { classroomId } = useParams();
@@ -22,11 +23,7 @@ const MessagingPage = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/students');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        const data = await ApiService.fetchUsers();
         setStudents(data.map(student => student.student_name)); // Adjust based on your API response structure
       } catch (error) {
         console.error('Error fetching students:', error);

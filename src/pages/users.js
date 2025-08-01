@@ -3,6 +3,7 @@ import { useParams, Link, useLocation } from 'react-router-dom';
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-icons/fa';
 import AddStudentModal from '../components/AddStudentModal';
 import '../styles/users.css';
+import { Api } from '@mui/icons-material';
 
 const API_BASE_URL = 'http://localhost:3000/api';
 
@@ -31,11 +32,7 @@ const Users = () => {
   useEffect(() => {
       const fetchStudents = async () => {
         try {
-          const response = await fetch(API_BASE_URL + '/classrooms/' + classroomId + '/users');
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          const data = await response.json();
+          const data = await ApiService.fetchUsersInClassroom(classroomId);
           setStudents(data["students"]);
           // // Add fake last_logged_on data for each student entry
           // const studentsWithFakeData = Array.isArray(students) ? students.map(student => ({
@@ -74,12 +71,11 @@ const Users = () => {
 
     const fetchGrades = async () => {
       try {
-        const response_grades = await fetch(API_BASE_URL + '/grade/classroom/' + classroomId);
-        const data_grades = await response_grades.json();
+        // Fetch grades for the classroom
+        const data_grades = await ApiService.fetchGrades(classroomId);
         setGrades(data_grades);
-        
-        const response_worksheets = await fetch(API_BASE_URL + '/worksheets/classroom/' + classroomId);
-        const data_worksheets = await response_worksheets.json();
+
+        const data_worksheets = await ApiService.fetchWorksheets(classroomId);
         setWorksheets(data_worksheets);
         let student_grades = {};
         for (const grade of data_grades) {

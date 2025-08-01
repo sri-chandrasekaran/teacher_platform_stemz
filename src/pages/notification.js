@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-icons/fa';
 import '../styles/styles.css';
+import ApiService from '../apiService';
 
 const Notifications = () => {
   const { id: classroomId } = useParams();
@@ -16,11 +17,8 @@ const Notifications = () => {
     useEffect(() => {
       const fetchNotifications = async () => {
         try {
-          const response = await fetch('http://localhost:3000/api/notifs');
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = await response.json();
+          // Fetch notifications from the API
+          const data = await ApiService.fetchNotifications();
           setNotifications(
             data.map(notifs => ({
               id: notifs.student_id,

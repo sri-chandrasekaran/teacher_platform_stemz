@@ -13,8 +13,8 @@ import { Line } from 'react-chartjs-2';
 import Plot from 'react-plotly.js';
 import '../styles/styles.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-
-const API_BASE_URL = 'http://localhost:3000/api';
+import ApiService from '../apiService';
+import { Api } from '@mui/icons-material';
 
 ChartJS.register(
   CategoryScale,
@@ -54,11 +54,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch(API_BASE_URL + '/classrooms/' + classroomId + '/users');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
+        const data = await ApiService.fetchStudentsInClassroom(classroomId);
         setStudents(data["students"]);
         // Add fake last_logged_on data for each student entry
         const studentsWithFakeData = Array.isArray(students) ? students.map(student => ({
@@ -79,8 +75,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch(API_BASE_URL + `/classrooms/${classroomId}/courses`);
-        const data = await response.json();
+        const data = await ApiService.fetchCourses();
         setCourses(data);
       } catch (error) {
         console.error('Error fetching courses:', error);
@@ -102,12 +97,10 @@ const Dashboard = () => {
 
     const fetchGrades = async () => {
       try {
-        const response_grades = await fetch(API_BASE_URL + '/grade/classroom/' + classroomId);
-        const data_grades = await response_grades.json();
+        const data_grades = await ApiService.fetchGrades(classroomId);
         setGrades(data_grades);
         
-        const response_worksheets = await fetch(API_BASE_URL + '/worksheets/classroom/' + classroomId);
-        const data_worksheets = await response_worksheets.json();
+        const data_worksheets = await ApiService.fetchWorksheets(classroomId);
         setWorksheets(data_worksheets);
       } catch (error) {
         console.error('Error fetching grades:', error);

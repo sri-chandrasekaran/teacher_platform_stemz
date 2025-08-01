@@ -4,8 +4,7 @@ import EditClassroomModal from '../components/editclassroom';
 import InviteStudentsModal from '../components/invitestudents';
 import { useNavigate } from 'react-router-dom';
 import '../styles/styles.css';
-
-const API_BASE_URL = 'http://localhost:3000/api';
+import ApiService from '../apiService';
 
 const GroupsPage = () => {
   const navigate = useNavigate();
@@ -35,8 +34,7 @@ const GroupsPage = () => {
   useEffect(() => {
     const fetchClassrooms = async () => {
       try {
-        const response = await fetch(API_BASE_URL + `/classrooms`);
-        const data = await response.json();
+        const data = await ApiService.fetchClassrooms();
         console.log("Fetched data: ", data);
   
         // Normalize data to fit the structure you're expecting
@@ -88,7 +86,7 @@ const GroupsPage = () => {
   };
 
   // add a new classroom
-  const handleAddClassroom = (newClassroom) => {
+  const handleAddClassroom = async (newClassroom) => {
     setClassrooms([...classrooms, newClassroom]);
     setShowForm(false);
     setNewClassroomName('');
@@ -105,22 +103,8 @@ const GroupsPage = () => {
     };
     console.log('Adding classroom:', classroom_data);
     try {
-      fetch(`${API_BASE_URL}/classrooms`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(classroom_data),
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to add classroom');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Classroom added:', data);
-      });
+      const addedClassroom = await ApiService.addClassroom(classroom_data);
+      console.log('Classroom added:', addedClassroom);
     }
     catch (error) {
       console.error('Error adding classroom:', error);
@@ -138,12 +122,9 @@ const GroupsPage = () => {
     setTimeout(() => setShowBanner(false), 3000);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/classrooms/${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error('Failed to delete classroom');
-      }
+      const response = await ApiService.deleteClassroom(id);
+      console.log('Classroom deleted:', response);
+      setClassrooms(classrooms.filter((classroom) => classroom.id !== id));
     }
     catch (error) {
       console.error('Error deleting classroom:', error);

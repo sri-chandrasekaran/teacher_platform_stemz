@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
+import ApiService from '../apiService';
+import { response } from 'express';
 
 const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [name, setName] = useState('');
@@ -12,7 +14,6 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [courseOptions, setCourseOptions] = useState([]);
   const [studentOptions, setStudentOptions] = useState([]);
   const [teacherOptions, setTeacherOptions] = useState([]);
-  const API_BASE_URL = 'http://localhost:3000/api';
 
   const checkCourse = (course) => {
     console.log('Checking course:', course);
@@ -39,30 +40,9 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
     }
 
     try {
-      const fetchExistingData = async () => {
-        const responseCourses = await fetch(`${API_BASE_URL}/classrooms/${classroom.id}/courses`);
-        const responseUsers = await fetch(`${API_BASE_URL}/classrooms/${classroom.id}/users`);
-        const fetchedCourses = await responseCourses.json();
-        const fetchedUsers = await responseUsers.json();
-        console.log('Existing classroom data fetched:', {
-          courses: fetchedCourses,
-          students: fetchedUsers.students,
-          teacher: fetchedUsers.teacher,
-        });
-        setSelectedCourses(responseCourses.ok ? fetchedCourses : []);
-        setSelectedStudents(responseUsers.ok ? fetchedUsers.students : []);
-        setSelectedTeacher(responseUsers.ok ? fetchedUsers.teacher : '');
-        if (!responseCourses.ok || !responseUsers.ok) {
-          throw new Error('Failed to fetch existing classroom data');
-        }
-      };
-
-
       const fetchCoursesAndStudents = async () => {
-        const responseCourses = await fetch(`${API_BASE_URL}/course`);
-        const responseStudents = await fetch(`${API_BASE_URL}/users`);
-        const fetchedCourses = await responseCourses.json();
-        const fetchedStudents = await responseStudents.json();
+        const fetchedCourses = await ApiService.fetchCourses();
+        const fetchedStudents = await ApiService.fetchUsers();
 
         // console.log('Fetched courses:', fetchedCourses);
         // console.log('Fetched students:', fetchedStudents);
@@ -133,27 +113,12 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
     if (classroom){
       console.log('Updating classroom:', classroom.id);
       try {
-        fetch(`${API_BASE_URL}/classrooms/${classroom.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            description,
-          }),
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to update classroom');
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log('Classroom updated:', data);
-        });
-      }
-      catch (error) {
+        response = ApiService.updateClassroom(classroom.id, {
+          name,
+          description
+      });
+        console.log('Classroom updated:', response);
+      } catch (error) {
         console.error('Error updating classroom:', error);
       }
     }
