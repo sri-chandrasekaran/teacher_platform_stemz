@@ -38,38 +38,15 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
       setDescription(classroom.description || '');
     }
 
-    try {
-      const fetchExistingData = async () => {
-        const responseCourses = await fetch(`${API_BASE_URL}/classrooms/${classroom.id}/courses`);
-        const responseUsers = await fetch(`${API_BASE_URL}/classrooms/${classroom.id}/users`);
-        const fetchedCourses = await responseCourses.json();
-        const fetchedUsers = await responseUsers.json();
-        console.log('Existing classroom data fetched:', {
-          courses: fetchedCourses,
-          students: fetchedUsers.students,
-          teacher: fetchedUsers.teacher,
-        });
-        setSelectedCourses(responseCourses.ok ? fetchedCourses : []);
-        setSelectedStudents(responseUsers.ok ? fetchedUsers.students : []);
-        setSelectedTeacher(responseUsers.ok ? fetchedUsers.teacher : '');
-        if (!responseCourses.ok || !responseUsers.ok) {
-          throw new Error('Failed to fetch existing classroom data');
-        }
-      };
-
-
-      const fetchCoursesAndStudents = async () => {
+    const fetchCoursesAndStudents = async () => {
+      try {
         const responseCourses = await fetch(`${API_BASE_URL}/course`);
         const responseUsers = await fetch(`${API_BASE_URL}/users`);
         const fetchedCourses = await responseCourses.json();
         const fetchedUsers = await responseUsers.json();
 
-        // console.log('Fetched courses:', fetchedCourses);
-        // console.log('Fetched students:', fetchedStudents);
-
         // Transform data for react-select
         const courseOptionsMap = fetchedCourses
-          // .filter(checkCourse)
           .map(course => ({
             value: course._id,
             label: course.name,
@@ -89,46 +66,31 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
             label: user.name,
           }));
 
-        // console.log('Course options map:', courseOptionsMap);
-        // console.log('Student options map:', studentOptionsMap);
-        // console.log('Teacher options map:', teacherOptionsMap);
         // Set options for react-select
         setCourseOptions(courseOptionsMap);
         setStudentOptions(studentOptionsMap);
         setTeacherOptions(teacherOptionsMap);
-        // console.log('Course options:', courseOptions);
-        // console.log('Student options:', studentOptions);
-        // console.log('Teacher options:', teacherOptions);
-      };
-      // Fetch existing data if editing a classroom
-      // if (classroom) {
-      //   fetchExistingData();
-      // }
-      fetchCoursesAndStudents();
-
-
-
-    } catch (error) {
-      console.error('Error fetching courses or students:', error);
-    }
+      } catch (error) {
+        console.error('Error fetching courses or students:', error);
+      }
+    };
+    
+    fetchCoursesAndStudents();
   }, [classroom]);
 
   const handleSave = () => {
-    onSave({
+    const studentIds = selectedStudents?.map(option => option.value) || [];
+    
+    const saveData = {
       ...classroom,   // Maintain existing classroom data
       name,
       description,
       courses: selectedCourses.map(option => option.value),
-      students: selectedStudents.map(option => option.value),
+      students: studentIds,
       teacher: selectedTeacher ? selectedTeacher.value : '',
-    });
-    console.log('Classroom saved:', {
-      name,
-      description,
-      courses: selectedCourses.map(option => option.value),
-      students: selectedStudents.map(option => option.value),
-      teacher: selectedTeacher ? selectedTeacher.value : '',
-    });
+    };
+    
+    onSave(saveData);
     console.log('Classroom data:', classroom);
     if (classroom){
       console.log('Updating classroom:', classroom.id);
@@ -141,6 +103,9 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
           body: JSON.stringify({
             name,
             description,
+            courses: selectedCourses.map(option => option.value),
+            students: studentIds,
+            teacher: selectedTeacher ? selectedTeacher.value : '',
           }),
         })
         .then(response => {

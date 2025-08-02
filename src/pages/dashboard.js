@@ -59,6 +59,7 @@ const Dashboard = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
+        console.log('Fetched students:', data);
         setStudents(data["students"]);
         // Add fake last_logged_on data for each student entry
         const studentsWithFakeData = Array.isArray(students) ? students.map(student => ({
