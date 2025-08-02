@@ -4,6 +4,7 @@ import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-i
 import AddStudentModal from '../components/AddStudentModal';
 import '../styles/users.css';
 import { Api } from '@mui/icons-material';
+import ApiService from '../apiService';
 
 const API_BASE_URL = 'http://localhost:3000/api';
 
@@ -48,8 +49,7 @@ const Users = () => {
 
     const fetchCourses = async () => {
       try {
-        const response = await fetch(API_BASE_URL + `/classrooms/${classroomId}/courses`);
-        const data = await response.json();
+        const data = await ApiService.fetchCourses(classroomId);
         setCourses(data);
       } catch (error) {
         console.error('Error fetching courses:', error);

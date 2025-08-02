@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3000/api';
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
 // const BASE_URL = 'http://localhost:3000/api'; // Default to local API for development
 
 class ApiService {
@@ -105,6 +105,7 @@ class ApiService {
     // Classroom-related API calls
     // Fetch all classrooms
     static async fetchClassrooms() {
+        console.log('Fetching classrooms from API at:', process.env.REACT_APP_API_URL);
         const response = await fetch(`${BASE_URL}/classrooms`, {
         method: 'GET',
         headers: {

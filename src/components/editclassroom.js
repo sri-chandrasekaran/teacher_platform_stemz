@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import ApiService from '../apiService';
-import { response } from 'express';
 
 const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [name, setName] = useState('');
@@ -93,7 +92,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
     }
   }, [classroom]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     onSave({
       ...classroom,
       name,
@@ -113,7 +112,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
     if (classroom){
       console.log('Updating classroom:', classroom.id);
       try {
-        response = ApiService.updateClassroom(classroom.id, {
+        let response = await ApiService.updateClassroom(classroom.id, {
           name,
           description
       });

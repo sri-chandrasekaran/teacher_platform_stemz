@@ -47,8 +47,8 @@ const GroupsPage = () => {
         console.log("Normalized data: ", normalizedData);
         setClassrooms(normalizedData);
       } catch (error) {
-        console.error('Error fetching courses:', error);
-  
+        console.error('Error fetching classrooms:', error);
+
         const fakeCourses = [
           { course_name: "Fun with Coding" },
           { course_name: "Adventures in Scratch" },
