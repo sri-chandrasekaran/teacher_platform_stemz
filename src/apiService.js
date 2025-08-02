@@ -147,7 +147,8 @@ class ApiService {
         });
 
         if (!response.ok) {
-        throw new Error('Failed to add classroom');
+            console.error('Failed to add classroom:', response);
+            throw new Error('Failed to add classroom');
         }
 
         return response.json();
@@ -188,7 +189,7 @@ class ApiService {
 
     // Fetch students in a classroom
     static async fetchStudentsInClassroom(classroomId) {
-        const response = await fetch(`${BASE_URL}/classrooms/${classroomId}/students`, {
+        const response = await fetch(`${BASE_URL}/classrooms/${classroomId}/users`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

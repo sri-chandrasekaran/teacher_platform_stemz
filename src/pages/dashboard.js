@@ -14,7 +14,6 @@ import Plot from 'react-plotly.js';
 import '../styles/styles.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import ApiService from '../apiService';
-import { Api } from '@mui/icons-material';
 
 ChartJS.register(
   CategoryScale,
@@ -56,12 +55,12 @@ const Dashboard = () => {
       try {
         const data = await ApiService.fetchStudentsInClassroom(classroomId);
         setStudents(data["students"]);
+  
         // Add fake last_logged_on data for each student entry
-        const studentsWithFakeData = Array.isArray(students) ? students.map(student => ({
+        const studentsWithFakeData = Array.isArray(data["students"]) ? data["students"].map(student => ({
           ...student,
           last_logged_on: new Date(Date.now() - Math.random() * 10000000000).toISOString() 
         })) : [];
-  
         setLeaderboard(studentsWithFakeData);  // Set the updated data to leaderboard state
       } catch (error) {
         console.error('Error fetching students:', error);
@@ -79,19 +78,6 @@ const Dashboard = () => {
         setCourses(data);
       } catch (error) {
         console.error('Error fetching courses:', error);
-        const fakeCourses = [
-          { course_name: "Fun with Coding" },
-          { course_name: "Adventures in Scratch" },
-          { course_name: "Building Websites for Beginners" },
-          { course_name: "Exploring Robots and AI" },
-          { course_name: "Introduction to Computers" },
-          { course_name: "Staying Safe Online" },
-          { course_name: "Making Your First Mobile App" },
-          { course_name: "Creating Simple Video Games" },
-          { course_name: "Clouds and the Internet" },
-          { course_name: "Money and Technology" }
-        ];        
-        setCourses(fakeCourses);
       }
     };
 
@@ -316,7 +302,7 @@ const Dashboard = () => {
         <div className="tables-container">
           {/* Active Users Section */}
           <div className="active-users">
-            <ActiveUsers />
+            <ActiveUsers students={students} />
           </div>
 
           {/* Leaderboard Section */}
@@ -325,7 +311,6 @@ const Dashboard = () => {
             <table className="leaderboard-table">
               <thead>
                 <tr>
-                  <th>Student ID</th>
                   <th>Student Name</th>
                   <th>Last Logged On</th>
                   <th>Points</th>
@@ -334,9 +319,8 @@ const Dashboard = () => {
               <tbody>
                 {topStudents.length > 0 ? (
                   topStudents.map((entry) => (
-                    <tr key={entry.student_id}>
-                      <td>{entry.student_id}</td>
-                      <td>{entry.student_name}</td>
+                    <tr key={entry.id}>
+                      <td>{entry.name}</td>
                       <td>{new Date(entry.last_logged_on).toLocaleDateString()}</td>
                       <td>{entry.cummulative_score}</td>
                     </tr>
