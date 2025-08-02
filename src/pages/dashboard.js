@@ -31,10 +31,12 @@ const Dashboard = () => {
   const [selectedAssignment, setSelectedAssignment] = useState(null);
   const [nlpMetrics, setNlpMetrics] = useState({});
   const [studentResponse, setStudentResponse] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [analyticsLoading, setAnalyticsLoading] = useState(false);
   const [performanceData, setPerformanceData] = useState([]);
   const [predictions, setPredictions] = useState([]);
   const [chartOptions, setChartOptions] = useState([]);
+  const [analyticsScores, setAnalyticsScores] = useState(null);
+  const [data, setData] = useState(null);
 
   const [chartData, setChartData] = useState({
     labels: [],
@@ -52,6 +54,55 @@ const Dashboard = () => {
     fetchPredictedPerformance();
   }, []);
 
+useEffect(() => {
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/portalCourses', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const data = await response.json();
+      console.log('📚 Courses fetched:', data);
+      
+      // Transform the data to match what your dropdown expects
+      const coursesForDropdown = data.map(course => ({
+        course_id: course.courseName.toLowerCase(), // Use courseName as ID for your analytics API
+        course_name: course.courseName.charAt(0).toUpperCase() + course.courseName.slice(1), // Capitalize first letter
+        lessons: course.lessons
+      }));
+      
+      setCourses(coursesForDropdown);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+      // Fallback to mock data if API fails
+      const mockCourses = [
+        { course_id: "astronomy", course_name: "fallback", lessons: [] },
+        { course_id: "chemistry", course_name: "fallback 2", lessons: [] },
+        { course_id: "circuits", course_name: "fallback 3", lessons: [] },
+        { course_id: "psychology", course_name: "fallback 4", lessons: [] },
+        { course_id: "zoology", course_name: "fallback 5", lessons: [] }
+      ];
+      setCourses(mockCourses);
+    }
+  };
+
+  fetchCourses();
+}, []);
+  // const mockCourses = [
+  //   { course_name: "Astronomy" },
+  //   { course_name: "Chemistry" },
+  //   { course_name: "Circuits" },
+  //   { course_name: "Psychology" },
+  //   { course_name: "Zoology" }
+  // ];
+  
+  // useEffect(() => {
+  //   setCourses(mockCourses);
+  // }, []);  
+
 
   const location = useLocation();
 
@@ -64,74 +115,121 @@ const Dashboard = () => {
   const closePopup = () => {
     setSelectedAssignment(null);
   };
-  
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/api/students');
-        const data = await response.json();
-        setStudents(data);
-        // Add fake last_logged_on data for each student entry
-        const studentsWithFakeData = data.map(student => ({
-          ...student,
-          last_logged_on: new Date(Date.now() - Math.random() * 10000000000).toISOString() 
-        }));
-  
-        setLeaderboard(studentsWithFakeData);  // Set the updated data to leaderboard state
-      } catch (error) {
-        console.error('Error fetching students:', error);
-      }
-    };
-  
-    fetchStudents();
-  }, []);
 
-  const fetchNlpMetrics = async (responseText) => {
-    if (!responseText.trim()) {
-      console.error("No response text provided");
-      return;
-    }
-    
+
+  // getting scores for a student for a specific course - not specific to a lesson
+  const fetchStudentAnalyticsScores = async (studentId) => {
     try {
-      setIsLoading(true);
-      const response = await fetch("http://127.0.0.1:5000/predict", {
-        method: "POST",
+      const courseKey = selectedCourse.toLowerCase();
+      // const lessonId = "lesson1";
+      
+      console.log(`🔍 Fetching analytics for course: ${courseKey}, student: ${studentId}`);
+
+      const response = await fetch(`http://localhost:3000/api/teachers/analytics-scores/${courseKey}?studentId=${studentId}`, {
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ responses: responseText }),
+          'Content-Type': 'application/json'
+        }
       });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
+      
       const data = await response.json();
-      console.log("Received NLP Metrics:", data);
-  
-      setNlpMetrics(data);
+      console.log('📊 Analytics Response:', data);
+      
+      if (data.success) {
+        const studentAnalytics = data.data.find(student => 
+          student.studentId === studentId
+        );
+        
+        if (studentAnalytics) {
+          setAnalyticsScores(studentAnalytics.averageScores);
+          console.log('📊 Setting analytics scores:', studentAnalytics.averageScores);
+        } else {
+          console.log('No analytics found for student:', studentId);
+          setAnalyticsScores(null);
+        }
+      }
     } catch (error) {
-      console.error("Error fetching NLP metrics:", error);
-    } finally {
-      setIsLoading(false);
+      console.error('❌ Error fetching analytics scores:', error);
+      setAnalyticsScores(null);
     }
   };
 
-  console.log(nlpMetrics)  
+  // getting scores for a student throughout all of the courses
+  const fetchStudentOverallScores = async (studentId) => {
+    try {
+      // Construct the URL for the endpoint
+      const response = await fetch(`http://localhost:3000/api/teachers/student-overall-scores/${studentId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      // Parse the response
+      const data = await response.json();
+      console.log('📊 Overall Scores Response:', data);
+  
+      if (data.success) {
+        // The data will contain the overall average scores
+        setAnalyticsScores(data.averageScores);
+        console.log('📊 Setting overall scores:', data.averageScores);
+      } else {
+        console.log('No overall scores found for student:', studentId);
+        setAnalyticsScores(null);
+      }
+    } catch (error) {
+      console.error('❌ Error fetching overall scores:', error);
+      setAnalyticsScores(null);
+    }
+  };
 
   useEffect(() => {
-    const fetchClasses = async () => {
+    const fetchStudentsInClassroom = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/course`);
+        console.log(`🔍 Fetching students for classroom: ${classroomId}`);
+        const response = await fetch(`http://localhost:3000/api/physical-classrooms/${classroomId}/students`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+  
         const data = await response.json();
-        setCourses(data);
+        console.log('👥 Students API Response:', data);
+        console.log('👥 Data type:', typeof data);
+        console.log('👥 Is array:', Array.isArray(data));
+  
+        if (response.ok && data) {
+          const studentsArray = Array.isArray(data) ? data : (data.students || data.data || []);
+          console.log('👥 Students array:', studentsArray);
+          
+          if (!Array.isArray(studentsArray)) {
+            console.error('❌ Expected array but got:', typeof studentsArray);
+            return;
+          }
+  
+          const studentsForComponent = studentsArray.map(user => ({
+            student_id: user._id || user.id || user.userId,
+            student_name: user.name || user.username || `${user.firstName} ${user.lastName}`,
+            cummulative_score: user.cummulative_score || 0,
+            last_logged_on: user.last_logged_on || user.lastLogin || new Date().toISOString()
+          }));
+  
+          setStudents(studentsForComponent);
+          setLeaderboard(studentsForComponent);
+          console.log('✅ Students loaded:', studentsForComponent.length);
+        } else {
+          console.error('❌ Failed to fetch students:', data);
+        }
       } catch (error) {
-        console.error('Error fetching courses:', error);
+        console.error('❌ Error fetching students:', error);
       }
     };
-    
-    fetchClasses();
-  }, []);
+  
+    if (classroomId) {
+      fetchStudentsInClassroom();
+    }
+  }, [classroomId]);
 
   const fetchPredictedPerformance = async () => {
     try {
@@ -157,33 +255,33 @@ const Dashboard = () => {
       ];
 
 
-      setChartData({
-        labels: fullData.map((_, i) =>
-          i < originalScores.length ? `Quiz ${i + 1}` : `Prediction ${i - originalScores.length + 1}`
-        ),
-        datasets: [
-          {
-            label: "Score",
-            data: fullData,
-            fill: false,
-            tension: 0.3,
-            segment: {
-              borderColor: (ctx) => {
-                const index = ctx.p0DataIndex;
-                const nextIndex = ctx.p1DataIndex;
+      // setChartData({
+      //   labels: fullData.map((_, i) =>
+      //     i < originalScores.length ? `Quiz ${i + 1}` : `Prediction ${i - originalScores.length + 1}`
+      //   ),
+      //   datasets: [
+      //     {
+      //       label: "Score",
+      //       data: fullData,
+      //       fill: false,
+      //       tension: 0.3,
+      //       segment: {
+      //         borderColor: (ctx) => {
+      //           const index = ctx.p0DataIndex;
+      //           const nextIndex = ctx.p1DataIndex;
       
-                // Color original scores in blue, predicted in red
-                if (index < originalScores.length - 1 && nextIndex < originalScores.length) {
-                  return "rgba(54, 162, 235, 1)"; // blue
-                } else {
-                  return "rgba(255, 99, 132, 1)"; // red
-                }
-              },
-            },
-            borderWidth: 2,
-          },
-        ],
-      });
+      //           // Color original scores in blue, predicted in red
+      //           if (index < originalScores.length - 1 && nextIndex < originalScores.length) {
+      //             return "rgba(54, 162, 235, 1)"; // blue
+      //           } else {
+      //             return "rgba(255, 99, 132, 1)"; // red
+      //           }
+      //         },
+      //       },
+      //       borderWidth: 2,
+      //     },
+      //   ],
+      // });
 
       setChartOptions({
         responsive: true,
@@ -263,7 +361,7 @@ const Dashboard = () => {
   
     if (selectedStudent) {
       const sampleResponse = "Studying this topic helps us think critically about space exploration.";
-      fetchNlpMetrics(sampleResponse);
+      // fetchNlpMetrics(sampleResponse);
     }
   };
   
@@ -285,14 +383,13 @@ const Dashboard = () => {
     );
   };
 
-
   const handleStudentSelect = async (e) => {
     const studentId = e.target.value;
     setSelectedStudent(studentId);
-  
+
     const sampleResponse = "Stars help us understand the nature of the universe and its origin.";
     setStudentResponse(sampleResponse);
-    fetchNlpMetrics(sampleResponse);
+    // fetchNlpMetrics(sampleResponse);
 
     const futureData = await fetchPredictedPerformance(studentId);
     if (futureData) {
@@ -327,6 +424,35 @@ const Dashboard = () => {
     yaxis: { title: 'Frequency' },
     showlegend: false,
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!selectedStudent) {
+        setAnalyticsScores(null);
+        setAnalyticsLoading(false);
+        return;
+      }
+
+      setAnalyticsLoading(true);
+  
+
+    try {
+      if (selectedCourse) {
+        // When both student and course are selected, use the course-specific endpoint
+        await fetchStudentAnalyticsScores(selectedStudent);
+      } else {
+        // When only student is selected, use the overall scores endpoint
+        await fetchStudentOverallScores(selectedStudent);
+      }
+    } finally {
+      // Set loading to false when done (whether success or error)
+      setAnalyticsLoading(false);
+    }
+  };
+  
+    fetchData();
+  }, [selectedStudent, selectedCourse]);
+  
 
   return (
     <div className="dashboard">
@@ -376,7 +502,7 @@ const Dashboard = () => {
           <select 
             className="dropdown"
             value={selectedStudent}
-            onChange={(e) => setSelectedStudent(e.target.value)}
+            onChange={handleStudentSelect}
           >
             <option value="">Select a Student</option>
             {students.map((student) => (
@@ -392,7 +518,7 @@ const Dashboard = () => {
           >
             <option value="">Select a Course</option>
             {courses.map((course) => (
-              <option key={course.course_name} value={course.course_name}>
+              <option key={course.course_id} value={course.course_id}>
                 {course.course_name}
               </option>
             ))}
@@ -446,45 +572,29 @@ const Dashboard = () => {
         )}
 
 
-      {(selectedStudent && !selectedCourse) && (
-          <div className="student-specific-section">
-            {/* Predictive Analysis Section */}
-            <div className="predictive-analysis">
-              <h2>Performance Prediction</h2>
-              <Line data={chartData} options={chartOptions}/>
-            </div>
-            <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
+{(selectedStudent && !selectedCourse) && (
+  <div className="student-specific-section">
+    {/* Predictive Analysis Section */}
+    <div className="predictive-analysis">
+      <h2>Performance Prediction</h2>
+      <Line data={chartData} options={chartOptions}/>
+    </div>
+    <h2>Temporary NLP Analytics this should be overall across all courses</h2>
+    <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
 
-            {nlpMetrics && Object.keys(nlpMetrics).length > 0 ? (
-              <div className="metrics-container">
-                {renderSkillCircle("Creativity", nlpMetrics.creativity || 0)}
-                {renderSkillCircle("Critical Thinking", nlpMetrics.critical_thinking || 0)}
-                {renderSkillCircle("Observation", nlpMetrics.observation || 0)}
-                {renderSkillCircle("Curiosity", nlpMetrics.curiosity || 0)}
-                {renderSkillCircle("Problem Solving", nlpMetrics.problem_solving || 0)}
-              </div>
-            ) : (
-              <p>Loading metrics...</p>
-            )}
-            <div className="nlp-simulator">
-        <h3>Response Analysis</h3>
-        <textarea
-          value={studentResponse}
-          onChange={(e) => setStudentResponse(e.target.value)}
-          placeholder="Enter student's response for analysis..."
-          rows={4}
-          cols={50}
-          aria-label="Student response input"
-        />
-        <button 
-          onClick={() => fetchNlpMetrics(studentResponse)}
-          disabled={isLoading || !studentResponse.trim()}
-        >
-          {isLoading ? 'Processing...' : 'Analyze Response'}
-        </button>
+    {analyticsScores ? (
+      <div className="metrics-container">
+        {renderSkillCircle("Creativity", analyticsScores.Creativity || 0)}
+        {renderSkillCircle("Critical Thinking", analyticsScores["Critical Thinking"] || 0)}
+        {renderSkillCircle("Observation", analyticsScores.Observation || 0)}
+        {renderSkillCircle("Curiosity", analyticsScores.Curiosity || 0)}
+        {renderSkillCircle("Problem Solving", analyticsScores["Problem Solving"] || 0)}
       </div>
-          </div>
-        )}
+    ) : (
+      <p>Loading metrics...</p>
+    )}
+  </div>
+)}
 
 
         {/* Average Grade Distribution Dot Plot */}
@@ -513,12 +623,20 @@ const Dashboard = () => {
     </div>
     
     <div className="skill-development">
-      {/* <h2>Skill Development Analysis</h2> */}
-      {/* <div className="skill-circles">
-        {Object.entries(skillMetrics).map(([label, value]) => 
-          renderSkillCircle(label, value)
-        )}
-      </div> */}
+    <h2>NLP specific for the course</h2>
+    <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
+
+    {analyticsScores ? (
+      <div className="metrics-container">
+        {renderSkillCircle("Creativity", analyticsScores.Creativity || 0)}
+        {renderSkillCircle("Critical Thinking", analyticsScores["Critical Thinking"] || 0)}
+        {renderSkillCircle("Observation", analyticsScores.Observation || 0)}
+        {renderSkillCircle("Curiosity", analyticsScores.Curiosity || 0)}
+        {renderSkillCircle("Problem Solving", analyticsScores["Problem Solving"] || 0)}
+      </div>
+    ) : (
+      <p>Loading metrics...</p>
+    )}
     </div>
   </div>
 )}

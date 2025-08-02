@@ -43,30 +43,19 @@ router.get('/course', async (req, res) => {
 });
 
 // Get top 5 students with highest points
-// router.get('/points', async (req, res) => {
-//   console.log('Request received for /points');
-//   try {
-//     const result = await pool.query(
-//       `SELECT classroom_1.student_name, current_scores.cumulative_scores AS points
-//        FROM current_scores
-//        JOIN classroom_1 ON current_scores.student_id = classroom_1.student_id
-//        ORDER BY current_scores.cumulative_scores DESC
-//        LIMIT 7`
-//     );
-//     console.log(result.rows); 
-//     res.json(result.rows);  // Respond with the data
-//   } catch (err) {
-//     console.error('Error querying database:', err);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
-
 router.get('/points', async (req, res) => {
   console.log('Request received for /points');
   try {
-    const result = await pool.query('SELECT * FROM current_scores');
+    const result = await pool.query(
+      `SELECT c.student_name, cs.cummulative_scores AS points
+FROM current_scores cs
+JOIN classroom_1 c ON cs.student_id = c.student_id
+ORDER BY cs.cummulative_scores DESC
+LIMIT 7;
+`
+    );
     console.log(result.rows); 
-    res.json(result.rows);  
+    res.json(result.rows);  // Respond with the data
   } catch (err) {
     console.error('Error querying database:', err);
     res.status(500).json({ error: 'Internal server error' });
