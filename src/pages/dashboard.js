@@ -14,7 +14,7 @@ import Plot from 'react-plotly.js';
 import '../styles/styles.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
 
 ChartJS.register(
   CategoryScale,
@@ -467,35 +467,30 @@ const Dashboard = () => {
           </div>
         )}
 
-
-
-
-{/* Display assignments with progress bars */}
-{(selectedCourse && selectedStudent) && (
-  <div>
-    <div className="assignments-container">
-      {assignments.map((assignment, index) => (
-        <div key={index} className="assignment-box" onClick={() => openPopup(assignment)}> 
-          <div className="assignment-header">
-            <h3>{assignment.name}</h3>
+        {/* Display assignments with progress bars */}
+        {(
+          <div>
+            <div className="assignments-container">
+              {assignments.map((assignment, index) => (
+                <div key={index} className="assignment-box" onClick={() => openPopup(assignment)}> 
+                  <div className="assignment-header">
+                    <h3>{assignment.name}</h3>
+                  </div>
+                  {renderProgressBar(assignment.progress)}
+                </div>
+              ))}
+            </div>
+            
+            <div className="skill-development">
+              {/* <h2>Skill Development Analysis</h2> */}
+              {/* <div className="skill-circles">
+                {Object.entries(skillMetrics).map(([label, value]) => 
+                  renderSkillCircle(label, value)
+                )}
+              </div> */}
+            </div>
           </div>
-          {renderProgressBar(assignment.progress)}
-        </div>
-      ))}
-    </div>
-    
-    <div className="skill-development">
-      {/* <h2>Skill Development Analysis</h2> */}
-      {/* <div className="skill-circles">
-        {Object.entries(skillMetrics).map(([label, value]) => 
-          renderSkillCircle(label, value)
         )}
-      </div> */}
-    </div>
-  </div>
-)}
-
-
 
         <button
           className="floating-button"

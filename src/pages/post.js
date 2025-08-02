@@ -18,18 +18,18 @@ const PostModal = ({ onClose }) => {
           <h3>Make an Announcement</h3>
           <textarea placeholder="Enter your announcement here..." rows="5" style={{ width: '100%' }}></textarea>
           <button type="submit" style={{
-    margin: '10px 0',
-    padding: '8px 12px',
-    border: '2px solid #218838',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    backgroundColor: '#28a745',
-    color: 'white',
-    fontSize: '16px',
-    fontWeight: 'bold',
-  }}>Post Announcement</button>
-        </form>
-      );
+            margin: '10px 0',
+            padding: '8px 12px',
+            border: '2px solid #218838',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            backgroundColor: '#28a745',
+            color: 'white',
+            fontSize: '16px',
+            fontWeight: 'bold',
+          }}>Post Announcement</button>
+          </form>
+        );
     } else if (selectedOption === 'assignment') {
       return (
         <form>

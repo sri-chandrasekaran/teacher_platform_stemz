@@ -20,7 +20,7 @@ const Users = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/students'); 
+        const response = await fetch('https://core-server-nine.vercel.app/api/students'); 
         const data = await response.json();
         setStudents(data);
       } catch (error) {

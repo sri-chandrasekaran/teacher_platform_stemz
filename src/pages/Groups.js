@@ -5,16 +5,12 @@ import InviteStudentsModal from '../components/invitestudents';
 import { useNavigate } from 'react-router-dom';
 import '../styles/styles.css';
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
 
 const GroupsPage = () => {
   const navigate = useNavigate();
   
-  const [classrooms, setClassrooms] = useState([
-    { id: 1, name: 'Group 1', description: 'Students from Class A' },
-    { id: 2, name: 'Group 2', description: 'Students from Class B' },
-    { id: 3, name: 'Group 3', description: 'Advanced Students' }
-  ]);
+  const [classrooms, setClassrooms] = useState([]);
 
   const [showForm, setShowForm] = useState(false);
   const [newClassroomName, setNewClassroomName] = useState('');
@@ -41,7 +37,6 @@ const GroupsPage = () => {
       try {
         const response = await fetch(API_BASE_URL + `/classrooms`);
         const data = await response.json();
-        console.log("Fetched data: ", data);
   
         // Normalize data to fit the structure you're expecting
         const normalizedData = data.map((room, index) => ({

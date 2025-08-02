@@ -22,7 +22,7 @@ const MessagingPage = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/students');
+        const response = await fetch('https://core-server-nine.vercel.app/api/students');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

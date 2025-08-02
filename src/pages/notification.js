@@ -16,7 +16,7 @@ const Notifications = () => {
     useEffect(() => {
       const fetchNotifications = async () => {
         try {
-          const response = await fetch('http://localhost:3000/api/notifs');
+          const response = await fetch('https://core-server-nine.vercel.app/api/notifs');
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }

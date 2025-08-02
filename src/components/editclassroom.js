@@ -12,7 +12,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [courseOptions, setCourseOptions] = useState([]);
   const [studentOptions, setStudentOptions] = useState([]);
   const [teacherOptions, setTeacherOptions] = useState([]);
-  const API_BASE_URL = 'http://localhost:3000/api';
+  const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
 
   const checkCourse = (course) => {
     console.log('Checking course:', course);
@@ -60,9 +60,9 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
 
       const fetchCoursesAndStudents = async () => {
         const responseCourses = await fetch(`${API_BASE_URL}/course`);
-        const responseStudents = await fetch(`${API_BASE_URL}/users`);
+        const responseUsers = await fetch(`${API_BASE_URL}/users`);
         const fetchedCourses = await responseCourses.json();
-        const fetchedStudents = await responseStudents.json();
+        const fetchedUsers = await responseUsers.json();
 
         // console.log('Fetched courses:', fetchedCourses);
         // console.log('Fetched students:', fetchedStudents);
@@ -75,18 +75,18 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
             label: course.name,
           }));
 
-        const studentOptionsMap = fetchedStudents
-          // .filter(checkStudent)
-          .map(student => ({
-            value: student._id,
-            label: student.name,
+        const studentOptionsMap = fetchedUsers
+          .filter(user => user.role === "student")
+          .map(user => ({
+            value: user._id,
+            label: user.name,
           }));
 
-        const teacherOptionsMap = fetchedStudents
-          // .filter(checkTeacher)
-          .map(student => ({
-            value: student._id,
-            label: student.name,
+        const teacherOptionsMap = fetchedUsers
+          .filter(user => user.role === "teacher")
+          .map(user => ({
+            value: user._id,
+            label: user.name,
           }));
 
         // console.log('Course options map:', courseOptionsMap);
