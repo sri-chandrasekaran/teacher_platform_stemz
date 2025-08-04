@@ -1,4 +1,5 @@
 // Re-export the TeacherNotifications component with the correct name
+import { useEffect, useState } from 'react';
 import TeacherNotifications from './TeacherNotifications';
 
 export default TeacherNotifications;

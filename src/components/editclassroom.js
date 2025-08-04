@@ -11,6 +11,11 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [courseOptions, setCourseOptions] = useState([]);
   const [studentOptions, setStudentOptions] = useState([]);
   const [teacherOptions, setTeacherOptions] = useState([]);
+  const [schoolName, setSchoolName] = useState('');
+  const [gradeLevel, setGradeLevel] = useState('');
+  const [classroomNumber, setClassroomNumber] = useState('');
+  const [maxStudents, setMaxStudents] = useState(30);
+
   const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
 
   const checkCourse = (course) => {
