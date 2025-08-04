@@ -103,6 +103,7 @@ function App() {
           <Route path="/users/:classroomId" element={<Users />} />
           
           {/* Notifications page */}
+          <Route path="/users/:classroomId" element={<Users />} /> 
           <Route path="/notifications" element={<Notifications />} /> 
           
           {/* Fallback route */}

@@ -2026,3 +2026,7 @@ p {
   flex-wrap: wrap; /* Optional: allows wrapping on smaller screens */
 }
 
+
+.grade-curve {
+  width: 100%;
+}

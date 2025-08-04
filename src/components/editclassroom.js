@@ -141,6 +141,58 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
     onSave(updatedClassroom);
   };
 
+  if (!classroom) {
+    return (
+      <div className="edit-classroom-form">
+        <h3>{classroom ? 'Edit Classroom' : 'Add Classroom'}</h3>
+        <input
+          type="text"
+          placeholder="Classroom Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <textarea
+          placeholder="Classroom Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        {/* <div className="courses-section">
+          <h4>Courses</h4>
+          <Select
+            isMulti
+            closeMenuOnSelect={false}
+            options={courseOptions}
+            value={selectedCourses}
+            onChange={setSelectedCourses}
+            placeholder="Select courses..."
+          />
+        </div>
+        <div className="students-section">
+          <h4>Teacher</h4>
+          <Select
+            options={teacherOptions}
+            value={selectedTeacher}
+            onChange={setSelectedTeacher}
+            placeholder="Select a teacher..."
+            isClearable
+          />
+        </div> */}
+        <div className="teacher-section">
+          <h4>Students</h4>
+          <Select
+            isMulti
+            closeMenuOnSelect={false}
+            options={studentOptions}
+            value={selectedStudents}
+            onChange={setSelectedStudents}
+            placeholder="Select students..."
+          />
+        </div>
+        <button className="button-save" onClick={handleSave}>Save Changes</button>
+        <button className="button-cancel" onClick={onCancel}>Cancel</button>
+      </div>
+    );
+  }
   return (
     <div className="modal-overlay">
       <div className="edit-classroom-form">

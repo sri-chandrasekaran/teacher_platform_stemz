@@ -1,35 +1,103 @@
 import React, { useState, useEffect } from 'react'; 
 import { useParams, Link, useLocation } from 'react-router-dom'; 
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-icons/fa';
-import PostModal from './post';
+import AddStudentModal from '../components/AddStudentModal';
 import '../styles/users.css';
 
+const API_BASE_URL = 'http://localhost:3000/api';
+
 const Users = () => {
-  const { id: classroomId } = useParams(); 
+  const { classroomId } = useParams(); 
   const [isModalOpen, setModalOpen] = useState(false);
   const [students, setStudents] = useState([]); 
+  const [courses, setCourses] = useState([]);
+  const [grades, setGrades] = useState([]);
+  const [worksheets, setWorksheets] = useState([]);
+  const [cumulative_grades, setCumulativeGrades] = useState({});
 
   const location = useLocation();
 
-  const isAnalyticsPage = location.pathname.includes(`/dashboard/${classroomId}`);
+  const isAnalyticsPage = location.pathname.includes(`/users/${classroomId}`);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
+  // Function to handle when a new student is added
+  const handleStudentAdded = (newStudent) => {
+    setStudents(prev => [...prev, newStudent]);
+  };
+
   // Fetch students when the component mounts
   useEffect(() => {
-    const fetchStudents = async () => {
+      const fetchStudents = async () => {
+        try {
+          const response = await fetch(API_BASE_URL + '/classrooms/' + classroomId + '/users');
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const data = await response.json();
+          setStudents(data["students"]);
+          // // Add fake last_logged_on data for each student entry
+          // const studentsWithFakeData = Array.isArray(students) ? students.map(student => ({
+          //   ...student,
+          //   last_logged_on: new Date(Date.now() - Math.random() * 10000000000).toISOString() 
+          // })) : [];
+    
+          // setLeaderboard(studentsWithFakeData);  // Set the updated data to leaderboard state
+        } catch (error) {
+          console.error('Error fetching students:', error);
+        }
+      };
+
+    const fetchCourses = async () => {
       try {
         const response = await fetch('https://core-server-nine.vercel.app/api/students'); 
         const data = await response.json();
-        setStudents(data);
+        setCourses(data);
       } catch (error) {
-        console.error('Error fetching students:', error); 
+        console.error('Error fetching courses:', error);
+        const fakeCourses = [
+          { course_name: "Fun with Coding" },
+          { course_name: "Adventures in Scratch" },
+          { course_name: "Building Websites for Beginners" },
+          { course_name: "Exploring Robots and AI" },
+          { course_name: "Introduction to Computers" },
+          { course_name: "Staying Safe Online" },
+          { course_name: "Making Your First Mobile App" },
+          { course_name: "Creating Simple Video Games" },
+          { course_name: "Clouds and the Internet" },
+          { course_name: "Money and Technology" }
+        ];        
+        setCourses(fakeCourses);
       }
     };
-    
-    fetchStudents();
-  }, []); 
+
+    const fetchGrades = async () => {
+      try {
+        const response_grades = await fetch(API_BASE_URL + '/grade/classroom/' + classroomId);
+        const data_grades = await response_grades.json();
+        setGrades(data_grades);
+        
+        const response_worksheets = await fetch(API_BASE_URL + '/worksheets/classroom/' + classroomId);
+        const data_worksheets = await response_worksheets.json();
+        setWorksheets(data_worksheets);
+        let student_grades = {};
+        for (const grade of data_grades) {
+          if (grade.student_user_id && !(grade.student_user_id in student_grades)) {
+            student_grades[grade.student_user_id] = [grade.grade];
+          } else if (grade.student_user_id) {
+            student_grades[grade.student_user_id].push(grade.grade);
+          }
+        }
+        
+      } catch (error) {
+        console.error('Error fetching grades:', error);
+      }
+    };
+      fetchStudents();
+      fetchCourses();
+      fetchGrades();
+    }, []);
 
   return (
     <div className="dashboard">
@@ -69,6 +137,16 @@ const Users = () => {
       </div>
 
       <div className="users-list">
+        <button className="add-student-btn" onClick={openModal}>
+          Add Student
+        </button>
+        <AddStudentModal 
+          isOpen={isModalOpen} 
+          onClose={closeModal} 
+          classroomId={classroomId}
+          students={students}
+          onStudentAdded={handleStudentAdded}
+        />
         {students.length > 0 ? (
           <table className="student-table">
             <thead>
@@ -81,11 +159,11 @@ const Users = () => {
             </thead>
             <tbody>
               {students.map((student) => (
-                <tr key={student.student_id}>
-                  <td>{student.student_id}</td>
-                  <td>{student.student_name}</td>
+                <tr key={student.id}>
+                  <td>{student.id}</td>
+                  <td>{student.name}</td>
                   <td>
-                    <a href={`mailto:${student.student_email}`} className="email-link">
+                    <a href={`mailto:${student.email}`} className="email-link">
                       <FaEnvelope />
                     </a>
                   </td>
