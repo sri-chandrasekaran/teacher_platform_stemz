@@ -206,6 +206,7 @@ const PostModal = ({ onClose }) => {
       return (
         <div>
           <h3>Make an Announcement</h3>
+<<<<<<< HEAD
           
           {/* Physical Classroom Selection */}
           <label>Select Physical Classroom*</label>
@@ -263,6 +264,22 @@ const PostModal = ({ onClose }) => {
           </button>
         </div>
       );
+=======
+          <textarea placeholder="Enter your announcement here..." rows="5" style={{ width: '100%' }}></textarea>
+          <button type="submit" style={{
+            margin: '10px 0',
+            padding: '8px 12px',
+            border: '2px solid #218838',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            backgroundColor: '#28a745',
+            color: 'white',
+            fontSize: '16px',
+            fontWeight: 'bold',
+          }}>Post Announcement</button>
+          </form>
+        );
+>>>>>>> main
     } else if (selectedOption === 'assignment') {
       return (
         <div>

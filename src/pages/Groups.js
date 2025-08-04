@@ -6,12 +6,17 @@ import InviteStudentsModal from "../components/invitestudents";
 import { call_api } from "../components/api";
 import { normalizeClassroom, handleApiError } from "../utils/dataHelpers";
 import "../styles/styles.css";
+const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
 
 const GroupsPage = () => {
   const navigate = useNavigate();
   
   const [classrooms, setClassrooms] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [showForm, setShowForm] = useState(false);
+  const [newClassroomName, setNewClassroomName] = useState('');
+  const [newClassroomDescription, setNewClassroomDescription] = useState('');
   
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedClassroom, setSelectedClassroom] = useState(null);

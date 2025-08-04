@@ -4,6 +4,7 @@ import TeacherNotifications from './TeacherNotifications';
 export default TeacherNotifications;
 
 
+<<<<<<< HEAD
 
 // import React, { useState, useEffect } from 'react';
 // import { useParams, Link, useLocation } from 'react-router-dom';
@@ -40,6 +41,29 @@ export default TeacherNotifications;
 //           console.error('Error fetching notifications:', error);
 //         }
 //       };
+=======
+    // Fetch notifications on component load
+    useEffect(() => {
+      const fetchNotifications = async () => {
+        try {
+          const response = await fetch('https://core-server-nine.vercel.app/api/notifs');
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          setNotifications(
+            data.map(notifs => ({
+              id: notifs.student_id,
+              student: notifs.student_name,
+              assignment: notifs.assignment,
+              score: notifs.score_in_percent,
+            }))
+          );
+        } catch (error) {
+          console.error('Error fetching notifications:', error);
+        }
+      };
+>>>>>>> main
   
 //       fetchNotifications();
 //     }, []);

@@ -17,6 +17,8 @@ import { normalizeClassroom, normalizeAssignment, generateFakeLeaderboard, handl
 import '../styles/styles.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
+const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -452,11 +454,12 @@ const Dashboard = () => {
             </div>
             
             <div className="skill-development">
-              <div className="skill-circles">
+              {/* <h2>Skill Development Analysis</h2> */}
+              {/* <div className="skill-circles">
                 {Object.entries(skillMetrics).map(([label, value]) => 
                   renderSkillCircle(label, value)
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         )}

@@ -1,38 +1,125 @@
 import React, { useState, useEffect } from "react";
 
 const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [schoolName, setSchoolName] = useState("");
-  const [gradeLevel, setGradeLevel] = useState("");
-  const [classroomNumber, setClassroomNumber] = useState("");
-  const [maxStudents, setMaxStudents] = useState(30);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [courses, setCourses] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [selectedCourses, setSelectedCourses] = useState([]);
+  const [selectedStudents, setSelectedStudents] = useState([]);
+  const [selectedTeacher, setSelectedTeacher] = useState('');
+  const [courseOptions, setCourseOptions] = useState([]);
+  const [studentOptions, setStudentOptions] = useState([]);
+  const [teacherOptions, setTeacherOptions] = useState([]);
+  const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
+
+  const checkCourse = (course) => {
+    console.log('Checking course:', course);
+    console.log('Current classroom:', classroom);
+    console.log('Selected courses:', selectedCourses);
+    if (!classroom) return true;
+    return !selectedCourses.some(selected => selected.value === course._id);
+  }
+
+  const checkStudent = (student) => {
+    if (!classroom) return true;
+    return !classroom.users.students.includes(student._id) && student._id !== selectedTeacher?._id;
+  }
+  const checkTeacher = (teacher) => {
+    if (!classroom) return true;
+    return !classroom.users.teacher.id === teacher._id;
+  }
 
   useEffect(() => {
     if (classroom) {
-      console.log("Editing classroom:", classroom);
-      setName(classroom.name || "");
-      setDescription(classroom.description || "");
-      setSchoolName(classroom.schoolName || "");
-      setGradeLevel(classroom.gradeLevel || "");
-      setClassroomNumber(classroom.classroomNumber || "");
-      setMaxStudents(classroom.maxStudents || 30);
-    } else {
-      // Reset for new classroom
-      setName("");
-      setDescription("");
-      setSchoolName("");
-      setGradeLevel("");
-      setClassroomNumber("");
-      setMaxStudents(30);
+      console.log('Editing classroom:', classroom);
+      setName(classroom.name || '');
+      setDescription(classroom.description || '');
     }
+
+    const fetchCoursesAndStudents = async () => {
+      try {
+        const responseCourses = await fetch(`${API_BASE_URL}/course`);
+        const responseUsers = await fetch(`${API_BASE_URL}/users`);
+        const fetchedCourses = await responseCourses.json();
+        const fetchedUsers = await responseUsers.json();
+
+        // Transform data for react-select
+        const courseOptionsMap = fetchedCourses
+          .map(course => ({
+            value: course._id,
+            label: course.name,
+          }));
+
+        const studentOptionsMap = fetchedUsers
+          .filter(user => user.role === "student")
+          .map(user => ({
+            value: user._id,
+            label: user.name,
+          }));
+
+        const teacherOptionsMap = fetchedUsers
+          .filter(user => user.role === "teacher")
+          .map(user => ({
+            value: user._id,
+            label: user.name,
+          }));
+
+        // Set options for react-select
+        setCourseOptions(courseOptionsMap);
+        setStudentOptions(studentOptionsMap);
+        setTeacherOptions(teacherOptionsMap);
+      } catch (error) {
+        console.error('Error fetching courses or students:', error);
+      }
+    };
+    
+    fetchCoursesAndStudents();
   }, [classroom]);
 
   const handleSave = () => {
-    // Validate required fields
-    if (!name.trim()) {
-      alert("Classroom name is required");
-      return;
+    const studentIds = selectedStudents?.map(option => option.value) || [];
+    
+    const saveData = {
+      ...classroom,   // Maintain existing classroom data
+      name,
+      description,
+      courses: selectedCourses.map(option => option.value),
+      students: studentIds,
+      teacher: selectedTeacher ? selectedTeacher.value : '',
+    };
+    
+    onSave(saveData);
+    console.log('Classroom data:', classroom);
+    if (classroom){
+      console.log('Updating classroom:', classroom.id);
+      try {
+        fetch(`${API_BASE_URL}/classrooms/${classroom.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            description,
+            courses: selectedCourses.map(option => option.value),
+            students: studentIds,
+            teacher: selectedTeacher ? selectedTeacher.value : '',
+          }),
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to update classroom');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Classroom updated:', data);
+        });
+      }
+      catch (error) {
+        console.error('Error updating classroom:', error);
+      }
     }
 
     const updatedClassroom = {
