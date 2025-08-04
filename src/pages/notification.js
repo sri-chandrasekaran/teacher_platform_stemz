@@ -4,7 +4,6 @@ import TeacherNotifications from './TeacherNotifications';
 export default TeacherNotifications;
 
 
-<<<<<<< HEAD
 
 // import React, { useState, useEffect } from 'react';
 // import { useParams, Link, useLocation } from 'react-router-dom';
@@ -41,7 +40,6 @@ export default TeacherNotifications;
 //           console.error('Error fetching notifications:', error);
 //         }
 //       };
-=======
     // Fetch notifications on component load
     useEffect(() => {
       const fetchNotifications = async () => {
@@ -63,10 +61,9 @@ export default TeacherNotifications;
           console.error('Error fetching notifications:', error);
         }
       };
->>>>>>> main
   
-//       fetchNotifications();
-//     }, []);
+      fetchNotifications();
+    }, []);
     
 //   // filter notifications to show only medium and bad scores
 //   const filteredNotifications = notifications.filter(
