@@ -119,6 +119,22 @@ const Dashboard = () => {
     fetchCourses();
   }, []);
 
+  // Track selected student changes
+  useEffect(() => {
+    if (selectedStudent) {
+      console.log("Selected student changed to:", selectedStudent);
+      // You can add any logic here that needs to run when selectedStudent changes
+    }
+  }, [selectedStudent]);
+
+  // Track selected course changes
+  useEffect(() => {
+    if (selectedCourse) {
+      console.log("Selected course changed to:", selectedCourse);
+      // You can add any logic here that needs to run when selectedStudent changes
+    }
+  }, [selectedStudent]);
+
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
@@ -296,7 +312,12 @@ const Dashboard = () => {
           <select 
             className="dropdown"
             value={selectedStudent}
-            onChange={(e) => setSelectedStudent(e.target.value)}
+            onChange={(e) => {
+              const newValue = e.target.value;
+              console.log("selected student", newValue);
+              setSelectedStudent(newValue); 
+              
+            }}
           >
             <option value="">Select a Student</option>
             {students.map((student) => (
@@ -457,6 +478,7 @@ const Dashboard = () => {
             </div>
 
             {/* Grades table containing all grades for a course */}
+            
             <div className="extra-table-container">
               <CourseGrades
                 grade_data={grades}
@@ -500,7 +522,7 @@ const Dashboard = () => {
           +
         </button>
         {isModalOpen && <PostModal onClose={closeModal} />}
-        <Popup isOpen={!!selectedAssignment} onClose={closePopup} assignment={selectedAssignment} />
+        <Popup isOpen={!!selectedAssignment} onClose={closePopup} student={selectedStudent} course={selectedCourse} />
       </div>
     </div>
   );
