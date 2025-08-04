@@ -3,7 +3,7 @@ import React from 'react';
 const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite }) => {
   const handleEdit = (e) => {
     e.stopPropagation(); 
-    onEdit(classroom.id); 
+    onEdit(classroom); // Pass the whole classroom object instead of just ID
   };
 
   const handleDelete = (e) => {
@@ -13,11 +13,16 @@ const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite }) => {
 
   const handleInvite = (e) => {
     e.stopPropagation(); 
-    onInvite(classroom.id);  
+    onInvite(classroom);  // Pass the whole classroom object
+  };
+
+  const handleEnter = () => {
+    console.log('Entering classroom:', classroom);
+    onEnter(classroom.id, classroom.name); // Pass both ID and name for navigation
   };
 
   return (
-    <div className="classroom-card" onClick={() => onEnter(classroom.id)}>
+    <div className="classroom-card" onClick={handleEnter}>
       <button
         className="edit-classroom-button"
         onClick={handleEdit}
@@ -38,9 +43,13 @@ const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite }) => {
       </button>
       <h3>{classroom.name}</h3>
       <p>{classroom.description}</p>
+      
+      {/* Show additional info */}
+      <div className="classroom-meta">
+        <small>Grade {classroom.gradeLevel} • {classroom.studentCount} students</small>
+      </div>
     </div>
   );
 };
-
 
 export default ClassroomCard;

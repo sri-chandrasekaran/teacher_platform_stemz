@@ -3,7 +3,7 @@ import ClassroomCard from './ClassroomCard';
 import EditClassroomModal from './editclassroom';
 import InviteStudentsModal from './invitestudents';
 
-const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddClassroom }) => {
+const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddClassroom, onSave }) => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isInviteModalOpen, setInviteModalOpen] = useState(false);
   const [selectedClassroom, setSelectedClassroom] = useState(null);
@@ -22,42 +22,48 @@ const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddC
     setInviteModalOpen(false);
   };
 
-  const handleEdit = (id) => {
-    const classroom = classroomList.find((classroom) => classroom.id === id);
+  const handleEdit = (classroom) => {
+    console.log('Edit classroom triggered:', classroom);
     setSelectedClassroom(classroom);
     setEditModalOpen(true);
-    onEdit(id);
     setInviteModalOpen(false);
   };
 
   const handleSaveEdit = (updatedClassroom) => {
-    if (updatedClassroom.id) {
-      // Update existing classroom
-      setClassroomList((prevClassrooms) =>
-        prevClassrooms.map((classroom) =>
-          classroom.id === updatedClassroom.id ? updatedClassroom : classroom
-        )
-      );
-    } else {
-      // Add new classroom
-      const newClassroom = { ...updatedClassroom, id: Date.now() };  // Generate unique ID
-      setClassroomList((prevClassrooms) => [...prevClassrooms, newClassroom]);
-      onAddClassroom(newClassroom);  // Notify parent to show confirmation banner
-    }
+    console.log('Save edit triggered:', updatedClassroom);
+    
+    // Close the modal
     setEditModalOpen(false);
+    setSelectedClassroom(null);
+    
+    // Call the parent's save handler (which handles both create and update)
+    if (onSave) {
+      onSave(updatedClassroom);
+    }
   };
 
   const handleDelete = (id) => {
-    const updatedClassrooms = classroomList.filter((classroom) => classroom.id !== id);
-    setClassroomList(updatedClassrooms);
-    onDelete(id);
+    console.log('Delete classroom triggered:', id);
+    // Call the parent's delete handler
+    if (onDelete) {
+      onDelete(id);
+    }
     setSelectedClassroom(null);
   };
 
-  const handleInvite = (email) => {
+  const handleInvite = (classroom) => {
+    console.log('Invite students triggered:', classroom);
+    setSelectedClassroom(classroom);
+    setInviteModalOpen(true);
+    setEditModalOpen(false);
+  };
+
+  const handleSendInvitation = (email) => {
+    console.log('Send invitation triggered:', email);
+    
     if (selectedClassroom) {
-      setNotification(`${email} has been added to ${selectedClassroom.name}`);
-      setNotificationVisible(true);  // Show the notification
+      setNotification(`Invitation sent to ${email} for ${selectedClassroom.name}`);
+      setNotificationVisible(true);
       setInviteModalOpen(false);
   
       setTimeout(() => {
@@ -65,8 +71,12 @@ const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddC
         setNotification('');
       }, 3000);
     }
+
+    // Call the parent's invite handler
+    if (onInvite) {
+      onInvite(email);
+    }
   };
-  
 
   return (
     <div className="classroom-list">
@@ -76,53 +86,57 @@ const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddC
         onClick={handleAddClassroom}
       >
         <span className="add-classroom-icon">+</span>
+        <p>Add Classroom</p>
       </div>
 
-      {classroomList.map((classroom) => (
-        <ClassroomCard
-          key={classroom.id}
-          classroom={classroom}
-          onEnter={onEnter}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-          onInvite={(classroomId) => {
-            setSelectedClassroom(classroomId);
-            setInviteModalOpen(true);
-          }}
-        />
-      ))}
+      {/* Render existing classrooms */}
+      {classroomList && classroomList.length > 0 ? (
+        classroomList.map((classroom) => (
+          <ClassroomCard
+            key={classroom.id}
+            classroom={classroom}
+            onEnter={onEnter}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+            onInvite={handleInvite}
+          />
+        ))
+      ) : (
+        <div className="no-classrooms">
+          <p>No classrooms yet. Create your first classroom!</p>
+        </div>
+      )}
 
       {/* Edit Classroom Modal */}
       {isEditModalOpen && (
         <EditClassroomModal
           classroom={selectedClassroom}
           onSave={handleSaveEdit}
-          onCancel={() => setEditModalOpen(false)}
+          onCancel={() => {
+            setEditModalOpen(false);
+            setSelectedClassroom(null);
+          }}
         />
       )}
 
       {/* Invite Students Modal */}
-      {/* {isInviteModalOpen && selectedClassroom && (
-        <InviteStudentsModal
-          onInvite={(email) => console.log(`Inviting ${email} to ${selectedClassroom.name}`)}
-          onCancel={() => setInviteModalOpen(false)}
-        />
-      )} */}
-
       {isInviteModalOpen && selectedClassroom && (
         <InviteStudentsModal
-          classroomName={selectedClassroom.name}
-          onInvite={handleInvite}
-          onCancel={() => setInviteModalOpen(false)}
+          classroom={selectedClassroom}
+          onInvite={handleSendInvitation}
+          onCancel={() => {
+            setInviteModalOpen(false);
+            setSelectedClassroom(null);
+          }}
         />
       )}
 
+      {/* Notification Toast */}
       {notificationVisible && (
-        <div className="notification">
+        <div className="notification-toast">
           {notification}
         </div>
       )}
-
     </div>
   );
 };
