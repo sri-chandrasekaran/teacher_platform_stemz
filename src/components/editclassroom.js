@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Select from 'react-select';
 
 const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [name, setName] = useState('');
