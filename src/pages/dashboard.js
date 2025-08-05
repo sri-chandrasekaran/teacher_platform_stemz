@@ -473,6 +473,22 @@ useEffect(() => {
   
     fetchData();
   }, [selectedStudent, selectedCourse]);
+
+  const generateFakeData = () => {
+    const fakeData = [];
+    let currentDate = new Date();
+
+    for (let i = 0; i < 10; i++) {
+      fakeData.push({
+        date: currentDate.toISOString().split('T')[0],
+        points: Math.floor(Math.random() * 20) + 1
+      });
+      currentDate.setDate(currentDate.getDate() - 1);
+    }
+
+    return fakeData.reverse();
+  };
+
   
     const generateSimplePrediction = (performanceData) => {
       if (performanceData.length === 0) return [];
