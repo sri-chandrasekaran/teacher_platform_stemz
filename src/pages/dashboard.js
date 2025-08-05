@@ -37,8 +37,17 @@ const Dashboard = () => {
   const [assignments, setAssignments] = useState([]);
   const [classroom, setClassroom] = useState(null);
   const [leaderboard, setLeaderboard] = useState([]); 
+  const [courses, setCourses] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
+  const [nlpMetrics, setNlpMetrics] = useState({});
+  const [studentResponse, setStudentResponse] = useState('');
+  const [analyticsLoading, setAnalyticsLoading] = useState(false);
+  const [performanceData, setPerformanceData] = useState([]);
+  const [predictions, setPredictions] = useState([]);
+  const [chartOptions, setChartOptions] = useState([]);
+  const [analyticsScores, setAnalyticsScores] = useState(null);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -46,12 +55,236 @@ const Dashboard = () => {
 
   const isAnalyticsPage = location.pathname.includes(`/dashboard/${classroomId}`);
 
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Predicted Scores",
+        data: [],
+        fill: false,
+        borderColor: "rgba(75,192,192,1)",
+      },
+    ],
+  });
+
+  useEffect(() => {
+    fetchPredictedPerformance();
+  }, []);
+
+useEffect(() => {
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/portalCourses', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const data = await response.json();
+      console.log('📚 Courses fetched:', data);
+      
+      // Transform the data to match what your dropdown expects
+      const coursesForDropdown = data.map(course => ({
+        course_id: course.courseName.toLowerCase(), // Use courseName as ID for your analytics API
+        course_name: course.courseName.charAt(0).toUpperCase() + course.courseName.slice(1), // Capitalize first letter
+        lessons: course.lessons
+      }));
+      
+      setCourses(coursesForDropdown);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+      // Fallback to mock data if API fails
+      const mockCourses = [
+        { course_id: "astronomy", course_name: "fallback", lessons: [] },
+        { course_id: "chemistry", course_name: "fallback 2", lessons: [] },
+        { course_id: "circuits", course_name: "fallback 3", lessons: [] },
+        { course_id: "psychology", course_name: "fallback 4", lessons: [] },
+        { course_id: "zoology", course_name: "fallback 5", lessons: [] }
+      ];
+      setCourses(mockCourses);
+    }
+  };
+
+  fetchCourses();
+}, []);
+
   const openPopup = (assignment) => {
     setSelectedAssignment(assignment);  
   };
   
   const closePopup = () => {
     setSelectedAssignment(null);
+  };
+
+
+  // getting scores for a student for a specific course - not specific to a lesson
+  const fetchStudentAnalyticsScores = async (studentId) => {
+    try {
+      const courseKey = selectedCourse.toLowerCase();
+      // const lessonId = "lesson1";
+      
+      console.log(`🔍 Fetching analytics for course: ${courseKey}, student: ${studentId}`);
+
+      const response = await fetch(`http://localhost:3000/api/teachers/analytics-scores/${courseKey}?studentId=${studentId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const data = await response.json();
+      console.log('📊 Analytics Response:', data);
+      
+      if (data.success) {
+        const studentAnalytics = data.data.find(student => 
+          student.studentId === studentId
+        );
+        
+        if (studentAnalytics) {
+          setAnalyticsScores(studentAnalytics.averageScores);
+          console.log('📊 Setting analytics scores:', studentAnalytics.averageScores);
+        } else {
+          console.log('No analytics found for student:', studentId);
+          setAnalyticsScores(null);
+        }
+      }
+    } catch (error) {
+      console.error('❌ Error fetching analytics scores:', error);
+      setAnalyticsScores(null);
+    }
+  };
+
+  // getting scores for a student throughout all of the courses
+  const fetchStudentOverallScores = async (studentId) => {
+    try {
+      // Construct the URL for the endpoint
+      const response = await fetch(`http://localhost:3000/api/teachers/student-overall-scores/${studentId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      // Parse the response
+      const data = await response.json();
+      console.log('📊 Overall Scores Response:', data);
+  
+      if (data.success) {
+        // The data will contain the overall average scores
+        setAnalyticsScores(data.averageScores);
+        console.log('📊 Setting overall scores:', data.averageScores);
+      } else {
+        console.log('No overall scores found for student:', studentId);
+        setAnalyticsScores(null);
+      }
+    } catch (error) {
+      console.error('❌ Error fetching overall scores:', error);
+      setAnalyticsScores(null);
+    }
+  };
+
+  useEffect(() => {
+    const fetchStudentsInClassroom = async () => {
+      try {
+        console.log(`🔍 Fetching students for classroom: ${classroomId}`);
+        const response = await fetch(`http://localhost:3000/api/physical-classrooms/${classroomId}/students`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+  
+        const data = await response.json();
+        console.log('👥 Students API Response:', data);
+        console.log('👥 Data type:', typeof data);
+        console.log('👥 Is array:', Array.isArray(data));
+  
+        if (response.ok && data) {
+          const studentsArray = Array.isArray(data) ? data : (data.students || data.data || []);
+          console.log('👥 Students array:', studentsArray);
+          
+          if (!Array.isArray(studentsArray)) {
+            console.error('❌ Expected array but got:', typeof studentsArray);
+            return;
+          }
+  
+          const studentsForComponent = studentsArray.map(user => ({
+            student_id: user._id || user.id || user.userId,
+            student_name: user.name || user.username || `${user.firstName} ${user.lastName}`,
+            cummulative_score: user.cummulative_score || 0,
+            last_logged_on: user.last_logged_on || user.lastLogin || new Date().toISOString()
+          }));
+  
+          setStudents(studentsForComponent);
+          setLeaderboard(studentsForComponent);
+          console.log('✅ Students loaded:', studentsForComponent.length);
+        } else {
+          console.error('❌ Failed to fetch students:', data);
+        }
+      } catch (error) {
+        console.error('❌ Error fetching students:', error);
+      }
+    };
+  
+    if (classroomId) {
+      fetchStudentsInClassroom();
+    }
+  }, [classroomId]);
+
+  const fetchPredictedPerformance = async () => {
+    try {
+      const originalScores = [82, 90]
+      const response = await fetch("http://127.0.0.1:5000/predict-future-performance", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ scores: [82, 90] }),
+      });
+      const data = await response.json();
+  
+      if (!data || !Array.isArray(data.predicted_scores)) {
+        console.error("Invalid response format:", data);
+        return;
+      }
+
+      const fullData = [...originalScores, ...data.predicted_scores];
+      const labels = [
+        ...originalScores.map((_, i) => `Quiz ${i + 1}`),
+        ...data.predicted_scores.map((_, i) => `Prediction ${i + 1}`),
+      ];
+
+      // setChartData({
+      //   labels: fullData.map((_, i) =>
+      //     i < originalScores.length ? `Quiz ${i + 1}` : `Prediction ${i - originalScores.length + 1}`
+      //   ),
+      //   datasets: [
+      //     {
+      //       label: "Score",
+      //       data: fullData,
+      //       fill: false,
+      //       tension: 0.3,
+      //       segment: {
+      //         borderColor: (ctx) => {
+      //           const index = ctx.p0DataIndex;
+      //           const nextIndex = ctx.p1DataIndex;
+      
+      //           // Color original scores in blue, predicted in red
+      //           if (index < originalScores.length - 1 && nextIndex < originalScores.length) {
+      //             return "rgba(54, 162, 235, 1)"; // blue
+      //           } else {
+      //             return "rgba(255, 99, 132, 1)"; // red
+      //           }
+      //         },
+      //       },
+      //       borderWidth: 2,
+      //     },
+      //   ],
+      // });
+    } catch (error) {
+      console.error("Error fetching predicted performance:", error);
+    }
   };
   
   // FIXED: Fetch real data from APIs
@@ -149,12 +382,14 @@ const Dashboard = () => {
     );
   };
 
-  const skillMetrics = {
-    Creativity: 18,
-    Curiosity: 15,
-    CriticalThinking: 17,
-    Observation: 14,
-    ProblemSolving: 16,
+  const handleCourseSelect = (e) => {
+    const courseId = e.target.value;
+    setSelectedCourse(courseId);
+  
+    if (selectedStudent) {
+      const sampleResponse = "Studying this topic helps us think critically about space exploration.";
+      // fetchNlpMetrics(sampleResponse);
+    }
   };
 
   const renderSkillCircle = (label, value) => {
@@ -173,6 +408,18 @@ const Dashboard = () => {
       </div>
     );
   };
+
+  const handleStudentSelect = async (e) => {
+    const studentId = e.target.value;
+    setSelectedStudent(studentId);
+
+    const futureData = await fetchPredictedPerformance(studentId);
+    if (futureData) {
+    setPerformanceData(futureData.historical);
+    setPredictions(futureData.predicted);
+  }
+  };
+  
 
   // top 5 scores
   const topStudents = leaderboard
@@ -199,83 +446,34 @@ const Dashboard = () => {
     showlegend: false,
   };
 
-  // Generate fake historical data for predictive analysis
-  const generateFakeData = () => {
-    const fakeData = [];
-    let currentDate = new Date();
-
-    for (let i = 0; i < 10; i++) {
-      fakeData.push({
-        date: currentDate.toISOString().split('T')[0],
-        points: Math.floor(Math.random() * 20) + 1
-      });
-      currentDate.setDate(currentDate.getDate() - 1);
-    }
-
-    return fakeData.reverse();
-  };
-
-  const generateSimplePrediction = (performanceData) => {
-    if (performanceData.length === 0) return [];
-
-    const averagePoints = performanceData.reduce((acc, curr) => acc + curr.points, 0) / performanceData.length;
-    let lastPoints = performanceData[performanceData.length - 1].points;
-    const predictions = [];
-
-    for (let i = 0; i < 5; i++) {
-      lastPoints += Math.round(averagePoints * 0.05);
-      predictions.push({ date: `2025-01-${i + 1}`, points: Math.round(lastPoints) });
-    }
-
-    return predictions;
-  };
-
-  // Prepare chart data
-  const performanceData = generateFakeData();
-  const predictions = generateSimplePrediction(performanceData);
-
-  const chartData = {
-    labels: [
-      ...performanceData.map(entry => entry.date),
-      ...predictions.map(entry => entry.date)
-    ],
-    datasets: [
-      {
-        label: 'Historical Performance',
-        data: performanceData.map(entry => entry.points),
-        borderColor: 'rgba(75, 192, 192, 1)',
-        fill: false,
-      },
-      {
-        label: 'Predicted Performance',
-        data: predictions.map(entry => entry.points),
-        borderColor: 'rgba(255, 99, 132, 1)',
-        fill: false,
-        borderDash: [5, 5],
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!selectedStudent) {
+        setAnalyticsScores(null);
+        setAnalyticsLoading(false);
+        return;
       }
-    ]
+
+      setAnalyticsLoading(true);
+  
+
+    try {
+      if (selectedCourse) {
+        // When both student and course are selected, use the course-specific endpoint
+        await fetchStudentAnalyticsScores(selectedStudent);
+      } else {
+        // When only student is selected, use the overall scores endpoint
+        await fetchStudentOverallScores(selectedStudent);
+      }
+    } finally {
+      // Set loading to false when done (whether success or error)
+      setAnalyticsLoading(false);
+    }
   };
-
-  // Show loading state
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-        <p>Loading classroom data...</p>
-      </div>
-    );
-  }
-
-  // Show error state
-  if (error) {
-    return (
-      <div className="error-container">
-        <h2>Error Loading Classroom</h2>
-        <p>{error}</p>
-        <button onClick={() => window.location.reload()}>Try Again</button>
-      </div>
-    );
-  }
+  
+    fetchData();
+  }, [selectedStudent, selectedCourse]);
+  
 
   return (
     <div className="dashboard">
@@ -346,9 +544,9 @@ const Dashboard = () => {
             onChange={(e) => setSelectedCourse(e.target.value)}
           >
             <option value="">Select a Course</option>
-            {courseList.map((course) => (
-              <option key={course.id} value={course.id}>
-                {course.name}
+            {courses.map((course) => (
+              <option key={course.course_id} value={course.course_id}>
+                {course.course_name}
               </option>
             ))}
           </select>
@@ -401,25 +599,30 @@ const Dashboard = () => {
           </>
         )}
 
-        {/* Predictive Analysis and Skill Development Section */}
-        {(selectedStudent && !selectedCourse) && (
-          <div className="student-specific-section">
-            {/* Predictive Analysis Section */}
-            <div className="predictive-analysis">
-              <Line data={chartData} />
-            </div>
 
-            {/* Skill Development Analysis Section */}
-            <div className="skill-development">
-              <h2>Skill Development Analysis</h2>
-              <div className="skill-circles">
-                {Object.entries(skillMetrics).map(([label, value]) => 
-                  renderSkillCircle(label, value)
-                )}
-              </div>
-            </div>
-          </div>
-        )}
+{(selectedStudent && !selectedCourse) && (
+  <div className="student-specific-section">
+    {/* Predictive Analysis Section */}
+    <div className="predictive-analysis">
+      <h2>Performance Prediction</h2>
+      <Line data={chartData} options={chartOptions}/>
+    </div>
+    <h2>Temporary NLP Analytics this should be overall across all courses</h2>
+    <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
+
+    {analyticsScores ? (
+      <div className="metrics-container">
+        {renderSkillCircle("Creativity", analyticsScores.Creativity || 0)}
+        {renderSkillCircle("Critical Thinking", analyticsScores["Critical Thinking"] || 0)}
+        {renderSkillCircle("Observation", analyticsScores.Observation || 0)}
+        {renderSkillCircle("Curiosity", analyticsScores.Curiosity || 0)}
+        {renderSkillCircle("Problem Solving", analyticsScores["Problem Solving"] || 0)}
+      </div>
+    ) : (
+      <p>Loading metrics...</p>
+    )}
+  </div>
+)}
 
         {/* Course-specific data */}
         {!selectedStudent && selectedCourse && (
@@ -477,13 +680,20 @@ const Dashboard = () => {
             </div>
             
             <div className="skill-development">
-              {/* <h2>Skill Development Analysis</h2> */}
-              {/* <div className="skill-circles">
-                {Object.entries(skillMetrics).map(([label, value]) => 
-                  renderSkillCircle(label, value)
-                )}
-              </div> */}
-            </div>
+            <h2>NLP specific for the course</h2>
+      <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
+        {analyticsScores ? (
+          <div className="metrics-container">
+            {renderSkillCircle("Creativity", analyticsScores.Creativity || 0)}
+            {renderSkillCircle("Critical Thinking", analyticsScores["Critical Thinking"] || 0)}
+            {renderSkillCircle("Observation", analyticsScores.Observation || 0)}
+            {renderSkillCircle("Curiosity", analyticsScores.Curiosity || 0)}
+            {renderSkillCircle("Problem Solving", analyticsScores["Problem Solving"] || 0)}
+          </div>
+        ) : (
+          <p>Loading metrics...</p>
+        )}
+          </div>
           </div>
         )}
 
@@ -498,6 +708,5 @@ const Dashboard = () => {
       </div>
     </div>
   );
-};
-
+}
 export default Dashboard;
