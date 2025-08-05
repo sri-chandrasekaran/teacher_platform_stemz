@@ -26,32 +26,40 @@ const Login = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-      <div style={{ background: 'white', padding: '40px', borderRadius: '12px', width: '400px' }}>
-        <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Teacher Portal Login</h1>
-        
+    <div style={{ 
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#f5f5f5',
+      margin: 0,
+      padding: 0
+    }}>
+      <div style={{ border: '2px solid #ddd', borderRadius: '8px', padding: '30px', width: '400px', backgroundColor: 'white', textAlign: 'center' }}>
+        <h1 style={{ marginBottom: '20px', color: 'black' }}>Teacher Portal Login</h1>
         {error && <div style={{ background: '#f8d7da', color: '#721c24', padding: '10px', borderRadius: '5px', marginBottom: '20px' }}>{error}</div>}
-        
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
+        <input 
+          type="email" 
+          placeholder="Email" 
+          value={email} 
           onChange={(e) => setEmail(e.target.value)}
-          style={{ width: '100%', padding: '12px', marginBottom: '15px', border: '2px solid #e9ecef', borderRadius: '8px', boxSizing: 'border-box' }}
+          style={{ width: '100%', padding: '10px', marginBottom: '10px', border: '1px solid #ddd', borderRadius: '4px', boxSizing: 'border-box' }}
         />
-        
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
+        <input 
+          type="password" 
+          placeholder="Password" 
+          value={password} 
           onChange={(e) => setPassword(e.target.value)}
-          style={{ width: '100%', padding: '12px', marginBottom: '20px', border: '2px solid #e9ecef', borderRadius: '8px', boxSizing: 'border-box' }}
+          style={{ width: '100%', padding: '10px', marginBottom: '10px', border: '1px solid #ddd', borderRadius: '4px', boxSizing: 'border-box' }}
         />
-        
         <button 
-          onClick={handleLogin}
+          onClick={handleLogin} 
           disabled={loading}
-          style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white', border: 'none', borderRadius: '8px', fontSize: '16px', cursor: loading ? 'not-allowed' : 'pointer' }}
+          style={{ width: '100%', padding: '10px', backgroundColor: 'darkgreen', color: '#fff', border: 'none', borderRadius: '4px', cursor: loading ? 'not-allowed' : 'pointer', marginBottom: '10px' }}
         >
           {loading ? 'Signing In...' : 'Sign In'}
         </button>
