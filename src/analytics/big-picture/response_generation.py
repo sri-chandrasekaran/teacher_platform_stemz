@@ -41,14 +41,6 @@ def generate_response(prompt):
 
 # Your list of questions
 questions = [
-<<<<<<< HEAD
-    "Can you think of a real-life situation where we use conditions, like \"if it’s raining, take an umbrella\"?",
-    "Why do you think computers store information in different variables instead of writing everything at once?",
-    "How does coding teach us to break big problems into smaller steps?",
-    "Why do you think professional coders use loops and conditionals instead of writing long lists of instructions?",
-    "How can coding help in fields like science, engineering, or even music and art?",
-    "How do you think learning to code can help with problem-solving in everyday life?"
-=======
     "What would it take for humans to live on another planet, and which planet do you think would be the best choice?",
     "How do supermassive black holes influence galaxy formation and evolution?",
     "What role does dark matter play in the formation and structure of galaxies?",
@@ -76,7 +68,6 @@ questions = [
     "How do different planets' atmospheres affect their ability to support life?"
 
 
->>>>>>> main
 ]
 
 
@@ -86,11 +77,7 @@ os.makedirs("generated_new_responses", exist_ok=True)
 
 # Loop through questions and generate responses
 for idx, question in enumerate(questions, start=1):
-<<<<<<< HEAD
-    k2_prompt = f"You are a young child in grades K-2. Answer this question:\n{question}\nAnswer:"
-=======
     k2_prompt = f"You are a young child in grades 5-6 in an Astronomy class. Answer this question:\n{question}\nAnswer:"
->>>>>>> main
     responses = []
 
     for _ in range(150):
