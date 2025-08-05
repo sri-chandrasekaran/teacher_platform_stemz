@@ -44,6 +44,151 @@
     background: #4caf50;
     border-radius: 5px;
   }
+
+  /* New styles for assignment display */
+  .popup-header {
+    margin-bottom: 20px;
+  }
+
+  .popup-header h2 {
+    margin: 0 0 10px 0;
+    color: #333;
+  }
+
+  .overall-progress {
+    margin: 5px 0;
+    font-weight: 500;
+    color: #666;
+  }
+
+  .tab-content {
+    margin-top: 20px;
+  }
+
+  .assignments-container {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .assignments-summary {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+
+  .assignments-summary h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+  }
+
+  .summary-text {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+  }
+
+  .assignments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .assignment-item {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    transition: all 0.2s ease;
+  }
+
+  .assignment-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .assignment-item.completed {
+    border-color: #4caf50;
+    background: #f8fff8;
+  }
+
+  .assignment-item.incomplete {
+    border-color: #ff9800;
+    background: #fff8f0;
+  }
+
+  .assignment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .assignment-header h4 {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+  }
+
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .status-badge.completed {
+    background: #4caf50;
+    color: white;
+  }
+
+  .status-badge.incomplete {
+    background: #ff9800;
+    color: white;
+  }
+
+  .assignment-description {
+    margin: 8px 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .completion-details {
+    margin-top: 10px;
+    padding: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  .completion-date {
+    margin: 0 0 4px 0;
+    color: #666;
+  }
+
+  .completion-score {
+    margin: 0;
+    color: #4caf50;
+    font-weight: 500;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+  }
+
+  .no-data {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+  }
+
+  .no-assignments {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+  }
   
 
   .popup-content {
@@ -105,7 +250,7 @@
     transition: 0.3s;
   }
   
-  .toggle-indicator.Slideshow {
+  .toggle-indicator.Lesson {
     left: 0%;
   }
   
@@ -156,6 +301,141 @@
     transform: scale(1.05);
   }
 
+  .selected-concepts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .concept-chip {
+    background-color: #e6f0ff;
+    color: #004080;
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .concept-chip button {
+    margin-left: 8px;
+    border: none;
+    background: none;
+    font-weight: bold;
+    color: #004080;
+    cursor: pointer;
+  }
+  .help-ui-box input[type="text"] {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 8px;
+  }
+  
+  .concept-suggestions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .concept-suggestions li {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .concept-suggestions li:hover {
+    background-color: #eef4ff;
+  }
+  
+  .help-ui-box {
+    background-color: #f9f9ff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 12px;
+    width: 100%;
+  }
+  
+  .help-ui-box h4 {
+    margin-bottom: 10px;
+  }
+  
+
+  .generate-help-button {
+    background-color: #4caf50; 
+    color: white;
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1em; 
+    font-weight: bold; 
+    transition: background-color 0.3s, transform 0.2s ease; 
+  }
+  
+  .generate-help-button:hover {
+    background-color: #3f8041; 
+    transform: scale(1.05);
+  }
+
+  .comment-ui-box {
+    margin-top: 16px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+  .comment-ui-box h4 {
+    margin-bottom: 10px;
+  }
+  
+.comment-textarea {
+  width: 100%;
+  height: 80px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: none;
+  margin-bottom: 8px;
+}
+  
+.comment-button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+  .submit-button {
+    background-color: #b3e6cc;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #004d26;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+  
+  .cancel-button {
+    background-color: #ffdddd;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #800000;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+  
 /* AddStudentModal styles */
 .modal-overlay {
   position: fixed;

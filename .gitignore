@@ -9,12 +9,14 @@
 /coverage
 /src/analytics/astronomy_bpq/myenv/
 /src/analytics/course-engagement/engagement/
+src/analytics/big-picture/astronomy_bpq/rf_model.pkl
 
 # production
 /build
 
 # misc
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -28,3 +30,4 @@ yarn-error.log*
 package-lock.json
 src/analytics/course-engagement/engagement
 src/analytics/big-picture/astronomy_bpq/myenv
+myenv/

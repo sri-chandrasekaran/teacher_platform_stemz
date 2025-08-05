@@ -47,7 +47,12 @@ const Users = () => {
 
     const fetchCourses = async () => {
       try {
+<<<<<<< HEAD
         const data = await ApiService.fetchCourses(classroomId);
+=======
+        const response = await fetch('https://core-server-nine.vercel.app/api/students'); 
+        const data = await response.json();
+>>>>>>> main
         setCourses(data);
       } catch (error) {
         console.error('Error fetching courses:', error);

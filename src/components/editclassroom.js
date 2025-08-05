@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Select from 'react-select';
 import ApiService from '../apiService';
 
@@ -13,6 +13,15 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [courseOptions, setCourseOptions] = useState([]);
   const [studentOptions, setStudentOptions] = useState([]);
   const [teacherOptions, setTeacherOptions] = useState([]);
+<<<<<<< HEAD
+=======
+  const [schoolName, setSchoolName] = useState('');
+  const [gradeLevel, setGradeLevel] = useState('');
+  const [classroomNumber, setClassroomNumber] = useState('');
+  const [maxStudents, setMaxStudents] = useState(30);
+
+  const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
+>>>>>>> main
 
   const checkCourse = (course) => {
     console.log('Checking course:', course);
@@ -38,6 +47,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
       setDescription(classroom.description || '');
     }
 
+<<<<<<< HEAD
     try {
       const fetchCoursesAndStudents = async () => {
         const fetchedCourses = await ApiService.fetchCourses();
@@ -45,83 +55,122 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
 
         // console.log('Fetched courses:', fetchedCourses);
         // console.log('Fetched students:', fetchedStudents);
+=======
+    const fetchCoursesAndStudents = async () => {
+      try {
+        const responseCourses = await fetch(`${API_BASE_URL}/course`);
+        const responseUsers = await fetch(`${API_BASE_URL}/users`);
+        const fetchedCourses = await responseCourses.json();
+        const fetchedUsers = await responseUsers.json();
+>>>>>>> main
 
         // Transform data for react-select
         const courseOptionsMap = fetchedCourses
-          // .filter(checkCourse)
           .map(course => ({
             value: course._id,
             label: course.name,
           }));
 
-        const studentOptionsMap = fetchedStudents
-          // .filter(checkStudent)
-          .map(student => ({
-            value: student._id,
-            label: student.name,
+        const studentOptionsMap = fetchedUsers
+          .filter(user => user.role === "student")
+          .map(user => ({
+            value: user._id,
+            label: user.name,
           }));
 
-        const teacherOptionsMap = fetchedStudents
-          // .filter(checkTeacher)
-          .map(student => ({
-            value: student._id,
-            label: student.name,
+        const teacherOptionsMap = fetchedUsers
+          .filter(user => user.role === "teacher")
+          .map(user => ({
+            value: user._id,
+            label: user.name,
           }));
 
-        // console.log('Course options map:', courseOptionsMap);
-        // console.log('Student options map:', studentOptionsMap);
-        // console.log('Teacher options map:', teacherOptionsMap);
         // Set options for react-select
         setCourseOptions(courseOptionsMap);
         setStudentOptions(studentOptionsMap);
         setTeacherOptions(teacherOptionsMap);
-        // console.log('Course options:', courseOptions);
-        // console.log('Student options:', studentOptions);
-        // console.log('Teacher options:', teacherOptions);
-      };
-      // Fetch existing data if editing a classroom
-      // if (classroom) {
-      //   fetchExistingData();
-      // }
-      fetchCoursesAndStudents();
-
-
-
-    } catch (error) {
-      console.error('Error fetching courses or students:', error);
-    }
+      } catch (error) {
+        console.error('Error fetching courses or students:', error);
+      }
+    };
+    
+    fetchCoursesAndStudents();
   }, [classroom]);
 
+<<<<<<< HEAD
   const handleSave = async () => {
     onSave({
       ...classroom,
+=======
+  const handleSave = () => {
+    const studentIds = selectedStudents?.map(option => option.value) || [];
+    
+    const saveData = {
+      ...classroom,   // Maintain existing classroom data
+>>>>>>> main
       name,
       description,
       courses: selectedCourses.map(option => option.value),
-      students: selectedStudents.map(option => option.value),
+      students: studentIds,
       teacher: selectedTeacher ? selectedTeacher.value : '',
-    });
-    console.log('Classroom saved:', {
-      name,
-      description,
-      courses: selectedCourses.map(option => option.value),
-      students: selectedStudents.map(option => option.value),
-      teacher: selectedTeacher ? selectedTeacher.value : '',
-    });
+    };
+    
+    onSave(saveData);
     console.log('Classroom data:', classroom);
     if (classroom){
       console.log('Updating classroom:', classroom.id);
       try {
+<<<<<<< HEAD
         let response = await ApiService.updateClassroom(classroom.id, {
           name,
           description
       });
         console.log('Classroom updated:', response);
       } catch (error) {
+=======
+        fetch(`${API_BASE_URL}/classrooms/${classroom.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            description,
+            courses: selectedCourses.map(option => option.value),
+            students: studentIds,
+            teacher: selectedTeacher ? selectedTeacher.value : '',
+          }),
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to update classroom');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Classroom updated:', data);
+        });
+      }
+      catch (error) {
+>>>>>>> main
         console.error('Error updating classroom:', error);
       }
     }
+
+    const updatedClassroom = {
+      ...classroom, // Maintain existing classroom data
+      name: name.trim(),
+      description: description.trim(),
+      schoolName: schoolName.trim(),
+      gradeLevel: gradeLevel,
+      classroomNumber: classroomNumber.trim(),
+      maxStudents: maxStudents,
+    };
+
+    console.log("Saving classroom:", updatedClassroom);
+    onSave(updatedClassroom);
   };
+
   if (!classroom) {
     return (
       <div className="edit-classroom-form">
@@ -175,21 +224,106 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
     );
   }
   return (
-    <div className="edit-classroom-form">
-      <h3>Edit Classroom</h3>
-      <input
-        type="text"
-        placeholder="Classroom Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <textarea
-        placeholder="Classroom Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <button className="button-save" onClick={handleSave}>Save Changes</button>
-      <button className="button-cancel" onClick={onCancel}>Cancel</button>
+    <div className="modal-overlay">
+      <div className="edit-classroom-form">
+        <h3>
+          {classroom ? "Edit Physical Classroom" : "Add Physical Classroom"}
+        </h3>
+
+        <div className="form-group">
+          <label>Classroom Name*</label>
+          <input
+            type="text"
+            placeholder="Enter classroom name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>School Name*</label>
+          <input
+            type="text"
+            placeholder="Enter school name"
+            value={schoolName}
+            onChange={(e) => setSchoolName(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Grade Level*</label>
+          <select
+            value={gradeLevel}
+            onChange={(e) => setGradeLevel(e.target.value)}
+            required
+          >
+            <option value="">Select Grade Level</option>
+            <option value="K">Kindergarten</option>
+            <option value="1">1st Grade</option>
+            <option value="2">2nd Grade</option>
+            <option value="3">3rd Grade</option>
+            <option value="4">4th Grade</option>
+            <option value="5">5th Grade</option>
+            <option value="6">6th Grade</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Classroom Number (Optional)</label>
+          <input
+            type="text"
+            placeholder="e.g., Room 101"
+            value={classroomNumber}
+            onChange={(e) => setClassroomNumber(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Maximum Students</label>
+          <input
+            type="number"
+            placeholder="30"
+            value={maxStudents}
+            onChange={(e) => setMaxStudents(parseInt(e.target.value) || 30)}
+            min="1"
+            max="100"
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Description (Optional)</label>
+          <textarea
+            placeholder="Enter classroom description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows="3"
+          />
+        </div>
+
+        {/* Student Management Information */}
+        {classroom && classroom.students && (
+          <div className="classroom-info">
+            <h4>Current Students: {classroom.students.length}</h4>
+            <p>
+              <small>
+                Use the invite button (📧) to add more students to this
+                classroom.
+              </small>
+            </p>
+          </div>
+        )}
+
+        <div className="form-actions">
+          <button className="button-save" onClick={handleSave}>
+            {classroom ? "Update Classroom" : "Create Classroom"}
+          </button>
+          <button className="button-cancel" onClick={onCancel}>
+            Cancel
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
