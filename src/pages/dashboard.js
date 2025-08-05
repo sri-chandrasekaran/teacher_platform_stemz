@@ -48,6 +48,8 @@ const Dashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [performanceData, setPerformanceData] = useState([]);
+  const [predictions, setPredictions] = useState([]);
 
   const location = useLocation();
 
@@ -489,8 +491,8 @@ useEffect(() => {
     };
   
     // Prepare chart data
-    const performanceData = generateFakeData();
-    const predictions = generateSimplePrediction(performanceData);
+    const currentPerformanceData = generateFakeData();
+    const currentPredictions = generateSimplePrediction(currentPerformanceData);
 
 
     /*
