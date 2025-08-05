@@ -114,7 +114,7 @@ const LessonBox = () => {
     const resetAssignment = updatedAssignments.find(a => a.id === id);
 
     try {
-      await fetch("http://localhost:4000/api/worksheet/update", {
+      await fetch("https://core-server-nine.vercel.app/api/worksheet/update", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -163,7 +163,7 @@ h2, h3 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     z-index: 1000;
-    width: 300px;
+    width: 500px;
     box-sizing: border-box;
 }
 
@@ -2000,6 +2000,10 @@ p {
   transition: width 0.3s ease;
 }
 
+.tables-wrapper {
+  display: flex;
+  gap: 20px;
+}
 .skill-circle-container {
   display: flex;
   flex-direction: row;
@@ -2022,3 +2026,7 @@ p {
   flex-wrap: wrap; /* Optional: allows wrapping on smaller screens */
 }
 
+
+.grade-curve {
+  width: 100%;
+}

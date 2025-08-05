@@ -12,7 +12,6 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import seaborn as sns
 import pandas as pd
-from imblearn.over_sampling import SMOTE
 
 
 def plot_3d_scatter(x, y, z, x_label, y_label, z_label, title="3D Scatter Plot"):
@@ -28,7 +27,7 @@ def plot_3d_scatter(x, y, z, x_label, y_label, z_label, title="3D Scatter Plot")
     
     plt.show()
 
-with open('example.json') as f:
+with open('4_5lesson1.json') as f:
     data = json.load(f)
 
 analyzer = SentimentIntensityAnalyzer()
@@ -59,19 +58,7 @@ X_features = np.array(X_features)
 tfidf_matrix = vectorizer.fit_transform([response['response'] for question in data['questions'] for response in question['responses']])
 X_features = np.concatenate((X_features, tfidf_matrix.toarray()), axis=1)
 
-
-print("Unique values in y_Creativity:", np.unique(y_Creativity))
-print("Unique values in y_Critical_Thinking:", np.unique(y_Critical_Thinking))
-print("Unique values in y_Observation:", np.unique(y_Observation))
-print("Unique values in y_Curiosity:", np.unique(y_Curiosity))
-print("Unique values in y_Problem_Solving:", np.unique(y_Problem_Solving))
-
-print("Shape of X_features:", X_features.shape)
-print("Length of y_Creativity:", len(y_Creativity))
-
-smote = SMOTE(sampling_strategy='minority', k_neighbors=3)
-
-
+smote = SMOTE(sampling_strategy='auto', k_neighbors=3)
 
 X_resampled_Creativity, y_resampled_Creativity = smote.fit_resample(X_features, y_Creativity)
 X_resampled_Critical_Thinking, y_resampled_Critical_Thinking = smote.fit_resample(X_features, y_Critical_Thinking)
@@ -79,13 +66,11 @@ X_resampled_Observation, y_resampled_Observation = smote.fit_resample(X_features
 X_resampled_Curiosity, y_resampled_Curiosity = smote.fit_resample(X_features, y_Curiosity)
 X_resampled_Problem_Solving, y_resampled_Problem_Solving = smote.fit_resample(X_features, y_Problem_Solving)
 
-
 X_train_Creativity, X_test_Creativity, y_train_Creativity, y_test_Creativity = train_test_split(X_resampled_Creativity, y_resampled_Creativity, test_size=0.2, random_state=42)
 X_train_Critical_Thinking, X_test_Critical_Thinking, y_train_Critical_Thinking, y_test_Critical_Thinking = train_test_split(X_resampled_Critical_Thinking, y_resampled_Critical_Thinking, test_size=0.2, random_state=42)
 X_train_Observation, X_test_Observation, y_train_Observation, y_test_Observation = train_test_split(X_resampled_Observation, y_resampled_Observation, test_size=0.2, random_state=42)
 X_train_Curiosity, X_test_Curiosity, y_train_Curiosity, y_test_Curiosity = train_test_split(X_resampled_Curiosity, y_resampled_Curiosity, test_size=0.2, random_state=42)
 X_train_Problem_Solving, X_test_Problem_Solving, y_train_Problem_Solving, y_test_Problem_Solving = train_test_split(X_resampled_Problem_Solving, y_resampled_Problem_Solving, test_size=0.2, random_state=42)
-
 
 
 base_models = [

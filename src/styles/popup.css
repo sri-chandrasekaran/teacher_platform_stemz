@@ -44,6 +44,151 @@
     background: #4caf50;
     border-radius: 5px;
   }
+
+  /* New styles for assignment display */
+  .popup-header {
+    margin-bottom: 20px;
+  }
+
+  .popup-header h2 {
+    margin: 0 0 10px 0;
+    color: #333;
+  }
+
+  .overall-progress {
+    margin: 5px 0;
+    font-weight: 500;
+    color: #666;
+  }
+
+  .tab-content {
+    margin-top: 20px;
+  }
+
+  .assignments-container {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .assignments-summary {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+
+  .assignments-summary h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+  }
+
+  .summary-text {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+  }
+
+  .assignments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .assignment-item {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    transition: all 0.2s ease;
+  }
+
+  .assignment-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .assignment-item.completed {
+    border-color: #4caf50;
+    background: #f8fff8;
+  }
+
+  .assignment-item.incomplete {
+    border-color: #ff9800;
+    background: #fff8f0;
+  }
+
+  .assignment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .assignment-header h4 {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+  }
+
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .status-badge.completed {
+    background: #4caf50;
+    color: white;
+  }
+
+  .status-badge.incomplete {
+    background: #ff9800;
+    color: white;
+  }
+
+  .assignment-description {
+    margin: 8px 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .completion-details {
+    margin-top: 10px;
+    padding: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  .completion-date {
+    margin: 0 0 4px 0;
+    color: #666;
+  }
+
+  .completion-score {
+    margin: 0;
+    color: #4caf50;
+    font-weight: 500;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+  }
+
+  .no-data {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+  }
+
+  .no-assignments {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+  }
   
 
   .popup-content {
@@ -105,7 +250,7 @@
     transition: 0.3s;
   }
   
-  .toggle-indicator.Slideshow {
+  .toggle-indicator.Lesson {
     left: 0%;
   }
   
@@ -291,3 +436,295 @@
     transition: background-color 0.2s ease;
   }
   
+/* AddStudentModal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* background: rgba(0, 0, 0, 0.6); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  width: 90%;
+  max-width: 500px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.modal-content h2 {
+  margin: 0 0 25px 0;
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.close-button:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+  font-size: 14px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #999;
+}
+
+.error-message {
+  background-color: #fee;
+  color: #c33;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #fcc;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.cancel-btn, .submit-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.cancel-btn {
+  background-color: #f8f9fa;
+  color: #666;
+  border: 2px solid #e1e5e9;
+}
+
+.cancel-btn:hover:not(:disabled) {
+  background-color: #e9ecef;
+  border-color: #d1d7dd;
+}
+
+.submit-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: 2px solid #4CAF50;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: #45a049;
+  border-color: #45a049;
+}
+
+.submit-btn:disabled, .cancel-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* AddStudentModal specific styles */
+.add-student-modal {
+  width: 90%;
+  max-width: 700px;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-container {
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.users-list-container {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 400px;
+  margin-bottom: 20px;
+}
+
+.loading-message, .no-users-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 16px;
+}
+
+.users-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.user-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  background-color: #fafbfc;
+  transition: all 0.3s ease;
+}
+
+.user-card:hover {
+  border-color: #4CAF50;
+  background-color: #f8fff8;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.user-email {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.user-id {
+  color: #888;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.add-user-btn {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 70px;
+}
+
+.add-user-btn:hover:not(:disabled) {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.add-user-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.modal-footer {
+  border-top: 1px solid #e1e5e9;
+  padding-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-footer .cancel-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+}
+
+.modal-footer .cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+/* Scrollbar styling for users list */
+.users-list-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.users-list-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.users-list-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.users-list-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
