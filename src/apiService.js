@@ -106,7 +106,7 @@ class ApiService {
     // Fetch all classrooms
     static async fetchClassrooms() {
         console.log('Fetching classrooms from API at:', process.env.REACT_APP_API_URL);
-        const response = await fetch(`${BASE_URL}/classrooms`, {
+        const response = await fetch(`${BASE_URL}/physical-classrooms`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ class ApiService {
 
     // Fetch a clssroom by ID
     static async fetchClassroomById(classroomId) {
-        const response = await fetch(`${BASE_URL}/classrooms/${classroomId}`, {
+        const response = await fetch(`${BASE_URL}/physical-classrooms/${classroomId}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -138,7 +138,7 @@ class ApiService {
 
     // Add a new classroom
     static async addClassroom(classroomData) {
-        const response = await fetch(`${BASE_URL}/classrooms`, {
+        const response = await fetch(`${BASE_URL}/physical-classrooms`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -156,7 +156,7 @@ class ApiService {
 
     // Update an existing classroom
     static async updateClassroom(classroomId, classroomData) {
-        const response = await fetch(`${BASE_URL}/classrooms/${classroomId}`, {
+        const response = await fetch(`${BASE_URL}/physical-classrooms/${classroomId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -173,7 +173,7 @@ class ApiService {
 
     // Delete a classroom
     static async deleteClassroom(classroomId) {
-        const response = await fetch(`${BASE_URL}/classrooms/${classroomId}`, {
+        const response = await fetch(`${BASE_URL}/physical-classrooms/${classroomId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -189,7 +189,7 @@ class ApiService {
 
     // Fetch students in a classroom
     static async fetchStudentsInClassroom(classroomId) {
-        const response = await fetch(`${BASE_URL}/classrooms/${classroomId}/users`, {
+        const response = await fetch(`${BASE_URL}/physical-classrooms/${classroomId}/students`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -205,7 +205,7 @@ class ApiService {
 
     // Enroll a student in a classroom
     static async enrollStudent(classroomId, userId) {
-        const response = await fetch(`${BASE_URL}/classrooms/${classroomId}/enroll`, {
+        const response = await fetch(`${BASE_URL}/physical-classrooms/${classroomId}/add-student`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
