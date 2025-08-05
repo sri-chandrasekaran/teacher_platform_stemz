@@ -1,0 +1,8 @@
+[
+  {
+    "concept": "Stars",
+    "prompt": "Write a multiple-choice question for a K-2 student about the concept of Stars. Include four answer choices, the correct answer, and a brief explanation of why it is correct.",
+    "response": " Question: What do we call the bright points of light that we see in the sky at night?\n\n    A) Planets\n    B) Flowers\n    C) Stars\n    D) Trees\n\n    Correct Answer: C) Stars\n\n    Explanation: Stars are the bright points of light that we see in the sky at night. They are not planets, flowers, or trees. Understanding this concept helps children develop a foundation for astronomy and space science as they grow older.",
+    "output_type": "practice"
+  }
+]
