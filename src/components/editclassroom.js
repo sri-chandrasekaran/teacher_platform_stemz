@@ -13,15 +13,12 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [courseOptions, setCourseOptions] = useState([]);
   const [studentOptions, setStudentOptions] = useState([]);
   const [teacherOptions, setTeacherOptions] = useState([]);
-<<<<<<< HEAD
-=======
   const [schoolName, setSchoolName] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
   const [classroomNumber, setClassroomNumber] = useState('');
   const [maxStudents, setMaxStudents] = useState(30);
 
   const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
->>>>>>> main
 
   const checkCourse = (course) => {
     console.log('Checking course:', course);
@@ -47,22 +44,12 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
       setDescription(classroom.description || '');
     }
 
-<<<<<<< HEAD
-    try {
-      const fetchCoursesAndStudents = async () => {
-        const fetchedCourses = await ApiService.fetchCourses();
-        const fetchedStudents = await ApiService.fetchUsers();
-
-        // console.log('Fetched courses:', fetchedCourses);
-        // console.log('Fetched students:', fetchedStudents);
-=======
     const fetchCoursesAndStudents = async () => {
       try {
         const responseCourses = await fetch(`${API_BASE_URL}/course`);
         const responseUsers = await fetch(`${API_BASE_URL}/users`);
         const fetchedCourses = await responseCourses.json();
         const fetchedUsers = await responseUsers.json();
->>>>>>> main
 
         // Transform data for react-select
         const courseOptionsMap = fetchedCourses
@@ -97,17 +84,11 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
     fetchCoursesAndStudents();
   }, [classroom]);
 
-<<<<<<< HEAD
-  const handleSave = async () => {
-    onSave({
-      ...classroom,
-=======
   const handleSave = () => {
     const studentIds = selectedStudents?.map(option => option.value) || [];
     
     const saveData = {
       ...classroom,   // Maintain existing classroom data
->>>>>>> main
       name,
       description,
       courses: selectedCourses.map(option => option.value),
@@ -120,14 +101,6 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
     if (classroom){
       console.log('Updating classroom:', classroom.id);
       try {
-<<<<<<< HEAD
-        let response = await ApiService.updateClassroom(classroom.id, {
-          name,
-          description
-      });
-        console.log('Classroom updated:', response);
-      } catch (error) {
-=======
         fetch(`${API_BASE_URL}/classrooms/${classroom.id}`, {
           method: 'PUT',
           headers: {
@@ -152,7 +125,6 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
         });
       }
       catch (error) {
->>>>>>> main
         console.error('Error updating classroom:', error);
       }
     }
