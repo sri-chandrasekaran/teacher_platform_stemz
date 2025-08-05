@@ -1,0 +1,395 @@
+[
+    {
+      "question": "What is your favorite planet, and why? Can you share one fun fact about it?",
+      "grade_band": "K-2",
+      "tags": ["E", "F"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "What do you think stars are made of? Why do they twinkle at night?",
+      "grade_band": "K-2",
+      "tags": ["K"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "How is Earth different from the Moon and other planets?",
+      "grade_band": "K-2",
+      "tags": ["J", "L"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+      "question": "Why do we see the Sun during the day but the Moon and stars at night?",
+      "grade_band": "K-2",
+      "tags": ["C", "I"],
+      "lesson": "Lesson 1 - The Solar System",
+      "type": "big_picture"
+    },
+    {
+        "question": "If you could travel to space, what would you want to explore, and why?",
+        "grade_band": "K-2",
+        "tags": ["M"],
+        "lesson": "Lesson 1 - The Solar System",
+        "type": "big_picture"
+    },
+    {
+        "question": "How do astronauts stay safe in space?",
+        "grade_band": "K-2",
+        "tags": ["M"],
+        "lesson": "Lesson 1 - The Solar System",
+        "type": "big_picture"
+    },
+    {
+        "question": "Why do you think Earth is the only planet we know of that has people, animals, and plants?",
+        "grade_band": "K-2",
+        "tags": ["J"],
+        "lesson": "Lesson 1 - The Solar System",
+        "type": "big_picture"
+    },
+    {
+        "question": "What makes the sky look different during the day and at night?",
+        "grade_band": "K-2",
+        "tags": ["M", "K"],
+        "lesson": "Lesson 1 - The Solar System",
+        "type": "big_picture"
+    },
+    {
+        "question": "If scientists discovered life on another planet, what kinds of things would they look for?",
+        "grade_band": "K-2",
+        "tags": ["E", "F"],
+        "lesson": "Lesson 1 - The Solar System",
+        "type": "big_picture"
+    },
+    {
+        "question": "Why do we study planets and space? How can learning about space help us on Earth?",
+        "grade_band": "K-2",
+        "tags": ["E", "F", "M", "J"],
+        "lesson": "Lesson 1 - The Solar System",
+        "type": "big_picture"
+    },
+    {
+      "question": "What do you think a black hole looks like? Can anything escape from it?",
+      "grade_band": "K-2",
+      "tags": ["O"],
+      "lesson": "Lesson 2 - Galaxies",
+      "type": "big_picture"
+    },
+    {
+        "question": "How do stars and planets stay together in space without floating away?",
+        "grade_band": "K-2",
+        "tags": ["P", "S", "B"],
+        "lesson": "Lesson 2 - Galaxies",
+        "type": "big_picture"
+    },
+    {
+      "question": "What do you think it would feel like to travel through space?",
+      "grade_band": "K-2",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 2 - Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do we know what space looks like if we can’t visit all of it?",
+      "grade_band": "K-2",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 2 - Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "What do you think is at the center of our galaxy?",
+      "grade_band": "K-2",
+      "tags": ["S", "O"],
+      "lesson": "Lesson 2 - Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "Why do stars look tiny even though they are really big?",
+      "grade_band": "K-2",
+      "tags": ["K", "N"],
+      "lesson": "Lesson 2 - Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "What is a galaxy? Can you name one?",
+      "grade_band": "K-2",
+      "tags": ["R", "S"],
+      "lesson": "Lesson 2 - Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "What makes the Milky Way special?",
+      "grade_band": "K-2",
+      "tags": ["R", "S"],
+      "lesson": "Lesson 2 - Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "How does gravity help us stay on the ground?",
+      "grade_band": "K-2",
+      "tags": ["P", "J"],
+      "lesson": "Lesson 2 - Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "If you could name your own galaxy, what would you call it and why?",
+      "grade_band": "K-2",
+      "tags": ["R"],
+      "lesson": "Lesson 2 - Galaxies",
+      "type": "big_picture"
+    },
+    {
+      "question": "Why do people want to explore space? What do you think they are looking for?",
+      "grade_band": "K-2",
+      "tags": ["M", "O", "W"],
+      "lesson": "Lesson 3 - Space and Humans",
+      "type": "big_picture"
+    },
+    {
+        "question": "What do astronauts do when they go to space?",
+        "grade_band": "K-2",
+        "tags": ["M"],
+        "lesson": "Lesson 3 - Space and Humans",
+        "type": "big_picture"
+    },
+    {
+      "question": "How do telescopes help us see things that are far away?",
+      "grade_band": "K-2",
+      "tags": ["N", "Q"],
+      "lesson": "Lesson 3 - Space and Humans",
+      "type": "big_picture"
+    },
+    {
+      "question": "If you could design a spaceship, what would it look like, and where would you go?",
+      "grade_band": "K-2",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 3 - Space and Humans",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do astronauts eat, sleep, and live in space?",
+      "grade_band": "K-2",
+      "tags": ["M"],
+      "lesson": "Lesson 3 - Space and Humans",
+      "type": "big_picture"
+    },
+    {
+      "question": "Why do we send robots to space instead of just people?",
+      "grade_band": "K-2",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 3 - Space and Humans",
+      "type": "big_picture"
+    },
+    {
+      "question": "What do you think it would feel like to float in space?",
+      "grade_band": "K-2",
+      "tags": ["M"],
+      "lesson": "Lesson 3 - Space and Humans",
+      "type": "big_picture"
+    },
+    {
+      "question": "What would you bring with you if you went on a trip to space?",
+      "grade_band": "K-2",
+      "tags": ["M"],
+      "lesson": "Lesson 3 - Space and Humans",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do satellites help us on Earth?",
+      "grade_band": "K-2",
+      "tags": ["M", "Q"],
+      "lesson": "Lesson 3 - Space and Humans",
+      "type": "big_picture"
+    },
+    {
+      "question": "What are some things we have learned about space because of technology?",
+      "grade_band": "K-2",
+      "tags": ["M", "Q", "W"],
+      "lesson": "Lesson 3 - Space and Humans",
+      "type": "big_picture"
+    },
+    {
+      "question": "What do you think space is made of? What might be hiding in space that we can’t see?",
+      "grade_band": "K-2",
+      "tags": ["M", "O", "W", "U"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "big_picture"
+    },
+    {
+        "question": "How do scientists learn about space if they can’t visit most of it?",
+        "grade_band": "K-2",
+        "tags": ["M", "Q"],
+        "lesson": "Lesson 4 - The Universe",
+        "type": "big_picture"
+    },
+    {
+      "question": "Why do you think stars shine, and why do some disappear over time?",
+      "grade_band": "K-2",
+      "tags": ["K", "T"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "big_picture"
+    },
+    {
+      "question": "What do you think happens at the edge of the universe?",
+      "grade_band": "K-2",
+      "tags": ["W", "X", "U"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "big_picture"
+    },
+    {
+      "question": "Why do we explore space? What can we learn from looking at the stars and planets?",
+      "grade_band": "K-2",
+      "tags": ["M", "E", "F", "K", "W"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "big_picture"
+    },
+    {
+      "question": "If you discovered a new planet, what would you name it, and what would it be like?",
+      "grade_band": "K-2",
+      "tags": ["E", "F", "J"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "big_picture"
+    },
+    {
+      "question": "How do we know things exist in space if we can’t see them, like black holes or dark matter?",
+      "grade_band": "K-2",
+      "tags": ["M", "Q", "U", "O"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "big_picture"
+    },
+    {
+      "question": "Why do some stars look bigger and brighter than others?",
+      "grade_band": "K-2",
+      "tags": ["K"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "big_picture"
+    },
+    {
+      "question": "What do you think is the most mysterious thing about space?",
+      "grade_band": "K-2",
+      "tags": ["M", "W", "O", "U"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "big_picture"
+    },
+    {
+      "question": "If you could ask a scientist one question about space, what would it be?",
+      "grade_band": "K-2",
+      "tags": ["M", "W"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "big_picture"
+    },
+    {
+      "question": "What is astronomy?",
+      "grade_band": "K-2",
+      "tags": ["A"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "What is astronomy?",
+      "grade_band": "K-2",
+      "tags": ["A"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "What do we use a telescope for?",
+      "grade_band": "K-2",
+      "tags": ["Q"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "What is the Moon?",
+      "grade_band": "K-2",
+      "tags": ["L"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "What is a star?",
+      "grade_band": "K-2",
+      "tags": ["K"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "What planet is famous for its rings?",
+      "grade_band": "K-2",
+      "tags": ["F"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "Which two countries were involved in the Space Race?",
+      "grade_band": "K-2",
+      "tags": ["V"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "What is the name of the force holding us to the Earth?",
+      "grade_band": "K-2",
+      "tags": ["P"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "Which planet is red?",
+      "grade_band": "K-2",
+      "tags": ["E"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "What was Pluto once known as?",
+      "grade_band": "K-2",
+      "tags": ["H"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "What is a Constellation?",
+      "grade_band": "K-2",
+      "tags": ["N"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "What process occurs in the Sun that creates large amounts of energy?",
+      "grade_band": "K-2",
+      "tags": ["C", "S"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "What are the two main properties of a telescope?",
+      "grade_band": "K-2",
+      "tags": ["Q"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "Who was the first person to walk on the moon?",
+      "grade_band": "K-2",
+      "tags": ["L", "M"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "Why is astronomy important in everyday life?",
+      "grade_band": "K-2",
+      "tags": ["A"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    },
+    {
+      "question": "How does astronomy help us understand life on Earth?",
+      "grade_band": "K-2",
+      "tags": ["A", "J"],
+      "lesson": "Lesson 4 - The Universe",
+      "type": "quiz"
+    }
+  ]
+  
