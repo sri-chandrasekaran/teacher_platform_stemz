@@ -6,8 +6,6 @@ import '../styles/users.css';
 import { Api } from '@mui/icons-material';
 import ApiService from '../apiService';
 
-const API_BASE_URL = 'http://localhost:3000/api';
-
 const Users = () => {
   const { classroomId } = useParams(); 
   const [isModalOpen, setModalOpen] = useState(false);
@@ -33,7 +31,7 @@ const Users = () => {
   useEffect(() => {
       const fetchStudents = async () => {
         try {
-          const data = await ApiService.fetchUsersInClassroom(classroomId);
+          const data = await ApiService.fetchStudentsInClassroom(classroomId);
           setStudents(data["students"]);
           // // Add fake last_logged_on data for each student entry
           // const studentsWithFakeData = Array.isArray(students) ? students.map(student => ({

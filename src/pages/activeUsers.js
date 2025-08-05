@@ -1,13 +1,14 @@
 import React from 'react';
 import '../styles/styles.css';
 
-const ActiveUsers = () => {
-  const activeUsers = [
-    { name: 'Student 5', course: 'Basics of Coding', assignment: 'Lesson 1 Slideshow', timeSignedIn: '10 mins' },
-    { name: 'Student 9', course: 'Zoology', assignment: 'Lesson 3 Worksheet', timeSignedIn: '20 mins' },
-    { name: 'Student 16', course: 'Astronomy', assignment: 'Lesson 4 Quiz', timeSignedIn: '15 mins' },
-    { name: 'Student 2', course: 'Chemistry', assignment: 'Lesson 3 Slideshow', timeSignedIn: '5 mins' },
-  ];
+const ActiveUsers = ({ students }) => {
+  console.log('ActiveUsers component rendered with students:', students);
+  const activeUsers = students.map(student => ({
+    name: student.name,
+    course: 'N/A',
+    assignment: 'N/A',
+    timeSignedIn: new Date(student.last_logged_on).toLocaleTimeString(),
+  }));
 
   return (
     <div className="active-users-container">

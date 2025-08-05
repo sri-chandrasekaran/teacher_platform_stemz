@@ -26,7 +26,9 @@ const GradeCurve = ({ grade_data, course }) => {
     // console.log("Student Course Grade: " + grades)
 
     // const grades = Object.values(student_course_grades);
-
+    if (grades.length === 0) {
+        return <div>No grades available for this course.</div>;
+    }
     const mu = mean(grades);
     const sigma = std(grades);
 
