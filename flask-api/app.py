@@ -27,8 +27,8 @@ scaler_path = "scaler.pkl"
 
 # Load BERT model and tokenizer
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-bert_model = BertModel.from_pretrained('bert-base-uncased').to(device)
-bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+bert_model = BertModel.from_pretrained('distilbert-base-uncased').to(device)
+bert_tokenizer = BertTokenizer.from_pretrained('distilbert-base-uncased')
 
 def encode_with_bert(texts):
     bert_model.eval()
