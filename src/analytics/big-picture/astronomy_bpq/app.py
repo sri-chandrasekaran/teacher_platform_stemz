@@ -15,7 +15,8 @@ import json
 
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:3001"])
+# CORS(app, origins=["http://localhost:3001"])
+CORS(app, origins=["*"])
 
 # Paths for saved models
 rf_path = "rf_model.pkl"
@@ -245,5 +246,5 @@ def future_performance():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
-    
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', debug=False, port=port)
