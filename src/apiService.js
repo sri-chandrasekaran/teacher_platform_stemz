@@ -1,5 +1,5 @@
-const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
-// const BASE_URL = 'http://localhost:3000/api'; // Default to local API for development
+// const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
+const BASE_URL = 'http://localhost:3000/api'; // Default to local API for development
 
 class ApiService {
     // User-related API calls
@@ -115,6 +115,25 @@ class ApiService {
 
         if (!response.ok) {
         throw new Error('Failed to fetch classrooms');
+        }
+
+        return response.json();
+    }
+
+    static async fetchMyClassrooms(userId) {
+        console.log('Fetching my classrooms for user:', userId);
+        if (!userId) {
+            throw new Error('User ID is required to fetch classrooms');
+        }
+        const response = await fetch(`${BASE_URL}/physical-classrooms/my-classrooms/${userId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+        });
+
+        if (!response.ok) {
+        throw new Error('Failed to fetch my classrooms');
         }
 
         return response.json();

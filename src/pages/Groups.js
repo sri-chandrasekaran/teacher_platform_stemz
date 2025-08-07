@@ -7,13 +7,13 @@ import EditClassroomModal from "../components/editclassroom";
 import InviteStudentsModal from "../components/invitestudents";
 import { call_api } from "../components/api";
 import { normalizeClassroom, handleApiError } from "../utils/dataHelpers";
-const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
 
 const GroupsPage = () => {
   const navigate = useNavigate();
   
   const [classrooms, setClassrooms] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('login_response') || '{}').user || {});
 
   const [showForm, setShowForm] = useState(false);
   const [newClassroomName, setNewClassroomName] = useState('');
@@ -30,6 +30,7 @@ const GroupsPage = () => {
 
   useEffect(() => {
     fetchPhysicalClassrooms();
+
   }, []);
 
   const showMessage = (message) => {
@@ -43,29 +44,13 @@ const GroupsPage = () => {
     try {
       setLoading(true);
       console.log('Fetching classrooms...');
-      
-      const response = await call_api(null, "physical-classrooms/my-classrooms", "GET");
-      console.log('Classrooms response:', response);
-  
-      // Handle both teaching and enrolled classrooms
-      const teachingClassrooms = response.teaching || [];
-      const enrolledClassrooms = response.enrolled || [];
-      
-      // Combine both arrays - you might want to add a flag to distinguish them
-      const allClassrooms = [
-        ...teachingClassrooms.map(classroom => ({
-          ...normalizeClassroom(classroom),
-          role: 'teacher'
-        })),
-        ...enrolledClassrooms.map(classroom => ({
-          ...normalizeClassroom(classroom),
-          role: 'student'
-        }))
-      ];
-  
-      console.log('All classrooms:', allClassrooms);
-      setClassrooms(allClassrooms);
-      
+
+      const response = await ApiService.fetchMyClassrooms(user._id);
+      console.log('Fetched classrooms:', response);
+      const normalizedClassrooms = response.teaching.map(normalizeClassroom);
+
+      setClassrooms(normalizedClassrooms);
+      console.log('Normalized classrooms:', normalizedClassrooms);
     } catch (error) {
       console.error("Error fetching physical classrooms:", error);
       setClassrooms([]);
@@ -110,18 +95,15 @@ const handleSaveClassroom = async (classroomData) => {
       // CREATING new classroom
       console.log('Creating new classroom');
       
-      // Get the current user's ID from localStorage or your auth system
-      const currentUserId = localStorage.getItem('userId') || ''; // Adjust based on how you store user info
-      
       const createData = {
         name: classroomData.name.trim(),
         description: classroomData.description?.trim() || '',
-        schoolName: classroomData.schoolName.trim(),
-        gradeLevel: classroomData.gradeLevel,
+        schoolName: 'placeholder', // ADD THIS - required by backend
+        gradeLevel: '1', // ADD THIS - required by backend
         academicYear: "2024-2025",
         classroomNumber: classroomData.classroomNumber?.trim() || '',
         maxStudents: classroomData.maxStudents || 30,
-        teacherId: currentUserId  // ADD THIS - required by backend
+        teacherId: user._id  // ADD THIS - required by backend
       };
 
       console.log('Create payload:', createData);
