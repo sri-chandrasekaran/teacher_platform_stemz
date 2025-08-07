@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { call_api } from '../components/api';
 
+// Save user information to localStorage after successful login
+// Change api for teacher's classrooms
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,6 +19,8 @@ const Login = () => {
     try {
       const response = await call_api({ email, password }, 'auth/login', 'POST');
       localStorage.setItem('token', response.token);
+      console.log('Login successful:', response);
+      localStorage.setItem('login_response', JSON.stringify(response));
       window.location.href = '/';
     } catch (error) {
       setError('Login failed. Please try again.');

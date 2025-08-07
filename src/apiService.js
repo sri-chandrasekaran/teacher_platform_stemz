@@ -120,6 +120,25 @@ class ApiService {
         return response.json();
     }
 
+    static async fetchMyClassrooms(userId) {
+        console.log('Fetching my classrooms for user:', userId);
+        if (!userId) {
+            throw new Error('User ID is required to fetch classrooms');
+        }
+        const response = await fetch(`${BASE_URL}/physical-classrooms/my-classrooms/${userId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+        });
+
+        if (!response.ok) {
+        throw new Error('Failed to fetch my classrooms');
+        }
+
+        return response.json();
+    }
+
     // Fetch a clssroom by ID
     static async fetchClassroomById(classroomId) {
         const response = await fetch(`${BASE_URL}/physical-classrooms/${classroomId}`, {
