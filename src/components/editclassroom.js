@@ -17,8 +17,11 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [gradeLevel, setGradeLevel] = useState('');
   const [classroomNumber, setClassroomNumber] = useState('');
   const [maxStudents, setMaxStudents] = useState(30);
+  const [studentIds, setStudentIds] = useState([]);
+  const [saveData, setSaveData] = useState({});
 
   const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
+  // const API_BASE_URL = 'http://localhost:3000/api';
 
   const checkCourse = (course) => {
     console.log('Checking course:', course);
@@ -84,47 +87,27 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
     fetchCoursesAndStudents();
   }, [classroom]);
 
-  const handleSave = () => {
-    const studentIds = selectedStudents?.map(option => option.value) || [];
-    
-    const saveData = {
-      ...classroom,   // Maintain existing classroom data
+  const handleSave = async () => {
+    onSave({
+      ...classroom,
       name,
       description,
       courses: selectedCourses.map(option => option.value),
       students: studentIds,
       teacher: selectedTeacher ? selectedTeacher.value : '',
-    };
+    });
     
     onSave(saveData);
     console.log('Classroom data:', classroom);
     if (classroom){
       console.log('Updating classroom:', classroom.id);
       try {
-        fetch(`${API_BASE_URL}/classrooms/${classroom.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            description,
-            courses: selectedCourses.map(option => option.value),
-            students: studentIds,
-            teacher: selectedTeacher ? selectedTeacher.value : '',
-          }),
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to update classroom');
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log('Classroom updated:', data);
-        });
-      }
-      catch (error) {
+        let response = await ApiService.updateClassroom(classroom.id, {
+          name,
+          description
+      });
+        console.log('Classroom updated:', response);
+      } catch (error) {
         console.error('Error updating classroom:', error);
       }
     }

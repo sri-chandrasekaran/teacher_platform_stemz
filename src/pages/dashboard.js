@@ -629,7 +629,7 @@ const calculateTrends = () => {
   const trends = {};
   
  
-  for (let week = 1; week <= Object.keys(aggregates).length; week++) {
+  for (let week = 2; week <= Object.keys(aggregates).length; week++) {
     const currentWeek = aggregates[week];
     const previousWeek = aggregates[week - 1];
     
