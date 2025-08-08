@@ -105,7 +105,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
 
     console.log('Saving classroom data:', savePayload);
   
-    onSave(savePayload);
+    // onSave(savePayload);
     
     console.log('Classroom data:', classroom);
     if (classroom){
@@ -113,19 +113,22 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
       try {
         let response = await ApiService.updateClassroom(classroom.id, {
           name,
-          description
+          description,
+          students: studentIds
       });
         console.log('Classroom updated:', response);
       } catch (error) {
         console.error('Error updating classroom:', error);
       }
     }
+    
 
     const updatedClassroom = {
       ...classroom, // Maintain existing classroom data
       name: name.trim(),
       description: description.trim(),
       schoolName: schoolName.trim(),
+      students: studentIds,
       gradeLevel: gradeLevel,
       classroomNumber: classroomNumber.trim(),
       maxStudents: maxStudents,
