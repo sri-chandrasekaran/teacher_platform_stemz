@@ -144,7 +144,7 @@ const Dashboard = () => {
 useEffect(() => {
   const fetchCourses = async () => {
     try {
-      const response = await fetch('/api/portalCourses', {
+      const response = await fetch('/api/courses', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
