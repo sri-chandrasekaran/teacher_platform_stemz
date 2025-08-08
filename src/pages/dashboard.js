@@ -19,6 +19,8 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import ApiService from '../apiService';
 
 const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
+// const API_BASE_URL = 'http://localhost:3000/api';
+
 
 ChartJS.register(
   CategoryScale,
@@ -144,7 +146,7 @@ const Dashboard = () => {
 useEffect(() => {
   const fetchCourses = async () => {
     try {
-      const response = await fetch('/api/courses', {
+      const response = await fetch(`${API_BASE_URL}/courses`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -187,72 +189,116 @@ useEffect(() => {
     setSelectedAssignment(null);
   };
   
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const data = await ApiService.fetchStudentsInClassroom(classroomId);
-        setStudents(data["students"]);
+//   useEffect(() => {
+//     const fetchStudents = async () => {
+//       try {
+//         const data = await ApiService.fetchStudentsInClassroom(classroomId);
+//         setStudents(data["students"]);
   
-        // Add fake last_logged_on data for each student entry
-        const studentsWithFakeData = Array.isArray(data["students"]) ? data["students"].map(student => ({
-          ...student,
-          last_logged_on: new Date(Date.now() - Math.random() * 10000000000).toISOString() 
-        })) : [];
-        setLeaderboard(studentsWithFakeData);  // Set the updated data to leaderboard state
-      } catch (error) {
-        console.error('Error fetching students:', error);
-      }
-    };
-    fetchStudents(); // ✅ Call the function
-}, [classroomId]); // ✅
+//         // Add fake last_logged_on data for each student entry
+//         const studentsWithFakeData = Array.isArray(data["students"]) ? data["students"].map(student => ({
+//           ...student,
+//           last_logged_on: new Date(Date.now() - Math.random() * 10000000000).toISOString() 
+//         })) : [];
+//         setLeaderboard(studentsWithFakeData);  // Set the updated data to leaderboard state
+//       } catch (error) {
+//         console.error('Error fetching students:', error);
+//       }
+//     };
+//     fetchStudents(); // ✅ Call the function
+// }, [classroomId]); // ✅
 
-  useEffect(() => {
-    const fetchStudentsInClassroom = async () => {
-      try {
-        console.log(`🔍 Fetching students for classroom: ${classroomId}`);
-        const response = await fetch(`${API_BASE_URL}/api/physical-classrooms/${classroomId}/students`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
+//   useEffect(() => {
+//     const fetchStudentsInClassroom = async () => {
+//       try {
+//         console.log(`🔍 Fetching students for classroom: ${classroomId}`);
+//         const response = await fetch(`${API_BASE_URL}/physical-classrooms/${classroomId}/students`, {
+//           method: 'GET',
+//           headers: {
+//             'Content-Type': 'application/json'
+//           }
+//         });
   
-        const data = await response.json();
-        console.log('👥 Students API Response:', data);
-        console.log('👥 Data type:', typeof data);
-        console.log('👥 Is array:', Array.isArray(data));
+//         const data = await response.json();
+//         console.log('👥 Students API Response:', data);
+//         console.log('👥 Data type:', typeof data);
+//         console.log('👥 Is array:', Array.isArray(data));
   
-        if (response.ok && data) {
-          const studentsArray = Array.isArray(data) ? data : (data.students || data.data || []);
-          console.log('👥 Students array:', studentsArray);
+//         if (response.ok && data) {
+//           const studentsArray = Array.isArray(data) ? data : (data.students || data.data || []);
+//           console.log('👥 Students array:', studentsArray);
           
-          if (!Array.isArray(studentsArray)) {
-            console.error('❌ Expected array but got:', typeof studentsArray);
-            return;
-          }
+//           if (!Array.isArray(studentsArray)) {
+//             console.error('❌ Expected array but got:', typeof studentsArray);
+//             return;
+//           }
   
-          const studentsForComponent = studentsArray.map(user => ({
-            student_id: user._id || user.id || user.userId,
-            student_name: user.name || user.username || `${user.firstName} ${user.lastName}`,
-            cummulative_score: user.cummulative_score || 0,
-            last_logged_on: user.last_logged_on || user.lastLogin || new Date().toISOString()
-          }));
+//           const studentsForComponent = studentsArray.map(user => ({
+//             student_id: user._id || user.id || user.userId,
+//             student_name: user.name || user.username || `${user.firstName} ${user.lastName}`,
+//             cummulative_score: user.cummulative_score || 0,
+//             last_logged_on: user.last_logged_on || user.lastLogin || new Date().toISOString()
+//           }));
   
-          setStudents(studentsForComponent);
-          setLeaderboard(studentsForComponent);
-          console.log('✅ Students loaded:', studentsForComponent.length);
-        } else {
-          console.error('❌ Failed to fetch students:', data);
-        }
-      } catch (error) {
-        console.error('❌ Error fetching students:', error);
+//           setStudents(studentsForComponent);
+//           setLeaderboard(studentsForComponent);
+//           console.log('✅ Students loaded:', studentsForComponent.length);
+//         } else {
+//           console.error('❌ Failed to fetch students:', data);
+//         }
+//       } catch (error) {
+//         console.error('❌ Error fetching students:', error);
+//       }
+//     };
+  
+//     if (classroomId) {
+//       fetchStudentsInClassroom();
+//     }
+//   }, [classroomId]);
+
+useEffect(() => {
+  const fetchStudents = async () => {
+    if (!classroomId) return;
+    
+    try {
+      console.log(`🔍 Fetching students for classroom: ${classroomId}`);
+      
+      // Use your ApiService method which works correctly
+      const data = await ApiService.fetchStudentsInClassroom(classroomId);
+      console.log('👥 Students API Response:', data);
+      
+      // Extract students array from the response
+      const studentsArray = Array.isArray(data) ? data : (data.students || data.data || []);
+      console.log('👥 Students array:', studentsArray);
+      
+      if (Array.isArray(studentsArray)) {
+        // Transform the data for your component
+        const studentsWithFakeData = studentsArray.map(student => ({
+          id: student._id || student.id,
+          name: student.name || `${student.firstName || ''} ${student.lastName || ''}`.trim(),
+          email: student.email,
+          cummulative_score: student.cummulative_score || 0,
+          last_logged_on: student.last_logged_on || new Date(Date.now() - Math.random() * 10000000000).toISOString()
+        }));
+        
+        setStudents(studentsWithFakeData);
+        setLeaderboard(studentsWithFakeData);
+        console.log('✅ Students loaded:', studentsWithFakeData.length);
+        console.log('✅ Students data:', studentsWithFakeData);
+      } else {
+        console.error('❌ Expected array but got:', typeof studentsArray);
+        setStudents([]);
+        setLeaderboard([]);
       }
-    };
-  
-    if (classroomId) {
-      fetchStudentsInClassroom();
+    } catch (error) {
+      console.error('❌ Error fetching students:', error);
+      setStudents([]);
+      setLeaderboard([]);
     }
-  }, [classroomId]);
+  };
+
+  fetchStudents();
+}, [classroomId]);
 
     const fetchGrades = async () => {
       try {
@@ -334,11 +380,12 @@ useEffect(() => {
       console.log('Fetching data for classroom:', classroomId);
 
       // Fetch classroom details
-      const classroomResponse = await call_api(
-        null,
-        `physical-classrooms/${classroomId}`,
-        'GET'
-      );
+      // const classroomResponse = await call_api(
+      //   null,
+      //   `physical-classrooms/${classroomId}`,
+      //   'GET'
+      // );
+      const classroomResponse = await ApiService.fetchClassroomById(classroomId);
       
       console.log('Classroom response:', classroomResponse);
       const normalizedClassroom = normalizeClassroom(classroomResponse);
@@ -822,9 +869,6 @@ console.log("Week-over-week trends:", calculateTrends());
           </div>
         </div>
         {/* Engagement Heatmap */}
-        <div className="heatmap-container">
-          <PlotlyHeatmap />
-        </div>
         </>
         )}
 {/* 

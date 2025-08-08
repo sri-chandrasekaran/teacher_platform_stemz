@@ -21,7 +21,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [saveData, setSaveData] = useState({});
 
   const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
-  // const API_BASE_URL = 'http://localhost:3000/api';
+  // const API_BASE_URL = 'https://localhost:3000/api';
 
   const checkCourse = (course) => {
     console.log('Checking course:', course);
@@ -88,16 +88,25 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   }, [classroom]);
 
   const handleSave = async () => {
-    onSave({
+    const studentIds = selectedStudents.map(s => s.value);
+
+    const savePayload = {
       ...classroom,
-      name,
-      description,
+      name: name.trim(),
+      description: description.trim(),
       courses: selectedCourses.map(option => option.value),
-      students: studentIds,
+      students: studentIds,           // <-- pass IDs here
       teacher: selectedTeacher ? selectedTeacher.value : '',
-    });
+      schoolName: schoolName.trim(),
+      gradeLevel,
+      classroomNumber: classroomNumber.trim(),
+      maxStudents,
+    };
+
+    console.log('Saving classroom data:', savePayload);
+  
+    onSave(savePayload);
     
-    onSave(saveData);
     console.log('Classroom data:', classroom);
     if (classroom){
       console.log('Updating classroom:', classroom.id);

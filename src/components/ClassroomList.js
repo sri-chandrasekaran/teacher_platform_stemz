@@ -11,9 +11,9 @@ const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddC
   const [notification, setNotification] = useState('');
   const [notificationVisible, setNotificationVisible] = useState(false);
 
-  useEffect(() => {
-    setClassroomList(classrooms);
-  }, [classrooms]);
+  // useEffect(() => {
+  //   setClassroomList(classrooms);
+  // }, [classrooms]);
 
   // Function to open modal for adding a new classroom
   const handleAddClassroom = () => {
@@ -91,7 +91,7 @@ const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddC
 
       {/* Render existing classrooms */}
       {classroomList && classroomList.length > 0 ? (
-        classroomList.map((classroom) => (
+        classrooms.map((classroom) => (
           <ClassroomCard
             key={classroom.id}
             classroom={classroom}

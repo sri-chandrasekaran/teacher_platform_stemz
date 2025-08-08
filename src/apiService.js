@@ -131,11 +131,11 @@ class ApiService {
             'Content-Type': 'application/json',
         }
         });
-
+    
         if (!response.ok) {
         throw new Error('Failed to fetch my classrooms');
         }
-
+    
         return response.json();
     }
 

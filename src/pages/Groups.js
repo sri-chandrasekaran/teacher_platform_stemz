@@ -28,6 +28,8 @@ const GroupsPage = () => {
   const [bannerMessage, setBannerMessage] = useState("");
   const [showBanner, setShowBanner] = useState(false);
 
+  const [saving, setSaving] = useState(false);
+
   useEffect(() => {
     fetchPhysicalClassrooms();
 
@@ -63,6 +65,8 @@ const GroupsPage = () => {
   // FIXED: Handle both create and edit in the same function
 
 const handleSaveClassroom = async (classroomData) => {
+  if (saving) return; // Prevent double submission
+  setSaving(true);
   try {
     console.log('Saving classroom:', classroomData);
 
@@ -79,7 +83,8 @@ const handleSaveClassroom = async (classroomData) => {
         maxStudents: classroomData.maxStudents
       };
 
-      const response = await call_api(updateData, `physical-classrooms/${classroomData.id}`, "PUT");
+      // const response = await call_api(updateData, `physical-classrooms/${classroomData.id}`, "PUT");
+      const response = await ApiService.updateClassroom(classroomData.id, updateData);
       console.log('Update response:', response);
 
       // Update local state
@@ -107,7 +112,8 @@ const handleSaveClassroom = async (classroomData) => {
       };
 
       console.log('Create payload:', createData);
-      const response = await call_api(createData, "physical-classrooms", "POST");
+      // const response = await call_api(createData, "physical-classrooms", "POST");
+      const response = await ApiService.addClassroom(createData);
       console.log('Create response:', response);
 
       const newClassroom = normalizeClassroom(response.classroom);
@@ -122,6 +128,8 @@ const handleSaveClassroom = async (classroomData) => {
   } catch (error) {
     console.error("Error saving classroom:", error);
     showMessage(handleApiError(error, "Failed to save classroom."));
+  } finally {
+    setSaving(false); // Always reset saving state
   }
 };
 
@@ -143,7 +151,8 @@ const handleSaveClassroom = async (classroomData) => {
   const handleDeleteClassroom = async (id) => {
     try {
       console.log('Deleting classroom:', id);
-      await call_api(null, `physical-classrooms/${id}`, "DELETE");
+      // await call_api(null, `physical-classrooms/${id}`, "DELETE");
+      await ApiService.deleteClassroom(id);
       setClassrooms(prev => prev.filter(classroom => classroom.id !== id));
       showMessage("Classroom deleted successfully.");
     } catch (error) {
