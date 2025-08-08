@@ -266,60 +266,60 @@ useEffect(() => {
       }
     };
 
-  // const fetchPredictedPerformance = async () => {
-  //   try {
-  //     const originalScores = [82, 90]
-  //     const response = await fetch("http://127.0.0.1:5000/predict-future-performance", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ scores: [82, 90] }),
-  //     });
-  //     const data = await response.json();
+  const fetchPredictedPerformance = async () => {
+    try {
+      const originalScores = [82, 90]
+      const response = await fetch("http://127.0.0.1:5000/predict-future-performance", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ scores: [82, 90] }),
+      });
+      const data = await response.json();
   
-  //     if (!data || !Array.isArray(data.predicted_scores)) {
-  //       console.error("Invalid response format:", data);
-  //       return;
-  //     }
+      if (!data || !Array.isArray(data.predicted_scores)) {
+        console.error("Invalid response format:", data);
+        return;
+      }
 
-  //     const fullData = [...originalScores, ...data.predicted_scores];
-  //     const labels = [
-  //       ...originalScores.map((_, i) => `Quiz ${i + 1}`),
-  //       ...data.predicted_scores.map((_, i) => `Prediction ${i + 1}`),
-  //     ];
+      const fullData = [...originalScores, ...data.predicted_scores];
+      const labels = [
+        ...originalScores.map((_, i) => `Quiz ${i + 1}`),
+        ...data.predicted_scores.map((_, i) => `Prediction ${i + 1}`),
+      ];
 
-  //     // setChartData({
-  //     //   labels: fullData.map((_, i) =>
-  //     //     i < originalScores.length ? `Quiz ${i + 1}` : `Prediction ${i - originalScores.length + 1}`
-  //     //   ),
-  //     //   datasets: [
-  //     //     {
-  //     //       label: "Score",
-  //     //       data: fullData,
-  //     //       fill: false,
-  //     //       tension: 0.3,
-  //     //       segment: {
-  //     //         borderColor: (ctx) => {
-  //     //           const index = ctx.p0DataIndex;
-  //     //           const nextIndex = ctx.p1DataIndex;
+      // setChartData({
+      //   labels: fullData.map((_, i) =>
+      //     i < originalScores.length ? `Quiz ${i + 1}` : `Prediction ${i - originalScores.length + 1}`
+      //   ),
+      //   datasets: [
+      //     {
+      //       label: "Score",
+      //       data: fullData,
+      //       fill: false,
+      //       tension: 0.3,
+      //       segment: {
+      //         borderColor: (ctx) => {
+      //           const index = ctx.p0DataIndex;
+      //           const nextIndex = ctx.p1DataIndex;
       
-  //     //           // Color original scores in blue, predicted in red
-  //     //           if (index < originalScores.length - 1 && nextIndex < originalScores.length) {
-  //     //             return "rgba(54, 162, 235, 1)"; // blue
-  //     //           } else {
-  //     //             return "rgba(255, 99, 132, 1)"; // red
-  //     //           }
-  //     //         },
-  //     //       },
-  //     //       borderWidth: 2,
-  //     //     },
-  //     //   ],
-  //     // });
-  //   } catch (error) {
-  //     console.error("Error fetching predicted performance:", error);
-  //   }
-  // };
+      //           // Color original scores in blue, predicted in red
+      //           if (index < originalScores.length - 1 && nextIndex < originalScores.length) {
+      //             return "rgba(54, 162, 235, 1)"; // blue
+      //           } else {
+      //             return "rgba(255, 99, 132, 1)"; // red
+      //           }
+      //         },
+      //       },
+      //       borderWidth: 2,
+      //     },
+      //   ],
+      // });
+    } catch (error) {
+      console.error("Error fetching predicted performance:", error);
+    }
+  };
   
   // FIXED: Fetch real data from APIs
   useEffect(() => {
