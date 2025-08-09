@@ -183,7 +183,10 @@ const fetchNotifications = async () => {
   // FIXED: Dismiss notification
   const dismissNotification = async (notificationId) => {
     try {
-      await call_api(null, `notifications/dismiss/${notificationId}`, 'POST');
+      console.log('About to dismiss notification:', notificationId);
+      const response = await call_api(null, `notifications/teacher-dismiss/${notificationId}`, 'POST');
+
+      console.log('Dismiss API response:', response);
       
       // Remove from local state
       setNotifications(prev => 
@@ -193,8 +196,12 @@ const fetchNotifications = async () => {
       if (selectedNotification && selectedNotification._id === notificationId) {
         setSelectedNotification(null);
       }
+      console.log('Successfully dismissed notification');
     } catch (error) {
-      console.error('Error dismissing notification:', error);
+      console.error('Failed to dismiss notification:', error);
+      console.error('Error response:', error.response?.data);
+      console.error('Error status:', error.response?.status);
+      alert('Failed to dismiss notification: ' + (error.response?.data?.message || error.message));
     }
   };
 
