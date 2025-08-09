@@ -527,33 +527,60 @@ useEffect(() => {
     showlegend: false,
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!selectedStudent) {
-        setAnalyticsScores(null);
-        setAnalyticsLoading(false);
-        return;
-      }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (!selectedStudent) {
+  //       setAnalyticsScores(null);
+  //       setAnalyticsLoading(false);
+  //       return;
+  //     }
 
-      setAnalyticsLoading(true);
+  //     setAnalyticsLoading(true);
   
 
-    try {
-      if (selectedCourse) {
-        // When both student and course are selected, use the course-specific endpoint
-        await fetchStudentAnalyticsScores(selectedStudent);
-      } else {
-        // When only student is selected, use the overall scores endpoint
-        await fetchStudentOverallScores(selectedStudent);
+  //   try {
+  //     if (selectedCourse) {
+  //       // When both student and course are selected, use the course-specific endpoint
+  //       await fetchStudentAnalyticsScores(selectedStudent);
+  //     } else {
+  //       // When only student is selected, use the overall scores endpoint
+  //       await fetchStudentOverallScores(selectedStudent);
+  //     }
+  //   } finally {
+  //     // Set loading to false when done (whether success or error)
+  //     setAnalyticsLoading(false);
+  //   }
+  // };
+  
+  //   fetchData();
+  // }, [selectedStudent, selectedCourse]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // No student = no fetch
+      if (!selectedStudent) {
+        setAnalyticsScores(null);
+        return;
       }
-    } finally {
-      // Set loading to false when done (whether success or error)
-      setAnalyticsLoading(false);
-    }
-  };
+  
+      setAnalyticsLoading(true);
+  
+      try {
+        if (selectedCourse && selectedCourse.trim() !== "") {
+          console.log("📌 Fetching course-specific analytics");
+          await fetchStudentAnalyticsScores(selectedStudent);
+        } else {
+          console.log("📌 Fetching OVERALL analytics across all courses");
+          await fetchStudentOverallScores(selectedStudent);
+        }
+      } finally {
+        setAnalyticsLoading(false);
+      }
+    };
   
     fetchData();
   }, [selectedStudent, selectedCourse]);
+  
 
   const generateFakeData = () => {
     const fakeData = [];
@@ -958,7 +985,7 @@ console.log("Week-over-week trends:", calculateTrends());
               <div className="grade-and-statistics">
                 {/* Histogram/Gaussian plot */}
                 <div className="dot-plot-container">
-                  <Plot data={[dotPlotData]} layout={dotPlotLayout} />
+                  {/* <Plot data={[dotPlotData]} layout={dotPlotLayout} /> */}
                 </div>
 
                 {/* Worksheet statistics placeholder */}

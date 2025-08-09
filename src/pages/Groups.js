@@ -82,7 +82,7 @@ const handleSaveClassroom = async (classroomData) => {
         schoolName: classroomData.schoolName,
         classroomNumber: classroomData.classroomNumber,
         maxStudents: classroomData.maxStudents,
-        students: classroomData.students
+        students: classroomData.students || []
       };
 
       // const response = await call_api(updateData, `physical-classrooms/${classroomData.id}`, "PUT");
@@ -111,7 +111,7 @@ const handleSaveClassroom = async (classroomData) => {
         classroomNumber: classroomData.classroomNumber?.trim() || '',
         maxStudents: classroomData.maxStudents || 30,
         teacherId: user._id,  // ADD THIS - required by backend
-        students: classroomData.students
+        students: classroomData.students || []
       };
 
       console.log('Create payload:', createData);

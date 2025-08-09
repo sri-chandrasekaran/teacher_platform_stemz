@@ -2,6 +2,10 @@ import React from 'react';
 import '../styles/styles.css';
 
 const CourseGrades = ({ grade_data, course, students, worksheets }) => {
+  if (!grade_data || !Array.isArray(grade_data)) {
+    return <div>No grade data available</div>;
+  }
+  
   let student_grades = {}
   for (const grade of grade_data) {
     // console.log("Grade: " + grade.grade)

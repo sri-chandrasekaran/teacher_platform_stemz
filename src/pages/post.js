@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { call_api } from '../components/api'; 
+import ApiService from '../apiService';
 
 const PostModal = ({ onClose }) => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -21,7 +22,20 @@ const PostModal = ({ onClose }) => {
       try {
         console.log('Fetching teacher physical classrooms...');
         
-        const response = await call_api(null, 'physical-classrooms/my-classrooms', 'GET');
+        // const response = await call_api(null, 'physical-classrooms/my-classrooms', 'GET');
+
+      const user = JSON.parse(localStorage.getItem('login_response') || '{}').user || {};
+      const userId = user._id;
+      
+      if (!userId) {
+        console.error('No user ID found for fetching classrooms');
+        return;
+      }
+      
+      console.log('Fetching classrooms for user:', userId);
+
+      const response = await ApiService.fetchMyClassrooms(userId);
+    
         
         console.log('Physical classrooms response:', response);
         
