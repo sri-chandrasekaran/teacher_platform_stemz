@@ -47,52 +47,6 @@ const TeacherNotifications = () => {
     }
   };
 
-  // FIXED: Fetch real quiz failure notifications and announcements
-  // const fetchNotifications = async () => {
-  //   try {
-  //     setLoading(true);
-      
-  //     let endpoint = 'notifications/teacher-notifications';
-  //     if (filter === 'all') {
-  //       endpoint = 'notifications/all-teacher-notifications';
-  //     }
-
-  //     const params = {};
-      
-  //     if (selectedClassroom !== 'all') {
-  //       params.classroomId = selectedClassroom;
-  //     }
-      
-  //     if (filter !== 'all') {
-  //       params.type = filter;
-  //     }
-
-  //     // Build query string
-  //     const queryString = Object.keys(params).length > 0 
-  //       ? '?' + Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
-  //       : '';
-
-  //     const response = await call_api(null, endpoint + queryString, 'GET');
-      
-  //     console.log('Fetched notifications:', response);
-      
-  //     if (Array.isArray(response)) {
-  //       setNotifications(response);
-  //     } else {
-  //       setNotifications([]);
-  //     }
-      
-  //   } catch (error) {
-  //     console.error('Error fetching notifications:', error);
-  //     // Set empty array on error
-  //     setNotifications([]);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // REPLACE this function in TeacherNotifications.js
-
 const fetchNotifications = async () => {
   try {
     setLoading(true);
