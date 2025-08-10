@@ -40,7 +40,8 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
       const allUsers = await ApiService.fetchUsers();
 
       // Filter out users who are already students in this classroom
-      const currentStudentIds = students.map(student => student.id);
+      // const currentStudentIds = students.map(student => student.id);
+      const currentStudentIds = students.map(student => student.id || student._id);
       const available = allUsers.filter(user => !currentStudentIds.includes(user._id));
       console.log('Available users:', available);
       console.log('Current students:', students);
@@ -62,9 +63,19 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
       return;
     }
     console.log('Selected students:', selectedStudents);
-    selectedStudents.forEach(user => {
-      handleAddStudent(user.value);
+    // selectedStudents.forEach(user => {
+    //   handleAddStudent(user.value);
+    // });
+
+    selectedStudents.forEach(selectedOption => {
+      // Find the full user object from availableUsers using the selected ID
+      const fullUser = availableUsers.find(user => user._id === selectedOption.value);
+      if (fullUser) {
+        handleAddStudent(fullUser); // Pass the full user object
+      }
     });
+
+
     setSelectedStudents([]);
     setSearchTerm('');
     onClose();
@@ -76,7 +87,7 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
     console.log('Adding student:', user, 'to classroom:', classroomId);
     try {
       // Enroll student in the classroom
-      const result = await ApiService.enrollStudent(classroomId, user);
+      const result = await ApiService.enrollStudent(classroomId, user._id);
       console.log('Enrollment result:', result);
 
       // Create student object with the user data
@@ -100,7 +111,7 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
       }
 
       // Remove the user from available users
-      setAvailableUsers(prev => prev.filter(u => u.id !== user._id));
+      setAvailableUsers(prev => prev.filter(u => u._id !== user._id));
       
       // Notify parent component that a student was added
       if (onStudentAdded) {

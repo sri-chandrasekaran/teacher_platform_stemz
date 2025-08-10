@@ -222,20 +222,30 @@ class ApiService {
         return response.json();
     }
 
-    // Enroll a student in a classroom
     static async enrollStudent(classroomId, userId) {
+        console.log('API Call - ClassroomId:', classroomId, 'UserId:', userId, 'Type:', typeof userId);
+        
+        // Try wrapping the ID in an ObjectId-like structure
+        const requestBody = { 
+            studentId: userId
+        };
+        console.log('Request body:', requestBody);
+        
         const response = await fetch(`${BASE_URL}/physical-classrooms/${classroomId}/add-student`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id: userId }),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
         });
-
+    
+        console.log('Response status:', response.status);
         if (!response.ok) {
-        throw new Error('Failed to enroll student');
+            const errorText = await response.text();
+            console.log('Error response:', errorText);
+            throw new Error('Failed to enroll student');
         }
-
+    
         return response.json();
     }
 
