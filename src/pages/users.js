@@ -141,6 +141,7 @@ const Users = () => {
           students={students}
           onStudentAdded={handleStudentAdded}
         />
+        {console.log('Students in render:', students)}
         {students.length > 0 ? (
           <table className="student-table">
             <thead>
@@ -153,16 +154,16 @@ const Users = () => {
             </thead>
             <tbody>
               {students.map((student) => (
-                <tr key={student.id}>
-                  <td>{student.id}</td>
-                  <td>{student.name}</td>
-                  <td>
-                    <a href={`mailto:${student.email}`} className="email-link">
-                      <FaEnvelope />
-                    </a>
-                  </td>
-                  <td>{student.cummulative_score}</td>
-                </tr>
+                <tr key={student._id || student.id}>
+                <td>{student._id || student.id}</td>
+                <td>{student.name}</td>
+                <td>
+                  <a href={`mailto:${student.email}`} className="email-link">
+                    <FaEnvelope />
+                  </a>
+                </td>
+                <td>{student.cummulative_score || student.cumulative_score || 0}</td>
+              </tr>
               ))}
             </tbody>
           </table>
