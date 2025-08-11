@@ -289,15 +289,6 @@ const Dashboard = () => {
           </div>
         </div>
         <h5>Note: These percentages are based on points received.</h5>
-        {/* Debug info (remove in production) */}
-        {process.env.NODE_ENV === 'development' && (
-          <details style={{ marginTop: '20px' }}>
-            <summary>Debug Data</summary>
-            <pre style={{ backgroundColor: '#f5f5f5', padding: '10px', borderRadius: '4px' }}>
-              {JSON.stringify(predictions, null, 2)}
-            </pre>
-          </details>
-        )}
       </div>
     );
   };
