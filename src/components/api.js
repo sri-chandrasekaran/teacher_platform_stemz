@@ -1,4 +1,4 @@
-const CORE_API_URL = "https://core-server-nine.vercel.app";
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
 
 // FOR LOCAL BACKEND DEVELOPMENTS
 // const CORE_API_URL = "http://localhost:3000";
@@ -31,7 +31,7 @@ const handleTokenExpiration = (response, data) => {
 };
 
 function call_api(payload, target, method) {
-  const url = CORE_API_URL + "/api/" + target;
+  const url = BASE_URL + "/api/" + target;
   const token = localStorage.getItem("token");
 
   const headers = {

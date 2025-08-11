@@ -90,7 +90,7 @@ const Users = () => {
     };
       fetchStudents();
       fetchCourses();
-      fetchGrades();
+      // fetchGrades();
     }, []);
 
   return (
@@ -148,7 +148,7 @@ const Users = () => {
                 <th>Student ID</th>
                 <th>Student Name</th>
                 <th>Email</th>
-                <th>Current Scores</th>
+                {/* <th>Current Scores</th> */}
               </tr>
             </thead>
             <tbody>
@@ -161,7 +161,7 @@ const Users = () => {
                       <FaEnvelope />
                     </a>
                   </td>
-                  <td>{student.cummulative_score}</td>
+                  {/* <td>{student.cummulative_score}</td> */}
                 </tr>
               ))}
             </tbody>

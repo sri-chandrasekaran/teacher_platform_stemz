@@ -75,6 +75,15 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
     setError('');
     console.log('Adding student:', user, 'to classroom:', classroomId);
     try {
+      const classroomResult = await ApiService.fetchClassroomById(classroomId);
+      if (!classroomResult || !classroomResult.name) {
+        throw new Error('Classroom not found or invalid');
+      }
+      const classroomName = classroomResult.name;
+      // // Enroll student in the classroom
+      // const result = await ApiService.sendEmailInvite(user, classroomId);
+      // console.log('Enrollment result:', result);
+
       // Enroll student in the classroom
       const result = await ApiService.enrollStudent(classroomId, user);
       console.log('Enrollment result:', result);
@@ -87,11 +96,12 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
         cummulative_score: 0 // Default score for new students
       };
 
+      const availableUser = availableUsers.find(u => u._id === user);
       // Email notification for enrollment
       const emailResponse = await ApiService.sendEmailNotification(
-        user.email,
+        availableUser.email,
         'Enrollment Confirmation',
-        `You have been enrolled in the classroom with ID: ${classroomId}. Welcome!`
+        `You have been added to the classroom: ${classroomName}. Welcome!`
       );
       console.log('Email notification response:', emailResponse);
 

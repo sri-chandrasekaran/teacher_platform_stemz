@@ -20,6 +20,21 @@ class ApiService {
         return response.json();
     }
 
+    static async fetchUserById(userId) {
+        const response = await fetch(`${BASE_URL}/users/id/${userId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch user');
+        }
+
+        return response.json();
+    }
+
     // Course-related API calls
     // Fetch all courses
     static async fetchCourses() {
@@ -230,7 +245,7 @@ class ApiService {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id: userId }),
+        body: JSON.stringify({ studentId: userId }),
         });
 
         if (!response.ok) {
@@ -279,7 +294,7 @@ class ApiService {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ recipient, subject, message }),
+        body: JSON.stringify({ recipientEmail: recipient, subject, message }),
         });
 
         if (!response.ok) {
@@ -289,19 +304,26 @@ class ApiService {
         return response.json();
     }
 
-    static async sendEmailInvite(userId, recipientEmail, classroomId, classroomName) {
-        console.log('Sending email invite for user:', userId, 'to:', recipientEmail, 'for classroom:', classroomId);
-        if (!userId || !recipientEmail || !classroomId || !classroomName) {
-            throw new Error('User ID, recipient email, classroom ID, and classroom name are required to send an invite');
+    static async sendEmailInvite(userId, classroomId) {
+        console.log('Sending email invite for user:', userId, 'to classroom:', classroomId);
+        if (!userId || !classroomId) {
+            throw new Error('User ID and classroom ID are required to send an invite');
         }
-
+        const user = await ApiService.fetchUserById(userId);
+        if (!user || !user.email) {
+            throw new Error('User not found or invalid email');
+        }
+        const classroom = await ApiService.fetchClassroomById(classroomId);
+        if (!classroom || !classroom.name) {
+            throw new Error('Classroom not found or invalid');
+        }
         const inviteUrl = `${BASE_URL}/classroom/${classroomId}/add-student`;
         const response = await fetch(`${BASE_URL}/notifications/email/invite`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ userId, recipientEmail, classroomName, inviteUrl }),
+            body: JSON.stringify({ userId: user._id, recipientEmail: user.email, classroomName: classroom.name, acceptInviteUrl: inviteUrl }),
         });
 
         if (!response.ok) {
