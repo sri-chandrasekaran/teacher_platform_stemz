@@ -4,6 +4,7 @@ import { getUserCourseProgress } from "../services/progressService";
 
 const Popup = ({ isOpen, onClose, student, course }) => {
   const [toggle, setToggle] = useState("Lesson");
+  const [selectedLesson, setSelectedLesson] = useState(1);
   const [progress, setProgress] = useState(0);
   const [progressData, setProgressData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -46,6 +47,12 @@ const Popup = ({ isOpen, onClose, student, course }) => {
     setToggle(value);
   };
 
+  const handleLessonClick = (lessonNumber) => {
+    setSelectedLesson(lessonNumber);
+    setToggle("Lesson"); // Reset to lesson tab when switching lessons
+  };
+
+
   // Helper function to get assignments for current tab
   const getAssignmentsForTab = () => {
     if (!progressData) return [];
@@ -62,30 +69,58 @@ const Popup = ({ isOpen, onClose, student, course }) => {
     // Get assignments based on current tab
     let assignments = [];
     const tabKey = toggle.toLowerCase();
+    const lessonNumber = selectedLesson.toString();
     
+    // if (tabKey === 'lesson') {
+    //   assignments = available_assignments.lessons || [];
+    // } else if (tabKey === 'worksheet') {
+    //   assignments = available_assignments.worksheets || [];
+    // } else if (tabKey === 'quiz') {
+    //   assignments = available_assignments.quiz ? ['1'] : []; // Quiz is boolean, treat as single assignment
+    // }
+    let hasAssignment = false;
     if (tabKey === 'lesson') {
-      assignments = available_assignments.lessons || [];
+      hasAssignment = available_assignments.lessons?.includes(lessonNumber) || false;
     } else if (tabKey === 'worksheet') {
-      assignments = available_assignments.worksheets || [];
+      hasAssignment = available_assignments.worksheets?.includes(lessonNumber) || false;
     } else if (tabKey === 'quiz') {
-      assignments = available_assignments.quiz ? ['1'] : []; // Quiz is boolean, treat as single assignment
+      // hasAssignment = available_assignments.quiz === false;
+      hasAssignment = available_assignments.quizzes?.includes(lessonNumber) || false;
     }
 
-    // Map assignments with completion status
-    return assignments.map(assignmentNumber => {
-      const key = `${tabKey}_${assignmentNumber}`;
-      const isCompleted = completedMap.has(key);
-      const completedData = completedMap.get(key) || null;
+    if (!hasAssignment) {
+      return []; // No assignment of this type for this lesson
+    }
+
+
+    // // Map assignments with completion status
+    // return assignments.map(assignmentNumber => {
+    //   const key = `${tabKey}_${assignmentNumber}`;
+    //   const isCompleted = completedMap.has(key);
+    //   const completedData = completedMap.get(key) || null;
       
-      return {
-        id: key,
-        name: `${toggle} ${assignmentNumber}`,
-        number: assignmentNumber,
-        type: tabKey,
-        isCompleted,
-        completedData
-      };
-    });
+    //   return {
+    //     id: key,
+    //     name: `${toggle} ${assignmentNumber}`,
+    //     number: assignmentNumber,
+    //     type: tabKey,
+    //     isCompleted,
+    //     completedData
+    //   };
+    // });
+
+    const key = `${tabKey}_${selectedLesson}`;
+    const isCompleted = completedMap.has(key);
+    const completedData = completedMap.get(key) || null;
+    
+    return [{
+      id: key,
+      name: `${toggle} ${selectedLesson}`,
+      number: selectedLesson,
+      type: tabKey,
+      isCompleted,
+      completedData
+    }];
   };
 
   // Helper function to render assignment status
@@ -107,6 +142,13 @@ const Popup = ({ isOpen, onClose, student, course }) => {
           {assignment.type === 'worksheet' && 'Practice exercises and activities'}
           {assignment.type === 'quiz' && 'Assessment to test understanding'}
         </p>
+
+        {assignment.type === 'lesson' && assignment.isCompleted && (
+          <div className="student-responses">
+            <h5>Student Responses to Big Picture Questions:</h5>
+            <p className="note">Student response data from MongoDB would be displayed here</p>
+          </div>
+        )}
         
         {assignment.isCompleted && assignment.completedData && (
           <div className="completion-details">
@@ -165,6 +207,27 @@ const Popup = ({ isOpen, onClose, student, course }) => {
     );
   };
 
+  const renderLessonBoxes = () => {
+    if (!progressData || !progressData.available_assignments) return null;
+    
+    const lessons = progressData.available_assignments.lessons || [];
+    
+    return (
+      <div className="lesson-boxes">
+        {lessons.map(lessonNumber => (
+          <div 
+            key={lessonNumber}
+            className={`lesson-box ${selectedLesson == lessonNumber ? 'selected' : ''}`}
+            onClick={() => handleLessonClick(parseInt(lessonNumber))}
+          >
+            <h4>Lesson {lessonNumber}</h4>
+            <div className="lesson-progress-indicator"></div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="popup-overlay">
       <div className="popup-content">
@@ -179,6 +242,8 @@ const Popup = ({ isOpen, onClose, student, course }) => {
             <div className="popup-progress" style={{ width: `${progress}%` }}></div>
           </div>
         </div>
+
+        {renderLessonBoxes()}
 
         {/* Toggle Button */}
         <div className="toggle-container">

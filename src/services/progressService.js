@@ -15,4 +15,5 @@ export const getUserCourseProgress = async (courseName, userId) => {
   }
 };
 
-getUserCourseProgress('astronomy', '688d6519ab0d28950abd0321').then(console.log).catch(console.error);
+// getUserCourseProgress('astronomy', '688d6519ab0d28950abd0321').then(console.log).catch(console.error);
+getUserCourseProgress('astronomy', '68957521b2166810a9916cfa').then(console.log).catch(console.error);

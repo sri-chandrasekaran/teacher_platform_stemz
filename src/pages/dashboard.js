@@ -61,167 +61,6 @@ const Dashboard = () => {
   const [grades, setGrades] = useState([]);
   const [worksheets, setWorksheets] = useState([])
 
-  // const QuizPredictionInline = ({ studentId, API_BASE_URL }) => {
-  //   const [predictions, setPredictions] = useState(null);
-  //   const [loading, setLoading] = useState(false);
-  //   const [error, setError] = useState(null);
-  
-  //   const fetchPredictions = async () => {
-  //     setLoading(true);
-  //     setError(null);
-      
-  //     try {
-  //       const response = await fetch(`${API_BASE_URL}/teachers/quiz-predictions/student/${studentId}`);
-  //       const data = await response.json();
-        
-  //       if (!response.ok) {
-  //         throw new Error(data.message || 'Failed to fetch predictions');
-  //       }
-        
-  //       setPredictions(data);
-        
-  //     } catch (err) {
-  //       setError(err.message);
-  //       console.error('Prediction error:', err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  
-  //   useEffect(() => {
-  //     if (studentId) {
-  //       fetchPredictions();
-  //     }
-  //   }, [studentId]);
-  
-  //   if (loading) {
-  //     return (
-  //       <div className="predictive-analysis">
-  //         <h2>Performance Prediction</h2>
-  //         <div className="loading-placeholder">
-  //           <p>Loading predictions...</p>
-  //         </div>
-  //       </div>
-  //     );
-  //   }
-  
-  //   if (error) {
-  //     return (
-  //       <div className="predictive-analysis">
-  //         <h2>Performance Prediction</h2>
-  //         <div className="error-message" style={{ color: 'red', padding: '20px' }}>
-  //           <p>Error: {error}</p>
-  //           <button onClick={fetchPredictions} style={{ marginTop: '10px', padding: '5px 10px' }}>
-  //             Try Again
-  //           </button>
-  //         </div>
-  //       </div>
-  //     );
-  //   }
-  
-  //   if (!predictions) {
-  //     return (
-  //       <div className="predictive-analysis">
-  //         <h2>Performance Prediction</h2>
-  //         <p>No prediction data available. Student needs to complete at least 2 quizzes.</p>
-  //       </div>
-  //     );
-  //   }
-  
-  //   // Convert predictions data to chart format (matching your existing Line chart)
-  //   const chartData = {
-  //     labels: Array.isArray(predictions?.chartData) 
-  //       ? predictions.chartData.map(item => item.quiz) 
-  //       : [],
-  //     datasets: [
-  //       {
-  //         label: 'Quiz Scores',
-  //         data: Array.isArray(predictions?.chartData) 
-  //           ? predictions.chartData.map(item => item.score) 
-  //           : [],
-  //         fill: false,
-  //         tension: 0.3,
-  //         segment: {
-  //           borderColor: (ctx) => {
-  //             const dataPoint = predictions?.chartData?.[ctx.p0DataIndex];
-  //             return dataPoint?.type === 'Predicted' 
-  //               ? 'rgba(255, 99, 132, 1)' 
-  //               : 'rgba(54, 162, 235, 1)';
-  //           },
-  //         },
-  //         borderWidth: 2,
-  //         pointBackgroundColor: (ctx) => {
-  //           const dataPoint = predictions?.chartData?.[ctx.dataIndex];
-  //           return dataPoint?.type === 'Predicted' ? '#ff6384' : '#36a2eb';
-  //         }
-  //       },
-  //     ],
-  //   };
-    
-  
-  //   const chartOptions = {
-  //     responsive: true,
-  //     plugins: {
-  //       title: {
-  //         display: true,
-  //         text: `Quiz Predictions for ${predictions.studentName}`,
-  //       },
-  //       legend: {
-  //         display: true,
-  //       },
-  //     },
-  //     scales: {
-  //       y: {
-  //         beginAtZero: true,
-  //         max: 100,
-  //         title: {
-  //           display: true,
-  //           text: 'Score (%)'
-  //         }
-  //       }
-  //     }
-  //   };
-  
-  //   return (
-  //     <div className="predictive-analysis">
-  //       <h2>Performance Prediction</h2>
-        
-  //       {/* Warning for at-risk students */}
-  //       {predictions?.predictions?.warning && (
-  //         <div style={{ 
-  //           backgroundColor: '#fff3cd', 
-  //           border: '1px solid #ffeaa7', 
-  //           color: '#856404', 
-  //           padding: '10px', 
-  //           marginBottom: '15px',
-  //           borderRadius: '4px'
-  //         }}>
-  //           ⚠️ Student may need additional support (predicted average: {predictions?.predictions?.average_future_score?.toFixed(1)}%)
-  //         </div>
-  //       )}
-        
-  //       {/* Chart */}
-  //       <Line data={chartData} options={chartOptions} />
-        
-  //       {/* Summary stats */}
-  //       <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '20px' }}>
-  //         <div style={{ textAlign: 'center', padding: '10px', backgroundColor: '#e3f2fd', borderRadius: '4px' }}>
-  //           <strong>Predicted Average</strong>
-  //           <div style={{ fontSize: '1.5em', color: '#1976d2' }}>
-  //             {predictions?.predictions?.average_future_score.toFixed(1)}%
-  //           </div>
-  //         </div>
-  //         <div style={{ textAlign: 'center', padding: '10px', backgroundColor: '#f3e5f5', borderRadius: '4px' }}>
-  //           <strong>Remaining Quizzes</strong>
-  //           <div style={{ fontSize: '1.5em', color: '#7b1fa2' }}>
-  //             {predictions?.predictions?.predicted_scores?.length}
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-
   const QuizPredictionInline = ({ studentId, API_BASE_URL }) => {
     const [predictions, setPredictions] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -449,7 +288,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        
+        <h5>Note: These percentages are based on points received.</h5>
         {/* Debug info (remove in production) */}
         {process.env.NODE_ENV === 'development' && (
           <details style={{ marginTop: '20px' }}>
@@ -1165,11 +1004,11 @@ console.log("Week-over-week trends:", calculateTrends());
             {/* <Line data={chartData} options={chartOptions}/> */}
             <div className="predictive-analysis">
             <QuizPredictionInline 
-              studentId="68957521b2166810a9916cfa"
+              studentId={selectedStudent}
               API_BASE_URL={API_BASE_URL}
             />
     </div>
-          <h2>Temporary NLP Analytics this should be overall across all courses</h2>
+          <h2>NLP Analysis Across Courses</h2>
           <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
 
           {analyticsScores ? (
