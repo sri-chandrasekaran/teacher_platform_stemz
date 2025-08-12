@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Select from 'react-select';
 import ApiService from '../apiService';
+import { Api } from "@mui/icons-material";
 
 const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [name, setName] = useState('');
@@ -19,9 +20,6 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [maxStudents, setMaxStudents] = useState(30);
   const [studentIds, setStudentIds] = useState([]);
   const [saveData, setSaveData] = useState({});
-
-  const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
-  // const API_BASE_URL = 'https://localhost:3000/api';
 
   const checkCourse = (course) => {
     console.log('Checking course:', course);
@@ -49,10 +47,10 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
 
     const fetchCoursesAndStudents = async () => {
       try {
-        const responseCourses = await fetch(`${API_BASE_URL}/course`);
-        const responseUsers = await fetch(`${API_BASE_URL}/users`);
-        const fetchedCourses = await responseCourses.json();
-        const fetchedUsers = await responseUsers.json();
+        const fetchedCourses = await ApiService.fetchCourses();
+        const fetchedUsers = await ApiService.fetchUsers();
+        console.log('Fetched courses:', fetchedCourses);
+        console.log('Fetched users:', fetchedUsers);
 
         // Transform data for react-select
         const courseOptionsMap = fetchedCourses
@@ -66,6 +64,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
           .map(user => ({
             value: user._id,
             label: user.name,
+            email: user.email, // Add email for later use
           }));
 
         const teacherOptionsMap = fetchedUsers
@@ -134,6 +133,19 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
       maxStudents: maxStudents,
     };
 
+    for (const student of selectedStudents) {
+      console.log('Notifying Student:', student);
+      try {
+        await ApiService.sendEmailEnrollmentNotification(student.email, {
+          classroomName: name,
+          teacherName: selectedTeacher.label,
+        });
+        console.log('Notification sent successfully to:', student.email);
+      } catch (error) {
+        console.error('Error sending notification to:', student.email, error);
+      }
+    }
+    console.log('Updated classroom data:', updatedClassroom);
     console.log("Saving classroom:", updatedClassroom);
     onSave(updatedClassroom);
   };

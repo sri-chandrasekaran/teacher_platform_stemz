@@ -80,7 +80,7 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
         throw new Error('Classroom not found or invalid');
       }
       const classroomName = classroomResult.name;
-      // // Enroll student in the classroom
+      // Enroll student in the classroom
       // const result = await ApiService.sendEmailInvite(user, classroomId);
       // console.log('Enrollment result:', result);
 

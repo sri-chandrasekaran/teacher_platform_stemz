@@ -304,6 +304,18 @@ class ApiService {
         return response.json();
     }
 
+    static async sendEmailEnrollmentNotification(recipient, data) {
+        const subject = `Enrollment in ${data.classroomName}`;
+        const message = 'You have been enrolled in the classroom: ' + data.classroomName + '. Your teacher is ' + data.teacherName + '.';
+        const response = await this.sendEmailNotification(recipient, subject, message);
+
+        if (!response.ok) {
+            throw new Error('Failed to send email notification with template');
+        }
+
+        return response.json();
+    }
+
     static async sendEmailInvite(userId, classroomId) {
         console.log('Sending email invite for user:', userId, 'to classroom:', classroomId);
         if (!userId || !classroomId) {
@@ -317,13 +329,13 @@ class ApiService {
         if (!classroom || !classroom.name) {
             throw new Error('Classroom not found or invalid');
         }
-        const inviteUrl = `${BASE_URL}/classroom/${classroomId}/add-student`;
+        const inviteUrl = `${BASE_URL}`;
         const response = await fetch(`${BASE_URL}/notifications/email/invite`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ userId: user._id, recipientEmail: user.email, classroomName: classroom.name, acceptInviteUrl: inviteUrl }),
+            body: JSON.stringify({ userId: user._id, recipientEmail: user.email, classroomName: classroom.name, classroomId: classroomId, acceptInviteUrl: inviteUrl }),
         });
 
         if (!response.ok) {

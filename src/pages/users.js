@@ -145,7 +145,6 @@ const Users = () => {
           <table className="student-table">
             <thead>
               <tr>
-                <th>Student ID</th>
                 <th>Student Name</th>
                 <th>Email</th>
                 {/* <th>Current Scores</th> */}
@@ -154,7 +153,6 @@ const Users = () => {
             <tbody>
               {students.map((student) => (
                 <tr key={student.id}>
-                  <td>{student.id}</td>
                   <td>{student.name}</td>
                   <td>
                     <a href={`mailto:${student.email}`} className="email-link">
