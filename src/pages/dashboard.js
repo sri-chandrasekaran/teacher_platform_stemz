@@ -1060,19 +1060,16 @@ console.log("Week-over-week trends:", calculateTrends());
         {/* Display assignments with progress bars */}
         {(selectedCourse && selectedStudent) && (
           <div>
-            <div className="assignments-container">
-              {assignmentProgress.map((assignment, index) => (
-                <div key={index} className="assignment-box" onClick={() => openPopup(assignment)}> 
-                  <div className="assignment-header">
-                    <h3>{assignment.name}</h3>
-                  </div>
-                  {renderProgressBar(assignment.progress)}
-                </div>
-              ))}
-            </div>
-            
+            <Popup 
+              isOpen={true} 
+              onClose={() => {}} 
+              student={selectedStudent} 
+              course={selectedCourse} 
+            />
+
+            <br></br>
             <div className="skill-development">
-                <h2>NLP specific for the course</h2>
+                <h2>Average NLP Scores for {selectedCourse}</h2>
                 <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
                 {analyticsScores ? (
                   <div className="metrics-container">
@@ -1096,7 +1093,7 @@ console.log("Week-over-week trends:", calculateTrends());
           +
         </button>
         {isModalOpen && <PostModal onClose={closeModal} />}
-        <Popup isOpen={!!selectedAssignment} onClose={closePopup} student={selectedStudent} course={selectedCourse} />
+        {/* <Popup isOpen={!!selectedAssignment} onClose={closePopup} student={selectedStudent} course={selectedCourse} /> */}
       </div>
     </div>
   );

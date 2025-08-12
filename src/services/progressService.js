@@ -15,5 +15,41 @@ export const getUserCourseProgress = async (courseName, userId) => {
   }
 };
 
+export const getStudentResponses = async (studentId, courseId, lessonId = null) => {
+  try {
+    const url = `https://core-server-nine.vercel.app/api/teachers/bpq-responses/${courseId}/student/${studentId}?lessonId=lesson${lessonId}`;
+
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching student responses:', error);
+    throw error;
+  }
+};
+
+export const getStudentResponsesByLesson = async (studentId, courseId, lessonId) => {
+  try {
+    const url = `https://core-server-nine.vercel.app/api/teacher/student-responses/${courseId}/${studentId}?lessonId=lesson${lessonId}`;
+    
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching student responses by lesson:', error);
+    throw error;
+  }
+};
+
 // getUserCourseProgress('astronomy', '688d6519ab0d28950abd0321').then(console.log).catch(console.error);
-getUserCourseProgress('astronomy', '68957521b2166810a9916cfa').then(console.log).catch(console.error);
+// getUserCourseProgress('astronomy', '68967e810cb7f9004ef70de4').then(console.log).catch(console.error);
