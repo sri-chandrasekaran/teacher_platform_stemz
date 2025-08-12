@@ -16,7 +16,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [schoolName, setSchoolName] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
   const [classroomNumber, setClassroomNumber] = useState('');
-  const [maxStudents, setMaxStudents] = useState(30);
+  const [maxStudents, setMaxStudents] = useState(50);
   const [studentIds, setStudentIds] = useState([]);
   const [saveData, setSaveData] = useState({});
 
@@ -251,9 +251,9 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
           <label>Maximum Students</label>
           <input
             type="number"
-            placeholder="30"
+            placeholder="50"
             value={maxStudents}
-            onChange={(e) => setMaxStudents(parseInt(e.target.value) || 30)}
+            onChange={(e) => setMaxStudents(parseInt(e.target.value) || 50)}
             min="1"
             max="100"
           />

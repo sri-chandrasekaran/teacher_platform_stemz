@@ -257,7 +257,7 @@ const fetchNotifications = async () => {
 
         {/* Filters */}
         <div className="notification-filters">
-          <select 
+          {/* <select 
             value={selectedClassroom}
             onChange={(e) => setSelectedClassroom(e.target.value)}
             className="filter-select"
@@ -268,7 +268,7 @@ const fetchNotifications = async () => {
                 {classroom.name}
               </option>
             ))}
-          </select>
+          </select> */}
 
           <div className="filter-buttons">
             <button 
