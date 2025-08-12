@@ -999,7 +999,7 @@ console.log("Week-over-week trends:", calculateTrends());
               API_BASE_URL={API_BASE_URL}
             />
     </div>
-          <h2>NLP Analysis Across Courses</h2>
+          <strong><h3>NLP Analysis Across Courses</h3></strong>
           <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
 
           {analyticsScores ? (
