@@ -34,7 +34,7 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
-  const { classroomId, classroomName } = useParams();
+  const { classroomId, classroomName, selectedClassroomId } = useParams();
   const [selectedStudent, setSelectedStudent] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
   const [students, setStudents] = useState([]);
@@ -1027,6 +1027,7 @@ console.log("Week-over-week trends:", calculateTrends());
                   assignments={assignments.filter(a => a.course === selectedCourse)}
                   course={getCourseById(selectedCourse)}
                   students={students}
+                  classroomId={classroomId}
                 />
               </div>
 
@@ -1041,7 +1042,7 @@ console.log("Week-over-week trends:", calculateTrends());
                 <div className="worksheet-statistics-container">
                   <h3>Assignment Statistics</h3>
                   {/* <p>Assignments for {getCourseById(selectedCourse)?.name}: {assignments.filter(a => a.course === selectedCourse).length}</p> */}
-                  <CourseAnalytics course={getCourseById(selectedCourse)} />
+                  <CourseAnalytics course={getCourseById(selectedCourse)} classroomId={classroomId}/>
                 </div>
               </div>
             </div>
