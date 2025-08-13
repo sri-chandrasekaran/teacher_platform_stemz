@@ -159,7 +159,7 @@ const CourseStatistics = ({ course, classroomId }) => {
             <span className="stat-value">{analytics.totalStudents}</span>
           </div> */}
           <div className="stat-item">
-            <span className="stat-label">Total Lessons:</span>
+            <span className="stat-label">Total Lessons Attempted:</span>
             <span className="stat-value">{overall.totalLessons}</span>
           </div>
           <div className="stat-item">
