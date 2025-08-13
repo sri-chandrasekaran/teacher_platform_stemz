@@ -1040,7 +1040,7 @@ console.log("Week-over-week trends:", calculateTrends());
 
                 {/* Worksheet statistics placeholder */}
                 <div className="worksheet-statistics-container">
-                  <h3>Assignment Statistics</h3>
+                  {/* <h3>Assignment Statistics</h3> */}
                   {/* <p>Assignments for {getCourseById(selectedCourse)?.name}: {assignments.filter(a => a.course === selectedCourse).length}</p> */}
                   <CourseAnalytics course={getCourseById(selectedCourse)} classroomId={classroomId}/>
                 </div>
