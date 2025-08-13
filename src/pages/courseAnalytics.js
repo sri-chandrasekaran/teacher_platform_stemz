@@ -171,9 +171,9 @@ const CourseStatistics = ({ course, classroomId }) => {
 
       {/* Debug info */}
       <div style={{ background: '#f0f0f0', padding: '10px', margin: '10px 0', fontSize: '12px' }}>
-        <strong>Debug Info:</strong><br/>
+        {/* <strong>Debug Info:</strong><br/>
         Course: {(course.id || course.name).toLowerCase()}<br/>
-        Students: {analytics.totalStudents}<br/>
+        Students: {analytics.totalStudents}<br/> */}
         <button onClick={fetchCourseAnalytics} style={{ marginTop: '5px' }}>
           Refresh Analytics
         </button>
