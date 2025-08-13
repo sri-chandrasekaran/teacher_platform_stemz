@@ -3,7 +3,7 @@ import '../styles/styles.css';
 
 const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
 
-const ActiveCourseUsers = ({ course }) => {
+const ActiveCourseUsers = ({ course, classroomId }) => {
   const [recentActivity, setRecentActivity] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -14,25 +14,32 @@ const ActiveCourseUsers = ({ course }) => {
   console.log("Course type:", typeof course);
   console.log("Course keys:", course ? Object.keys(course) : 'null');
   console.log("Course stringified:", JSON.stringify(course, null, 2));
+  console.log("ClassroomId prop received:", classroomId);
 
   useEffect(() => {
-    console.log("useEffect triggered, course:", course);
+    console.log("useEffect triggered, course:", course, "classroomId:", classroomId);
     
-    if (course?.id || course?.name) {
-      console.log("Course has id or name, fetching activity");
+    if ((course?.id || course?.name) && classroomId) {
+      console.log("Course and classroom available, fetching activity");
       fetchRecentActivity();
     } else {
-      console.log("Course missing id/name, clearing activity");
+      console.log("Missing course or classroom ID, clearing activity");
       setRecentActivity([]);
     }
-  }, [course]);
+  }, [course, classroomId]);
 
   const fetchRecentActivity = async () => {
     console.log("=== fetchRecentActivity called ===");
     console.log("Course in fetch:", course);
+    console.log("ClassroomId in fetch:", classroomId);
     
     if (!course?.id && !course?.name) {
       console.log("No course id or name, returning early");
+      return;
+    }
+
+    if (!classroomId) {
+      console.log("No classroomId, returning early");
       return;
     }
     
@@ -40,12 +47,12 @@ const ActiveCourseUsers = ({ course }) => {
     setError(null);
     
     try {
-      // Use course.id if available, otherwise use course.name as courseId
-      // Convert to lowercase to match database format
       const courseId = (course.id || course.name).toLowerCase();
       console.log("Using courseId:", courseId);
+      console.log("Using classroomId:", classroomId);
       
-      const url = `${API_BASE_URL}/analytics/${courseId}/recent-activity?limit=5`;
+      // Updated URL structure for classroom-specific analytics
+      const url = `${API_BASE_URL}/analytics/classrooms/${classroomId}/courses/${courseId}/recent-activity?limit=5`;
       console.log("Making request to:", url);
       
       const response = await fetch(url, {
@@ -122,29 +129,19 @@ const ActiveCourseUsers = ({ course }) => {
         <h2>Recent Activity</h2>
         <div className="no-course">
           <p>Please select a course to view recent activity</p>
-          <p>Debug: Course prop is null/undefined</p>
+          {/* <p>Debug: Course prop is null/undefined</p> */}
         </div>
       </div>
     );
   }
 
   // Show debug info in the component
-  const courseId = course.id || course.name;
+  // const courseId = course.id || course.name;
 
   return (
     <div className="active-users-container">
       <h2>Recent Activity - {course?.name || course?.title || 'Selected Course'}</h2>
       
-      {/* Debug info */}
-      <div style={{ background: '#f0f0f0', padding: '10px', margin: '10px 0', fontSize: '12px' }}>
-        <strong>Debug Info:</strong><br/>
-        Course ID: {courseId}<br/>
-        Course Object: {JSON.stringify(course, null, 2)}<br/>
-        Activity Count: {recentActivity.length}<br/>
-        <button onClick={handleManualRefresh} style={{ marginTop: '5px' }}>
-          Manual Refresh
-        </button>
-      </div>
 
       {recentActivity.length === 0 ? (
         <div className="no-activity">

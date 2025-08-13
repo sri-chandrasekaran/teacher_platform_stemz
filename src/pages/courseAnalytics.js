@@ -3,7 +3,7 @@ import '../styles/styles.css';
 
 const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
 
-const CourseStatistics = ({ course }) => {
+const CourseStatistics = ({ course, classroomId }) => {
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -12,25 +12,26 @@ const CourseStatistics = ({ course }) => {
   console.log("Course prop:", course);
 
   useEffect(() => {
-    if (course?.id || course?.name) {
+    if ((course?.id || course?.name) && classroomId) {
       fetchCourseAnalytics();
     } else {
       setAnalytics(null);
     }
-  }, [course]);
+  }, [course, classroomId]);
 
   const fetchCourseAnalytics = async () => {
     if (!course?.id && !course?.name) return;
+    if (!classroomId) return;
     
     setLoading(true);
     setError(null);
     
     try {
-      // Convert to lowercase to match database format
       const courseId = (course.id || course.name).toLowerCase();
-      console.log("Fetching analytics for courseId:", courseId);
+      console.log("Fetching analytics for courseId:", courseId, "classroomId:", classroomId);
       
-      const url = `${API_BASE_URL}/analytics/${courseId}/analytics`;
+      // Updated URL structure for classroom-specific analytics
+      const url = `${API_BASE_URL}/analytics/classrooms/${classroomId}/courses/${courseId}/analytics`;
       console.log("Analytics URL:", url);
       
       const response = await fetch(url, {
