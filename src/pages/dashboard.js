@@ -17,6 +17,7 @@ import { normalizeClassroom, normalizeAssignment, generateFakeLeaderboard, handl
 import '../styles/styles.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import ApiService from '../apiService';
+import CourseAnalytics from './courseAnalytics';
 
 const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
 // const API_BASE_URL = 'http://localhost:3000/api';
@@ -999,7 +1000,7 @@ console.log("Week-over-week trends:", calculateTrends());
               API_BASE_URL={API_BASE_URL}
             />
     </div>
-          <strong><h3>NLP Analysis Across Courses</h3></strong>
+          <strong><h4>NLP Analysis Across Courses</h4></strong>
           <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
 
           {analyticsScores ? (
@@ -1039,20 +1040,10 @@ console.log("Week-over-week trends:", calculateTrends());
                 {/* Worksheet statistics placeholder */}
                 <div className="worksheet-statistics-container">
                   <h3>Assignment Statistics</h3>
-                  <p>Assignments for {getCourseById(selectedCourse)?.name}: {assignments.filter(a => a.course === selectedCourse).length}</p>
+                  {/* <p>Assignments for {getCourseById(selectedCourse)?.name}: {assignments.filter(a => a.course === selectedCourse).length}</p> */}
+                  <CourseAnalytics course={getCourseById(selectedCourse)} />
                 </div>
               </div>
-            </div>
-
-            {/* Grades table containing all grades for a course */}
-            
-            {/* Course assignments table */}
-            <div className="extra-table-container">
-              <CourseGrades
-                assignments={assignments.filter(a => a.course === selectedCourse)}
-                course={getCourseById(selectedCourse)}
-                students={students}
-              />
             </div>
           </div>
         )}

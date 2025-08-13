@@ -1,115 +1,180 @@
-// import React from 'react';
-// import '../styles/styles.css';
-
-// const ActiveCourseUsers = ({ grade_data, course, students, worksheets }) => {
-//   // Sort grade_data by createdAt timestamp in descending order
-//   const sortedGradeData = grade_data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-//   const filteredGradeData = sortedGradeData.filter((data) => data.course_id === course.id);
-//   // Map sorted grade_data to activeUsers format
-//   const activeUsers = filteredGradeData.map((data) => {
-//     const student = students.find((student) => student.id === data.student_user_id);
-//     return {
-//       name: student ? student.name : 'Unknown', // Fallback to 'Unknown' if student not found
-//       assignment: data.worksheet_name,
-//       timeSignedIn: data.time_to_complete, // Assuming timeSpent is in minutes
-//       grade: data.grade,
-//     };
-//   });
-  
-
-//   return (
-//     <div className="active-users-container">
-//       <h2>Recent Activity</h2>
-//       <table className="active-users-table">
-//         <thead>
-//           <tr>
-//             <th>Name</th>
-//             <th>Assignment</th>
-//             <th>Time To Complete</th>
-//             <th>Grade</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {activeUsers.map((user, index) => (
-//             <tr key={index}>
-//               <td>{user.name}</td>
-//               <td>{user.assignment}</td>
-//               <td>{user.timeSignedIn} minutes</td>
-//               <td>{user.grade}</td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// };
-
-// export default ActiveCourseUsers;
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/styles.css';
 
-const ActiveCourseUsers = ({ assignments = [], course, students = [] }) => {
-  // Filter assignments for the selected course
-  const courseAssignments = assignments.filter((assignment) => 
-    assignment.course === course?.id || assignment.course === course?.name
-  );
+const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
 
-  // Generate recent activity data from real assignments
-  const activeUsers = courseAssignments.slice(0, 10).map((assignment) => {
-    // Find a random student for demo purposes (in real app, this would come from actual completion data)
-    const randomStudent = students[Math.floor(Math.random() * students.length)];
+const ActiveCourseUsers = ({ course }) => {
+  const [recentActivity, setRecentActivity] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Add debug logging
+  console.log("=== ActiveCourseUsers Debug ===");
+  console.log("Course prop received:", course);
+  console.log("Course type:", typeof course);
+  console.log("Course keys:", course ? Object.keys(course) : 'null');
+  console.log("Course stringified:", JSON.stringify(course, null, 2));
+
+  useEffect(() => {
+    console.log("useEffect triggered, course:", course);
     
-    return {
-      name: randomStudent?.name || 'Unknown Student',
-      assignment: assignment.activityTitle || assignment.title,
-      timeSignedIn: `${Math.floor(Math.random() * 30) + 5} minutes`, // Random time for demo
-      grade: Math.floor(Math.random() * 40) + 60, // Random grade 60-100
-    };
-  });
+    if (course?.id || course?.name) {
+      console.log("Course has id or name, fetching activity");
+      fetchRecentActivity();
+    } else {
+      console.log("Course missing id/name, clearing activity");
+      setRecentActivity([]);
+    }
+  }, [course]);
 
-  // Fallback data if no assignments
-  if (activeUsers.length === 0 && course) {
+  const fetchRecentActivity = async () => {
+    console.log("=== fetchRecentActivity called ===");
+    console.log("Course in fetch:", course);
+    
+    if (!course?.id && !course?.name) {
+      console.log("No course id or name, returning early");
+      return;
+    }
+    
+    setLoading(true);
+    setError(null);
+    
+    try {
+      // Use course.id if available, otherwise use course.name as courseId
+      // Convert to lowercase to match database format
+      const courseId = (course.id || course.name).toLowerCase();
+      console.log("Using courseId:", courseId);
+      
+      const url = `${API_BASE_URL}/analytics/${courseId}/recent-activity?limit=5`;
+      console.log("Making request to:", url);
+      
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log("Response status:", response.status);
+      console.log("Response ok:", response.ok);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.log("Error response body:", errorText);
+        throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      console.log("Response data:", data);
+      
+      if (data.success) {
+        console.log("Setting recent activity:", data.recentActivity);
+        setRecentActivity(data.recentActivity || []);
+      } else {
+        throw new Error(data.message || 'Failed to fetch recent activity');
+      }
+    } catch (error) {
+      console.error('Error fetching recent activity:', error);
+      setError(error.message);
+      setRecentActivity([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Add manual refresh button for testing
+  const handleManualRefresh = () => {
+    console.log("Manual refresh clicked");
+    fetchRecentActivity();
+  };
+
+  // Loading state
+  if (loading) {
     return (
       <div className="active-users-container">
-        <h2>Recent Activity - {course.name || course.title}</h2>
-        <div className="no-activity">
-          <p>No recent assignments for this course</p>
-          <p>Create an assignment to see student activity here</p>
+        <h2>Recent Activity - {course?.name || course?.title || 'Loading...'}</h2>
+        <div className="loading-state">
+          <p>Loading recent activity...</p>
         </div>
       </div>
     );
   }
 
+  // Error state
+  if (error) {
+    return (
+      <div className="active-users-container">
+        <h2>Recent Activity - {course?.name || course?.title || 'Selected Course'}</h2>
+        <div className="error-state">
+          <p>Error loading activity: {error}</p>
+          <button onClick={fetchRecentActivity} className="retry-button">
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // No course selected
+  if (!course) {
+    return (
+      <div className="active-users-container">
+        <h2>Recent Activity</h2>
+        <div className="no-course">
+          <p>Please select a course to view recent activity</p>
+          <p>Debug: Course prop is null/undefined</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show debug info in the component
+  const courseId = course.id || course.name;
+
   return (
     <div className="active-users-container">
       <h2>Recent Activity - {course?.name || course?.title || 'Selected Course'}</h2>
-      <table className="active-users-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Assignment</th>
-            <th>Time To Complete</th>
-            <th>Grade</th>
-          </tr>
-        </thead>
-        <tbody>
-          {activeUsers.length > 0 ? (
-            activeUsers.map((user, index) => (
-              <tr key={index}>
-                <td>{user.name}</td>
-                <td>{user.assignment}</td>
-                <td>{user.timeSignedIn}</td>
-                <td>{user.grade}%</td>
-              </tr>
-            ))
-          ) : (
+      
+      {/* Debug info */}
+      <div style={{ background: '#f0f0f0', padding: '10px', margin: '10px 0', fontSize: '12px' }}>
+        <strong>Debug Info:</strong><br/>
+        Course ID: {courseId}<br/>
+        Course Object: {JSON.stringify(course, null, 2)}<br/>
+        Activity Count: {recentActivity.length}<br/>
+        <button onClick={handleManualRefresh} style={{ marginTop: '5px' }}>
+          Manual Refresh
+        </button>
+      </div>
+
+      {recentActivity.length === 0 ? (
+        <div className="no-activity">
+          <p>No recent activity for this course</p>
+          <p>Students haven't completed any assignments yet</p>
+        </div>
+      ) : (
+        <table className="active-users-table">
+          <thead>
             <tr>
-              <td colSpan="4">No recent activity</td>
+              <th>Name</th>
+              <th>Assignment</th>
+              {/* <th>Time To Complete</th> */}
+              <th>Grade</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {recentActivity.map((activity, index) => (
+              <tr key={index}>
+                <td>{activity.name}</td>
+                <td>{activity.assignment}</td>
+                {/* <td>{activity.timeSignedIn}</td> */}
+                <td className={`grade ${activity.grade >= 80 ? 'good' : activity.grade >= 60 ? 'okay' : 'needs-improvement'}`}>
+                  {activity.grade}%
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
