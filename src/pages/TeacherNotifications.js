@@ -246,11 +246,11 @@ const fetchNotifications = async () => {
           <div className="notification-stats">
             <div className="stat-badge">
               <span className="stat-number">{unreadCount}</span>
-              <span className="stat-label">Unread</span>
+              <span className="stat-label-notification">Unread</span>
             </div>
             <div className="stat-badge failure">
               <span className="stat-number">{failureCount}</span>
-              <span className="stat-label">Quiz Failures</span>
+              <span className="stat-label-notification">Quiz Failures</span>
             </div>
           </div>
         </div>

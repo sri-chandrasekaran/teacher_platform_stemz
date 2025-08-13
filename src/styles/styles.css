@@ -2386,7 +2386,7 @@ p {
 
 .stat-label {
   font-weight: 500;
-  color: #6b7280;
+  color: #000000;
   font-size: 13px;
 }
 
@@ -2539,3 +2539,73 @@ div[style*="background: #f0f0f0"] {
 .active-users-container::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+        /* Stats Section */
+        .notification-stats {
+          display: flex;
+          gap: 1rem;
+      }
+
+      .stat-badge {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background: white;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          border: 1px solid #e2e8f0;
+          min-width: 80px;
+      }
+
+      .stat-badge.failure {
+          border-top: 3px solid #ef4444;
+      }
+
+      .stat-number {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #1e293b;
+          line-height: 1;
+      }
+
+      .stat-label-notification {
+          font-size: 0.75rem;
+          color: #64748b;
+          font-weight: 500;
+          margin-top: 0.25rem;
+      }
+
+      /* Filter Buttons */
+      .filter-buttons {
+          display: flex;
+          background: white;
+          border-radius: 8px;
+          padding: 0.25rem;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          border: 1px solid #e2e8f0;
+      }
+
+      .filter-buttons button {
+          padding: 0.625rem 1.25rem;
+          border: none;
+          background: transparent;
+          color: #64748b;
+          font-weight: 500;
+          font-size: 0.9rem;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: all 0.15s ease;
+          white-space: nowrap;
+      }
+
+      .filter-buttons button:hover {
+          color: #475569;
+          background: #f1f5f9;
+      }
+
+      .filter-buttons button.active {
+          background: green;
+          color: white;
+          font-weight: 600;
+      }
