@@ -51,7 +51,7 @@ static async fetchUserPoints2() {
 static async fetchUserPoints(userId) {
 
     console.log("USER ID", userId)
-    const response = await fetch(`${BASE_URL}/total/${userId}`, {
+    const response = await fetch(`${BASE_URL}/points/total/${userId}`, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json',
