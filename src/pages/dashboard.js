@@ -13,7 +13,7 @@ import { Line } from 'react-chartjs-2';
 import Plot from 'react-plotly.js';
 import { call_api } from '../components/api';
 import { courseList, getCourseById } from '../utils/courseData';
-import { normalizeClassroom, normalizeAssignment, generateFakeLeaderboard, handleApiError } from '../utils/dataHelpers';
+import { normalizeClassroom, normalizeAssignment, handleApiError } from '../utils/dataHelpers';
 import '../styles/styles.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import ApiService from '../apiService';
@@ -53,6 +53,7 @@ const Dashboard = () => {
   const [error, setError] = useState('');
   const [performanceData, setPerformanceData] = useState([]);
   const [predictions, setPredictions] = useState([]);
+  const [activeUsers, setActiveUsers] = useState([]);
 
   const location = useLocation();
 
@@ -366,7 +367,8 @@ useEffect(() => {
       console.error("Error fetching predicted performance:", error);
     }
   };
-  
+
+
   // FIXED: Fetch real data from APIs
   useEffect(() => {
     if (classroomId) {
@@ -391,10 +393,14 @@ useEffect(() => {
       const normalizedClassroom = normalizeClassroom(classroomResponse);
       setClassroom(normalizedClassroom);
       setStudents(normalizedClassroom.students || []);
+      console.log("normalized classroom", normalizedClassroom)
+      // Real leaderboard
+      const leaderboard = await ApiService.buildLeaderBoard(classroomResponse)
+      setLeaderboard(leaderboard);
 
-      // Generate fake leaderboard from students (until real user points are integrated)
-      const fakeLeaderboard = generateFakeLeaderboard(normalizedClassroom.students || []);
-      setLeaderboard(fakeLeaderboard);
+      // Active Users 
+      const activeUsers = await ApiService.buildActiveUsers(normalizedClassroom)
+      setActiveUsers(activeUsers)
 
       // Fetch assignments for this classroom
       try {
@@ -437,6 +443,7 @@ useEffect(() => {
       // You can add any logic here that needs to run when selectedStudent changes
     }
   }, [selectedStudent]);
+
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -866,29 +873,29 @@ console.log("Week-over-week trends:", calculateTrends());
             <ActiveUsers students={students} />
           </div>
 
-          {/* Leaderboard Section */}
+         
           <div className="leaderboard">
             <h2>Top 5 Leaderboard</h2>
             <table className="leaderboard-table">
               <thead>
                 <tr>
+                  <th>Rank</th> 
                   <th>Student Name</th>
-                  <th>Last Logged On</th>
-                  <th>Points</th>
+                  <th>Points</th> 
                 </tr>
               </thead>
               <tbody>
-                {topStudents.length > 0 ? (
-                  topStudents.map((entry) => (
+                {leaderboard.length > 0 ? (
+                  leaderboard.slice(0, 5).map((entry) => (
                     <tr key={entry.id}>
-                      <td>{entry.name}</td>
-                      <td>{new Date(entry.last_logged_on).toLocaleDateString()}</td>
-                      <td>{entry.cummulative_score}</td>
+                      <td>{entry.rank}</td>
+                      <td>{entry.name}</td> 
+                      <td>{entry.totalPoints}</td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="4">No leaderboard data available</td>
+                    <td colSpan="3">Pulling Leaderboard Data...</td> 
                   </tr>
                 )}
               </tbody>
@@ -1008,6 +1015,7 @@ console.log("Week-over-week trends:", calculateTrends());
             </div>
           </div>
         )}
+        
 
         {/* Display assignments with progress bars */}
         {(selectedCourse && selectedStudent) && (

@@ -43,7 +43,7 @@ router.get('/course', async (req, res) => {
 });
 
 // Get top 5 students with highest points
-router.get('/points', async (req, res) => {
+router.get('/userpoints', async (req, res) => {
   console.log('Request received for /points');
   try {
     const result = await pool.query(

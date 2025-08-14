@@ -61,10 +61,10 @@ router.get('/course', async (req, res) => {
 //   }
 // });
 
-router.get('/points', async (req, res) => {
-  console.log('Request received for /points');
+router.get('/userpoints', async (req, res) => {
+  console.log('Request received for /userpoints');
   try {
-    const result = await pool.query('SELECT * FROM current_scores');
+    const result = await pool.query('SELECT * FROM userpoints');
     console.log(result.rows); 
     res.json(result.rows);  
   } catch (err) {
