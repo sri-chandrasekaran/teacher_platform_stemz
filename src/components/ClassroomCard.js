@@ -1,4 +1,5 @@
 import React from 'react';
+import AddStudentModal from '../components/AddStudentModal';
 
 const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite }) => {
   const handleEdit = (e) => {
@@ -13,7 +14,7 @@ const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite }) => {
 
   const handleInvite = (e) => {
     e.stopPropagation(); 
-    onInvite(classroom);  // Pass the whole classroom object
+    setModalOpen(true);
   };
 
   const handleEnter = () => {
@@ -21,7 +22,18 @@ const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite }) => {
     onEnter(classroom.id, classroom.name); // Pass both ID and name for navigation
   };
 
+  const closeModal = () => setModalOpen(false);
+
+
+  const handleStudentAdded = (newStudent) => {
+    if (onStudentAdded) {
+      onStudentAdded(newStudent, classroom.id); // Pass classroom ID as well
+    }
+    // You might want to update local state or trigger a parent component update here
+  };
+
   return (
+    <>
     <div className="classroom-card" onClick={handleEnter}>
       <button
         className="edit-classroom-button"
@@ -35,12 +47,13 @@ const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite }) => {
       >
         &#10005;
       </button>
-      {/* <button
+      <button
         className="invite-students-button"
         onClick={handleInvite}
+        title="Add Student"
       >
         📧
-      </button> */}
+      </button>
       <h3>{classroom.name}</h3>
       <p>{classroom.description}</p>
       
@@ -49,6 +62,14 @@ const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite }) => {
         <small>Grade {classroom.gradeLevel} • {classroom.studentCount} students</small>
       </div>
     </div>
+      <AddStudentModal 
+      isOpen={isModalOpen} 
+      onClose={closeModal} 
+      classroomId={classroom.id}
+      students={students}
+      onStudentAdded={handleStudentAdded}
+    />
+  </>
   );
 };
 
