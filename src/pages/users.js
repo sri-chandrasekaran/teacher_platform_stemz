@@ -149,7 +149,7 @@ const Users = () => {
                 <th>Student ID</th>
                 <th>Student Name</th>
                 <th>Email</th>
-                <th>Current Scores</th>
+                {/* <th>Current Scores</th> */}
               </tr>
             </thead>
             <tbody>
@@ -162,7 +162,7 @@ const Users = () => {
                     <FaEnvelope />
                   </a>
                 </td>
-                <td>{student.cummulative_score || student.cumulative_score || 0}</td>
+                {/* <td>{student.cummulative_score || student.cumulative_score || 0}</td> */}
               </tr>
               ))}
             </tbody>

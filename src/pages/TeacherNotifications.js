@@ -246,18 +246,18 @@ const fetchNotifications = async () => {
           <div className="notification-stats">
             <div className="stat-badge">
               <span className="stat-number">{unreadCount}</span>
-              <span className="stat-label">Unread</span>
+              <span className="stat-label-notification">Unread</span>
             </div>
             <div className="stat-badge failure">
               <span className="stat-number">{failureCount}</span>
-              <span className="stat-label">Quiz Failures</span>
+              <span className="stat-label-notification">Quiz Failures</span>
             </div>
           </div>
         </div>
 
         {/* Filters */}
         <div className="notification-filters">
-          <select 
+          {/* <select 
             value={selectedClassroom}
             onChange={(e) => setSelectedClassroom(e.target.value)}
             className="filter-select"
@@ -268,7 +268,7 @@ const fetchNotifications = async () => {
                 {classroom.name}
               </option>
             ))}
-          </select>
+          </select> */}
 
           <div className="filter-buttons">
             <button 
