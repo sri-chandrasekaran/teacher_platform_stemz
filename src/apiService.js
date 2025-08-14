@@ -2,6 +2,7 @@ const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
 // const BASE_URL = 'http://localhost:3000/api'; // Default to local API for development
 
 class ApiService {
+    
     // User-related API calls
     // Fetch all users
     static async fetchUsers() {
@@ -293,6 +294,28 @@ class ApiService {
 
         if (!response.ok) {
         throw new Error('Failed to send email notification');
+        }
+
+        return response.json();
+    }
+
+    static async sendEmailInvite(userId, recipientEmail, classroomId, classroomName) {
+        console.log('Sending email invite for user:', userId, 'to:', recipientEmail, 'for classroom:', classroomId);
+        if (!userId || !recipientEmail || !classroomId || !classroomName) {
+            throw new Error('User ID, recipient email, classroom ID, and classroom name are required to send an invite');
+        }
+
+        const inviteUrl = `${BASE_URL}/classroom/${classroomId}/add-student`;
+        const response = await fetch(`${BASE_URL}/notifications/email/invite`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId, recipientEmail, classroomName, inviteUrl }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to send email invite');
         }
 
         return response.json();
