@@ -409,8 +409,8 @@ useEffect(() => {
   const closePopup = () => {
     setSelectedAssignment(null);
   };
-useEffect(() => {
-  const fetchStudents = async () => {
+  useEffect(() => {
+    const fetchStudents = async () => {
     if (!classroomId) return;
     
     try {
@@ -447,10 +447,10 @@ useEffect(() => {
       console.error('❌ Error fetching students:', error);
       setStudents([]);
       setLeaderboard([]);
-    }
-  };
-
-  fetchStudents();
+      }
+    };
+  
+    fetchStudents();
 }, [classroomId]);
 
     const fetchGrades = async () => {
@@ -563,11 +563,11 @@ useEffect(() => {
   // Generate assignment progress for display
   const generateAssignmentProgress = () => {
     return [
-      { name: 'Lesson 1', progress: 85 },
-      { name: 'Lesson 2', progress: 60 },
-      { name: 'Lesson 3', progress: 95 },
-      { name: 'Lesson 4', progress: 50 },
-    ];
+    { name: 'Lesson 1', progress: 85 },
+    { name: 'Lesson 2', progress: 60 },
+    { name: 'Lesson 3', progress: 95 },
+    { name: 'Lesson 4', progress: 50 },
+  ];
   };
 
   const assignmentProgress = generateAssignmentProgress();
@@ -673,20 +673,20 @@ useEffect(() => {
   }, [selectedStudent, selectedCourse]);
   
 
-  const generateFakeData = () => {
-    const fakeData = [];
-    let currentDate = new Date();
-
-    for (let i = 0; i < 10; i++) {
-      fakeData.push({
+    const generateFakeData = () => {
+      const fakeData = [];
+      let currentDate = new Date();
+  
+      for (let i = 0; i < 10; i++) {
+        fakeData.push({
         date: currentDate.toISOString().split('T')[0],
         points: Math.floor(Math.random() * 20) + 1
-      });
+        });
       currentDate.setDate(currentDate.getDate() - 1);
-    }
-
+      }
+  
     return fakeData.reverse();
-  };
+    };
 
   
     const generateSimplePrediction = (performanceData) => {
@@ -893,10 +893,10 @@ console.log("Week-over-week trends:", calculateTrends());
             </Link>
           </li>
           <li>
-            <Link to={`/messages`}>
-              <FaEnvelope className={`sidebar-icon ${location.pathname === '/messages' ? 'active' : ''}`} />
-            </Link>
-          </li>
+          <Link to={`/messages`}>
+            <FaEnvelope className={`sidebar-icon ${location.pathname === '/messages' ? 'active' : ''}`} />
+          </Link>
+        </li>
           <li>
             <Link to="/notifications">
               <FaBell className={`sidebar-icon ${location.pathname === '/notifications' ? 'active' : ''}`} />
@@ -991,8 +991,8 @@ console.log("Week-over-week trends:", calculateTrends());
         )}
 
 
-      {(selectedStudent && !selectedCourse) && (
-        <div className="student-specific-section">
+        {(selectedStudent && !selectedCourse) && (
+          <div className="student-specific-section">
             {/* <Line data={chartData} options={chartOptions}/> */}
             <div className="predictive-analysis">
             <QuizPredictionInline 
@@ -1014,9 +1014,9 @@ console.log("Week-over-week trends:", calculateTrends());
           ) : (
             <p>Loading metrics...</p>
           )}
-        </div>
-      )}
-
+          </div>
+        )}
+        
         {/* Course-specific data */}
         {!selectedStudent && selectedCourse && (
           <div className="tables-wrapper">
@@ -1077,7 +1077,7 @@ console.log("Week-over-week trends:", calculateTrends());
             </div>
           </div>
         )}
-        
+
         <button
           className="floating-button"
           onClick={openModal}
