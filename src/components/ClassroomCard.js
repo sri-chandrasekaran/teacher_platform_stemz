@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AddStudentModal from '../components/AddStudentModal';
 
 const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite, students = [], onStudentAdded }) => {
