@@ -1,6 +1,7 @@
 const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
 // const BASE_URL = 'http://localhost:3000/api'; // Default to local API for development
 
+
 class ApiService {
     // User-related API calls
     // Fetch all users
@@ -36,10 +37,21 @@ class ApiService {
         return response.json();
     }
 
+static async fetchUserPoints2() {
+    const response = await fetch(`${BASE_URL}/points/`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    }
+    });
+    return response.json();
+}
+
     //fetch the points for all users
 static async fetchUserPoints(userId) {
+
     console.log("USER ID", userId)
-    const response = await fetch(`${BASE_URL}/userpoints/${userId}`, {
+    const response = await fetch(`${BASE_URL}/total/${userId}`, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json',
@@ -71,10 +83,13 @@ static async fetchUserPoints(userId) {
 static async buildLeaderBoard(classroomResponse) {
 try {
     console.log('Building leaderboard for classroom:', classroomResponse.name);
-    console.log('entire classroom response', classroomResponse)
+    const userPoints2 = await this.fetchUserPoints2();
+    console.log('entire classroom response', userPoints2)
+
+
     if (classroomResponse.studentIds.length === 0) {
-    console.log('No students found in classroom');
-    return [];
+        console.log('No students found in classroom');
+        return [];
     }
 
     // Get points for each student
@@ -85,11 +100,11 @@ try {
         console.log("Points for user", userPoints)
         
         return {
-        id: student._id,
-        name: student.name,
-        email: student.email,
-        totalPoints: userPoints?.totalPoints || 0,
-        progressData: userPoints?.progressData || {}
+            id: student._id,
+            name: student.name,
+            email: student.email,
+            totalPoints: userPoints?.totalPoints || 0,
+            progressData: userPoints?.progressData || {}
         };
     } catch (error) {
         console.warn(`Failed to fetch points for student ${student.name}:`, error);
