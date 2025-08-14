@@ -44,12 +44,15 @@ import '../styles/styles.css';
 
 const ActiveUsers = ({ students }) => {
   console.log('ActiveUsers component rendered with students:', students);
-  const activeUsers = students.map(student => ({
-    name: student.name,
-    course: 'N/A',
-    assignment: 'N/A',
-    timeSignedIn: new Date(student.last_logged_on).toLocaleTimeString(),
-  }));
+  const activeUsers = students && students.length > 0 
+    ? students.map(student => {
+      console.log("STUDENT TIME", student.last_logged_on)
+      return {
+        name: student.name,
+        timeSignedIn: new Date(student.last_logged_on).toLocaleTimeString(),
+      };
+    })
+    : [];
 
   return (
     <div className="active-users-container">
@@ -58,30 +61,22 @@ const ActiveUsers = ({ students }) => {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Course</th>
-            <th>Assignment</th>
             <th>Time Signed In</th>
           </tr>
         </thead>
         <tbody>
           {activeUsers.length > 0 ? (
             activeUsers.map((user, index) => {
-              // Get course display name
-              const courseData = getCourseById(user.course);
-              const courseName = courseData?.name || user.course;
-              
               return (
                 <tr key={index}>
                   <td>{user.name}</td>
-                  <td>{courseName}</td>
-                  <td>{user.assignment}</td>
                   <td>{user.timeSignedIn}</td>
                 </tr>
               );
             })
           ) : (
             <tr>
-              <td colSpan="4">No recent activity</td>
+              <td colSpan="4">Pulling Active Users...</td>
             </tr>
           )}
         </tbody>

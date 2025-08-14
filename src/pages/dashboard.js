@@ -13,11 +13,10 @@ import { Line } from 'react-chartjs-2';
 import Plot from 'react-plotly.js';
 import { call_api } from '../components/api';
 import { courseList, getCourseById } from '../utils/courseData';
-import { normalizeClassroom, normalizeAssignment, generateFakeLeaderboard, handleApiError } from '../utils/dataHelpers';
+import { normalizeClassroom, normalizeAssignment, handleApiError } from '../utils/dataHelpers';
 import '../styles/styles.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import ApiService from '../apiService';
-import CourseAnalytics from './courseAnalytics';
 
 const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
 // const API_BASE_URL = 'http://localhost:3000/api';
@@ -34,7 +33,7 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
-  const { classroomId, classroomName, selectedClassroomId } = useParams();
+  const { classroomId, classroomName } = useParams();
   const [selectedStudent, setSelectedStudent] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
   const [students, setStudents] = useState([]);
@@ -54,6 +53,7 @@ const Dashboard = () => {
   const [error, setError] = useState('');
   const [performanceData, setPerformanceData] = useState([]);
   const [predictions, setPredictions] = useState([]);
+  const [activeUsers, setActiveUsers] = useState([]);
 
   const location = useLocation();
 
@@ -62,237 +62,17 @@ const Dashboard = () => {
   const [grades, setGrades] = useState([]);
   const [worksheets, setWorksheets] = useState([])
 
-  const QuizPredictionInline = ({ studentId, API_BASE_URL }) => {
-    const [predictions, setPredictions] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-  
-    const fetchPredictions = async () => {
-      if (!studentId) {
-        setError('No student selected');
-        return;
-      }
-  
-      setLoading(true);
-      setError(null);
-      
-      try {
-        console.log(`🔄 Fetching predictions for student: ${studentId}`);
-        console.log(`🔗 API URL: ${API_BASE_URL}/teachers/quiz-predictions/student/${studentId}`);
-        
-        const response = await fetch(`${API_BASE_URL}/teachers/quiz-predictions/student/${studentId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        
-        console.log(`📡 Response status: ${response.status}`);
-        
-        const data = await response.json();
-        console.log('📊 Response data:', data);
-        
-        if (!response.ok) {
-          throw new Error(data.message || `Server error: ${response.status}`);
-        }
-        
-        // Check if response has success field
-        if (data.success === false) {
-          throw new Error(data.message || 'API returned unsuccessful response');
-        }
-        
-        setPredictions(data);
-        
-      } catch (err) {
-        console.error('❌ Prediction error:', err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    useEffect(() => {
-      if (studentId) {
-        fetchPredictions();
-      } else {
-        setPredictions(null);
-        setError(null);
-      }
-    }, [studentId, API_BASE_URL]);
-  
-    if (!studentId) {
-      return (
-        <div className="predictive-analysis">
-          <h2>Performance Prediction</h2>
-          <p>Please select a student to view predictions.</p>
-        </div>
-      );
-    }
-  
-    if (loading) {
-      return (
-        <div className="predictive-analysis">
-          <h2>Performance Prediction</h2>
-          <div className="loading-placeholder">
-            <p>Loading predictions...</p>
-          </div>
-        </div>
-      );
-    }
-  
-    if (error) {
-      return (
-        <div className="predictive-analysis">
-          <h2>Performance Prediction</h2>
-          <div className="error-message" style={{ 
-            color: 'red', 
-            padding: '20px', 
-            backgroundColor: '#ffebee',
-            borderRadius: '4px',
-            border: '1px solid #e57373'
-          }}>
-            <p><strong>Error:</strong> {error}</p>
-            <button 
-              onClick={fetchPredictions} 
-              style={{ 
-                marginTop: '10px', 
-                padding: '8px 16px',
-                backgroundColor: '#f44336',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
-            >
-              Try Again
-            </button>
-          </div>
-        </div>
-      );
-    }
-  
-    if (!predictions) {
-      return (
-        <div className="predictive-analysis">
-          <h2>Performance Prediction</h2>
-          <p>No prediction data available.</p>
-        </div>
-      );
-    }
-  
-    // Validate predictions data structure
-    if (!predictions.chartData || !Array.isArray(predictions.chartData)) {
-      return (
-        <div className="predictive-analysis">
-          <h2>Performance Prediction</h2>
-          <div className="error-message" style={{ color: 'orange', padding: '20px' }}>
-            <p>Invalid prediction data format received.</p>
-            <details>
-              <summary>Debug Info</summary>
-              <pre>{JSON.stringify(predictions, null, 2)}</pre>
-            </details>
-          </div>
-        </div>
-      );
-    }
-  
-    // Convert predictions data to chart format
-    const chartData = {
-      labels: predictions.chartData.map(item => item.quiz),
-      datasets: [
-        {
-          label: 'Quiz Scores',
-          data: predictions.chartData.map(item => item.score),
-          fill: false,
-          tension: 0.3,
-          segment: {
-            borderColor: (ctx) => {
-              const dataPoint = predictions.chartData[ctx.p0DataIndex];
-              return dataPoint?.type === 'Predicted' 
-                ? 'rgba(255, 99, 132, 1)' 
-                : 'rgba(54, 162, 235, 1)';
-            },
-          },
-          borderWidth: 2,
-          pointBackgroundColor: (ctx) => {
-            const dataPoint = predictions.chartData[ctx.dataIndex];
-            return dataPoint?.type === 'Predicted' ? '#ff6384' : '#36a2eb';
-          }
-        },
-      ],
-    };
-  
-    const chartOptions = {
-      responsive: true,
-      plugins: {
-        title: {
-          display: true,
-          text: `Quiz Predictions for ${predictions.studentName || 'Student'}`,
-        },
-        legend: {
-          display: true,
-        },
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          max: 100,
-          title: {
-            display: true,
-            text: 'Score (%)'
-          }
-        }
-      }
-    };
-  
-    const predictedAverage = predictions.predictions?.average_future_score;
-  
-    return (
-      <div className="predictive-analysis">
-        <h2>Performance Prediction</h2>
-        
-        {/* Warning for at-risk students */}
-        {predictions.predictions?.warning && (
-          <div style={{ 
-            backgroundColor: '#fff3cd', 
-            border: '1px solid #ffeaa7', 
-            color: '#856404', 
-            padding: '10px', 
-            marginBottom: '15px',
-            borderRadius: '4px'
-          }}>
-            ⚠️ Student may need additional support (predicted average: {predictedAverage?.toFixed(1)}%)
-          </div>
-        )}
-        
-        {/* Chart */}
-        <Line data={chartData} options={chartOptions} />
-        
-        {/* Summary stats */}
-        <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '20px' }}>
-          <div style={{ textAlign: 'center', padding: '10px', backgroundColor: '#e3f2fd', borderRadius: '4px' }}>
-            <strong>Predicted Average</strong>
-            <div style={{ fontSize: '1.5em', color: '#1976d2' }}>
-              {predictedAverage ? predictedAverage.toFixed(1) : 'N/A'}%
-            </div>
-          </div>
-          <div style={{ textAlign: 'center', padding: '10px', backgroundColor: '#f3e5f5', borderRadius: '4px' }}>
-            <strong>Completed Quizzes</strong>
-            <div style={{ fontSize: '1.5em', color: '#7b1fa2' }}>
-              {predictions.completedQuizzes || 0}
-            </div>
-          </div>
-          <div style={{ textAlign: 'center', padding: '10px', backgroundColor: '#e8f5e8', borderRadius: '4px' }}>
-            <strong>Remaining Quizzes</strong>
-            <div style={{ fontSize: '1.5em', color: '#388e3c' }}>
-              {predictions.predictions?.predicted_scores?.length || 0}
-            </div>
-          </div>
-        </div>
-        <h5>Note: These percentages are based on points received.</h5>
-      </div>
-    );
-  };
+  // const [chartData, setChartData] = useState({
+  //   labels: [],
+  //   datasets: [
+  //     {
+  //       label: "Predicted Scores",
+  //       data: [],
+  //       fill: false,
+  //       borderColor: "rgba(75,192,192,1)",
+  //     },
+  //   ],
+  // });
 
   // getting scores for a student for a specific course - not specific to a lesson
   const fetchStudentAnalyticsScores = async (studentId) => {
@@ -409,8 +189,76 @@ useEffect(() => {
   const closePopup = () => {
     setSelectedAssignment(null);
   };
-  useEffect(() => {
-    const fetchStudents = async () => {
+  
+//   useEffect(() => {
+//     const fetchStudents = async () => {
+//       try {
+//         const data = await ApiService.fetchStudentsInClassroom(classroomId);
+//         setStudents(data["students"]);
+  
+//         // Add fake last_logged_on data for each student entry
+//         const studentsWithFakeData = Array.isArray(data["students"]) ? data["students"].map(student => ({
+//           ...student,
+//           last_logged_on: new Date(Date.now() - Math.random() * 10000000000).toISOString() 
+//         })) : [];
+//         setLeaderboard(studentsWithFakeData);  // Set the updated data to leaderboard state
+//       } catch (error) {
+//         console.error('Error fetching students:', error);
+//       }
+//     };
+//     fetchStudents(); // ✅ Call the function
+// }, [classroomId]); // ✅
+
+//   useEffect(() => {
+//     const fetchStudentsInClassroom = async () => {
+//       try {
+//         console.log(`🔍 Fetching students for classroom: ${classroomId}`);
+//         const response = await fetch(`${API_BASE_URL}/physical-classrooms/${classroomId}/students`, {
+//           method: 'GET',
+//           headers: {
+//             'Content-Type': 'application/json'
+//           }
+//         });
+  
+//         const data = await response.json();
+//         console.log('👥 Students API Response:', data);
+//         console.log('👥 Data type:', typeof data);
+//         console.log('👥 Is array:', Array.isArray(data));
+  
+//         if (response.ok && data) {
+//           const studentsArray = Array.isArray(data) ? data : (data.students || data.data || []);
+//           console.log('👥 Students array:', studentsArray);
+          
+//           if (!Array.isArray(studentsArray)) {
+//             console.error('❌ Expected array but got:', typeof studentsArray);
+//             return;
+//           }
+  
+//           const studentsForComponent = studentsArray.map(user => ({
+//             student_id: user._id || user.id || user.userId,
+//             student_name: user.name || user.username || `${user.firstName} ${user.lastName}`,
+//             cummulative_score: user.cummulative_score || 0,
+//             last_logged_on: user.last_logged_on || user.lastLogin || new Date().toISOString()
+//           }));
+  
+//           setStudents(studentsForComponent);
+//           setLeaderboard(studentsForComponent);
+//           console.log('✅ Students loaded:', studentsForComponent.length);
+//         } else {
+//           console.error('❌ Failed to fetch students:', data);
+//         }
+//       } catch (error) {
+//         console.error('❌ Error fetching students:', error);
+//       }
+//     };
+  
+//     if (classroomId) {
+//       fetchStudentsInClassroom();
+//     }
+//   }, [classroomId]);
+
+useEffect(() => {
+  const fetchStudents = async () => {
     if (!classroomId) return;
     
     try {
@@ -447,10 +295,10 @@ useEffect(() => {
       console.error('❌ Error fetching students:', error);
       setStudents([]);
       setLeaderboard([]);
-      }
-    };
-  
-    fetchStudents();
+    }
+  };
+
+  fetchStudents();
 }, [classroomId]);
 
     const fetchGrades = async () => {
@@ -487,11 +335,40 @@ useEffect(() => {
         ...originalScores.map((_, i) => `Quiz ${i + 1}`),
         ...data.predicted_scores.map((_, i) => `Prediction ${i + 1}`),
       ];
+
+      // setChartData({
+      //   labels: fullData.map((_, i) =>
+      //     i < originalScores.length ? `Quiz ${i + 1}` : `Prediction ${i - originalScores.length + 1}`
+      //   ),
+      //   datasets: [
+      //     {
+      //       label: "Score",
+      //       data: fullData,
+      //       fill: false,
+      //       tension: 0.3,
+      //       segment: {
+      //         borderColor: (ctx) => {
+      //           const index = ctx.p0DataIndex;
+      //           const nextIndex = ctx.p1DataIndex;
+      
+      //           // Color original scores in blue, predicted in red
+      //           if (index < originalScores.length - 1 && nextIndex < originalScores.length) {
+      //             return "rgba(54, 162, 235, 1)"; // blue
+      //           } else {
+      //             return "rgba(255, 99, 132, 1)"; // red
+      //           }
+      //         },
+      //       },
+      //       borderWidth: 2,
+      //     },
+      //   ],
+      // });
     } catch (error) {
       console.error("Error fetching predicted performance:", error);
     }
   };
-  
+
+
   // FIXED: Fetch real data from APIs
   useEffect(() => {
     if (classroomId) {
@@ -504,16 +381,22 @@ useEffect(() => {
       setLoading(true);
       console.log('Fetching data for classroom:', classroomId);
 
+      // Fetch classroom details
+      // const classroomResponse = await call_api(
+      //   null,
+      //   `physical-classrooms/${classroomId}`,
+      //   'GET'
+      // );
       const classroomResponse = await ApiService.fetchClassroomById(classroomId);
       
       console.log('Classroom response:', classroomResponse);
       const normalizedClassroom = normalizeClassroom(classroomResponse);
       setClassroom(normalizedClassroom);
       setStudents(normalizedClassroom.students || []);
-
-      // Generate fake leaderboard from students (until real user points are integrated)
-      const fakeLeaderboard = generateFakeLeaderboard(normalizedClassroom.students || []);
-      setLeaderboard(fakeLeaderboard);
+      console.log("normalized classroom", normalizedClassroom)
+      // Real leaderboard
+      const leaderboard = await ApiService.buildLeaderBoard(classroomResponse)
+      setLeaderboard(leaderboard);
 
       // Fetch assignments for this classroom
       try {
@@ -557,17 +440,18 @@ useEffect(() => {
     }
   }, [selectedStudent]);
 
+
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
   // Generate assignment progress for display
   const generateAssignmentProgress = () => {
     return [
-    { name: 'Lesson 1', progress: 85 },
-    { name: 'Lesson 2', progress: 60 },
-    { name: 'Lesson 3', progress: 95 },
-    { name: 'Lesson 4', progress: 50 },
-  ];
+      { name: 'Lesson 1', progress: 85 },
+      { name: 'Lesson 2', progress: 60 },
+      { name: 'Lesson 3', progress: 95 },
+      { name: 'Lesson 4', progress: 50 },
+    ];
   };
 
   const assignmentProgress = generateAssignmentProgress();
@@ -646,6 +530,34 @@ useEffect(() => {
     showlegend: false,
   };
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (!selectedStudent) {
+  //       setAnalyticsScores(null);
+  //       setAnalyticsLoading(false);
+  //       return;
+  //     }
+
+  //     setAnalyticsLoading(true);
+  
+
+  //   try {
+  //     if (selectedCourse) {
+  //       // When both student and course are selected, use the course-specific endpoint
+  //       await fetchStudentAnalyticsScores(selectedStudent);
+  //     } else {
+  //       // When only student is selected, use the overall scores endpoint
+  //       await fetchStudentOverallScores(selectedStudent);
+  //     }
+  //   } finally {
+  //     // Set loading to false when done (whether success or error)
+  //     setAnalyticsLoading(false);
+  //   }
+  // };
+  
+  //   fetchData();
+  // }, [selectedStudent, selectedCourse]);
+
   useEffect(() => {
     const fetchData = async () => {
       // No student = no fetch
@@ -673,20 +585,20 @@ useEffect(() => {
   }, [selectedStudent, selectedCourse]);
   
 
-    const generateFakeData = () => {
-      const fakeData = [];
-      let currentDate = new Date();
-  
-      for (let i = 0; i < 10; i++) {
-        fakeData.push({
+  const generateFakeData = () => {
+    const fakeData = [];
+    let currentDate = new Date();
+
+    for (let i = 0; i < 10; i++) {
+      fakeData.push({
         date: currentDate.toISOString().split('T')[0],
         points: Math.floor(Math.random() * 20) + 1
-        });
+      });
       currentDate.setDate(currentDate.getDate() - 1);
-      }
-  
+    }
+
     return fakeData.reverse();
-    };
+  };
 
   
     const generateSimplePrediction = (performanceData) => {
@@ -893,10 +805,10 @@ console.log("Week-over-week trends:", calculateTrends());
             </Link>
           </li>
           <li>
-          <Link to={`/messages`}>
-            <FaEnvelope className={`sidebar-icon ${location.pathname === '/messages' ? 'active' : ''}`} />
-          </Link>
-        </li>
+            <Link to={`/messages`}>
+              <FaEnvelope className={`sidebar-icon ${location.pathname === '/messages' ? 'active' : ''}`} />
+            </Link>
+          </li>
           <li>
             <Link to="/notifications">
               <FaBell className={`sidebar-icon ${location.pathname === '/notifications' ? 'active' : ''}`} />
@@ -957,29 +869,29 @@ console.log("Week-over-week trends:", calculateTrends());
             <ActiveUsers students={students} />
           </div>
 
-          {/* Leaderboard Section */}
+         
           <div className="leaderboard">
             <h2>Top 5 Leaderboard</h2>
             <table className="leaderboard-table">
               <thead>
                 <tr>
+                  <th>Rank</th> 
                   <th>Student Name</th>
-                  <th>Last Logged On</th>
-                  <th>Points</th>
+                  <th>Points</th> 
                 </tr>
               </thead>
               <tbody>
-                {topStudents.length > 0 ? (
-                  topStudents.map((entry) => (
+                {leaderboard.length > 0 ? (
+                  leaderboard.slice(0, 5).map((entry) => (
                     <tr key={entry.id}>
-                      <td>{entry.name}</td>
-                      <td>{new Date(entry.last_logged_on).toLocaleDateString()}</td>
-                      <td>{entry.cummulative_score}</td>
+                      <td>{entry.rank}</td>
+                      <td>{entry.name}</td> 
+                      <td>{entry.totalPoints}</td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="4">No leaderboard data available</td>
+                    <td colSpan="3">Pulling Leaderboard Data...</td> 
                   </tr>
                 )}
               </tbody>
@@ -989,18 +901,60 @@ console.log("Week-over-week trends:", calculateTrends());
         {/* Engagement Heatmap */}
         </>
         )}
+{/* 
+        {!selectedStudent && selectedCourse && (
+          <>
+            <div className="tables-container">
+              <div className="active-users">
+                <ActiveUsers assignments={assignments} students={students} />
+              </div>
+
+              <div className="leaderboard">
+                <h2>Top 5 Leaderboard</h2>
+                <table className="leaderboard-table">
+                  <thead>
+                    <tr>
+                      <th>Student ID</th>
+                      <th>Student Name</th>
+                      <th>Last Logged On</th>
+                      <th>Points</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {topStudents.length > 0 ? (
+                      topStudents.map((entry) => (
+                        <tr key={entry.student_id}>
+                          <td>{entry.student_id}</td>
+                          <td>{entry.student_name}</td>
+                          <td>{new Date(entry.last_logged_on).toLocaleDateString()}</td>
+                          <td>{entry.cummulative_score}</td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="4">No leaderboard data available</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            <div className="heatmap-container">
+              <PlotlyHeatmap />
+            </div>
+          </>
+        )} */}
 
 
-        {(selectedStudent && !selectedCourse) && (
-          <div className="student-specific-section">
-            {/* <Line data={chartData} options={chartOptions}/> */}
-            <div className="predictive-analysis">
-            <QuizPredictionInline 
-              studentId={selectedStudent}
-              API_BASE_URL={API_BASE_URL}
-            />
-    </div>
-          <strong><h4>NLP Analysis Across Courses</h4></strong>
+      {(selectedStudent && !selectedCourse) && (
+        <div className="student-specific-section">
+          {/* Predictive Analysis Section */}
+          <div className="predictive-analysis">
+            <h2>Performance Prediction</h2>
+            <Line data={chartData} options={chartOptions}/>
+          </div>
+          <h2>Temporary NLP Analytics this should be overall across all courses</h2>
           <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
 
           {analyticsScores ? (
@@ -1014,9 +968,9 @@ console.log("Week-over-week trends:", calculateTrends());
           ) : (
             <p>Loading metrics...</p>
           )}
-          </div>
-        )}
-        
+        </div>
+      )}
+
         {/* Course-specific data */}
         {!selectedStudent && selectedCourse && (
           <div className="tables-wrapper">
@@ -1027,7 +981,6 @@ console.log("Week-over-week trends:", calculateTrends());
                   assignments={assignments.filter(a => a.course === selectedCourse)}
                   course={getCourseById(selectedCourse)}
                   students={students}
-                  classroomId={classroomId}
                 />
               </div>
 
@@ -1040,28 +993,42 @@ console.log("Week-over-week trends:", calculateTrends());
 
                 {/* Worksheet statistics placeholder */}
                 <div className="worksheet-statistics-container">
-                  {/* <h3>Assignment Statistics</h3> */}
-                  {/* <p>Assignments for {getCourseById(selectedCourse)?.name}: {assignments.filter(a => a.course === selectedCourse).length}</p> */}
-                  <CourseAnalytics course={getCourseById(selectedCourse)} classroomId={classroomId}/>
+                  <h3>Assignment Statistics</h3>
+                  <p>Assignments for {getCourseById(selectedCourse)?.name}: {assignments.filter(a => a.course === selectedCourse).length}</p>
                 </div>
               </div>
             </div>
+
+            {/* Grades table containing all grades for a course */}
+            
+            {/* Course assignments table */}
+            <div className="extra-table-container">
+              <CourseGrades
+                assignments={assignments.filter(a => a.course === selectedCourse)}
+                course={getCourseById(selectedCourse)}
+                students={students}
+              />
+            </div>
           </div>
         )}
+        
 
         {/* Display assignments with progress bars */}
         {(selectedCourse && selectedStudent) && (
           <div>
-            <Popup 
-              isOpen={true} 
-              onClose={() => {}} 
-              student={selectedStudent} 
-              course={selectedCourse} 
-            />
-
-            <br></br>
+            <div className="assignments-container">
+              {assignmentProgress.map((assignment, index) => (
+                <div key={index} className="assignment-box" onClick={() => openPopup(assignment)}> 
+                  <div className="assignment-header">
+                    <h3>{assignment.name}</h3>
+                  </div>
+                  {renderProgressBar(assignment.progress)}
+                </div>
+              ))}
+            </div>
+            
             <div className="skill-development">
-                <h2>Average NLP Scores for {selectedCourse}</h2>
+                <h2>NLP specific for the course</h2>
                 <h3>{selectedStudent ? `Metrics for Student: ${selectedStudent}` : "Select a Student"}</h3>
                 {analyticsScores ? (
                   <div className="metrics-container">
@@ -1077,7 +1044,7 @@ console.log("Week-over-week trends:", calculateTrends());
             </div>
           </div>
         )}
-
+        
         <button
           className="floating-button"
           onClick={openModal}
@@ -1085,7 +1052,7 @@ console.log("Week-over-week trends:", calculateTrends());
           +
         </button>
         {isModalOpen && <PostModal onClose={closeModal} />}
-        {/* <Popup isOpen={!!selectedAssignment} onClose={closePopup} student={selectedStudent} course={selectedCourse} /> */}
+        <Popup isOpen={!!selectedAssignment} onClose={closePopup} student={selectedStudent} course={selectedCourse} />
       </div>
     </div>
   );

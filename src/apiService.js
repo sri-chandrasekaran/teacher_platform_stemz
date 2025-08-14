@@ -1,8 +1,9 @@
+import { getStudentResponses } from "./services/progressService";
 const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
 // const BASE_URL = 'http://localhost:3000/api'; // Default to local API for development
 
+
 class ApiService {
-    
     // User-related API calls
     // Fetch all users
     static async fetchUsers() {
@@ -36,6 +37,119 @@ class ApiService {
 
         return response.json();
     }
+
+static async fetchUserPoints2() {
+    const response = await fetch(`${BASE_URL}/points/`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    }
+    });
+    return response.json();
+}
+
+    //fetch the points for all users
+static async fetchUserPoints(userId) {
+
+    console.log("USER ID", userId)
+    const response = await fetch(`${BASE_URL}/points/total/${userId}`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    }
+    });
+    console.log('USER RESPONSE', response)
+
+    if (!response.ok) {
+    
+    if (response.status === 404) {
+        console.log("REACHED HERE")
+        return {
+        userId: userId,
+        totalPoints: 0,
+        progressData: {
+            totalPoints: 0,
+            courses: {}
+        }
+        };
+        
+    }
+    throw new Error('Failed to fetch user points');
+    }
+
+    return response.json();
+}
+
+        
+static async buildLeaderBoard(classroomResponse) {
+try {
+    console.log('Building leaderboard for classroom:', classroomResponse.name);
+    const userPoints2 = await this.fetchUserPoints2();
+    console.log('entire classroom response', userPoints2)
+
+
+    if (classroomResponse.studentIds.length === 0) {
+        console.log('No students found in classroom');
+        return [];
+    }
+
+    // Get points for each student
+    const leaderboardPromises = classroomResponse.studentIds.map(async (student) => {
+    try {
+        // Fetch user points for this student
+        const userPoints = await this.fetchUserPoints(student._id);
+        console.log("Points for user", userPoints)
+        
+        return {
+            id: student._id,
+            name: student.name,
+            email: student.email,
+            totalPoints: userPoints?.totalPoints || 0,
+            progressData: userPoints?.progressData || {}
+        };
+    } catch (error) {
+        console.warn(`Failed to fetch points for student ${student.name}:`, error);
+        // Return student with 0 points if fetching fails
+        return {
+        id: student._id,
+        name: student.name,
+        email: student.email,
+        totalPoints: 0,
+        progressData: {}
+        };
+    }
+    });
+
+    const studentsWithPoints = await Promise.all(leaderboardPromises);
+
+    // Check if all students have 0 points
+    const allPointsAreZero = studentsWithPoints.every(student => student.totalPoints === 0);
+
+    var currentRank = 0;
+    var lastPointTotal =  null;
+    // Sort by total points (highest first) and add rankings
+    const rankedLeaderboard = studentsWithPoints
+    .sort((a, b) => b.totalPoints - a.totalPoints)
+    .map((student, index) => {
+        if (lastPointTotal !== student.totalPoints) {
+            currentRank = index + 1;
+            lastPointTotal = student.totalPoints;
+        }
+        return {
+            ...student,
+            rank: allPointsAreZero ? "-" : currentRank,
+            isTop3: allPointsAreZero ? false : currentRank < 3,
+        }
+    });
+
+    console.log('Leaderboard created successfully:', rankedLeaderboard);
+    return rankedLeaderboard;
+
+} catch (error) {
+    console.error('Error building simple leaderboard:', error);
+    throw new Error('Failed to build leaderboard');
+}
+}
 
     // Fetch a course by ID
     static async fetchCourseById(courseId) {
@@ -266,6 +380,16 @@ class ApiService {
         return response.json();
     }
 
+// Optional: Helper function to get worksheet data for a classroom (if needed for activity tracking)
+static async fetchWorksheetActivity(classroomId) {
+    try {
+        const worksheets = await this.fetchWorksheets(classroomId);
+        return worksheets.filter(worksheet => worksheet.updatedAt);
+    } catch (error) {
+        console.warn('Failed to fetch worksheet activity:', error);
+        return [];
+    }
+}
     // Fetch worksheets for a classroom
     static async fetchWorksheets(classroomId) {
         const response = await fetch(`${BASE_URL}/worksheets/classroom/${classroomId}`, {
@@ -282,6 +406,7 @@ class ApiService {
         return response.json();
     }
 
+
     // Send email notification
     static async sendEmailNotification(recipient, subject, message) {
         const response = await fetch(`${BASE_URL}/notifications/email`, {
@@ -294,28 +419,6 @@ class ApiService {
 
         if (!response.ok) {
         throw new Error('Failed to send email notification');
-        }
-
-        return response.json();
-    }
-
-    static async sendEmailInvite(userId, recipientEmail, classroomId, classroomName) {
-        console.log('Sending email invite for user:', userId, 'to:', recipientEmail, 'for classroom:', classroomId);
-        if (!userId || !recipientEmail || !classroomId || !classroomName) {
-            throw new Error('User ID, recipient email, classroom ID, and classroom name are required to send an invite');
-        }
-
-        const inviteUrl = `${BASE_URL}/classroom/${classroomId}/add-student`;
-        const response = await fetch(`${BASE_URL}/notifications/email/invite`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ userId, recipientEmail, classroomName, inviteUrl }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to send email invite');
         }
 
         return response.json();
