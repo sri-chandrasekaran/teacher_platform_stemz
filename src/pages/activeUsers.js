@@ -44,10 +44,15 @@ import '../styles/styles.css';
 
 const ActiveUsers = ({ students }) => {
   console.log('ActiveUsers component rendered with students:', students);
-  const activeUsers = students.map(student => ({
-    name: student.name,
-    timeSignedIn: new Date(student.last_logged_on).toLocaleTimeString(),
-  }));
+  const activeUsers = students && students.length > 0 
+    ? students.map(student => {
+      console.log("STUDENT TIME", student.minutesSinceLastActivity)
+      return {
+        name: student.name,
+        timeSignedIn: new Date(student.minutesSinceLastActivity).toLocaleTimeString(),
+      };
+    })
+    : [];
 
   return (
     <div className="active-users-container">
@@ -65,7 +70,7 @@ const ActiveUsers = ({ students }) => {
               return (
                 <tr key={index}>
                   <td>{user.name}</td>
-                  <td>{user.timeSignedIn}</td>
+                  <td>{user.minutesSinceLastActivity}</td>
                 </tr>
               );
             })

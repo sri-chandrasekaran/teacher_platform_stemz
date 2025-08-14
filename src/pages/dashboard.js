@@ -399,7 +399,8 @@ useEffect(() => {
       setLeaderboard(leaderboard);
 
       // Active Users 
-      const activeUsers = await ApiService.buildActiveUsers(normalizedClassroom)
+      const activeUsers = await ApiService.buildActiveUsers(classroomResponse)
+      console.log("ACTIVE USERS", activeUsers)
       setActiveUsers(activeUsers)
 
       // Fetch assignments for this classroom
@@ -870,7 +871,7 @@ console.log("Week-over-week trends:", calculateTrends());
         <div className="tables-container">
           {/* Active Users Section */}
           <div className="active-users">
-            <ActiveUsers students={students} />
+            <ActiveUsers students={activeUsers} />
           </div>
 
          

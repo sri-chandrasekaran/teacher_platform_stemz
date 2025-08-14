@@ -371,6 +371,149 @@ try {
         return response.json();
     }
 
+    static async buildActiveUsers(classroomResponse) {
+        
+    try {
+        console.log('Building active users dashboard for classroom:', classroomResponse.name);
+
+        if (classroomResponse.studentIds.length === 0) {
+            console.log('No students found in classroom');
+            return [];
+        }
+
+        // Fetch worksheets once for the entire classroom
+        const classroomWorksheets = await this.fetchWorksheetActivity(classroomResponse._id);
+        console.log("worksheet activity", classroomWorksheets)
+
+        // Get activity data for each student
+        const activeUsersPromises = classroomResponse.studentIds.map(async (student) => {
+            try {
+                // Fetch student responses and user points for this student
+                const [studentResponses, userPoints] = await Promise.all([
+                    this.fetchStudentResponses(student._id),
+                    this.fetchUserPoints(student._id)
+                ]);
+
+                // Collect all timestamps from the three sources
+                const timestamps = [];
+
+                // Add timestamps from student responses (filter by studentId)
+                if (studentResponses && Array.isArray(studentResponses)) {
+                    const studentSpecificResponses = studentResponses.filter(response => 
+                        response.studentId === student._id
+                    );
+                    studentSpecificResponses.forEach(response => {
+                        if (response.updatedAt) {
+                            timestamps.push(new Date(response.updatedAt));
+                        }
+                    });
+                }
+
+                // Add timestamps from worksheets (filter by student email)
+                if (classroomWorksheets && Array.isArray(classroomWorksheets)) {
+                    const studentWorksheets = classroomWorksheets.filter(worksheet => 
+                        worksheet.userEmail === student.email
+                    );
+                    studentWorksheets.forEach(worksheet => {
+                        if (worksheet.updatedAt) {
+                            timestamps.push(new Date(worksheet.updatedAt));
+                        }
+                    });
+                }
+
+                // Add timestamp from user points (this is already student-specific)
+                if (userPoints && userPoints.updatedAt) {
+                    timestamps.push(new Date(userPoints.updatedAt));
+                }
+
+                // Find the most recent timestamp
+                let lastActivityTime = null;
+                if (timestamps.length > 0) {
+                    lastActivityTime = new Date(Math.max(...timestamps));
+                }
+
+                // Calculate activity status
+                const currentTime = new Date();
+                let activityStatus = 'Never Active';
+                let minutesAgo = 0;
+                let isActive = false;
+
+                if (lastActivityTime) {
+                    minutesAgo = Math.floor((currentTime - lastActivityTime) / (1000 * 60));
+                    
+                    if (minutesAgo <= 10) {
+                        activityStatus = 'Active';
+                        isActive = true;
+                    } else {
+                        activityStatus = `Last Active ${minutesAgo} minutes ago`;
+                    }
+                }
+
+                return {
+                    id: student._id,
+                    name: student.name,
+                    email: student.email,
+                    lastActivityTime: lastActivityTime ? lastActivityTime.toISOString() : null,
+                    activityStatus: activityStatus,
+                    isActive: isActive,
+                    minutesSinceLastActivity: lastActivityTime ? minutesAgo : null
+                };
+
+            } catch (error) {
+                console.warn(`Failed to fetch activity data for student ${student.name}:`, error);
+                // Return student with no activity if fetching fails
+                return {
+                    id: student._id,
+                    name: student.name,
+                    email: student.email,
+                    lastActivityTime: null,
+                    activityStatus: 'Data Unavailable',
+                    isActive: false,
+                    minutesSinceLastActivity: null
+                };
+            }
+        });
+
+        const activeUsersData = await Promise.all(activeUsersPromises);
+
+        // Sort by activity status (active users first, then by most recent activity)
+        const sortedActiveUsers = activeUsersData.sort((a, b) => {
+            // Active users first
+            if (a.isActive && !b.isActive) return -1;
+            if (!a.isActive && b.isActive) return 1;
+            
+            // If both are active or both inactive, sort by most recent activity
+            if (a.lastActivityTime && b.lastActivityTime) {
+                return new Date(b.lastActivityTime) - new Date(a.lastActivityTime);
+            }
+            
+            // Put users with activity data before those without
+            if (a.lastActivityTime && !b.lastActivityTime) return -1;
+            if (!a.lastActivityTime && b.lastActivityTime) return 1;
+            
+            // If neither has activity data, sort alphabetically
+            return a.name.localeCompare(b.name);
+        });
+
+        console.log('Active users dashboard created successfully:', sortedActiveUsers);
+        return sortedActiveUsers;
+
+    } catch (error) {
+        console.error('Error building active users dashboard:', error);
+        throw new Error('Failed to build active users dashboard');
+    }
+}
+
+// Optional: Helper function to get worksheet data for a classroom (if needed for activity tracking)
+static async fetchWorksheetActivity(classroomId) {
+    try {
+        const worksheets = await this.fetchWorksheets(classroomId);
+        return worksheets.filter(worksheet => worksheet.updatedAt);
+    } catch (error) {
+        console.warn('Failed to fetch worksheet activity:', error);
+        return [];
+    }
+}
     // Fetch worksheets for a classroom
     static async fetchWorksheets(classroomId) {
         const response = await fetch(`${BASE_URL}/worksheets/classroom/${classroomId}`, {
@@ -386,6 +529,22 @@ try {
 
         return response.json();
     }
+
+    static async fetchStudentResponses(studentId) {
+        const response = await fetch(`${BASE_URL}/studentresponses/${studentId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch student responses');
+        }
+
+        return response.json();
+    }
+
 
     // Send email notification
     static async sendEmailNotification(recipient, subject, message) {
