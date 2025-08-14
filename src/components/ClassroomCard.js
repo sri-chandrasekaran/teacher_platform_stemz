@@ -35,12 +35,12 @@ const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite }) => {
       >
         &#10005;
       </button>
-      <button
+      {/* <button
         className="invite-students-button"
         onClick={handleInvite}
       >
         📧
-      </button>
+      </button> */}
       <h3>{classroom.name}</h3>
       <p>{classroom.description}</p>
       
