@@ -281,6 +281,174 @@ class ApiService {
 
         return response.json();
     }
+    
+static async getStudentActivity(studentId) {
+    if (!studentId) {
+        console.warn('No studentId provided');
+        return null;
+    }
+    
+    try {
+        const response = await fetch(`${BASE_URL}/studentresponses/student/${studentId}`);
+        if (response.ok) {
+            const data = await response.json();
+            return data?.updatedAt || null;
+        }
+        return null;
+    } catch (error) {
+        console.warn(`Failed to get activity for student ${studentId}`);
+        return null;
+    }
+}
+
+static async buildActiveUsers(students) {
+    const results = await Promise.all(
+        students.map(async (student) => {
+            // Use both _id and id field names
+            const studentId = student._id || student.id;
+            const lastActivity = await this.getStudentActivity(studentId);
+            
+            let activityStatus = 'Never Active';
+            let isActive = false;
+            
+            if (lastActivity) {
+                const minutesAgo = Math.floor((new Date() - new Date(lastActivity)) / (1000 * 60));
+                
+                // Green if active within 24 hours (1440 minutes)
+                if (minutesAgo <= 1440) {
+                    isActive = true;
+                    if (minutesAgo < 60) {
+                        activityStatus = `${minutesAgo}m ago`;
+                    } else {
+                        activityStatus = `${Math.floor(minutesAgo / 60)}h ago`;
+                    }
+                } else {
+                    activityStatus = `${Math.floor(minutesAgo / 1440)}d ago`;
+                }
+            }
+            
+            return {
+                name: student.name,
+                activityStatus,
+                isActive
+            };
+        })
+    );
+    
+    return results.sort((a, b) => b.isActive - a.isActive);
+}
+
+// fetch user points
+static async fetchUserPoints2() {
+    const response = await fetch(`${BASE_URL}/points/`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    }
+    });
+    return response.json();
+}
+
+static async fetchUserPoints(userId) {
+
+    console.log("USER ID", userId)
+    const response = await fetch(`${BASE_URL}/points/total/${userId}`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    }
+    });
+    console.log('USER RESPONSE', response)
+
+    if (!response.ok) {
+    
+    if (response.status === 404) {
+        console.log("REACHED HERE")
+        return {
+        userId: userId,
+        totalPoints: 0,
+        progressData: {
+            totalPoints: 0,
+            courses: {}
+        }
+        };
+        
+    }
+    throw new Error('Failed to fetch user points');
+    }
+
+    return response.json();
+}
+
+static async buildLeaderBoard(classroomResponse) {
+    try {
+        console.log('Building leaderboard for classroom:', classroomResponse.name);
+        const userPoints2 = await this.fetchUserPoints2();
+        console.log('entire classroom response', userPoints2)
+    
+    
+        if (classroomResponse.studentIds.length === 0) {
+            console.log('No students found in classroom');
+            return [];
+        }
+    
+        // Get points for each student
+        const leaderboardPromises = classroomResponse.studentIds.map(async (student) => {
+        try {
+            // Fetch user points for this student
+            const userPoints = await this.fetchUserPoints(student._id);
+            console.log("Points for user", userPoints)
+            
+            return {
+                id: student._id,
+                name: student.name,
+                email: student.email,
+                totalPoints: userPoints?.totalPoints || 0,
+                progressData: userPoints?.progressData || {}
+            };
+        } catch (error) {
+            console.warn(`Failed to fetch points for student ${student.name}:`, error);
+            // Return student with 0 points if fetching fails
+            return {
+            id: student._id,
+            name: student.name,
+            email: student.email,
+            totalPoints: 0,
+            progressData: {}
+            };
+        }
+        });
+    
+        const studentsWithPoints = await Promise.all(leaderboardPromises);
+    
+        // Check if all students have 0 points
+        const allPointsAreZero = studentsWithPoints.every(student => student.totalPoints === 0);
+    
+        var currentRank = 0;
+        var lastPointTotal =  null;
+        // Sort by total points (highest first) and add rankings
+        const rankedLeaderboard = studentsWithPoints
+        .sort((a, b) => b.totalPoints - a.totalPoints)
+        .map((student, index) => {
+            if (lastPointTotal !== student.totalPoints) {
+                currentRank = index + 1;
+                lastPointTotal = student.totalPoints;
+            }
+            return {
+                ...student,
+                rank: allPointsAreZero ? "-" : currentRank,
+                isTop3: allPointsAreZero ? false : currentRank < 3,
+            }
+        });
+    
+        console.log('Leaderboard created successfully:', rankedLeaderboard);
+        return rankedLeaderboard;
+    
+    } catch (error) {
+        console.error('Error building simple leaderboard:', error);
+        throw new Error('Failed to build leaderboard');
+    }
+    }
 
     // Send email notification
     static async sendEmailNotification(recipient, subject, message) {

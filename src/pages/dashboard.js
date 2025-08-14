@@ -512,8 +512,8 @@ useEffect(() => {
       setStudents(normalizedClassroom.students || []);
 
       // Generate fake leaderboard from students (until real user points are integrated)
-      const fakeLeaderboard = generateFakeLeaderboard(normalizedClassroom.students || []);
-      setLeaderboard(fakeLeaderboard);
+      const leaderboard = await ApiService.buildLeaderBoard(classroomResponse)
+      setLeaderboard(leaderboard);
 
       // Fetch assignments for this classroom
       try {
@@ -963,23 +963,23 @@ console.log("Week-over-week trends:", calculateTrends());
             <table className="leaderboard-table">
               <thead>
                 <tr>
+                  <th>Rank</th> 
                   <th>Student Name</th>
-                  <th>Last Logged On</th>
-                  <th>Points</th>
+                  <th>Points</th> 
                 </tr>
               </thead>
               <tbody>
-                {topStudents.length > 0 ? (
-                  topStudents.map((entry) => (
+                {leaderboard.length > 0 ? (
+                  leaderboard.slice(0, 5).map((entry) => (
                     <tr key={entry.id}>
-                      <td>{entry.name}</td>
-                      <td>{new Date(entry.last_logged_on).toLocaleDateString()}</td>
-                      <td>{entry.cummulative_score}</td>
+                      <td>{entry.rank}</td>
+                      <td>{entry.name}</td> 
+                      <td>{entry.totalPoints}</td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="4">No leaderboard data available</td>
+                    <td colSpan="3">Pulling Leaderboard Data...</td> 
                   </tr>
                 )}
               </tbody>
