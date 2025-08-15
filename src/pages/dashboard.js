@@ -951,14 +951,14 @@ console.log("Week-over-week trends:", calculateTrends());
 
         {(!selectedStudent && !selectedCourse) && (
           <>
-        <div className="tables-container">
+        <div className="tables-container" style={{ display: 'flex', flexDirection: 'row', gap: '20px', alignItems: 'flex-start' }}>
           {/* Active Users Section */}
-          <div className="active-users">
+          <div className="active-users" style={{ flex: '1', minWidth: '300px' }}>
             <ActiveUsers students={students} />
           </div>
 
           {/* Leaderboard Section */}
-          <div className="leaderboard">
+          <div className="leaderboard" style={{ flex: '1', minWidth: '300px' }}>
             <h2>Top 5 Leaderboard</h2>
             <table className="leaderboard-table">
               <thead>
