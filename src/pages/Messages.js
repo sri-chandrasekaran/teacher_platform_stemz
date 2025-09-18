@@ -5,6 +5,7 @@ import { call_api } from '../components/api';
 import { normalizeClassroom, handleApiError } from '../utils/dataHelpers';
 import '../styles/styles.css';
 import ApiService from '../apiService';
+import Sidebar from '../components/Sidebar';
 
 const MessagingPage = () => {
   const { classroomId } = useParams();
@@ -198,16 +199,7 @@ const MessagingPage = () => {
   return (
     <div className="messaging-page">
       {/* Sidebar */}
-      <div className="sidebar">
-        <ul className="sidebar-links">
-          <li><Link to="/"><FaHome className="sidebar-icon" /></Link></li>
-          <li><Link to={`/dashboard/${classroomId || ''}`}><FaChartLine className={`sidebar-icon ${location.pathname.includes('/dashboard/') ? 'active' : ''}`} /></Link></li>
-          <li><Link to="/users"><FaUsers className={`sidebar-icon ${location.pathname === '/users' ? 'active' : ''}`} /></Link></li>
-          <li><Link to="/messages"><FaEnvelope className={`sidebar-icon ${location.pathname === '/messages' ? 'active' : ''}`} /></Link></li>
-          <li><Link to="/notifications"><FaBell className={`sidebar-icon ${location.pathname === '/notifications' ? 'active' : ''}`} /></Link></li>
-          <li><Link to="/settings"><FaCog className={`sidebar-icon ${location.pathname === '/settings' ? 'active' : ''}`} /></Link></li>
-        </ul>
-      </div>
+      <Sidebar classroomId={classroomId} />
 
       {/* Main Content */}
       <div className="content">

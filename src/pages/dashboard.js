@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom'; 
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-icons/fa';
 import PostModal from './post';
+import Sidebar from '../components/Sidebar';
 import PlotlyHeatmap from './heatmap';
 import Popup from './popup';
 import ActiveUsers from './activeUsers';
@@ -874,41 +875,8 @@ console.log("Week-over-week trends:", calculateTrends());
 
   return (
     <div className="dashboard">
-      {/* Sidebar */}
-      <div className="sidebar">
-        <ul className="sidebar-links">
-          <li>
-            <Link to="/">
-              <FaHome className="sidebar-icon" />
-            </Link>
-          </li>
-          <li>
-            <Link to={`/dashboard/${classroomId}/${encodeURIComponent(classroomName || '')}`}>
-              <FaChartLine className={`sidebar-icon ${isAnalyticsPage ? 'active' : ''}`} />
-            </Link>
-          </li>
-          <li>
-            <Link to={`/users/${classroomId}`}>
-              <FaUsers className={`sidebar-icon ${location.pathname === '/users' ? 'active' : ''}`} />
-            </Link>
-          </li>
-          <li>
-          <Link to={`/messages`}>
-            <FaEnvelope className={`sidebar-icon ${location.pathname === '/messages' ? 'active' : ''}`} />
-          </Link>
-        </li>
-          <li>
-            <Link to="/notifications">
-              <FaBell className={`sidebar-icon ${location.pathname === '/notifications' ? 'active' : ''}`} />
-            </Link>
-          </li>
-          <li>
-            <Link to="/settings">
-              <FaCog className={`sidebar-icon ${location.pathname === '/settings' ? 'active' : ''}`} />
-            </Link>
-          </li>
-        </ul>
-      </div>
+  {/* Sidebar */}
+  <Sidebar classroomId={classroomId} classroomName={classroomName || classroom?.name} />
 
       {/* Main Content */}
       <div className="content">
