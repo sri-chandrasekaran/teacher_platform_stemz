@@ -14,7 +14,7 @@ const API_CONFIG = {
 };
 
 // Current environment - change this to switch between environments
-const CURRENT_ENV = 'production'; // Options: 'local', 'production'
+const CURRENT_ENV = 'local'; // Options: 'local', 'production'
 
 // Get current API configuration
 export const getApiConfig = () => {
