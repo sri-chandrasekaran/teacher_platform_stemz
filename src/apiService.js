@@ -2,284 +2,120 @@ const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
 // const BASE_URL = 'http://localhost:3000/api'; // Default to local API for development
 
 class ApiService {
+
+    static async request(endpoint, method = 'GET', body = null, requiresAuth = true) {
+        const url = `${BASE_URL}/${endpoint}`;
+        const headers = {
+            'Content-Type': 'application/json',
+        };
+
+        if (requiresAuth) {
+            const token = localStorage.getItem('token');
+            console.log('Using token for API request:', token);
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+        }
+
+        const response = await fetch(url, {
+            method: method,
+            headers,
+            body: body ? JSON.stringify(body) : null,
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed with status ${response.status}`);
+        }
+        console.log('API response received:', response);
+        return response.json();
+    }
     
     // User-related API calls
     // Fetch all users
     static async fetchUsers() {
-        const response = await fetch(`${BASE_URL}/users`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-        });
-        
-        if (!response.ok) {
-        throw new Error('Failed to fetch users');
-        }
-        
-        return response.json();
+        return this.request('users');
     }
 
     // Course-related API calls
     // Fetch all courses
     static async fetchCourses() {
-        const response = await fetch(`${BASE_URL}/courses`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-        });
-
-        if (!response.ok) {
-        throw new Error('Failed to fetch courses');
-        }
-
-        return response.json();
+        return this.request('courses');
     }
 
     // Fetch a course by ID
     static async fetchCourseById(courseId) {
-        const response = await fetch(`${BASE_URL}/courses/${courseId}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-        });
-
-        if (!response.ok) {
-        throw new Error('Failed to fetch course');
-        }
-
-        return response.json();
+        return this.request(`courses/${courseId}`);
     }
 
     // Add a new course
     static async addCourse(courseData) {
-        const response = await fetch(`${BASE_URL}/courses`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(courseData),
-        });
-
-        if (!response.ok) {
-        throw new Error('Failed to add course');
-        }
-
-        return response.json();
+        return this.request('courses', 'POST', courseData);
     }
 
     // Update an existing course
     static async updateCourse(courseId, courseData) {
-        const response = await fetch(`${BASE_URL}/courses/${courseId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(courseData),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to update course');
-        }
-
-        return response.json();
+        return this.request(`courses/${courseId}`, 'PUT', courseData);
     }
 
     // Delete a course
     static async deleteCourse(courseId) {
-        const response = await fetch(`${BASE_URL}/courses/${courseId}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-        });
-
-        if (!response.ok) {
-        throw new Error('Failed to delete course');
-        }
-
-        return response.json();
+        return this.request(`courses/${courseId}`, 'DELETE');
     }
 
     // Classroom-related API calls
     // Fetch all classrooms
     static async fetchClassrooms() {
         console.log('Fetching classrooms from API at:', process.env.REACT_APP_API_URL);
-        const response = await fetch(`${BASE_URL}/physical-classrooms`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-        });
-
-        if (!response.ok) {
-        throw new Error('Failed to fetch classrooms');
-        }
-
-        return response.json();
+        return this.request('physical-classrooms');
     }
 
     static async fetchMyClassrooms(userId) {
         console.log('Fetching my classrooms for user:', userId);
-        if (!userId) {
-            throw new Error('User ID is required to fetch classrooms');
-        }
-        const response = await fetch(`${BASE_URL}/physical-classrooms/my-classrooms/${userId}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-        });
-    
-        if (!response.ok) {
-        throw new Error('Failed to fetch my classrooms');
-        }
-    
-        return response.json();
+        return this.request(`physical-classrooms/my-classrooms/${userId}`);
     }
 
     // Fetch a clssroom by ID
     static async fetchClassroomById(classroomId) {
-        const response = await fetch(`${BASE_URL}/physical-classrooms/${classroomId}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-        });
-
-        if (!response.ok) {
-        throw new Error('Failed to fetch classroom');
-        }
-
-        return response.json();
+        return this.request(`physical-classrooms/${classroomId}`);
     }
 
     // Add a new classroom
     static async addClassroom(classroomData) {
-        const response = await fetch(`${BASE_URL}/physical-classrooms`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(classroomData),
-        });
-
-        if (!response.ok) {
-            console.error('Failed to add classroom:', response);
-            throw new Error('Failed to add classroom');
-        }
-
-        return response.json();
+        return this.request('physical-classrooms', 'POST', classroomData);
     }
 
     // Update an existing classroom
     static async updateClassroom(classroomId, classroomData) {
-        const response = await fetch(`${BASE_URL}/physical-classrooms/${classroomId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(classroomData),
-        });
-
-        if (!response.ok) {
-        throw new Error('Failed to update classroom');
-        }
-
-        return response.json();
+        return this.request(`physical-classrooms/${classroomId}`, 'PUT', classroomData);
     }
 
     // Delete a classroom
     static async deleteClassroom(classroomId) {
-        const response = await fetch(`${BASE_URL}/physical-classrooms/${classroomId}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-        });
-
-        if (!response.ok) {
-        throw new Error('Failed to delete classroom');
-        }
-
-        return response.json();
+        return this.request(`physical-classrooms/${classroomId}`, 'DELETE');
     }
 
     // Fetch students in a classroom
     static async fetchStudentsInClassroom(classroomId) {
-        const response = await fetch(`${BASE_URL}/physical-classrooms/${classroomId}/students`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-        });
-
-        if (!response.ok) {
-        throw new Error('Failed to fetch students in classroom');
-        }
-
-        return response.json();
+        return this.request(`physical-classrooms/${classroomId}/students`);
     }
 
     static async enrollStudent(classroomId, userId) {
         console.log('API Call - ClassroomId:', classroomId, 'UserId:', userId, 'Type:', typeof userId);
-        
-        // Try wrapping the ID in an ObjectId-like structure
         const requestBody = { 
             studentId: userId
         };
         console.log('Request body:', requestBody);
-        
-        const response = await fetch(`${BASE_URL}/physical-classrooms/${classroomId}/add-student`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(requestBody),
-        });
-    
-        console.log('Response status:', response.status);
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.log('Error response:', errorText);
-            throw new Error('Failed to enroll student');
-        }
-    
-        return response.json();
+        return this.request(`physical-classrooms/${classroomId}/add-student`, 'POST', requestBody);
     }
 
     // Fetch grades for a classroom
     static async fetchGrades(classroomId) {
-        const response = await fetch(`${BASE_URL}/grade/classroom/${classroomId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch grades');
-        }
-
-        return response.json();
+        return this.request(`grade/classroom/${classroomId}`);
     }
 
     // Fetch worksheets for a classroom
     static async fetchWorksheets(classroomId) {
-        const response = await fetch(`${BASE_URL}/worksheets/classroom/${classroomId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch worksheets');
-        }
-
-        return response.json();
+        return this.request(`worksheets/classroom/${classroomId}`);
     }
     
 static async getStudentActivity(studentId) {
@@ -287,18 +123,22 @@ static async getStudentActivity(studentId) {
         console.warn('No studentId provided');
         return null;
     }
+
+    return this.request(`studentresponses/student/${studentId}`, 'GET', null, true);
     
-    try {
-        const response = await fetch(`${BASE_URL}/studentresponses/student/${studentId}`);
-        if (response.ok) {
-            const data = await response.json();
-            return data?.updatedAt || null;
-        }
-        return null;
-    } catch (error) {
-        console.warn(`Failed to get activity for student ${studentId}`);
-        return null;
-    }
+    // try {
+    //     const response = await fetch(`${BASE_URL}/studentresponses/student/${studentId}`);
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         return data?.updatedAt || null;
+    //     }
+    //     return null;
+    // } catch (error) {
+    //     console.warn(`Failed to get activity for student ${studentId}`);
+    //     return null;
+    // }
+
+
 }
 
 static async buildActiveUsers(students) {
@@ -340,13 +180,7 @@ static async buildActiveUsers(students) {
 
 // fetch user points
 static async fetchUserPoints2() {
-    const response = await fetch(`${BASE_URL}/points/`, {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-    }
-    });
-    return response.json();
+    return this.request('points/');
 }
 
 static async fetchUserPoints(userId) {
@@ -452,19 +286,7 @@ static async buildLeaderBoard(classroomResponse) {
 
     // Send email notification
     static async sendEmailNotification(recipient, subject, message) {
-        const response = await fetch(`${BASE_URL}/notifications/email`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ recipient, subject, message }),
-        });
-
-        if (!response.ok) {
-        throw new Error('Failed to send email notification');
-        }
-
-        return response.json();
+        return this.request('notifications/email', 'POST', { recipient, subject, message });
     }
 
     static async sendEmailInvite(userId, recipientEmail, classroomId, classroomName) {
@@ -474,34 +296,11 @@ static async buildLeaderBoard(classroomResponse) {
         }
 
         const inviteUrl = `${BASE_URL}/classroom/${classroomId}/add-student`;
-        const response = await fetch(`${BASE_URL}/notifications/email/invite`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ userId, recipientEmail, classroomName, inviteUrl }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to send email invite');
-        }
-
-        return response.json();
+        return this.request('notifications/email/invite', 'POST', { userId, recipientEmail, classroomName, inviteUrl });
     }
 
     static async fetchNotifications() {
-        const response = await fetch(`${BASE_URL}/notifs`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch notifications');
-        }
-
-        return response.json();
+        return this.request('notifs');
     }
 }
 

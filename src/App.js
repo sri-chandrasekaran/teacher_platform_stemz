@@ -96,7 +96,7 @@ function App() {
           <Route path="/messages/:classroomId" element={<MessagingPage />} />
           
           {/* Settings page */}
-          <Route path="/settings" element={<Settings darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+          <Route path="/settings/:classroomId" element={<Settings darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
           
           {/* Users/Students page - general and classroom-specific */}
           <Route path="/users" element={<Users />} /> 
@@ -105,7 +105,8 @@ function App() {
           {/* Notifications page */}
           <Route path="/users/:classroomId" element={<Users />} /> 
           <Route path="/notifications" element={<Notifications />} /> 
-          
+          <Route path="/notifications/:classroomId" element={<Notifications />} />
+
           {/* Fallback route */}
           <Route path="*" element={<GroupsPage />} />
         </Routes>
