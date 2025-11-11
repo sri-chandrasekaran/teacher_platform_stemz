@@ -9,7 +9,6 @@ import os
 start = time.time()
 
 # Login to Hugging Face
-login("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")
 
 # Model setup
 model_name = "tiiuae/falcon-rw-1b"
