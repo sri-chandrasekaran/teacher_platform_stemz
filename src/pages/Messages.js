@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine, FaPlusCircle } from 'react-icons/fa';
-import { call_api } from '../components/api';
 import { normalizeClassroom, handleApiError } from '../utils/dataHelpers';
-import '../styles/styles.css';
-import ApiService from '../apiService';
+import '../styles/styles.css';  
+import studyGroupService from '../services/studyGroupService';
+import physicalClassroomService from '../services/physicalClassroomService';
+import apiClient from '../services/apiClient';
 import Sidebar from '../components/Sidebar';
 
 const MessagingPage = () => {
@@ -18,14 +19,14 @@ const MessagingPage = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [showCreateGroup, setShowCreateGroup] = useState(false);
   const [selectedStudents, setSelectedStudents] = useState([]);
-  const [groupChats, setGroupChats] = useState([]);
+  const [studyGroups, setStudyGroups] = useState([]);
   const [groupName, setGroupName] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [students, setStudents] = useState([]);
   const [classrooms, setClassrooms] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // FIXED: Fetch real classrooms and students on component load
   useEffect(() => {
     fetchTeacherClassrooms();
   }, []);
@@ -33,16 +34,23 @@ const MessagingPage = () => {
   useEffect(() => {
     if (selectedClassroom) {
       fetchClassroomStudents(selectedClassroom);
+      fetchStudyGroups(selectedClassroom);
     }
   }, [selectedClassroom]);
 
   const fetchTeacherClassrooms = async () => {
     try {
       setLoading(true);
-      console.log('Fetching teacher classrooms for messaging...');
       
-      const response = await call_api(null, 'physical-classrooms/my-classrooms', 'GET');
-      console.log('Teacher classrooms response:', response);
+      // Get current user from localStorage
+      const user = JSON.parse(localStorage.getItem('login_response') || '{}').user || {};
+      if (!user._id) {
+        setError('User not authenticated');
+        setLoading(false);
+        return;
+      }
+
+      const response = await physicalClassroomService.getUserClassrooms(user._id);
       
       if (response && response.teaching && Array.isArray(response.teaching)) {
         const normalizedClassrooms = response.teaching.map(classroom => normalizeClassroom(classroom));
@@ -70,21 +78,26 @@ const MessagingPage = () => {
 
   const fetchClassroomStudents = async (classroomId) => {
     try {
-      console.log('Fetching students for messaging from classroom:', classroomId);
-      
-      const response = await call_api(null, `physical-classrooms/${classroomId}/students`, 'GET');
-      console.log('Classroom students for messaging:', response);
+      const response = await physicalClassroomService.getClassroomStudents(classroomId);
       
       if (response && response.students && Array.isArray(response.students)) {
-        const studentNames = response.students.map(student => student.name).filter(Boolean);
-        setStudents(studentNames);
-        console.log('Set students for messaging:', studentNames);
+        setStudents(response.students);
       } else {
         setStudents([]);
       }
     } catch (error) {
       console.error('Error fetching classroom students for messaging:', error);
       setStudents([]);
+    }
+  };
+
+  const fetchStudyGroups = async (classroomId) => {
+    try {
+      const groups = await studyGroupService.getStudyGroupsByClassroomId(classroomId);
+      setStudyGroups(Array.isArray(groups) ? groups : []);
+    } catch (error) {
+      console.error('Error fetching study groups:', error);
+      setStudyGroups([]);
     }
   };
 
@@ -124,17 +137,14 @@ const MessagingPage = () => {
         priority: 'medium'
       };
 
-      console.log('Sending announcement:', announcementData);
-
-      await call_api(announcementData, 'notifications/announcement', 'POST');
+      await apiClient.post('api/notifications/announcement', announcementData);
       
       setAnnouncements([...announcements, newMessage]);
       setNewMessage('');
       setError('');
+      setSuccess('Announcement sent successfully to all students in the classroom!');
       
-      // Show success message
-      alert('Announcement sent successfully to all students in the classroom!');
-      
+      setTimeout(() => setSuccess(''), 3000);
     } catch (error) {
       console.error('Error sending announcement:', error);
       setError(handleApiError(error, 'Failed to send announcement'));
@@ -148,22 +158,52 @@ const MessagingPage = () => {
     }
   };
 
-  const handleCreateGroup = () => {
+  const handleCreateGroup = async () => {
     if (!groupName.trim()) {
       setError('Group name cannot be empty.');
       return;
     }
-    if (groupChats.includes(groupName)) {
-      setError('A group with this name already exists.');
+    if (!selectedClassroom) {
+      setError('Please select a classroom first.');
       return;
     }
-    setGroupChats([...groupChats, groupName]);
-    setMessages({ ...messages, [groupName]: [] });
-    setShowCreateGroup(false);
-    setSelectedStudents([]);
-    setGroupName('');
-    setSelectedStudent(groupName);
-    setError('');
+    if (selectedStudents.length === 0) {
+      setError('Please select at least one student.');
+      return;
+    }
+
+    try {
+      // Get student IDs from selected students
+      const memberUserIds = students
+        .filter(student => selectedStudents.includes(student.name || student._id))
+        .map(student => student._id);
+
+      if (memberUserIds.length === 0) {
+        setError('Could not find selected students.');
+        return;
+      }
+
+      const studyGroupData = {
+        classroomId: selectedClassroom,
+        name: groupName.trim(),
+        memberUserIds: memberUserIds
+      };
+
+      const newGroup = await studyGroupService.createStudyGroup(studyGroupData);
+      
+      setStudyGroups([...studyGroups, newGroup]);
+      setMessages({ ...messages, [newGroup._id]: [] });
+      setShowCreateGroup(false);
+      setSelectedStudents([]);
+      setGroupName('');
+      setError('');
+      setSuccess('Study group created successfully!');
+      
+      setTimeout(() => setSuccess(''), 3000);
+    } catch (error) {
+      console.error('Error creating study group:', error);
+      setError(error.message || 'Failed to create study group');
+    }
   };
 
   const handleCheckboxChange = (student) => {
@@ -229,6 +269,12 @@ const MessagingPage = () => {
           </div>
         )}
 
+        {success && (
+          <div className="success-message">
+            {success}
+          </div>
+        )}
+
         <div className="chat-container">
           {/* Student List */}
           <div className="student-list">
@@ -238,24 +284,28 @@ const MessagingPage = () => {
             </div>
             
             {selectedClassroom && students.length > 0 ? (
-              students.map((student) => (
-                <div key={student} 
-                     className={`student-item ${selectedStudent === student ? 'selected' : ''}`} 
-                     onClick={() => handleStudentSelect(student)}>
-                  👤 {student}
-                </div>
-              ))
+              students.map((student) => {
+                const studentName = student.name || student.email || student._id;
+                const studentId = student._id || student;
+                return (
+                  <div key={studentId} 
+                       className={`student-item ${selectedStudent === studentId ? 'selected' : ''}`} 
+                       onClick={() => handleStudentSelect(studentId)}>
+                    👤 {studentName}
+                  </div>
+                );
+              })
             ) : (
               <div className="no-students-message">
                 {selectedClassroom ? 'No students in this classroom' : 'Select a classroom to see students'}
               </div>
             )}
             
-            {groupChats.map((group) => (
-              <div key={group} 
-                   className={`student-item ${selectedStudent === group ? 'selected' : ''}`} 
-                   onClick={() => handleStudentSelect(group)}>
-                👥 {group}
+            {studyGroups.map((group) => (
+              <div key={group._id} 
+                   className={`student-item ${selectedStudent === group._id ? 'selected' : ''}`} 
+                   onClick={() => handleStudentSelect(group._id)}>
+                👥 {group.name} ({group.memberUserIds?.length || 0} members)
               </div>
             ))}
             
@@ -279,16 +329,20 @@ const MessagingPage = () => {
                 {error && <div className="error-message">{error}</div>}
                 <h4>Select students for the group</h4>
                 <div className="checkbox-container">
-                  {students.map((student) => (
-                    <label key={student}>
-                      <input
-                        type="checkbox"
-                        checked={selectedStudents.includes(student)}
-                        onChange={() => handleCheckboxChange(student)}
-                      />
-                      {student}
-                    </label>
-                  ))}
+                  {students.map((student) => {
+                    const studentName = student.name || student.email || student._id;
+                    const studentId = student._id || student;
+                    return (
+                      <label key={studentId}>
+                        <input
+                          type="checkbox"
+                          checked={selectedStudents.includes(studentName)}
+                          onChange={() => handleCheckboxChange(studentName)}
+                        />
+                        {studentName}
+                      </label>
+                    );
+                  })}
                 </div>
                 <div className="modal-buttons">
                   <button className="create-button" onClick={handleCreateGroup}>Create Group</button>
