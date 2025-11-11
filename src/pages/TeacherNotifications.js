@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { call_api } from '../components/api'; 
 import { normalizeClassroom, handleApiError } from '../utils/dataHelpers';
 import ApiService from '../apiService';
+import Sidebar from '../components/Sidebar';
 
 const TeacherNotifications = () => {
+  const { classroomId } = useParams();
   const [notifications, setNotifications] = useState([]);
   const [selectedNotification, setSelectedNotification] = useState(null); 
   const [loading, setLoading] = useState(true);
@@ -204,16 +206,8 @@ const fetchNotifications = async () => {
   if (loading) {
     return (
       <div className="dashboard">
-        <div className="sidebar">
-          <ul className="sidebar-links">
-            <li><Link to="/"><FaHome className="sidebar-icon" /></Link></li>
-            <li><Link to="/dashboard"><FaChartLine className="sidebar-icon" /></Link></li>
-            <li><Link to="/users"><FaUsers className="sidebar-icon" /></Link></li>
-            <li><Link to="/messages"><FaEnvelope className="sidebar-icon" /></Link></li>
-            <li><Link to="/notifications"><FaBell className="sidebar-icon active" /></Link></li>
-            <li><Link to="/settings"><FaCog className="sidebar-icon" /></Link></li>
-          </ul>
-        </div>
+        {/* Sidebar */}
+        <Sidebar classroomId={classroomId} />
         <div className="content">
           <div className="loading-container">
             <div className="loading-spinner"></div>
@@ -227,16 +221,7 @@ const fetchNotifications = async () => {
   return (
     <div className="dashboard">
       {/* Sidebar */}
-      <div className="sidebar">
-        <ul className="sidebar-links">
-          <li><Link to="/"><FaHome className="sidebar-icon" /></Link></li>
-          <li><Link to="/dashboard"><FaChartLine className="sidebar-icon" /></Link></li>
-          <li><Link to="/users"><FaUsers className="sidebar-icon" /></Link></li>
-          <li><Link to="/messages"><FaEnvelope className="sidebar-icon" /></Link></li>
-          <li><Link to="/notifications"><FaBell className="sidebar-icon active" /></Link></li>
-          <li><Link to="/settings"><FaCog className="sidebar-icon" /></Link></li>
-        </ul>
-      </div>
+      <Sidebar classroomId={classroomId} />
 
       {/* Main Content */}
       <div className="content">

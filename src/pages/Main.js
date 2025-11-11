@@ -5,7 +5,6 @@ import ApiService from '../apiService';
 import ClassroomList from "../components/ClassroomList";
 import EditClassroomModal from "../components/editclassroom";
 import InviteStudentsModal from "../components/invitestudents";
-import { call_api } from "../components/api";
 import { normalizeClassroom, handleApiError } from "../utils/dataHelpers";
 
 const GroupsPage = () => {
@@ -13,11 +12,7 @@ const GroupsPage = () => {
   
   const [classrooms, setClassrooms] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('login_response') || '{}').user || {});
-
-  const [showForm, setShowForm] = useState(false);
-  const [newClassroomName, setNewClassroomName] = useState('');
-  const [newClassroomDescription, setNewClassroomDescription] = useState('');
+  const [user] = useState(JSON.parse(localStorage.getItem('login_response') || '{}').user || {});
   
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedClassroom, setSelectedClassroom] = useState(null);
@@ -29,11 +24,10 @@ const GroupsPage = () => {
   const [showBanner, setShowBanner] = useState(false);
 
   const [saving, setSaving] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     fetchPhysicalClassrooms();
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const showMessage = (message) => {
@@ -41,7 +35,6 @@ const GroupsPage = () => {
     setShowBanner(true);
     setTimeout(() => setShowBanner(false), 3000);
   };
-
 
   const fetchPhysicalClassrooms = async () => {
     try {
@@ -63,121 +56,83 @@ const GroupsPage = () => {
     }
   };
 
-  // FIXED: Handle both create and edit in the same function
+  const handleSaveClassroom = async (classroomData) => {
+    if (saving) return;
+    setSaving(true);
+    
+    try {
+      if (classroomData.id) {
+        // Update existing classroom
+        const updateData = {
+          name: classroomData.name,
+          description: classroomData.description,
+          gradeLevel: classroomData.gradeLevel,
+          schoolName: classroomData.schoolName,
+          classroomNumber: classroomData.classroomNumber,
+          maxStudents: classroomData.maxStudents,
+          students: classroomData.students || []
+        };
 
-const handleSaveClassroom = async (classroomData) => {
-  if (saving) return; // Prevent double submission
-  setSaving(true);
-  try {
-    console.log('Saving classroom:', classroomData);
+        const response = await ApiService.updateClassroom(classroomData.id, updateData);
+        
+        setClassrooms(prev => prev.map(classroom => 
+          classroom.id === classroomData.id 
+            ? normalizeClassroom(response.classroom) 
+            : classroom
+        ));
+        
+        showMessage("Classroom updated successfully!");
+      } else {
+        // Create new classroom
+        const createData = {
+          name: classroomData.name.trim(),
+          description: classroomData.description?.trim() || '',
+          schoolName: 'placeholder',
+          gradeLevel: '1',
+          academicYear: "2024-2025",
+          classroomNumber: classroomData.classroomNumber?.trim() || '',
+          maxStudents: classroomData.maxStudents || 30,
+          teacherId: user._id,
+          students: classroomData.students || []
+        };
 
-    if (classroomData.id) {
-      // EDITING existing classroom
-      console.log('Updating existing classroom:', classroomData.id);
+        const response = await ApiService.addClassroom(createData);
+        const newClassroom = normalizeClassroom(response.classroom);
+        
+        setClassrooms(prev => {
+          const exists = prev.some(c => c.id === newClassroom.id);
+          return exists ? prev : [...prev, newClassroom];
+        });
+        
+        showMessage("Classroom created successfully!");
+      }
       
-      const updateData = {
-        name: classroomData.name,
-        description: classroomData.description,
-        gradeLevel: classroomData.gradeLevel,
-        schoolName: classroomData.schoolName,
-        classroomNumber: classroomData.classroomNumber,
-        maxStudents: classroomData.maxStudents,
-        students: classroomData.students || []
-      };
-
-      // const response = await call_api(updateData, `physical-classrooms/${classroomData.id}`, "PUT");
-      const response = await ApiService.updateClassroom(classroomData.id, updateData);
-      console.log('Update response:', response);
-
-      // Update local state
-      setClassrooms(prev => prev.map(classroom => 
-        classroom.id === classroomData.id 
-          ? normalizeClassroom(response.classroom) 
-          : classroom
-      ));
-      
-      showMessage("Classroom updated successfully!");
-      
-    } else {
-      // CREATING new classroom
-      console.log('Creating new classroom');
-      
-      const createData = {
-        name: classroomData.name.trim(),
-        description: classroomData.description?.trim() || '',
-        schoolName: 'placeholder', // ADD THIS - required by backend
-        gradeLevel: '1', // ADD THIS - required by backend
-        academicYear: "2024-2025",
-        classroomNumber: classroomData.classroomNumber?.trim() || '',
-        maxStudents: classroomData.maxStudents || 30,
-        teacherId: user._id,  // ADD THIS - required by backend
-        students: classroomData.students || []
-      };
-
-      console.log('Create payload:', createData);
-      // const response = await call_api(createData, "physical-classrooms", "POST");
-      const response = await ApiService.addClassroom(createData);
-      console.log('Create response:', response);
-
-      const newClassroom = normalizeClassroom(response.classroom);
-      // setClassrooms(prev => [...prev, newClassroom]);
-      setClassrooms(prev => {
-        // Prevent duplicates
-        const exists = prev.some(c => c.id === newClassroom.id);
-        return exists ? prev : [...prev, newClassroom];
-      });
-      
-      showMessage("Physical classroom created successfully!");
+      setShowEditModal(false);
+      setSelectedClassroom(null);
+    } catch (error) {
+      console.error("Error saving classroom:", error);
+      showMessage(handleApiError(error, "Failed to save classroom."));
+    } finally {
+      setSaving(false);
     }
-    
-    setShowEditModal(false);
-    setSelectedClassroom(null);
-    
-  } catch (error) {
-    console.error("Error saving classroom:", error);
-    showMessage(handleApiError(error, "Failed to save classroom."));
-  } finally {
-    setSaving(false); // Always reset saving state
-  }
-}
+  };
 
-  // Handle creating new classroom
   const handleAddClassroom = () => {
-
-    if (isSaving) {
-      console.log('Currently saving, cannot add new classroom');
-      return;
-    }
-
-    console.log('Adding new classroom');
-    setSelectedClassroom(null);  // null = new classroom
+    if (saving) return;
+    setSelectedClassroom(null);
     setShowEditModal(true);
   };
 
-  // Handle editing existing classroom
   const handleEditClassroom = (classroom) => {
-
-    if (isSaving) {
-      console.log('Currently saving, cannot edit classroom');
-      return;
-    }
-
-    console.log('Editing classroom:', classroom);
+    if (saving) return;
     setSelectedClassroom(classroom);
     setShowEditModal(true);
   };
 
-  // Handle deleting classroom
   const handleDeleteClassroom = async (id) => {
-
-    if (isSaving) {
-      console.log('Currently saving, cannot delete classroom');
-      return;
-    }
-
+    if (saving) return;
+    
     try {
-      console.log('Deleting classroom:', id);
-      // await call_api(null, `physical-classrooms/${id}`, "DELETE");
       await ApiService.deleteClassroom(id);
       setClassrooms(prev => prev.filter(classroom => classroom.id !== id));
       showMessage("Classroom deleted successfully.");
@@ -187,26 +142,19 @@ const handleSaveClassroom = async (classroomData) => {
     }
   };
 
-  // Handle entering classroom
   const handleEnterClassroom = (id, name) => {
-    console.log('Navigating to classroom:', id, name);
     navigate(`/dashboard/${id}/${encodeURIComponent(name)}`);
   };
 
-  // Handle student invitation
   const handleInviteStudent = (classroom) => {
-    console.log('Inviting student to:', classroom);
     setClassroomToInvite(classroom);
     setShowInviteModal(true);
   };
 
   const handleSendInvitation = async (email) => {
     try {
-      console.log('Sending invitation to:', email);
       setShowInviteModal(false);
       showMessage(`Invitation email sent to: ${email}`);
-      
-      // Refresh classroom data to get updated student count
       await fetchPhysicalClassrooms();
     } catch (error) {
       console.error("Error sending invitation:", error);
@@ -214,7 +162,6 @@ const handleSaveClassroom = async (classroomData) => {
     }
   };
 
-  // Show loading state
   if (loading) {
     return (
       <div className="classroom-list-container">
@@ -247,7 +194,17 @@ const handleSaveClassroom = async (classroomData) => {
         </div>
       </div>
 
-
+      {/* Edit/Create Classroom Modal */}
+      {showEditModal && (
+        <EditClassroomModal
+          classroom={selectedClassroom}
+          onSave={handleSaveClassroom}
+          onCancel={() => {
+            setShowEditModal(false);
+            setSelectedClassroom(null);
+          }}
+        />
+      )}
 
       {/* Invite Students Modal */}
       {showInviteModal && classroomToInvite && (

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import GroupsPage from './pages/Groups';
+import MainPage from './pages/Main';
 import Dashboard from './pages/dashboard';
 import MessagingPage from './pages/Messages';
 import Settings from './pages/settings';
 import Users from './pages/users';
 import Notifications from './pages/notification';
 import Login from './pages/Login';
-import { call_api } from './components/api';
+import apiClient from './services/apiClient';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -28,12 +28,17 @@ function App() {
         return;
       }
 
+      // Set token in apiClient for all requests
+      apiClient.setAuthToken(token);
+
       // Verify token with backend
-      await call_api(null, 'auth/verify', 'POST');
+      await apiClient.post('api/auth/verify');
       setIsAuthenticated(true);
     } catch (error) {
       console.error('Authentication failed:', error);
       localStorage.removeItem('token');
+      localStorage.removeItem('login_response');
+      apiClient.clearAuthToken();
       setIsAuthenticated(false);
     } finally {
       setIsLoading(false);
@@ -83,7 +88,7 @@ function App() {
       <div className="app-container">
         <Routes>
           {/* Home page - classroom list */}
-          <Route path="/" element={<GroupsPage />} />
+          <Route path="/" element={<MainPage />} />
           
           {/* Dashboard routes - both with and without classroom name */}
           <Route path="/dashboard/:classroomId/:classroomName" element={<Dashboard />} />
@@ -96,7 +101,7 @@ function App() {
           <Route path="/messages/:classroomId" element={<MessagingPage />} />
           
           {/* Settings page */}
-          <Route path="/settings" element={<Settings darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+          <Route path="/settings/:classroomId" element={<Settings darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
           
           {/* Users/Students page - general and classroom-specific */}
           <Route path="/users" element={<Users />} /> 
@@ -105,9 +110,10 @@ function App() {
           {/* Notifications page */}
           <Route path="/users/:classroomId" element={<Users />} /> 
           <Route path="/notifications" element={<Notifications />} /> 
-          
+          <Route path="/notifications/:classroomId" element={<Notifications />} />
+
           {/* Fallback route */}
-          <Route path="*" element={<GroupsPage />} />
+          <Route path="*" element={<MainPage />} />
         </Routes>
       </div>
     </Router>

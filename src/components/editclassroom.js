@@ -49,10 +49,8 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
 
     const fetchCoursesAndStudents = async () => {
       try {
-        const responseCourses = await fetch(`${API_BASE_URL}/course`);
-        const responseUsers = await fetch(`${API_BASE_URL}/users`);
-        const fetchedCourses = await responseCourses.json();
-        const fetchedUsers = await responseUsers.json();
+        const fetchedCourses = await ApiService.fetchCourses();
+        const fetchedUsers = await ApiService.fetchUsers();
 
         // Transform data for react-select
         const courseOptionsMap = fetchedCourses

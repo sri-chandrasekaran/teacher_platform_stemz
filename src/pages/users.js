@@ -5,6 +5,7 @@ import AddStudentModal from '../components/AddStudentModal';
 import '../styles/users.css';
 import { Api } from '@mui/icons-material';
 import ApiService from '../apiService';
+import Sidebar from '../components/Sidebar';
 
 const Users = () => {
   const { classroomId } = useParams(); 
@@ -95,40 +96,8 @@ const Users = () => {
 
   return (
     <div className="dashboard">
-      <div className="sidebar">
-        <ul className="sidebar-links">
-          <li>
-            <Link to="/">
-              <FaHome className="sidebar-icon" />
-            </Link>
-          </li>
-          <li>
-            <Link to={`/dashboard/${classroomId}`}>
-              <FaChartLine className={`sidebar-icon ${isAnalyticsPage ? 'active' : ''}`} />
-            </Link>
-          </li>
-          <li>
-            <Link to="/users">
-              <FaUsers className={`sidebar-icon ${location.pathname === '/users' ? 'active' : ''}`} />
-            </Link>
-          </li>
-          <li>
-            <Link to={`/messages`}>
-              <FaEnvelope className={`sidebar-icon ${location.pathname === '/messages' ? 'active' : ''}`} />
-            </Link>
-          </li>
-          <li>
-            <Link to="/notifications">
-              <FaBell className={`sidebar-icon ${location.pathname === '/notifications' ? 'active' : ''}`} />
-            </Link>
-          </li>
-          <li>
-            <Link to="/settings">
-              <FaCog className={`sidebar-icon ${location.pathname === '/settings' ? 'active' : ''}`} />
-            </Link>
-          </li>
-        </ul>
-      </div>
+      {/* Sidebar */}
+      <Sidebar classroomId={classroomId} />
 
       <div className="users-list">
         <button className="add-student-btn" onClick={openModal}>
