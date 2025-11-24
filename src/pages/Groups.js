@@ -232,7 +232,13 @@ const handleSaveClassroom = async (classroomData) => {
 
       <div className="page-container">
         <div className="page-heading-container">
-          <h2 className="page-heading">Your Classrooms</h2>
+          <h2 className="page-heading">{user.name}'s Classrooms</h2>
+          <button
+            onClick={() => navigate(`/settingsUser`)}
+            aria-label="Your account settings"
+          >
+            Your account
+          </button>
         </div>
         <div className="classroom-list-scroll">
           <ClassroomList
@@ -247,9 +253,6 @@ const handleSaveClassroom = async (classroomData) => {
         </div>
       </div>
 
-
-
-      {/* Invite Students Modal */}
       {showInviteModal && classroomToInvite && (
         <InviteStudentsModal
           classroom={classroomToInvite}

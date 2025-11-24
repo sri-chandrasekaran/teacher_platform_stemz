@@ -4,6 +4,7 @@ import GroupsPage from './pages/Groups';
 import Dashboard from './pages/dashboard';
 import MessagingPage from './pages/Messages';
 import Settings from './pages/settings';
+import SettingsUser from './pages/settingsUser';
 import Users from './pages/users';
 import Notifications from './pages/notification';
 import Login from './pages/Login';
@@ -97,7 +98,8 @@ function App() {
           
           {/* Settings page */}
           <Route path="/settings/:classroomId" element={<Settings darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
-          
+          <Route path="/settingsUser" element={<SettingsUser darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+
           {/* Users/Students page - general and classroom-specific */}
           <Route path="/users" element={<Users />} /> 
           <Route path="/users/:classroomId" element={<Users />} />

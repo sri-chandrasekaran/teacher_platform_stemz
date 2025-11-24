@@ -898,9 +898,21 @@ body {
   right: 0;
   padding: 20px 0;
   text-align: center;
+  /* Put title and button on one row and center the title */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #fff;
   z-index: 1000;
   border-bottom: 2px solid #ccc;
+}
+
+/* Keep the page title centered while placing the action button to the right */
+.page-heading-container > button {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* Title text */

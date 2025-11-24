@@ -34,6 +34,7 @@ const Login = () => {
       
       if (response && response.token) {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
         localStorage.setItem('login_response', JSON.stringify(response));
         
         // Use setTimeout to ensure state updates before redirect

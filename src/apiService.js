@@ -36,6 +36,11 @@ class ApiService {
         return this.request('users');
     }
 
+    static async updateUser(userId, userData) {
+        console.log('Updating user with ID:', userId, 'Data:', userData);
+        return this.request(`users/id/${userId}`, 'PUT', userData);
+    }
+
     // Course-related API calls
     // Fetch all courses
     static async fetchCourses() {
