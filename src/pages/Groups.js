@@ -1,23 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import '../styles/styles.css';
-import ApiService from '../apiService';
 import ClassroomList from "../components/ClassroomList";
 import EditClassroomModal from "../components/editclassroom";
 import InviteStudentsModal from "../components/invitestudents";
 import { call_api } from "../components/api";
 import { normalizeClassroom, handleApiError } from "../utils/dataHelpers";
+import "../styles/styles.css";
 
 const GroupsPage = () => {
   const navigate = useNavigate();
   
   const [classrooms, setClassrooms] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('login_response') || '{}').user || {});
-
-  const [showForm, setShowForm] = useState(false);
-  const [newClassroomName, setNewClassroomName] = useState('');
-  const [newClassroomDescription, setNewClassroomDescription] = useState('');
   
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedClassroom, setSelectedClassroom] = useState(null);
@@ -28,12 +22,8 @@ const GroupsPage = () => {
   const [bannerMessage, setBannerMessage] = useState("");
   const [showBanner, setShowBanner] = useState(false);
 
-  const [saving, setSaving] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-
   useEffect(() => {
     fetchPhysicalClassrooms();
-
   }, []);
 
   const showMessage = (message) => {
@@ -47,13 +37,29 @@ const GroupsPage = () => {
     try {
       setLoading(true);
       console.log('Fetching classrooms...');
-
-      const response = await ApiService.fetchMyClassrooms(user._id);
-      console.log('Fetched classrooms:', response);
-      const normalizedClassrooms = response.teaching.map(normalizeClassroom);
-
-      setClassrooms(normalizedClassrooms);
-      console.log('Normalized classrooms:', normalizedClassrooms);
+      
+      const response = await call_api(null, "physical-classrooms/my-classrooms", "GET");
+      console.log('Classrooms response:', response);
+  
+      // Handle both teaching and enrolled classrooms
+      const teachingClassrooms = response.teaching || [];
+      const enrolledClassrooms = response.enrolled || [];
+      
+      // Combine both arrays - you might want to add a flag to distinguish them
+      const allClassrooms = [
+        ...teachingClassrooms.map(classroom => ({
+          ...normalizeClassroom(classroom),
+          role: 'teacher'
+        })),
+        ...enrolledClassrooms.map(classroom => ({
+          ...normalizeClassroom(classroom),
+          role: 'student'
+        }))
+      ];
+  
+      console.log('All classrooms:', allClassrooms);
+      setClassrooms(allClassrooms);
+      
     } catch (error) {
       console.error("Error fetching physical classrooms:", error);
       setClassrooms([]);
@@ -66,8 +72,6 @@ const GroupsPage = () => {
   // FIXED: Handle both create and edit in the same function
 
 const handleSaveClassroom = async (classroomData) => {
-  if (saving) return; // Prevent double submission
-  setSaving(true);
   try {
     console.log('Saving classroom:', classroomData);
 
@@ -81,12 +85,10 @@ const handleSaveClassroom = async (classroomData) => {
         gradeLevel: classroomData.gradeLevel,
         schoolName: classroomData.schoolName,
         classroomNumber: classroomData.classroomNumber,
-        maxStudents: classroomData.maxStudents,
-        students: classroomData.students || []
+        maxStudents: classroomData.maxStudents
       };
 
-      // const response = await call_api(updateData, `physical-classrooms/${classroomData.id}`, "PUT");
-      const response = await ApiService.updateClassroom(classroomData.id, updateData);
+      const response = await call_api(updateData, `physical-classrooms/${classroomData.id}`, "PUT");
       console.log('Update response:', response);
 
       // Update local state
@@ -102,30 +104,26 @@ const handleSaveClassroom = async (classroomData) => {
       // CREATING new classroom
       console.log('Creating new classroom');
       
+      // Get the current user's ID from localStorage or your auth system
+      const currentUserId = localStorage.getItem('userId') || ''; // Adjust based on how you store user info
+      
       const createData = {
         name: classroomData.name.trim(),
         description: classroomData.description?.trim() || '',
-        schoolName: 'placeholder', // ADD THIS - required by backend
-        gradeLevel: '1', // ADD THIS - required by backend
+        schoolName: classroomData.schoolName.trim(),
+        gradeLevel: classroomData.gradeLevel,
         academicYear: "2024-2025",
         classroomNumber: classroomData.classroomNumber?.trim() || '',
         maxStudents: classroomData.maxStudents || 30,
-        teacherId: user._id,  // ADD THIS - required by backend
-        students: classroomData.students || []
+        teacherId: currentUserId  // ADD THIS - required by backend
       };
 
       console.log('Create payload:', createData);
-      // const response = await call_api(createData, "physical-classrooms", "POST");
-      const response = await ApiService.addClassroom(createData);
+      const response = await call_api(createData, "physical-classrooms", "POST");
       console.log('Create response:', response);
 
       const newClassroom = normalizeClassroom(response.classroom);
-      // setClassrooms(prev => [...prev, newClassroom]);
-      setClassrooms(prev => {
-        // Prevent duplicates
-        const exists = prev.some(c => c.id === newClassroom.id);
-        return exists ? prev : [...prev, newClassroom];
-      });
+      setClassrooms(prev => [...prev, newClassroom]);
       
       showMessage("Physical classroom created successfully!");
     }
@@ -136,19 +134,11 @@ const handleSaveClassroom = async (classroomData) => {
   } catch (error) {
     console.error("Error saving classroom:", error);
     showMessage(handleApiError(error, "Failed to save classroom."));
-  } finally {
-    setSaving(false); // Always reset saving state
   }
-}
+};
 
   // Handle creating new classroom
   const handleAddClassroom = () => {
-
-    if (isSaving) {
-      console.log('Currently saving, cannot add new classroom');
-      return;
-    }
-
     console.log('Adding new classroom');
     setSelectedClassroom(null);  // null = new classroom
     setShowEditModal(true);
@@ -156,12 +146,6 @@ const handleSaveClassroom = async (classroomData) => {
 
   // Handle editing existing classroom
   const handleEditClassroom = (classroom) => {
-
-    if (isSaving) {
-      console.log('Currently saving, cannot edit classroom');
-      return;
-    }
-
     console.log('Editing classroom:', classroom);
     setSelectedClassroom(classroom);
     setShowEditModal(true);
@@ -169,16 +153,9 @@ const handleSaveClassroom = async (classroomData) => {
 
   // Handle deleting classroom
   const handleDeleteClassroom = async (id) => {
-
-    if (isSaving) {
-      console.log('Currently saving, cannot delete classroom');
-      return;
-    }
-
     try {
       console.log('Deleting classroom:', id);
-      // await call_api(null, `physical-classrooms/${id}`, "DELETE");
-      await ApiService.deleteClassroom(id);
+      await call_api(null, `physical-classrooms/${id}`, "DELETE");
       setClassrooms(prev => prev.filter(classroom => classroom.id !== id));
       showMessage("Classroom deleted successfully.");
     } catch (error) {

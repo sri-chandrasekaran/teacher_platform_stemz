@@ -33,9 +33,13 @@ const Login = () => {
       console.log('Login successful:', response);
       
       if (response && response.token) {
+        // Store token in localStorage
         localStorage.setItem('token', response.token);
         localStorage.setItem('user', JSON.stringify(response.user));
         localStorage.setItem('login_response', JSON.stringify(response));
+        
+        // Set token in apiClient for immediate use
+        apiClient.setAuthToken(response.token);
         
         // Use setTimeout to ensure state updates before redirect
         setTimeout(() => {

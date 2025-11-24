@@ -89,3 +89,219 @@
     top: 16px;
     left: 16px;
 }
+
+/* Error and Success Messages */
+.error-message {
+    padding: 12px 20px;
+    margin: 10px 0;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.success-message {
+    padding: 12px 20px;
+    margin: 10px 0;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+/* Classroom Selector */
+.classroom-selector {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.classroom-selector label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.classroom-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.no-students-message {
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+.announcement-info {
+    padding: 15px;
+    background-color: #e8f4f8;
+    border-left: 4px solid #17a2b8;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.announcement-info h3 {
+    margin: 0 0 10px 0;
+    color: #17a2b8;
+}
+
+.announcement-info p {
+    margin: 0;
+    color: #666;
+}
+
+.announcement-placeholder,
+.chat-placeholder {
+    padding: 40px 20px;
+    text-align: center;
+    color: #999;
+    font-size: 16px;
+}
+
+.no-classroom-warning {
+    padding: 20px;
+    background-color: #fff3cd;
+    color: #856404;
+    text-align: center;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #28a745;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Create Group Modal Styles */
+.create-group-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.group-name-input {
+    width: 100%;
+    padding: 10px;
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.checkbox-container {
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.checkbox-container label {
+    display: block;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.checkbox-container label:hover {
+    background-color: #f8f9fa;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.create-button,
+.cancel-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.create-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.create-button:hover {
+    background-color: #218838;
+}
+
+.cancel-button {
+    background-color: #6c757d;
+    color: white;
+}
+
+.cancel-button:hover {
+    background-color: #5a6268;
+}
+
+.student-item.create-group {
+    background-color: #17a2b8;
+    color: white;
+    margin-top: 20px;
+}
+
+.student-item.create-group:hover {
+    background-color: #138496;
+}
