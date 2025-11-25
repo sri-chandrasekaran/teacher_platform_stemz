@@ -1,20 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link, useLocation } from 'react-router-dom'; 
-import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-icons/fa';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useParams, useLocation } from 'react-router-dom'; 
 import PostModal from './post';
 import Sidebar from '../components/Sidebar';
-import PlotlyHeatmap from './heatmap';
 import Popup from './popup';
 import ActiveUsers from './activeUsers';
 import ActiveCourseUsers from './activeCourseUsers';
-import CourseGrades from './courseGrades';
-import GradeCurve from './gradeCurve';
-import WorksheetStatistics from './worksheetStatistics';
 import { Line } from 'react-chartjs-2';
-import Plot from 'react-plotly.js';
 import { call_api } from '../components/api';
-import { courseList, getCourseById } from '../utils/courseData';
-import { normalizeClassroom, normalizeAssignment, generateFakeLeaderboard, handleApiError } from '../utils/dataHelpers';
+import { getCourseById } from '../utils/courseData';
+import { normalizeClassroom, normalizeAssignment, handleApiError } from '../utils/dataHelpers';
 import '../styles/styles.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import ApiService from '../apiService';
@@ -35,7 +29,7 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
-  const { classroomId, classroomName, selectedClassroomId } = useParams();
+  const { classroomId, classroomName } = useParams();
   const [selectedStudent, setSelectedStudent] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
   const [students, setStudents] = useState([]);
@@ -44,31 +38,16 @@ const Dashboard = () => {
   const [leaderboard, setLeaderboard] = useState([]); 
   const [courses, setCourses] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedAssignment, setSelectedAssignment] = useState(null);
-  const [nlpMetrics, setNlpMetrics] = useState({});
-  const [studentResponse, setStudentResponse] = useState('');
-  const [analyticsLoading, setAnalyticsLoading] = useState(false);
-  const [chartOptions, setChartOptions] = useState([]);
   const [analyticsScores, setAnalyticsScores] = useState(null);
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
   const [performanceData, setPerformanceData] = useState([]);
   const [predictions, setPredictions] = useState([]);
-
-  const location = useLocation();
-
-  const isAnalyticsPage = location.pathname.includes(`/dashboard/${classroomId}`);
-
-  const [grades, setGrades] = useState([]);
-  const [worksheets, setWorksheets] = useState([])
 
   const QuizPredictionInline = ({ studentId, API_BASE_URL }) => {
     const [predictions, setPredictions] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
   
-    const fetchPredictions = async () => {
+    const fetchPredictions = useCallback(async () => {
       if (!studentId) {
         setError('No student selected');
         return;
@@ -110,7 +89,7 @@ const Dashboard = () => {
       } finally {
         setLoading(false);
       }
-    };
+    }, [studentId, API_BASE_URL]);
   
     useEffect(() => {
       if (studentId) {
@@ -119,7 +98,7 @@ const Dashboard = () => {
         setPredictions(null);
         setError(null);
       }
-    }, [studentId, API_BASE_URL]);
+    }, [studentId, fetchPredictions]);
   
     if (!studentId) {
       return (
@@ -296,7 +275,7 @@ const Dashboard = () => {
   };
 
   // getting scores for a student for a specific course - not specific to a lesson
-  const fetchStudentAnalyticsScores = async (studentId) => {
+  const fetchStudentAnalyticsScores = useCallback(async (studentId) => {
     try {
       const courseKey = selectedCourse.toLowerCase();
       // const lessonId = "lesson1";
@@ -330,7 +309,7 @@ const Dashboard = () => {
       console.error('❌ Error fetching analytics scores:', error);
       setAnalyticsScores(null);
     }
-  };
+  }, [selectedCourse]);
 
   // getting scores for a student throughout all of the courses
   const fetchStudentOverallScores = async (studentId) => {
@@ -403,13 +382,6 @@ useEffect(() => {
   fetchCourses();
 }, []);
 
-  const openPopup = (assignment) => {
-    setSelectedAssignment(assignment);  
-  };
-  
-  const closePopup = () => {
-    setSelectedAssignment(null);
-  };
   useEffect(() => {
     const fetchStudents = async () => {
     if (!classroomId) return;
@@ -454,55 +426,8 @@ useEffect(() => {
     fetchStudents();
 }, [classroomId]);
 
-    const fetchGrades = async () => {
-      try {
-        const data_grades = await ApiService.fetchGrades(classroomId);
-        setGrades(data_grades);
-        
-        const data_worksheets = await ApiService.fetchWorksheets(classroomId);
-        setWorksheets(data_worksheets);
-      } catch (error) {
-        console.error('Error fetching grades:', error);
-      }
-    };
-
-  const fetchPredictedPerformance = async () => {
+  const fetchClassroomData = useCallback(async () => {
     try {
-      const originalScores = [82, 90]
-      const response = await fetch("http://127.0.0.1:5000/predict-future-performance", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ scores: [82, 90] }),
-      });
-      const data = await response.json();
-  
-      if (!data || !Array.isArray(data.predicted_scores)) {
-        console.error("Invalid response format:", data);
-        return;
-      }
-
-      const fullData = [...originalScores, ...data.predicted_scores];
-      const labels = [
-        ...originalScores.map((_, i) => `Quiz ${i + 1}`),
-        ...data.predicted_scores.map((_, i) => `Prediction ${i + 1}`),
-      ];
-    } catch (error) {
-      console.error("Error fetching predicted performance:", error);
-    }
-  };
-  
-  // FIXED: Fetch real data from APIs
-  useEffect(() => {
-    if (classroomId) {
-      fetchClassroomData();
-    }
-  }, [classroomId]);
-
-  const fetchClassroomData = async () => {
-    try {
-      setLoading(true);
       console.log('Fetching data for classroom:', classroomId);
 
       const classroomResponse = await ApiService.fetchClassroomById(classroomId);
@@ -536,11 +461,14 @@ useEffect(() => {
 
     } catch (error) {
       console.error('Error fetching classroom data:', error);
-      setError(handleApiError(error, 'Failed to load classroom data'));
-    } finally {
-      setLoading(false);
     }
-  };
+  }, [classroomId]);
+
+  useEffect(() => {
+    if (classroomId) {
+      fetchClassroomData();
+    }
+  }, [classroomId, fetchClassroomData]);
 
   // Track selected student changes
   useEffect(() => {
@@ -554,9 +482,9 @@ useEffect(() => {
   useEffect(() => {
     if (selectedCourse) {
       console.log("Selected course changed to:", selectedCourse);
-      // You can add any logic here that needs to run when selectedStudent changes
+      // You can add any logic here that needs to run when selectedCourse changes
     }
-  }, [selectedStudent]);
+  }, [selectedCourse]);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -571,27 +499,6 @@ useEffect(() => {
   ];
   };
 
-  const assignmentProgress = generateAssignmentProgress();
-
-  const renderProgressBar = (progress) => {
-    return (
-      <div className="progress-bar-container">
-        <div className="progress-bar" style={{ width: `${progress}%` }}>
-          {/* {progress}% */}
-        </div>
-      </div>
-    );
-  };
-
-  const handleCourseSelect = (e) => {
-    const courseId = e.target.value;
-    setSelectedCourse(courseId);
-  
-    if (selectedStudent) {
-      const sampleResponse = "Studying this topic helps us think critically about space exploration.";
-      // fetchNlpMetrics(sampleResponse);
-    }
-  };
 
   const renderSkillCircle = (label, value) => {
     const percentage = (value / 20) * 100; // Assuming max score is 20
@@ -610,42 +517,6 @@ useEffect(() => {
     );
   };
 
-  const handleStudentSelect = async (e) => {
-    const studentId = e.target.value;
-    setSelectedStudent(studentId);
-
-    const futureData = await fetchPredictedPerformance(studentId);
-    if (futureData) {
-    setPerformanceData(futureData.historical);
-    setPredictions(futureData.predicted);
-  }
-  };
-  
-
-  // top 5 scores
-  const topStudents = leaderboard
-    .sort((a, b) => b.cummulative_score - a.cummulative_score) 
-    .slice(0, 5);
-
-  // Fake grade data for the dot plot (TODO: replace with real data)
-  const gradeData = [10, 12, 14, 15, 18, 11, 13, 16, 17, 19, 20, 16, 18, 14, 11, 13, 17, 12, 15];
-
-  const dotPlotData = {
-    x: gradeData,
-    type: 'scatter',
-    mode: 'markers',
-    marker: {
-      color: 'rgba(75, 192, 192, 1)',
-      size: 12,
-    },
-  };
-
-  const dotPlotLayout = {
-    title: 'Average Grade Distribution',
-    xaxis: { title: 'Grades' },
-    yaxis: { title: 'Frequency' },
-    showlegend: false,
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -655,8 +526,6 @@ useEffect(() => {
         return;
       }
   
-      setAnalyticsLoading(true);
-  
       try {
         if (selectedCourse && selectedCourse.trim() !== "") {
           console.log("📌 Fetching course-specific analytics");
@@ -665,13 +534,13 @@ useEffect(() => {
           console.log("📌 Fetching OVERALL analytics across all courses");
           await fetchStudentOverallScores(selectedStudent);
         }
-      } finally {
-        setAnalyticsLoading(false);
+      } catch (error) {
+        console.error('Error fetching analytics:', error);
       }
     };
   
     fetchData();
-  }, [selectedStudent, selectedCourse]);
+  }, [selectedStudent, selectedCourse, fetchStudentAnalyticsScores]);
   
 
     const generateFakeData = () => {
@@ -708,7 +577,7 @@ useEffect(() => {
   
     // Prepare chart data
     const currentPerformanceData = generateFakeData();
-    const currentPredictions = generateSimplePrediction(currentPerformanceData);
+    generateSimplePrediction(currentPerformanceData);
 
 
     /*
@@ -817,32 +686,32 @@ const calculateTrends = () => {
   return trends;
 };
 
-// Studnet specific trends
-const getStudentTrend = (studentId) => {
-  const studentScores = studentData
-    .filter(item => item.studentId === studentId)
-    .sort((a, b) => a.week - b.week);
-  
-  const weeklyAverages = {};
-  
-  studentScores.forEach(item => {
-    if (!weeklyAverages[item.week]) {
-      weeklyAverages[item.week] = {
-        scores: [],
-        date: item.date
-      };
-    }
-    weeklyAverages[item.week].scores.push(item.score);
-  });
-  
-  // Calculate averages for scores for each week
-  Object.keys(weeklyAverages).forEach(week => {
-    const scores = weeklyAverages[week].scores;
-    weeklyAverages[week].average = scores.reduce((sum, score) => sum + score, 0) / scores.length;
-  });
-  
-  return weeklyAverages;
-};
+// Studnet specific trends - commented out for now
+// const getStudentTrend = (studentId) => {
+//   const studentScores = studentData
+//     .filter(item => item.studentId === studentId)
+//     .sort((a, b) => a.week - b.week);
+//   
+//   const weeklyAverages = {};
+//   
+//   studentScores.forEach(item => {
+//     if (!weeklyAverages[item.week]) {
+//       weeklyAverages[item.week] = {
+//         scores: [],
+//         date: item.date
+//       };
+//     }
+//     weeklyAverages[item.week].scores.push(item.score);
+//   });
+//   
+//   // Calculate averages for scores for each week
+//   Object.keys(weeklyAverages).forEach(week => {
+//     const scores = weeklyAverages[week].scores;
+//     weeklyAverages[week].average = scores.reduce((sum, score) => sum + score, 0) / scores.length;
+//   });
+//   
+//   return weeklyAverages;
+// };
 
 // Example usage:
 console.log("Weekly grouped data:", groupByWeek());

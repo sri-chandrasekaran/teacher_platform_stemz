@@ -5,35 +5,10 @@ import ApiService from '../apiService';
 
 const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdded }) => {
   const [availableUsers, setAvailableUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [selectedStudents, setSelectedStudents] = useState([]);
 
-  // Fetch all users and filter out current students
-  useEffect(() => {
-    if (isOpen) {
-      fetchAvailableUsers();
-    }
-  }, [isOpen, students]);
-
-  // Filter users based on search term
-  useEffect(() => {
-    if (searchTerm.trim() === '') {
-      setFilteredUsers(availableUsers);
-    } else {
-      const filtered = availableUsers.filter(user =>
-        user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredUsers(filtered);
-    }
-  }, [searchTerm, availableUsers]);
-
   const fetchAvailableUsers = async () => {
-    setIsLoading(true);
     setError('');
 
     try {
@@ -52,10 +27,15 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
     } catch (error) {
       console.error('Error fetching users:', error);
       setError('Failed to load users. Please try again.');
-    } finally {
-      setIsLoading(false);
     }
   };
+
+  // Fetch all users and filter out current students
+  useEffect(() => {
+    if (isOpen) {
+      fetchAvailableUsers();
+    }
+  }, [isOpen, students]);
 
   const handleSave = () => {
     if (selectedStudents.length === 0) {
@@ -75,14 +55,11 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
       }
     });
 
-
     setSelectedStudents([]);
-    setSearchTerm('');
     onClose();
   };
 
   const handleAddStudent = async (user) => {
-    setIsSubmitting(true);
     setError('');
     console.log('Adding student:', user, 'to classroom:', classroomId);
     try {
@@ -121,13 +98,10 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
     } catch (error) {
       console.error('Error adding student:', error);
       setError('Failed to add student. Please try again.');
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
   const handleClose = () => {
-    setSearchTerm('');
     setError('');
     onClose();
   };

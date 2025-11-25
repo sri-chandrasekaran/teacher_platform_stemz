@@ -1,24 +1,14 @@
 import React, { useState, useEffect } from 'react'; 
-import { useParams, Link, useLocation } from 'react-router-dom'; 
-import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-icons/fa';
+import { useParams } from 'react-router-dom'; 
 import AddStudentModal from '../components/AddStudentModal';
 import '../styles/users.css';
-import { Api } from '@mui/icons-material';
 import ApiService from '../apiService';
 import Sidebar from '../components/Sidebar';
 
 const Users = () => {
   const { classroomId } = useParams(); 
   const [isModalOpen, setModalOpen] = useState(false);
-  const [students, setStudents] = useState([]); 
-  const [courses, setCourses] = useState([]);
-  const [grades, setGrades] = useState([]);
-  const [worksheets, setWorksheets] = useState([]);
-  const [cumulative_grades, setCumulativeGrades] = useState({});
-
-  const location = useLocation();
-
-  const isAnalyticsPage = location.pathname.includes(`/users/${classroomId}`);
+  const [students, setStudents] = useState([]);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -90,9 +80,7 @@ const Users = () => {
       }
     };
       fetchStudents();
-      fetchCourses();
-      fetchGrades();
-    }, []);
+    }, [classroomId]);
 
   return (
     <div className="dashboard">

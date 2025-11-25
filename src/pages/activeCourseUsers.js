@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/styles.css';
 
 const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
@@ -16,19 +16,7 @@ const ActiveCourseUsers = ({ course, classroomId }) => {
   console.log("Course stringified:", JSON.stringify(course, null, 2));
   console.log("ClassroomId prop received:", classroomId);
 
-  useEffect(() => {
-    console.log("useEffect triggered, course:", course, "classroomId:", classroomId);
-    
-    if ((course?.id || course?.name) && classroomId) {
-      console.log("Course and classroom available, fetching activity");
-      fetchRecentActivity();
-    } else {
-      console.log("Missing course or classroom ID, clearing activity");
-      setRecentActivity([]);
-    }
-  }, [course, classroomId]);
-
-  const fetchRecentActivity = async () => {
+  const fetchRecentActivity = useCallback(async () => {
     console.log("=== fetchRecentActivity called ===");
     console.log("Course in fetch:", course);
     console.log("ClassroomId in fetch:", classroomId);
@@ -87,13 +75,19 @@ const ActiveCourseUsers = ({ course, classroomId }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [course, classroomId]);
 
-  // Add manual refresh button for testing
-  const handleManualRefresh = () => {
-    console.log("Manual refresh clicked");
-    fetchRecentActivity();
-  };
+  useEffect(() => {
+    console.log("useEffect triggered, course:", course, "classroomId:", classroomId);
+    
+    if ((course?.id || course?.name) && classroomId) {
+      console.log("Course and classroom available, fetching activity");
+      fetchRecentActivity();
+    } else {
+      console.log("Missing course or classroom ID, clearing activity");
+      setRecentActivity([]);
+    }
+  }, [course, classroomId, fetchRecentActivity]);
 
   // Loading state
   if (loading) {

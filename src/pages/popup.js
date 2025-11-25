@@ -100,7 +100,7 @@ const Popup = ({ isOpen, onClose, student, course }) => {
   const getAssignmentsForTab = () => {
     if (!progressData) return [];
 
-    const { completed_assignments_list = [], available_assignments = {}, breakdown = {} } = progressData;
+    const { completed_assignments_list = [], available_assignments = {} } = progressData;
 
     const completedMapFromProgress = new Map();
     completed_assignments_list.forEach(assignment => {
@@ -109,7 +109,6 @@ const Popup = ({ isOpen, onClose, student, course }) => {
     });
 
     // Get assignments based on current tab
-    let assignments = [];
     const tabKey = toggle.toLowerCase();
     const lessonNumber = selectedLesson.toString();
 
@@ -473,7 +472,7 @@ const Popup = ({ isOpen, onClose, student, course }) => {
         {lessons.map(lessonNumber => (
           <div 
             key={lessonNumber}
-            className={`lesson-box ${selectedLesson == lessonNumber ? 'selected' : ''}`}
+            className={`lesson-box ${selectedLesson === lessonNumber ? 'selected' : ''}`}
             onClick={() => handleLessonClick(parseInt(lessonNumber))}
           >
             <h4>Lesson {lessonNumber}</h4>

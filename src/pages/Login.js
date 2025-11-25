@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { call_api } from '../components/api';
 import apiClient from '../services/apiClient';
 
 // Save user information to localStorage after successful login

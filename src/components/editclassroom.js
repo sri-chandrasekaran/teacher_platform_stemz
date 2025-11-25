@@ -5,40 +5,12 @@ import ApiService from '../apiService';
 const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [courses, setCourses] = useState([]);
-  const [students, setStudents] = useState([]);
-  const [selectedCourses, setSelectedCourses] = useState([]);
-  const [selectedStudents, setSelectedStudents] = useState([]);
-  const [selectedTeacher, setSelectedTeacher] = useState('');
-  const [courseOptions, setCourseOptions] = useState([]);
+  const [selectedStudents] = useState([]);
   const [studentOptions, setStudentOptions] = useState([]);
-  const [teacherOptions, setTeacherOptions] = useState([]);
   const [schoolName, setSchoolName] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
   const [classroomNumber, setClassroomNumber] = useState('');
   const [maxStudents, setMaxStudents] = useState(50);
-  const [studentIds, setStudentIds] = useState([]);
-  const [saveData, setSaveData] = useState({});
-
-  const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
-  // const API_BASE_URL = 'https://localhost:3000/api';
-
-  const checkCourse = (course) => {
-    console.log('Checking course:', course);
-    console.log('Current classroom:', classroom);
-    console.log('Selected courses:', selectedCourses);
-    if (!classroom) return true;
-    return !selectedCourses.some(selected => selected.value === course._id);
-  }
-
-  const checkStudent = (student) => {
-    if (!classroom) return true;
-    return !classroom.users.students.includes(student._id) && student._id !== selectedTeacher?._id;
-  }
-  const checkTeacher = (teacher) => {
-    if (!classroom) return true;
-    return !classroom.users.teacher.id === teacher._id;
-  }
 
   useEffect(() => {
     if (classroom) {
@@ -53,12 +25,6 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
         const fetchedUsers = await ApiService.fetchUsers();
 
         // Transform data for react-select
-        const courseOptionsMap = fetchedCourses
-          .map(course => ({
-            value: course._id,
-            label: course.name,
-          }));
-
         const studentOptionsMap = fetchedUsers
           .filter(user => user.role === "student")
           .map(user => ({
@@ -66,17 +32,8 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
             label: user.name,
           }));
 
-        const teacherOptionsMap = fetchedUsers
-          .filter(user => user.role === "teacher")
-          .map(user => ({
-            value: user._id,
-            label: user.name,
-          }));
-
         // Set options for react-select
-        setCourseOptions(courseOptionsMap);
         setStudentOptions(studentOptionsMap);
-        setTeacherOptions(teacherOptionsMap);
       } catch (error) {
         console.error('Error fetching courses or students:', error);
       }
@@ -87,23 +44,6 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
 
   const handleSave = async () => {
     const studentIds = selectedStudents.map(s => s.value);
-
-    const savePayload = {
-      ...classroom,
-      name: name.trim(),
-      description: description.trim(),
-      courses: selectedCourses.map(option => option.value),
-      students: studentIds,           // <-- pass IDs here
-      teacher: selectedTeacher ? selectedTeacher.value : '',
-      schoolName: schoolName.trim(),
-      gradeLevel,
-      classroomNumber: classroomNumber.trim(),
-      maxStudents,
-    };
-
-    console.log('Saving classroom data:', savePayload);
-  
-    // onSave(savePayload);
     
     console.log('Classroom data:', classroom);
     if (classroom){
@@ -120,7 +60,6 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
       }
     }
     
-
     const updatedClassroom = {
       ...classroom, // Maintain existing classroom data
       name: name.trim(),

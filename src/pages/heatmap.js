@@ -20,45 +20,6 @@ const PlotlyHeatmap = () => {
     },
   ];
 
-  const layout = {
-    title: {
-      text: 'Engagement of Assignments',
-      font: {
-        size: 24,
-        family: 'Arial, sans-serif',
-        color: '#2c3e50',
-      },
-    },
-    xaxis: {
-      title: {
-        text: 'Assignment Types',
-        font: {
-          size: 16,
-          family: 'Arial, sans-serif',
-          color: '#34495e',
-        },
-      },
-    },
-    yaxis: {
-      title: {
-        text: 'Lessons',
-        font: {
-          size: 16,
-          family: 'Arial, sans-serif',
-          color: '#34495e',
-        },
-      },
-    },
-    margin: {
-      l: 50,
-      r: 50,
-      t: 80,
-      b: 50,
-    },
-    paper_bgcolor: '#f9f9f9',
-    plot_bgcolor: '#ffffff',
-  };
-
   return <Plot data={data} layout={{ title: 'Engagement of Assignments' }} />;
 };
 

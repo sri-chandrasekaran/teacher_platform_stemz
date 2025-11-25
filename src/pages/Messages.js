@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine, FaPlusCircle } from 'react-icons/fa';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-icons/fa';
 import { normalizeClassroom, handleApiError } from '../utils/dataHelpers';
 import '../styles/styles.css';  
 import studyGroupService from '../services/studyGroupService';
@@ -10,8 +10,6 @@ import Sidebar from '../components/Sidebar';
 
 const MessagingPage = () => {
   const { classroomId } = useParams();
-  const location = useLocation();
-  const navigate = useNavigate();
   const [selectedStudent, setSelectedStudent] = useState('');
   const [selectedClassroom, setSelectedClassroom] = useState('');
   const [messages, setMessages] = useState({});
@@ -27,9 +25,7 @@ const MessagingPage = () => {
   const [classrooms, setClassrooms] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchTeacherClassrooms();
-  }, []);
+  const fetchTeacherClassrooms = useCallback(async () => {
 
   useEffect(() => {
     if (selectedClassroom) {
@@ -38,7 +34,6 @@ const MessagingPage = () => {
     }
   }, [selectedClassroom]);
 
-  const fetchTeacherClassrooms = async () => {
     try {
       setLoading(true);
       
@@ -74,7 +69,11 @@ const MessagingPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [classroomId]);
+
+  useEffect(() => {
+    fetchTeacherClassrooms();
+  }, [fetchTeacherClassrooms]);
 
   const fetchClassroomStudents = async (classroomId) => {
     try {

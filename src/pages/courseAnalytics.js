@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/styles.css';
 
 const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
@@ -11,15 +11,7 @@ const CourseStatistics = ({ course, classroomId }) => {
   console.log("=== CourseStatistics Debug ===");
   console.log("Course prop:", course);
 
-  useEffect(() => {
-    if ((course?.id || course?.name) && classroomId) {
-      fetchCourseAnalytics();
-    } else {
-      setAnalytics(null);
-    }
-  }, [course, classroomId]);
-
-  const fetchCourseAnalytics = async () => {
+  const fetchCourseAnalytics = useCallback(async () => {
     if (!course?.id && !course?.name) return;
     if (!classroomId) return;
     
@@ -64,7 +56,15 @@ const CourseStatistics = ({ course, classroomId }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [course, classroomId]);
+
+  useEffect(() => {
+    if ((course?.id || course?.name) && classroomId) {
+      fetchCourseAnalytics();
+    } else {
+      setAnalytics(null);
+    }
+  }, [course, classroomId, fetchCourseAnalytics]);
 
   if (loading) {
     return (

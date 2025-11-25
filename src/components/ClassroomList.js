@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ClassroomCard from './ClassroomCard';
 import EditClassroomModal from './editclassroom';
 import InviteStudentsModal from './invitestudents';
@@ -7,7 +7,6 @@ const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddC
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isInviteModalOpen, setInviteModalOpen] = useState(false);
   const [selectedClassroom, setSelectedClassroom] = useState(null);
-  const [classroomList, setClassroomList] = useState(classrooms);
   const [notification, setNotification] = useState('');
   const [notificationVisible, setNotificationVisible] = useState(false);
 
@@ -90,7 +89,7 @@ const ClassroomList = ({ classrooms, onEnter, onDelete, onEdit, onInvite, onAddC
       </div>
 
       {/* Render existing classrooms */}
-      {classroomList && classroomList.length > 0 ? (
+      {classrooms && classrooms.length > 0 ? (
         classrooms.map((classroom) => (
           <ClassroomCard
             key={classroom.id}
