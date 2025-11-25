@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { FaPlusCircle } from 'react-icons/fa';
+import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import '../styles/settings.css';
 import ApiService from '../apiService';
@@ -19,9 +18,6 @@ const Settings = () => {
   const [saveMessage, setSaveMessage] = useState('');
 
   const navigate = useNavigate();
-  const location = useLocation();
-  
-  const isAnalyticsPage = location.pathname.includes(`/settings/${classroomId}`);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,10 +61,6 @@ const Settings = () => {
           console.error('Error deleting classroom:', error);
         });
     }
-  };
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
   };
 
   const handleSave = async () => {

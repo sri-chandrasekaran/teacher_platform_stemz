@@ -3,7 +3,6 @@ import AddStudentModal from '../components/AddStudentModal';
 
 const ClassroomCard = ({ classroom, onEnter, onDelete, onEdit, onInvite, students = [], onStudentAdded }) => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [localStudentCount, setLocalStudentCount] = useState(classroom.studentCount);
 
   const handleEdit = (e) => {
     e.stopPropagation(); 

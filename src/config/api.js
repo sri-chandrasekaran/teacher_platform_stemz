@@ -51,11 +51,13 @@ export const ENVIRONMENTS = {
 export const CURRENT_ENVIRONMENT = CURRENT_ENV;
 
 // Default export for easy importing
-export default {
+const apiConfig = {
   getApiConfig,
   getBaseUrl,
   getTimeout,
   buildApiUrl,
   ENVIRONMENTS,
   CURRENT_ENVIRONMENT,
-}; 
+};
+
+export default apiConfig; 

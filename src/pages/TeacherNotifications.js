@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
-import { Link, useParams } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { FaBell, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 import { call_api } from '../components/api'; 
-import { normalizeClassroom, handleApiError } from '../utils/dataHelpers';
+import { normalizeClassroom } from '../utils/dataHelpers';
 import ApiService from '../apiService';
 import Sidebar from '../components/Sidebar';
 
@@ -12,111 +12,76 @@ const TeacherNotifications = () => {
   const [selectedNotification, setSelectedNotification] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all'); // all, quiz_failures, announcements
-  const [classrooms, setClassrooms] = useState([]);
-  const [selectedClassroom, setSelectedClassroom] = useState('all');
 
-  useEffect(() => {
-    fetchClassrooms();
-    fetchNotifications();
-  }, []);
+  const fetchNotifications = useCallback(async () => {
 
-  useEffect(() => {
-    fetchNotifications();
-  }, [selectedClassroom, filter]);
-
-  // FIXED: Fetch real physical classrooms
-  const fetchClassrooms = async () => {
     try {
-      // const response = await call_api(null, 'physical-classrooms/my-classrooms', 'GET');
-      const user = JSON.parse(localStorage.getItem('login_response') || '{}').user || {};
-      const userId = user._id;
+      setLoading(true);
       
-      if (!userId) {
-        console.error('No user ID found for fetching classrooms');
+      // Get user ID from localStorage
+      const loginResponse = localStorage.getItem('login_response');
+      if (!loginResponse) {
+        console.error('No login response found');
+        setNotifications([]);
         return;
       }
+
+      const userData = JSON.parse(loginResponse);
+      const teacherId = userData.user?._id;
       
-      console.log('Fetching classrooms for user:', userId);
-
-      const response = await ApiService.fetchMyClassrooms(userId);
-    
-      if (response?.teaching) {
-        const normalizedClassrooms = response.teaching.map(classroom => normalizeClassroom(classroom));
-        setClassrooms(normalizedClassrooms);
+      if (!teacherId) {
+        console.error('No teacher ID found in login response');
+        console.log('Login response structure:', userData);
+        setNotifications([]);
+        return;
       }
+
+      let endpoint = 'notifications/all-teacher-notifications';
+      if (filter === 'all') {
+        endpoint = 'notifications/all-teacher-notifications';
+      }
+
+      const params = { teacherId }; // Always include teacherId
+      
+      if (filter !== 'all') {
+        params.type = filter;
+      }
+
+      // Build query string
+      const queryString = '?' + Object.keys(params).map(key => `${key}=${params[key]}`).join('&');
+
+      console.log('Making API call to:', endpoint + queryString);
+      console.log('Teacher ID:', teacherId);
+
+      const response = await call_api(null, endpoint + queryString, 'GET');
+      
+      console.log('API Response:', response);
+      
+      if (Array.isArray(response)) {
+        setNotifications(response);
+      } else if (response && Array.isArray(response.data)) {
+        setNotifications(response.data);
+      } else {
+        console.log('Unexpected response format:', typeof response);
+        setNotifications([]);
+      }
+      
     } catch (error) {
-      console.error('Error fetching classrooms:', error);
-    }
-  };
-
-const fetchNotifications = async () => {
-  try {
-    setLoading(true);
-    
-    // Get user ID from localStorage
-    const loginResponse = localStorage.getItem('login_response');
-    if (!loginResponse) {
-      console.error('No login response found');
+      console.error('Error fetching notifications:', error);
+      console.error('Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
       setNotifications([]);
-      return;
+    } finally {
+      setLoading(false);
     }
+  }, [filter]);
 
-    const userData = JSON.parse(loginResponse);
-    const teacherId = userData.user?._id;
-    
-    if (!teacherId) {
-      console.error('No teacher ID found in login response');
-      console.log('Login response structure:', userData);
-      setNotifications([]);
-      return;
-    }
-
-    let endpoint = 'notifications/all-teacher-notifications';
-    if (filter === 'all') {
-      endpoint = 'notifications/all-teacher-notifications';
-    }
-
-    const params = { teacherId }; // Always include teacherId
-    
-    if (selectedClassroom !== 'all') {
-      params.classroomId = selectedClassroom;
-    }
-    
-    if (filter !== 'all') {
-      params.type = filter;
-    }
-
-    // Build query string
-    const queryString = '?' + Object.keys(params).map(key => `${key}=${params[key]}`).join('&');
-
-    console.log('Making API call to:', endpoint + queryString);
-    console.log('Teacher ID:', teacherId);
-
-    const response = await call_api(null, endpoint + queryString, 'GET');
-    
-    console.log('API Response:', response);
-    
-    if (Array.isArray(response)) {
-      setNotifications(response);
-    } else if (response && Array.isArray(response.data)) {
-      setNotifications(response.data);
-    } else {
-      console.log('Unexpected response format:', typeof response);
-      setNotifications([]);
-    }
-    
-  } catch (error) {
-    console.error('Error fetching notifications:', error);
-    console.error('Error details:', {
-      message: error.message,
-      response: error.response?.data,
-      status: error.response?.status
-    });
-    setNotifications([]);
-  } finally {
-    setLoading(false);
-  }
-};
+  useEffect(() => {
+    fetchNotifications();
+  }, [fetchNotifications]);
 
   // FIXED: Mark notification as read
   const markAsRead = async (notificationId) => {
