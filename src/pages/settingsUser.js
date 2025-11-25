@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { FaPlusCircle } from 'react-icons/fa';
 import Sidebar from '../components/Sidebar';
 import '../styles/settings.css';
-import ApiService from '../apiService';
+import apiClient from '../services/apiClient';
 
 const SettingsUser = () => {
   const { classroomId } = useParams();
@@ -49,7 +49,7 @@ const SettingsUser = () => {
         name: userName.trim(),
         email: userEmail.trim(),
       };
-      await ApiService.updateUser(userId, payload);
+      await apiClient.updateUser(userId, payload);
       setSaveMessage('Saved changes.');
     } catch (e) {
       console.error('Failed to save user', e);

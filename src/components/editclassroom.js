@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from 'react-select';
-import ApiService from '../apiService';
+import apiClient from '../services/apiClient';
 
 const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [name, setName] = useState('');
@@ -21,8 +21,8 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
 
     const fetchCoursesAndStudents = async () => {
       try {
-        const fetchedCourses = await ApiService.fetchCourses();
-        const fetchedUsers = await ApiService.fetchUsers();
+        const fetchedCourses = await apiClient.fetchCourses();
+        const fetchedUsers = await apiClient.fetchUsers();
 
         // Transform data for react-select
         const studentOptionsMap = fetchedUsers
@@ -49,7 +49,7 @@ const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
     if (classroom){
       console.log('Updating classroom:', classroom.id);
       try {
-        let response = await ApiService.updateClassroom(classroom.id, {
+        let response = await apiClient.updateClassroom(classroom.id, {
           name,
           description,
           students: studentIds

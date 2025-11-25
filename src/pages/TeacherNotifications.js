@@ -2,8 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { FaBell, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import { call_api } from '../components/api'; 
-import { normalizeClassroom } from '../utils/dataHelpers';
-import ApiService from '../apiService';
 import Sidebar from '../components/Sidebar';
 
 const TeacherNotifications = () => {

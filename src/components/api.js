@@ -1,6 +1,5 @@
-const { getBaseUrl } = require('../config/api');
-// FOR LOCAL BACKEND DEVELOPMENTS
-// const CORE_API_URL = "http://localhost:3000";
+import { getBaseUrl } from '../config/api';
+
 const CORE_API_URL = getBaseUrl();
 
 // Handle token expiration and redirect to login
@@ -91,4 +90,4 @@ function call_api(payload, target, method) {
   return fetch(url, fetchOptions).then(handleResponse);
 }
 
-module.exports = { call_api };
+export { call_api };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import '../styles/styles.css';
-import ApiService from '../apiService';
+import apiClient from '../services/apiClient';
 import ClassroomList from "../components/ClassroomList";
 import EditClassroomModal from "../components/editclassroom";
 import InviteStudentsModal from "../components/invitestudents";
@@ -41,7 +41,7 @@ const GroupsPage = () => {
       setLoading(true);
       console.log('Fetching classrooms...');
 
-      const response = await ApiService.fetchMyClassrooms(user._id);
+      const response = await apiClient.fetchMyClassrooms(user._id);
       console.log('Fetched classrooms:', response);
       const normalizedClassrooms = response.teaching.map(normalizeClassroom);
 
@@ -73,7 +73,7 @@ const GroupsPage = () => {
           students: classroomData.students || []
         };
 
-        const response = await ApiService.updateClassroom(classroomData.id, updateData);
+        const response = await apiClient.updateClassroom(classroomData.id, updateData);
         
         setClassrooms(prev => prev.map(classroom => 
           classroom.id === classroomData.id 
@@ -96,7 +96,7 @@ const GroupsPage = () => {
           students: classroomData.students || []
         };
 
-        const response = await ApiService.addClassroom(createData);
+        const response = await apiClient.addClassroom(createData);
         const newClassroom = normalizeClassroom(response.classroom);
         
         setClassrooms(prev => {
@@ -133,7 +133,7 @@ const GroupsPage = () => {
     if (saving) return;
     
     try {
-      await ApiService.deleteClassroom(id);
+      await apiClient.deleteClassroom(id);
       setClassrooms(prev => prev.filter(classroom => classroom.id !== id));
       showMessage("Classroom deleted successfully.");
     } catch (error) {

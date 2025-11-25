@@ -1,0 +1,14 @@
+{
+  "build": {
+    "env": {
+      "REACT_APP_API_URL": "https://core-server-nine.vercel.app",
+      "REACT_APP_NODE_ENV": "production",
+      "GENERATE_SOURCEMAP": "false"
+    }
+  },
+  "env": {
+    "REACT_APP_API_URL": "https://core-server-nine.vercel.app",
+    "REACT_APP_NODE_ENV": "production"
+  }
+}
+

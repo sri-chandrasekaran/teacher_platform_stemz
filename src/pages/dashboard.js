@@ -11,11 +11,11 @@ import { getCourseById } from '../utils/courseData';
 import { normalizeClassroom, normalizeAssignment, handleApiError } from '../utils/dataHelpers';
 import '../styles/styles.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import ApiService from '../apiService';
+import apiClient from '../services/apiClient';
 import CourseAnalytics from './courseAnalytics';
+import { getBaseUrl } from '../config/api';
 
-const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
-// const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = `${getBaseUrl()}/api`;
 
 
 ChartJS.register(
@@ -386,8 +386,8 @@ useEffect(() => {
     try {
       console.log(`🔍 Fetching students for classroom: ${classroomId}`);
       
-      // Use your ApiService method which works correctly
-      const data = await ApiService.fetchStudentsInClassroom(classroomId);
+      // Use apiClient method which works correctly
+      const data = await apiClient.fetchStudentsInClassroom(classroomId);
       console.log('👥 Students API Response:', data);
       
       // Extract students array from the response
@@ -427,7 +427,7 @@ useEffect(() => {
     try {
       console.log('Fetching data for classroom:', classroomId);
 
-      const classroomResponse = await ApiService.fetchClassroomById(classroomId);
+      const classroomResponse = await apiClient.fetchClassroomById(classroomId);
       
       console.log('Classroom response:', classroomResponse);
       const normalizedClassroom = normalizeClassroom(classroomResponse);
@@ -435,7 +435,7 @@ useEffect(() => {
       setStudents(normalizedClassroom.students || []);
 
       // Generate fake leaderboard from students (until real user points are integrated)
-      const leaderboard = await ApiService.buildLeaderBoard(classroomResponse)
+      const leaderboard = await apiClient.buildLeaderBoard(classroomResponse)
       setLeaderboard(leaderboard);
 
       // Fetch assignments for this classroom

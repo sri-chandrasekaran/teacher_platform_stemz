@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/popup.css';
 import Select from 'react-select';
-import ApiService from '../apiService';
+import apiClient from '../services/apiClient';
 
 const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdded }) => {
   const [availableUsers, setAvailableUsers] = useState([]);
   const [error, setError] = useState('');
   const [selectedStudents, setSelectedStudents] = useState([]);
 
-  const fetchAvailableUsers = async () => {
+  const fetchAvailableUsers = useCallback(async () => {
     setError('');
 
     try {
-      const allUsers = await ApiService.fetchUsers();
+      const allUsers = await apiClient.fetchUsers();
 
       // Filter out users who are already students in this classroom
       // const currentStudentIds = students.map(student => student.id);
@@ -28,14 +28,14 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
       console.error('Error fetching users:', error);
       setError('Failed to load users. Please try again.');
     }
-  };
+  }, [students]);
 
   // Fetch all users and filter out current students
   useEffect(() => {
     if (isOpen) {
       fetchAvailableUsers();
     }
-  }, [isOpen, students]);
+  }, [isOpen, fetchAvailableUsers]);
 
   const handleSave = () => {
     if (selectedStudents.length === 0) {
@@ -64,7 +64,7 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
     console.log('Adding student:', user, 'to classroom:', classroomId);
     try {
       // Enroll student in the classroom
-      const result = await ApiService.enrollStudent(classroomId, user._id);
+      const result = await apiClient.enrollStudent(classroomId, user._id);
       console.log('Enrollment result:', result);
 
       // Create student object with the user data
@@ -76,7 +76,7 @@ const AddStudentModal = ({ isOpen, onClose, classroomId, students, onStudentAdde
       };
 
       // Email notification for enrollment
-      const emailResponse = await ApiService.sendEmailNotification(
+      const emailResponse = await apiClient.sendEmailNotification(
         user.email,
         'Enrollment Confirmation',
         `You have been enrolled in the classroom with ID: ${classroomId}. Welcome!`

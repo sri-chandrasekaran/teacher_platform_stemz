@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import '../styles/settings.css';
-import ApiService from '../apiService';
+import apiClient from '../services/apiClient';
 
 const Settings = () => {
   const { classroomId } = useParams();
@@ -21,7 +21,7 @@ const Settings = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await ApiService.fetchClassroomById(classroomId);
+      const response = await apiClient.fetchClassroomById(classroomId);
       console.log('Fetched classroom data:', response);
       if (response) {
         setClassroomName(response.name);
@@ -52,7 +52,7 @@ const Settings = () => {
   const handleDeleteClassroom = () => {
     const confirmDelete = window.confirm('Are you sure you want to delete this classroom? This action cannot be undone.');
     if (confirmDelete) {
-      ApiService.deleteClassroom(classroomId)
+      apiClient.deleteClassroom(classroomId)
         .then(() => {
           console.log('Classroom deleted');
           navigate('/');
@@ -84,7 +84,7 @@ const Settings = () => {
         academicYear: (academicYear || '').trim(),
         classroomNumber: (classroomNumber || '').trim(),
       };
-      await ApiService.updateClassroom(classroomId, payload);
+      await apiClient.updateClassroom(classroomId, payload);
       setSaveMessage('Saved changes.');
     } catch (e) {
       console.error('Failed to save classroom', e);

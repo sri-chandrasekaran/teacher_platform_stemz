@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { FaEnvelope } from 'react-icons/fa';
 import AddStudentModal from '../components/AddStudentModal';
 import '../styles/users.css';
-import ApiService from '../apiService';
+import apiClient from '../services/apiClient';
 import Sidebar from '../components/Sidebar';
 
 const Users = () => {
@@ -26,7 +26,7 @@ const Users = () => {
   useEffect(() => {
       const fetchStudents = async () => {
         try {
-          const data = await ApiService.fetchStudentsInClassroom(classroomId);
+          const data = await apiClient.fetchStudentsInClassroom(classroomId);
           setStudents(data["students"]);
           // // Add fake last_logged_on data for each student entry
           // const studentsWithFakeData = Array.isArray(students) ? students.map(student => ({
@@ -42,7 +42,7 @@ const Users = () => {
 
     const fetchCourses = async () => {
       try {
-        const data = await ApiService.fetchCourses(classroomId);
+        const data = await apiClient.fetchCourses(classroomId);
         setCourses(data);
       } catch (error) {
         console.error('Error fetching courses:', error);
@@ -65,10 +65,10 @@ const Users = () => {
     const fetchGrades = async () => {
       try {
         // Fetch grades for the classroom
-        const data_grades = await ApiService.fetchGrades(classroomId);
+        const data_grades = await apiClient.fetchGrades(classroomId);
         setGrades(data_grades);
 
-        const data_worksheets = await ApiService.fetchWorksheets(classroomId);
+        const data_worksheets = await apiClient.fetchWorksheets(classroomId);
         setWorksheets(data_worksheets);
         let student_grades = {};
         for (const grade of data_grades) {

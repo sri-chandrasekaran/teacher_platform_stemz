@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { call_api } from '../components/api'; 
-import ApiService from '../apiService';
+import apiClient from '../services/apiClient';
 
 const PostModal = ({ onClose }) => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -34,7 +34,7 @@ const PostModal = ({ onClose }) => {
       
       console.log('Fetching classrooms for user:', userId);
 
-      const response = await ApiService.fetchMyClassrooms(userId);
+      const response = await apiClient.fetchMyClassrooms(userId);
     
         
         console.log('Physical classrooms response:', response);

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/styles.css';
+import { getBaseUrl } from '../config/api';
 
-const API_BASE_URL = 'https://core-server-nine.vercel.app/api';
+const API_BASE_URL = `${getBaseUrl()}/api`;
 
 const CourseStatistics = ({ course, classroomId }) => {
   const [analytics, setAnalytics] = useState(null);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ApiService from '../apiService';
+import apiClient from '../services/apiClient';
 
 const ActiveUsers = ({ students }) => {
   const [activeUsers, setActiveUsers] = useState([]);
@@ -9,7 +9,7 @@ const ActiveUsers = ({ students }) => {
     const fetchActivity = async () => {
       if (students) {
         const studentsArray = students.students || students;
-        const data = await ApiService.buildActiveUsers(studentsArray);
+        const data = await apiClient.buildActiveUsers(studentsArray);
         setActiveUsers(data);
       }
       setLoading(false);
