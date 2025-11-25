@@ -5,7 +5,7 @@ import ApiService from '../apiService';
 const EditClassroomModal = ({ classroom, onSave, onCancel }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [selectedStudents] = useState([]);
+  const [selectedStudents, setSelectedStudents] = useState([]);
   const [studentOptions, setStudentOptions] = useState([]);
   const [schoolName, setSchoolName] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');

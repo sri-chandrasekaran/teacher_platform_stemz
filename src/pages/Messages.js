@@ -26,14 +26,6 @@ const MessagingPage = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchTeacherClassrooms = useCallback(async () => {
-
-  useEffect(() => {
-    if (selectedClassroom) {
-      fetchClassroomStudents(selectedClassroom);
-      fetchStudyGroups(selectedClassroom);
-    }
-  }, [selectedClassroom]);
-
     try {
       setLoading(true);
       
@@ -74,6 +66,13 @@ const MessagingPage = () => {
   useEffect(() => {
     fetchTeacherClassrooms();
   }, [fetchTeacherClassrooms]);
+
+  useEffect(() => {
+    if (selectedClassroom) {
+      fetchClassroomStudents(selectedClassroom);
+      fetchStudyGroups(selectedClassroom);
+    }
+  }, [selectedClassroom]);
 
   const fetchClassroomStudents = async (classroomId) => {
     try {

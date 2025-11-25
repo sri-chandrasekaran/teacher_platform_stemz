@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 import { useParams } from 'react-router-dom'; 
+import { FaEnvelope } from 'react-icons/fa';
 import AddStudentModal from '../components/AddStudentModal';
 import '../styles/users.css';
 import ApiService from '../apiService';
@@ -9,6 +10,9 @@ const Users = () => {
   const { classroomId } = useParams(); 
   const [isModalOpen, setModalOpen] = useState(false);
   const [students, setStudents] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [grades, setGrades] = useState([]);
+  const [worksheets, setWorksheets] = useState([]);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -80,6 +84,8 @@ const Users = () => {
       }
     };
       fetchStudents();
+      fetchCourses();
+      fetchGrades();
     }, [classroomId]);
 
   return (

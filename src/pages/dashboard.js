@@ -340,9 +340,6 @@ const Dashboard = () => {
     }
   };
 
-  useEffect(() => {
-    fetchPredictedPerformance();
-  }, []);
 
 useEffect(() => {
   const fetchCourses = async () => {
