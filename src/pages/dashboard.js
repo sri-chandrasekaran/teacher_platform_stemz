@@ -6,12 +6,11 @@ import Popup from './popup';
 import ActiveUsers from './activeUsers';
 import ActiveCourseUsers from './activeCourseUsers';
 import { Line } from 'react-chartjs-2';
-import { call_api } from '../components/api';
+import apiClient from '../services/apiClient';
 import { getCourseById } from '../utils/courseData';
 import { normalizeClassroom, normalizeAssignment, handleApiError } from '../utils/dataHelpers';
 import '../styles/styles.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import apiClient from '../services/apiClient';
 import CourseAnalytics from './courseAnalytics';
 import { getBaseUrl } from '../config/api';
 
@@ -440,8 +439,7 @@ useEffect(() => {
 
       // Fetch assignments for this classroom
       try {
-        const assignmentsResponse = await call_api(
-          null,
+        const assignmentsResponse = await apiClient.request(
           `assignments/classroom/${classroomId}`,
           'GET'
         );

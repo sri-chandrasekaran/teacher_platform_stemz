@@ -1,44 +1,30 @@
 // API Configuration for different environments
-// This now uses environment variables instead of hardcoded values
+// Defaults to localhost:3000 for development
 
 const getEnvironment = () => {
-  // Check environment variable first, fallback to NODE_ENV, then to 'development'
-  return process.env.REACT_APP_NODE_ENV || process.env.NODE_ENV || 'development';
+  // Use REACT_APP_NODE_ENV if set, otherwise default to 'development'
+  return process.env.REACT_APP_NODE_ENV || 'development';
 };
 
 const API_CONFIG = {
-  // Local development
-  local: {
-    baseUrl: 'http://localhost:3000',
-    timeout: 10000,
-  },
+  // Development - uses localhost
   development: {
     baseUrl: 'http://localhost:3000',
     timeout: 10000,
   },
   
-  // Production server
+  // Production server (for Vercel deployments)
   production: {
     baseUrl: 'https://core-server-nine.vercel.app',
     timeout: 10000,
   },
 };
 
-// Get current environment from environment variables
+// Get current environment
 const CURRENT_ENV = getEnvironment();
 
 // Get current API configuration
 export const getApiConfig = () => {
-  // Use environment variable if set, otherwise use config
-  const envApiUrl = process.env.REACT_APP_API_URL;
-  
-  if (envApiUrl) {
-    return {
-      baseUrl: envApiUrl,
-      timeout: 10000,
-    };
-  }
-  
   return API_CONFIG[CURRENT_ENV] || API_CONFIG.development;
 };
 
@@ -64,23 +50,18 @@ export const buildApiUrl = (endpoint) => {
 
 // Environment constants
 export const ENVIRONMENTS = {
-  LOCAL: 'local',
   DEVELOPMENT: 'development',
-  STAGING: 'staging',
   PRODUCTION: 'production',
 };
 
 // Export current environment for debugging
 export const CURRENT_ENVIRONMENT = CURRENT_ENV;
 
-// Log configuration on load (only in development)
-if (CURRENT_ENV !== 'production') {
-  console.log('API Configuration:', {
-    environment: CURRENT_ENV,
-    baseUrl: getBaseUrl(),
-    fromEnvVar: !!process.env.REACT_APP_API_URL,
-  });
-}
+// Log configuration on load
+console.log('API Configuration:', {
+  environment: CURRENT_ENV,
+  baseUrl: getBaseUrl(),
+});
 
 // Default export for easy importing
 const apiConfig = {

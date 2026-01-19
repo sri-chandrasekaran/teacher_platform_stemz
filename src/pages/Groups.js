@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ClassroomList from "../components/ClassroomList";
 import EditClassroomModal from "../components/editclassroom";
 import InviteStudentsModal from "../components/invitestudents";
-import { call_api } from "../components/api";
+import apiClient from "../services/apiClient";
 import { normalizeClassroom, handleApiError } from "../utils/dataHelpers";
 import "../styles/styles.css";
 
@@ -38,7 +38,7 @@ const GroupsPage = () => {
       setLoading(true);
       console.log('Fetching classrooms...');
       
-      const response = await call_api(null, "physical-classrooms/my-classrooms", "GET");
+      const response = await apiClient.request("physical-classrooms/my-classrooms", "GET");
       console.log('Classrooms response:', response);
   
       // Handle both teaching and enrolled classrooms
@@ -88,7 +88,7 @@ const handleSaveClassroom = async (classroomData) => {
         maxStudents: classroomData.maxStudents
       };
 
-      const response = await call_api(updateData, `physical-classrooms/${classroomData.id}`, "PUT");
+      const response = await apiClient.request(`physical-classrooms/${classroomData.id}`, "PUT", updateData);
       console.log('Update response:', response);
 
       // Update local state
@@ -119,7 +119,7 @@ const handleSaveClassroom = async (classroomData) => {
       };
 
       console.log('Create payload:', createData);
-      const response = await call_api(createData, "physical-classrooms", "POST");
+      const response = await apiClient.request("physical-classrooms", "POST", createData);
       console.log('Create response:', response);
 
       const newClassroom = normalizeClassroom(response.classroom);
@@ -155,7 +155,7 @@ const handleSaveClassroom = async (classroomData) => {
   const handleDeleteClassroom = async (id) => {
     try {
       console.log('Deleting classroom:', id);
-      await call_api(null, `physical-classrooms/${id}`, "DELETE");
+      await apiClient.request(`physical-classrooms/${id}`, "DELETE");
       setClassrooms(prev => prev.filter(classroom => classroom.id !== id));
       showMessage("Classroom deleted successfully.");
     } catch (error) {
@@ -203,13 +203,16 @@ const handleSaveClassroom = async (classroomData) => {
     );
   }
 
+  // Get current user from localStorage
+  const user = JSON.parse(localStorage.getItem('login_response') || '{}').user || {};
+
   return (
     <div className="classroom-list-container">
       {showBanner && <div className="confirmation-banner">{bannerMessage}</div>}
 
       <div className="page-container">
         <div className="page-heading-container">
-          <h2 className="page-heading">{user.name}'s Classrooms</h2>
+          <h2 className="page-heading">{user.name || 'Teacher'}'s Classrooms</h2>
           <button
             onClick={() => navigate(`/settingsUser`)}
             aria-label="Your account settings"

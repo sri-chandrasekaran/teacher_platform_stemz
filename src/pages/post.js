@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { call_api } from '../components/api'; 
 import apiClient from '../services/apiClient';
 
 const PostModal = ({ onClose }) => {
@@ -91,7 +90,7 @@ const PostModal = ({ onClose }) => {
       };
 
       // Use the correct notifications endpoint
-      await call_api(announcementData, 'notifications/announcement', 'POST');
+      await apiClient.request('notifications/announcement', 'POST', announcementData);
 
       setSuccess('Announcement posted successfully! All students in the classroom will be notified.');
       
@@ -188,7 +187,7 @@ const PostModal = ({ onClose }) => {
       console.log('Creating assignment:', assignmentData);
 
       // Use the correct assignments endpoint
-      await call_api(assignmentData, 'assignments', 'POST');
+      await apiClient.request('assignments', 'POST', assignmentData);
 
       setSuccess('Assignment created successfully! Students in the classroom will be notified.');
       

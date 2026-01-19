@@ -203,6 +203,38 @@ class ApiClient {
   }
 
   /**
+   * Handle token expiration and redirect to login
+   * @param {Response} response - Fetch response object
+   * @param {Object} data - Response data
+   * @returns {boolean} - True if token expired
+   */
+  handleTokenExpiration(response, data) {
+    const isTokenExpired = 
+      response.status === 401 || 
+      response.status === 403 || 
+      data?.message?.toLowerCase().includes('token') ||
+      data?.message?.toLowerCase().includes('unauthorized') ||
+      data?.message?.toLowerCase().includes('expired') ||
+      data?.error?.toLowerCase().includes('token') ||
+      data?.error?.toLowerCase().includes('unauthorized');
+
+    if (isTokenExpired) {
+      // Clear expired token
+      this.clearAuthToken();
+      
+      // Redirect to login with return URL
+      const currentPath = window.location.pathname;
+      const returnUrl = encodeURIComponent(currentPath);
+      const message = encodeURIComponent('Your session has expired. Please log in again.');
+      
+      window.location.href = `/login?returnUrl=${returnUrl}&message=${message}`;
+      return true;
+    }
+    
+    return false;
+  }
+
+  /**
    * Execute the actual HTTP request with timeout and error handling
    * @param {string} url - Full URL
    * @param {Object} options - Fetch options
@@ -219,18 +251,44 @@ class ApiClient {
       // Race between fetch and timeout
       const response = await Promise.race([fetchPromise, timeoutPromise]);
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(`HTTP ${response.status}: ${errorData.message || response.statusText}`);
+      let data;
+      try {
+        // Handle empty responses
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          data = await response.json();
+        } else {
+          data = await response.text();
+        }
+      } catch (error) {
+        data = { 
+          message: response.statusText || 'Unknown error',
+          status: response.status 
+        };
       }
 
-      // Handle empty responses
-      const contentType = response.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
-        return await response.json();
-      } else {
-        return await response.text();
+      // Check for token expiration first
+      if (this.handleTokenExpiration(response, data)) {
+        const error = new Error('Token expired - redirecting to login');
+        error.response = {
+          status: response.status,
+          statusText: response.statusText,
+          data: data
+        };
+        throw error;
       }
+
+      if (!response.ok) {
+        const error = new Error(`HTTP ${response.status}: ${data.message || response.statusText}`);
+        error.response = {
+          status: response.status,
+          statusText: response.statusText,
+          data: data
+        };
+        throw error;
+      }
+
+      return data;
     } catch (error) {
       console.error('API request failed:', {
         url,

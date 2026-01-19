@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FaBell, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import { call_api } from '../components/api'; 
+import apiClient from '../services/apiClient';
 import Sidebar from '../components/Sidebar';
 
 const TeacherNotifications = () => {
@@ -51,7 +51,7 @@ const TeacherNotifications = () => {
       console.log('Making API call to:', endpoint + queryString);
       console.log('Teacher ID:', teacherId);
 
-      const response = await call_api(null, endpoint + queryString, 'GET');
+      const response = await apiClient.request(endpoint + queryString, 'GET');
       
       console.log('API Response:', response);
       
@@ -84,7 +84,7 @@ const TeacherNotifications = () => {
   // FIXED: Mark notification as read
   const markAsRead = async (notificationId) => {
     try {
-      await call_api(null, `notifications/read/${notificationId}`, 'POST');
+      await apiClient.request(`notifications/read/${notificationId}`, 'POST');
       
       // Update local state
       setNotifications(prev => 
@@ -103,7 +103,7 @@ const TeacherNotifications = () => {
   const dismissNotification = async (notificationId) => {
     try {
       console.log('About to dismiss notification:', notificationId);
-      const response = await call_api(null, `notifications/teacher-dismiss/${notificationId}`, 'POST');
+      const response = await apiClient.request(`notifications/teacher-dismiss/${notificationId}`, 'POST');
 
       console.log('Dismiss API response:', response);
       
