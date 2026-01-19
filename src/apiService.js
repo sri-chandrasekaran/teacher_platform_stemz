@@ -16,7 +16,7 @@ class ApiService {
                 headers['Authorization'] = `Bearer ${token}`;
             }
         }
-
+        console.log('Making API request to:', url, 'with method:', method, 'and body:', body);
         const response = await fetch(url, {
             method: method,
             headers,
@@ -24,6 +24,7 @@ class ApiService {
         });
 
         if (!response.ok) {
+            console.log('API request failed with response:', await response.json());
             throw new Error(`API request failed with status ${response.status}`);
         }
         console.log('API response received:', response);
@@ -39,6 +40,18 @@ class ApiService {
     static async updateUser(userId, userData) {
         console.log('Updating user with ID:', userId, 'Data:', userData);
         return this.request(`users/id/${userId}`, 'PUT', userData);
+    }
+
+    // 2FA-related API calls
+    static async get2FAQrCode(userId) {
+        console.log('Fetching 2FA QR Code for user ID:', userId);
+        const body = { userId };
+        return this.request(`auth/2fa/setup`, 'POST', body, true);
+    }
+
+    static async verify2FA(userId, token) {
+        console.log('Verifying 2FA for user ID:', userId);
+        return this.request('auth/2fa/verify', 'POST', { userId, token }, true);
     }
 
     // Course-related API calls
@@ -111,6 +124,14 @@ class ApiService {
         };
         console.log('Request body:', requestBody);
         return this.request(`physical-classrooms/${classroomId}/add-student`, 'POST', requestBody);
+    }
+
+    static async removeStudent(classroomId, userId) {
+        const requestBody = { 
+            studentId: userId
+        };
+        console.log('Removing student with body:', requestBody);
+        return this.request(`physical-classrooms/${classroomId}/remove-student`, 'POST', requestBody);
     }
 
     // Fetch grades for a classroom
