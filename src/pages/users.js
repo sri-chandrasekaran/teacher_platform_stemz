@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'; 
 import { FaEnvelope } from 'react-icons/fa';
 import AddStudentModal from '../components/AddStudentModal';
+import RemoveStudentModal from '../components/RemoveStudentModal';
 import '../styles/users.css';
 import apiClient from '../services/apiClient';
 import Sidebar from '../components/Sidebar';
@@ -9,13 +10,24 @@ import Sidebar from '../components/Sidebar';
 const Users = () => {
   const { classroomId } = useParams(); 
   const [isModalOpen, setModalOpen] = useState(false);
-  const [students, setStudents] = useState([]);
+  const [isRemoveModalOpen, setRemoveModalOpen] = useState(false);
+  const [studentToRemove, setStudentToRemove] = useState(null);
+  const [students, setStudents] = useState([]); 
   const [courses, setCourses] = useState([]);
   const [grades, setGrades] = useState([]);
   const [worksheets, setWorksheets] = useState([]);
+  const [cumulative_grades, setCumulativeGrades] = useState({});
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+  const openRemoveModal = (student) => {
+    setStudentToRemove(student);
+    setRemoveModalOpen(true);
+  };
+  const closeRemoveModal = () => {
+    setStudentToRemove(null);
+    setRemoveModalOpen(false);
+  };
 
   // Function to handle when a new student is added
   const handleStudentAdded = (newStudent) => {
@@ -124,6 +136,20 @@ const Users = () => {
                   <a href={`mailto:${student.email}`} className="email-link">
                     <FaEnvelope />
                   </a>
+                </td>
+                <td>
+                  <button onClick={() => openRemoveModal(student)} className="remove-student-btn">
+                    Remove
+                  </button>
+                  <RemoveStudentModal
+                    isOpen={isRemoveModalOpen}
+                    onClose={closeRemoveModal}
+                    classroomId={classroomId}
+                    student={studentToRemove}
+                    onStudentRemoved={(removedStudentId) => {
+                      setStudents(prev => prev.filter(s => (s._id || s.id) !== removedStudentId));
+                    }}
+                  />
                 </td>
                 {/* <td>{student.cummulative_score || student.cumulative_score || 0}</td> */}
               </tr>

@@ -321,6 +321,26 @@ class ApiClient {
     return this.request(`users/id/${userId}`, 'PUT', userData);
   }
 
+  //2FA-related API calls
+
+  /**
+   * Retrieve qr code for 2fa setup
+   * @param {string} userId - User ID
+   * @returns {Promise<Object>} - 2FA setup data
+   */
+  async get2FAQrCode(userId) {
+    return this.request(`auth/2fa/setup/`, 'POST', { userId });
+  }
+  /**
+   * Verify 2FA token
+   * @param {string} userId - User ID
+   * @param {string} token - 2FA token
+   * @returns {Promise<Object>} - Verification result
+   */
+  async verify2FA(userId, token) {
+    return this.request(`auth/2fa/verify/`, 'POST', { userId, token });
+  }
+
   // Course-related API calls
 
   /**
@@ -448,6 +468,17 @@ class ApiClient {
     };
     console.log('Request body:', requestBody);
     return this.request(`physical-classrooms/${classroomId}/add-student`, 'POST', requestBody);
+  }
+
+  /**
+   * Remove a user from a classroom
+   * @param {string} classroomId - Classroom ID
+   * @param {string} userId - User ID
+   * @returns {Promise<Object>} - Removal result
+   */
+  async removeStudent(classroomId, userId) {
+    console.log('Removing user with ID:', userId, 'from classroom ID:', classroomId);
+    return this.request(`physical-classrooms/${classroomId}/remove-student`, 'POST', { studentId: userId });
   }
 
   // Grades and Worksheets

@@ -89,6 +89,11 @@ const SettingsUser = () => {
               className="form-input"
             />
           </div>
+          <div className='form-actions'>
+            <button onClick={() => navigate('/settings2FA')} className="save-button">
+              2FA Settings
+            </button>
+          </div>
           <div className="form-actions">
             <button onClick={handleSave} className="save-button" disabled={saving}>
               {saving ? 'Saving...' : 'Save Changes'}
