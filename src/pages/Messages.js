@@ -2,8 +2,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FaHome, FaUsers, FaEnvelope, FaBell, FaCog, FaChartLine } from 'react-icons/fa';
 import { normalizeClassroom, handleApiError } from '../utils/dataHelpers';
-import '../styles/styles.css';  
+import '../styles/styles.css';
+import '../styles/messages.css';
 import studyGroupService from '../services/studyGroupService';
+import messageService from '../services/messageService';
 import physicalClassroomService from '../services/physicalClassroomService';
 import apiClient from '../services/apiClient';
 import Sidebar from '../components/Sidebar';
@@ -24,6 +26,7 @@ const MessagingPage = () => {
   const [students, setStudents] = useState([]);
   const [classrooms, setClassrooms] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [messagesLoading, setMessagesLoading] = useState(false);
 
   const fetchTeacherClassrooms = useCallback(async () => {
     try {
@@ -105,20 +108,89 @@ const MessagingPage = () => {
     setSelectedStudent(''); // Reset selected student when classroom changes
   };
 
-  const handleStudentSelect = (student) => {
+  const handleStudentSelect = async (student) => {
     setSelectedStudent(student);
-    if (!messages[student]) {
-      setMessages({ ...messages, [student]: [] });
+    
+    // Fetch messages when selecting a student or group
+    await fetchMessages(student);
+  };
+
+  const fetchMessages = async (recipientOrGroupId) => {
+    if (!recipientOrGroupId || recipientOrGroupId === 'announcement') return;
+
+    setMessagesLoading(true);
+    try {
+      // Check if this is a study group by looking in studyGroups array
+      const isStudyGroup = studyGroups.some(group => group._id === recipientOrGroupId);
+
+      let fetchedMessages = [];
+
+      if (isStudyGroup) {
+        // Fetch study group messages (pull history)
+        console.debug('[Messages] Pulling study group history for group:', recipientOrGroupId);
+        fetchedMessages = await messageService.getGroupMessages(recipientOrGroupId);
+        console.debug('[Messages] Study group history received:', fetchedMessages.length, 'messages');
+      } else {
+        // Fetch direct messages
+        console.log('Fetching direct messages with:', recipientOrGroupId);
+        fetchedMessages = await messageService.getDirectMessages(recipientOrGroupId);
+      }
+
+      // Update messages state (functional update to avoid stale closure)
+      setMessages(prev => ({
+        ...prev,
+        [recipientOrGroupId]: fetchedMessages
+      }));
+
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+      setError('Failed to load messages');
+      setMessages(prev => ({
+        ...prev,
+        [recipientOrGroupId]: []
+      }));
+    } finally {
+      setMessagesLoading(false);
     }
   };
 
-  const handleSendMessage = () => {
-    if (newMessage.trim() === '') return;
-    setMessages({
-      ...messages,
-      [selectedStudent]: [...(messages[selectedStudent] || []), newMessage],
-    });
-    setNewMessage('');
+  const handleSendMessage = async () => {
+    if (newMessage.trim() === '' || !selectedStudent) return;
+
+    try {
+      // Check if this is a study group
+      const isStudyGroup = studyGroups.some(group => group._id === selectedStudent);
+      
+      let sentMessage;
+
+      if (isStudyGroup) {
+        // Send to study group
+        console.log('Sending message to study group:', selectedStudent);
+        sentMessage = await messageService.postGroupMessage(selectedStudent, {
+          content: newMessage.trim()
+        });
+      } else {
+        // Send direct message
+        console.log('Sending direct message to:', selectedStudent);
+        sentMessage = await messageService.sendDirectMessage(
+          selectedStudent,
+          newMessage.trim(),
+          selectedClassroom
+        );
+      }
+
+      // Update local state with the sent message (functional update to avoid stale closure)
+      setMessages(prev => ({
+        ...prev,
+        [selectedStudent]: [...(prev[selectedStudent] || []), sentMessage],
+      }));
+
+      setNewMessage('');
+      setError('');
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setError(handleApiError(error, 'Failed to send message'));
+    }
   };
 
   const handleSendAnnouncement = async () => {
@@ -375,13 +447,44 @@ const MessagingPage = () => {
                     </div>
                   )}
                 </>
-              ) : selectedStudent && messages[selectedStudent] ? (
-                messages[selectedStudent].map((msg, index) => (
-                  <div key={index} className="chat-message">You: {msg}</div>
-                ))
+              ) : selectedStudent && Array.isArray(messages[selectedStudent]) && messages[selectedStudent].length > 0 ? (
+                messages[selectedStudent].map((msg, index) => {
+                  // Check if msg is a string (old local state) or object (from API)
+                  const isApiMessage = typeof msg === 'object';
+                  const currentUser = JSON.parse(localStorage.getItem('login_response') || '{}').user || {};
+                  const isOwnMessage = isApiMessage ? msg.senderUserId === currentUser._id : true;
+                  
+                  return (
+                    <div 
+                      key={isApiMessage ? msg._id : index} 
+                      className={`chat-message ${isOwnMessage ? 'own-message' : 'other-message'}`}
+                    >
+                      {isApiMessage ? (
+                        <>
+                          <div className="message-sender">
+                            {isOwnMessage ? 'You' : (msg.senderName || 'Student')}
+                          </div>
+                          <div className="message-content">{msg.content}</div>
+                          <div className="message-timestamp">
+                            {new Date(msg.createdAt).toLocaleTimeString()}
+                          </div>
+                        </>
+                      ) : (
+                        `You: ${msg}`
+                      )}
+                    </div>
+                  );
+                })
               ) : selectedStudent ? (
                 <div className="chat-placeholder">
-                  Start a conversation with {selectedStudent}
+                  {messagesLoading
+                    ? 'Loading messages...'
+                    : messages[selectedStudent] && messages[selectedStudent].length === 0
+                      ? 'No messages yet. Start the conversation!'
+                      : (() => {
+                          const name = studyGroups.find(g => g._id === selectedStudent)?.name || students.find(s => (s._id || s) === selectedStudent)?.name || selectedStudent;
+                          return `Start a conversation with ${name}`;
+                        })()}
                 </div>
               ) : (
                 <div className="chat-placeholder">
